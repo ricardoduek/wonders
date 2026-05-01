@@ -1,0 +1,62 @@
+# ──────────────────────────────────────────────────────
+#  My Wonders of the World — .gitignore
+#  GitHub Pages repo: ricardoduek/wonders
+# ──────────────────────────────────────────────────────
+
+# ── Admin / local-only HTML tools ────────────────────
+wonder_entry.html
+captions_entry.html
+album_to_website.html
+
+# ── Local Python scripts ──────────────────────────────
+*.py
+
+# ── Media folders (served from Cloudflare R2) ────────
+Gallery/
+Videos/
+Music/
+NewMusic/
+
+# ── Source/working data files ─────────────────────────
+*.xlsx
+*.csv
+*.kml
+*.txt
+*.webp
+
+# ── Temp/working files ────────────────────────────────
+r2_gallery.txt
+
+# ── Python ────────────────────────────────────────────
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+venv/
+env/
+
+# ── macOS ─────────────────────────────────────────────
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+
+# ── Windows ───────────────────────────────────────────
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+
+# ── Editors & IDEs ────────────────────────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ── Logs & temp ───────────────────────────────────────
+*.log
+*.tmp
+*.bak
+
+# ── Node (just in case) ───────────────────────────────
+node_modules/

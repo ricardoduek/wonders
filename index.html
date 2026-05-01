@@ -1,0 +1,3024 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ricardo Duek | A Personal Collection</title>
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
+
+    <style>
+        :root { --gold: #c5a059; --bg: #050505; --text: #fff; --grey: #888; --light-grey: #bbb; --bright-grey: #e0e0e0; }
+        body { background: var(--bg); color: var(--text); font-family: 'Inter', sans-serif; margin: 0; overflow-x: hidden; }
+
+        header { padding: 60px 50px 20px; text-align: center; background: #000; position: relative; }
+        .author-tag { font-size: 11px; letter-spacing: 5px; text-transform: uppercase; color: var(--grey); margin-bottom: 15px; display: block; }
+        h1 { font-family: 'Cormorant Garamond', serif; font-size: 4.2rem; margin: 0; font-weight: 300; font-style: italic; color: var(--gold); line-height: 1.1; }
+        .subtitle { max-width: 900px; margin: 25px auto 0; font-size: 1.25rem; line-height: 1.7; color: var(--grey); font-weight: 200; white-space: pre-line; text-align: center; }
+
+        .author-card { position: absolute; top: 30px; left: 50px; z-index: 1001; width: 240px; background: rgba(0,0,0,0.4); border-left: 1px solid var(--gold); padding: 10px 20px; text-align: left; }
+        .author-name-small { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; margin: 0 0 10px; font-weight: 600; letter-spacing: 1px; }
+        .author-link { display: block; color: var(--grey); font-size: 11px; text-decoration: none; margin-bottom: 8px; transition: 0.3s; cursor: pointer; text-transform: uppercase; letter-spacing: 1px; font-weight: 400; }
+        .author-link:hover { color: var(--gold); padding-left: 5px; }
+
+        .social-bar { display: flex; justify-content: flex-start; gap: 15px; margin-top: 15px; }
+        .social-bar a { color: var(--grey); font-size: 1.1rem; transition: 0.3s; text-decoration: none; }
+        .social-bar a:hover { color: var(--gold); }
+
+        .top-controls { position: absolute; top: 30px; right: 50px; z-index: 1001; display: flex; flex-direction: column; align-items: flex-end; gap: 10px; width: 280px; pointer-events: none; }
+        .top-controls > * { pointer-events: auto; }
+        .lang-bar { display: flex; gap: 5px; width: 100%; justify-content: space-between; }
+        .lang-btn { background: none; border: 1px solid #333; color: var(--grey); padding: 5px 10px; cursor: pointer; font-size: 9px; letter-spacing: 1px; flex-grow: 1; transition: 0.3s; }
+        .lang-btn.active { color: var(--gold); border-color: var(--gold); background: rgba(197, 160, 89, 0.05); }
+
+        .search-wrapper { width: 100%; }
+        .search-input-wrap { position: relative; width: 100%; }
+        .search-box { background: rgba(255,255,255,0.05); border: 1px solid var(--gold); color: #fff; padding: 10px 35px 10px 10px; width: 100%; box-sizing: border-box; font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; outline: none; transition: 0.3s; }
+        .search-box::placeholder { color: var(--bright-grey); opacity: 1; }
+        .search-box:focus { border-color: var(--gold); background: rgba(255,255,255,0.08); }
+
+        .clear-btn { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); background: transparent; border: none; color: var(--gold); cursor: pointer; width: 24px; height: 24px; padding: 0; display: flex; align-items: center; justify-content: center; z-index: 5; }
+        .clear-btn::before { content: '✕'; font-family: Arial, sans-serif; font-size: 14px; font-weight: bold; line-height: 1; display: block; }
+        .search-caption { font-size: 11px; color: var(--grey); letter-spacing: 2px; margin-top: 10px; display: block; text-align: center; }
+
+        .region-nav { max-width: 1000px; margin: 40px auto 20px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #1a1a1a; padding-top: 25px; }
+        .region-label { font-size: 10px; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; white-space: nowrap; margin-right: 20px; }
+        .region-list { display: flex; gap: 20px; flex-grow: 1; justify-content: center; }
+        .region-item { font-size: 11px; color: var(--grey); cursor: pointer; transition: 0.3s; border-bottom: 1px solid transparent; padding-bottom: 4px; text-transform: uppercase; letter-spacing: 1px; }
+        .region-item span { color: var(--gold); font-weight: 600; margin-left: 4px; }
+        .region-item:hover, .region-item.active { color: var(--gold); border-color: var(--gold); }
+
+        .unesco-nav-filter { display: flex; align-items: center; gap: 8px; cursor: pointer; white-space: nowrap; justify-content: flex-end; transition: 0.3s; margin-left: 20px; }
+        .unesco-nav-filter:hover span { color: var(--gold); }
+        .unesco-nav-filter span { font-size: 10px; color: var(--grey); letter-spacing: 1.5px; text-transform: uppercase; transition: 0.3s; }
+        .unesco-checkbox { accent-color: var(--gold); cursor: pointer; width: 14px; height: 14px; }
+        .unesco-nav-filter.active span { color: var(--gold); font-weight: 600; }
+
+        .map-wrap { width: 100%; max-width: 1000px; height: 500px; margin: 0 auto 40px; border: 1px solid var(--gold); background: #000; position: relative; overflow: visible; }
+        #map { height: 100%; width: 100.2%; }
+        #map .leaflet-tile-pane { filter: grayscale(1) invert(1) brightness(0.6) contrast(1.2); }
+        #map .leaflet-pane.leaflet-tooltip-pane { overflow: visible; z-index: 650; }
+
+        .continent-label {
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            color: #eacc8b !important;
+            font-family: 'Cormorant Garamond', serif !important;
+            font-size: 1.6rem !important;
+            font-weight: 600 !important;
+            font-style: italic;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            white-space: nowrap;
+            pointer-events: none;
+            transition: opacity 0.4s ease;
+            text-shadow: 1px 1px 2px #000, -1px -1px 2px #000, 1px -1px 2px #000, -1px 1px 2px #000, 0 4px 15px rgba(0,0,0,0.9);
+        }
+
+        .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 40px; padding: 20px 50px 150px; }
+        .card-frame { border: 1px solid var(--gold); padding: 20px; background: rgba(255, 255, 255, 0.02); transition: 0.4s; cursor: pointer; min-height: 480px; display: flex; flex-direction: column; }
+        .card-frame:hover { background: rgba(197, 160, 89, 0.08); transform: translateY(-5px); }
+        .card-img-wrap { overflow: hidden; height: 320px; border: 1px solid #1a1a1a; margin-bottom: 18px; position: relative; }
+        .video-badge { position: absolute; bottom: 10px; right: 10px; color: var(--gold); font-size: 1.6rem; opacity: 0.85; pointer-events: none; filter: drop-shadow(0 0 4px rgba(0,0,0,0.8)); transition: 0.3s; }
+        .card-frame:hover .video-badge { opacity: 1; transform: scale(1.1); }
+        .card-img { width: 100%; height: 100%; object-fit: cover; filter: grayscale(0.2) brightness(0.8); transition: 1.2s; }
+        .card-frame:hover .card-img { filter: grayscale(0) brightness(1); transform: scale(1.04); }
+
+        .card-content { text-align: center; flex-grow: 1; display: flex; flex-direction: column; justify-content: space-between; }
+        .wonder-number { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; color: var(--gold); line-height: 1; }
+        .card-content h3 { margin: 5px 0 2px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: var(--gold); font-weight: 300; }
+        .stats-box { width: 100%; background: rgba(0,0,0,0.4); border-left: 1px solid var(--gold); padding: 12px 20px; box-sizing: border-box; }
+        .stats-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #1a1a1a; }
+        .stats-row:last-of-type { border-bottom: none; }
+        .stats-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey); }
+        .stats-value { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 600; line-height: 1; }
+        .stats-last-btn { display: block; width: 100%; margin-top: 10px; background: none; border: 1px solid #333; color: var(--grey); padding: 7px 10px; cursor: pointer; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; text-align: center; transition: 0.3s; }
+        .stats-last-btn:hover { color: var(--gold); border-color: var(--gold); }
+
+        /* Back to top button */
+        .back-to-top { position: fixed; bottom: 32px; right: 32px; z-index: 1500; width: 44px; height: 44px; background: #0a0a0a; border: 1px solid var(--gold); color: var(--gold); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s, transform 0.35s, background 0.2s; transform: translateY(12px); }
+        .back-to-top.visible { opacity: 1; pointer-events: auto; transform: translateY(0); }
+        .back-to-top:hover { background: rgba(197,160,89,0.12); }
+
+        /* Been There button */
+        .been-there-btn { display: flex; align-items: center; justify-content: center; gap: 7px; background: transparent; border: 1px solid #444; color: #888; padding: 12px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; transition: 0.3s; flex: 1; min-width: 110px; }
+        .been-there-btn:hover { border-color: var(--gold); color: var(--gold); }
+        .been-there-btn.visited { border-color: var(--gold); color: var(--gold); background: rgba(197,160,89,0.08); }
+        .been-there-confirm { margin-top: 8px; display: flex; align-items: center; gap: 8px; font-size: 10px; letter-spacing: 1px; color: var(--light-grey); text-transform: uppercase; }
+        .been-there-confirm span { flex: 1; }
+        .been-there-confirm button { background: none; border: 1px solid #444; color: var(--light-grey); padding: 5px 12px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+        .been-there-confirm button:hover { border-color: var(--gold); color: var(--gold); }
+        .card-visited-badge { position: absolute; top: 8px; left: 8px; background: rgba(0,0,0,0.75); border: 1px solid var(--gold); color: var(--gold); font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; padding: 3px 7px; pointer-events: none; }
+
+        .country-wonder-count { margin-left: auto; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-weight: 600; padding-left: 8px; white-space: nowrap; }
+
+        .location-tag { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #fff; font-weight: 300; display: flex; align-items: center; justify-content: center; gap: 8px; border-top: 1px solid rgba(197,160,89,0.2); padding-top: 8px; margin-top: 5px; }
+        .card-flag { font-size: 1rem; line-height: 1; flex-shrink: 0; }
+
+        .photo-nav-row { display: flex; align-items: center; justify-content: center; gap: 10px; margin-top: 20px; }
+        .photo-nav-btn { background: none; border: 1px solid var(--gold); color: var(--gold); width: 36px; height: 36px; cursor: pointer; font-size: 1rem; display: flex; align-items: center; justify-content: center; transition: 0.3s; flex-shrink: 0; }
+        .photo-nav-btn:hover { background: rgba(197,160,89,0.15); }
+
+        .explorer { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 2000; display: flex; }
+        .explorer-info { width: 650px; padding: 20px 60px; overflow-y: auto; border-right: 1px solid #1a1a1a; flex-shrink: 0; box-sizing: border-box; display: flex; flex-direction: column; }
+        .explorer-gallery { flex-grow: 1; overflow-y: auto; padding: 40px 60px; display: flex; flex-direction: column; gap: 40px; align-items: center; position: relative; }
+
+        .controls-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; padding-bottom: 10px; border-bottom: 1px solid #1a1a1a; }
+        .vol-section { display: flex; align-items: center; gap: 12px; }
+        .vol-slider { width: 80px; accent-color: var(--gold); cursor: pointer; }
+        .mute-btn-small { background: none; border: 1px solid #444; color: var(--gold); font-size: 8px; padding: 4px 10px; cursor: pointer; letter-spacing: 1px; text-transform: uppercase; }
+
+        .internal-lang-bar-vertical { display: flex; flex-direction: column; gap: 5px; align-items: flex-end; }
+        .lang-btn-vertical { background: none; border: 1px solid #333; color: var(--grey); padding: 6px 12px; cursor: pointer; font-size: 10px; min-width: 110px; text-align: center; transition: 0.3s; letter-spacing: 1px; text-transform: uppercase; }
+        .lang-btn-vertical.active { color: var(--gold); border-color: var(--gold); background: rgba(197, 160, 89, 0.05); }
+
+        .song-title-compact { font-family: 'Cormorant Garamond', serif; font-style: italic; color: var(--gold); font-size: 1.5rem; display: block; margin-bottom: 15px; text-align: left; }
+        .info-location { color: var(--gold); text-transform: uppercase; font-size: 13.2px; letter-spacing: 3px; margin-bottom: 30px; font-weight: 600; }
+        .visited-tag { color: var(--bright-grey); font-size: 15.6px; margin-top: -25px; margin-bottom: 35px; font-style: italic; font-weight: 300; letter-spacing: 0.5px; }
+
+        .copyright-box { background: #111; border: 1px solid #222; padding: 7px 20px; border-left: 3px solid var(--gold); }
+        .copyright-box p { margin: 3px 0; font-size: 13px; color: var(--grey); line-height: 1.4; text-transform: none; }
+
+        .gallery-nav-row { width: 100%; max-width: 900px; display: flex; justify-content: space-between; align-items: center; padding-bottom: 25px; border-bottom: 1px solid #1a1a1a; margin-bottom: 10px; }
+        .nav-action-btn { font-size: 11px; letter-spacing: 2px; color: var(--gold); cursor: pointer; text-transform: uppercase; border: 1px solid var(--gold); padding: 8px 25px; transition: 0.3s; min-width: 110px; text-align: center; background: transparent; }
+        .nav-action-btn:hover { background: rgba(197, 160, 89, 0.15); }
+
+        .collage-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 180px; grid-auto-flow: dense; gap: 10px; width: 100%; max-width: 1100px; }
+        .collage-item { width: 100%; height: 100%; object-fit: cover; border: 1px solid #1a1a1a; cursor: pointer; opacity: 0; min-height: 0; }
+        .collage-item.loaded { opacity: 1; transition: opacity 0.4s ease, border-color 0.4s, transform 0.4s; }
+        .collage-item:hover { border-color: var(--gold); transform: scale(1.02); z-index: 2; box-shadow: 0 8px 20px rgba(0,0,0,0.9); }
+        .collage-item.c1r1 { grid-column: span 1; grid-row: span 1; }
+        .collage-item.c1r2 { grid-column: span 1; grid-row: span 2; }
+        .collage-item.c2r1 { grid-column: span 2; grid-row: span 1; }
+        .collage-item.c2r2 { grid-column: span 2; grid-row: span 2; }
+        .collage-item.c3r1 { grid-column: span 3; grid-row: span 1; }
+        .collage-item.c3r2 { grid-column: span 3; grid-row: span 2; }
+        .collage-item.c4r2 { grid-column: span 4; grid-row: span 2; }
+        .collage-item.c2r3 { grid-column: span 2; grid-row: span 3; }
+        .collage-item.c3r3 { grid-column: span 3; grid-row: span 3; }
+        video.collage-item { object-fit: contain; background: #000; }
+
+        .collage-vid-wrap { position: relative; cursor: pointer; overflow: hidden; border: 1px solid #1a1a1a; transition: border-color 0.4s, transform 0.4s; }
+        .collage-vid-wrap:hover { border-color: var(--gold); transform: scale(1.02); z-index: 2; box-shadow: 0 8px 20px rgba(0,0,0,0.9); }
+        .collage-vid-wrap video { width: 100%; height: 100%; object-fit: contain; background: #000; display: block; cursor: pointer; }
+        .collage-vid-badge { position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); color: var(--gold); font-size: 2.8rem; opacity: 0.85; pointer-events: none; transition: opacity 0.3s, transform 0.3s; filter: drop-shadow(0 0 8px rgba(0,0,0,0.9)); }
+        .collage-vid-wrap:hover .collage-vid-badge { opacity: 0; transform: translate(-50%, -50%) scale(1.2); }
+        .collage-vid-badge.has-audio { color: #e8c97a; }
+        .collage-vid-badge.has-audio::after { content: ''; position: absolute; top: -6px; right: -10px; width: 10px; height: 10px; background: var(--gold); border-radius: 50%; border: 2px solid #000; }
+        .collage-vid-wrap.c1r1 { grid-column: span 1; grid-row: span 1; }
+        .collage-vid-wrap.c1r2 { grid-column: span 1; grid-row: span 2; }
+        .collage-vid-wrap.c2r1 { grid-column: span 2; grid-row: span 1; }
+        .collage-vid-wrap.c2r2 { grid-column: span 2; grid-row: span 2; }
+        .collage-vid-wrap.c3r1 { grid-column: span 3; grid-row: span 1; }
+        .collage-vid-wrap.c3r2 { grid-column: span 3; grid-row: span 2; }
+
+        .expanded-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 100; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 40px; box-sizing: border-box; }
+        .expanded-img { max-width: 100%; max-height: 85vh; object-fit: contain; border: 1px solid #222; }
+
+        /* Slideshow */
+        .slideshow-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; }
+        .slideshow-progress-bar { position: absolute; top: 0; left: 0; height: 2px; background: var(--gold); transition: width 0.1s linear; z-index: 10; }
+        .slideshow-media-wrap { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+        .slideshow-img { max-width: 100%; max-height: 100%; object-fit: contain; }
+        .slideshow-video { max-width: 100%; max-height: 100%; object-fit: contain; background: #000; }
+        .slideshow-bottom { position: absolute; bottom: 0; left: 0; width: 100%; padding: 18px 32px; box-sizing: border-box; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%); display: flex; align-items: center; justify-content: space-between; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
+        .slideshow-overlay:hover .slideshow-bottom { opacity: 1; pointer-events: auto; }
+        .slideshow-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); font-weight: 300; letter-spacing: 1px; }
+        .slideshow-counter { font-size: 10px; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; }
+        .slideshow-controls { display: flex; align-items: center; gap: 12px; }
+        .slideshow-btn { background: none; border: 1px solid rgba(197,160,89,0.5); color: var(--gold); width: 36px; height: 36px; cursor: pointer; font-size: 0.9rem; display: flex; align-items: center; justify-content: center; transition: 0.2s; flex-shrink: 0; }
+        .slideshow-btn:hover { background: rgba(197,160,89,0.15); border-color: var(--gold); }
+        .slideshow-caption { position: absolute; bottom: 70px; left: 0; width: 100%; text-align: center; color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 300; padding: 0 60px; box-sizing: border-box; text-shadow: 0 0 12px rgba(0,0,0,1), 0 0 4px rgba(0,0,0,1), 0 2px 8px rgba(0,0,0,1); pointer-events: none; }
+        .slideshow-overlay:hover .slideshow-caption { opacity: 1; }
+
+        .wiki-btn { display: flex; align-items: center; justify-content: center; background: transparent; border: 1px solid var(--gold); color: var(--gold); padding: 12px 20px; font-size: 11px; text-transform: uppercase; letter-spacing: 2px; cursor: pointer; text-decoration: none; transition: 0.3s; text-align: center; }
+        .wiki-btn:hover { background: rgba(197, 160, 89, 0.1); }
+        .unesco-btn { border-color: var(--gold); color: var(--gold); background: rgba(197, 160, 89, 0.05); }
+        .unesco-btn:hover { background: rgba(197, 160, 89, 0.2); }
+
+        .generic-modal { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .modal-content-box { position: relative; width: 80%; max-height: 85vh; overflow-y: auto; background: #080808; border: 1px solid var(--gold); padding: 50px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .close-modal-btn { position: absolute; top: 15px; right: 20px; color: var(--gold); font-size: 3rem; cursor: pointer; transition: 0.3s; line-height: 1; z-index: 10001; text-shadow: 0 0 15px rgba(0, 0, 0, 0.8), 0 0 5px rgba(197, 160, 89, 0.5); }
+        .close-modal-btn:hover { color: #fff; transform: scale(1.1); }
+
+        .countries-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 30px; }
+        .country-item { display: flex; align-items: center; gap: 15px; padding: 12px; border-bottom: 1px solid #1a1a1a; }
+        .country-flag { font-size: 1.5rem; width: 30px; }
+        .country-name { font-size: 13px; color: var(--light-grey); letter-spacing: 0.5px; }
+
+        .leaflet-tooltip-pane .leaflet-tooltip { background: rgba(0, 0, 0, 0.95) !important; border: 1px solid var(--gold) !important; color: var(--text) !important; padding: 0 !important; box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important; border-radius: 0 !important; }
+        .leaflet-tooltip-top:before { border-top-color: var(--gold) !important; }
+        .leaflet-tooltip-bottom:before { border-bottom-color: var(--gold) !important; }
+        .leaflet-tooltip-left:before { border-left-color: var(--gold) !important; }
+        .leaflet-tooltip-right:before { border-right-color: var(--gold) !important; }
+        .tooltip-card-container { display: flex; flex-direction: row; gap: 1px; background: #333; }
+        .mini-card { background: #000; min-width: 200px; max-width: 230px; }
+        .mini-card-thumb { width: 100%; height: 95px; object-fit: cover; display: block; border-bottom: 1px solid #1a1a1a; filter: brightness(0.85); }
+        .mini-card-body { padding: 9px 13px 11px; }
+        .mini-card .card-number { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; display: block; margin-bottom: 6px; line-height: 1; }
+        .mini-card .card-name { font-weight: 600; font-size: 0.88rem; display: block; margin-bottom: 5px; color: #fff; line-height: 1.3; white-space: normal; word-wrap: break-word; }
+        .mini-card .card-location { color: var(--grey); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 400; }
+
+        .timeline-year-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; }
+        .timeline-year-pill { background: none; border: 1px solid #333; color: var(--grey); padding: 5px 14px; cursor: pointer; font-size: 11px; letter-spacing: 1px; transition: 0.3s; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
+        .timeline-year-pill:hover { color: var(--gold); border-color: var(--gold); }
+        .timeline-year-section { margin-bottom: 45px; }
+        .timeline-year-heading { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; margin: 0 0 20px; display: flex; align-items: baseline; gap: 15px; }
+        .timeline-year-count { font-size: 1rem; color: var(--grey); letter-spacing: 2px; font-family: 'Inter', sans-serif; font-weight: 200; }
+        .timeline-entries { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .timeline-entry { display: flex; align-items: flex-start; gap: 12px; padding: 12px 15px; border: 1px solid #1a1a1a; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.01); }
+        .timeline-entry:hover { border-color: var(--gold); background: rgba(197,160,89,0.06); }
+        .timeline-entry-num { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); line-height: 1; flex-shrink: 0; width: 28px; text-align: right; }
+        .timeline-entry-body { flex-grow: 1; min-width: 0; }
+        .timeline-entry-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #fff; line-height: 1.2; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .timeline-entry-meta { font-size: 10px; color: var(--grey); letter-spacing: 1px; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+        .timeline-entry-flag { font-size: 0.85rem; flex-shrink: 0; }
+        @media (max-width: 900px) { .timeline-entries { grid-template-columns: repeat(2, 1fr); } }
+
+        @media (max-width: 900px) { .countries-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .photo-caption { max-width: 100%; width: 100%; text-align: center; color: #bbb; font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 300; line-height: 1.6; margin-top: 14px; padding: 0 20px; letter-spacing: 0.3px; }
+
+        .cities-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .cities-modal-box { position: relative; width: 88%; max-width: 1300px; max-height: 88vh; overflow-y: auto; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 80px rgba(197,160,89,0.12); padding: 50px 55px; }
+        .cities-modal-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--gold); padding-bottom: 18px; margin-bottom: 30px; gap: 30px; }
+        .cities-modal-title-wrap { display: flex; align-items: baseline; gap: 12px; flex-shrink: 0; }
+        .cities-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; white-space: nowrap; }
+        .cities-modal-count { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 300; line-height: 1; }
+        .cities-modal-hint { font-size: 12px; letter-spacing: 1px; color: #bbb; font-family: 'Inter', sans-serif; text-align: right; flex-shrink: 1; line-height: 1.5; }
+        .cities-country-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+        .cities-country-card { border: 1px solid #1a1a1a; padding: 14px 18px; cursor: pointer; transition: 0.25s; position: relative; overflow: hidden; }
+        .cities-country-card::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--gold); transform: scaleY(0); transition: transform 0.25s; transform-origin: bottom; }
+        .cities-country-card:hover { background: rgba(197,160,89,0.04); border-color: var(--gold); }
+        .cities-country-card:hover::before { transform: scaleY(1); }
+        .cities-card-flag { font-size: 1.3rem; display: block; margin-bottom: 8px; }
+        .cities-card-name { font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: #fff; font-weight: 300; line-height: 1.2; display: block; margin-bottom: 4px; }
+        .cities-card-count { font-size: 10px; letter-spacing: 2px; color: var(--gold); text-transform: uppercase; font-family: 'Inter', sans-serif; }
+        @media (max-width: 900px) { .cities-country-grid { grid-template-columns: repeat(2, 1fr); } }
+
+        .city-detail-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.85); z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        .city-detail-box { position: relative; background: #080808; border: 1px solid var(--gold); box-shadow: 0 0 60px rgba(197,160,89,0.2); padding: 0; max-height: 85vh; overflow-y: auto; width: min(820px, 90vw); }
+        .city-detail-head { padding: 28px 35px 20px; border-bottom: 1px solid #1a1a1a; position: sticky; top: 0; background: #080808; z-index: 2; display: flex; justify-content: space-between; align-items: flex-start; gap: 20px; }
+        .city-detail-country { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); font-weight: 300; line-height: 1; margin: 0; display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+        .city-detail-flag { font-size: 1.8rem; }
+        .city-detail-sub { font-size: 10px; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin-top: 6px; font-family: 'Inter', sans-serif; }
+        .city-detail-close { background: none; border: 1px solid #333; color: var(--gold); font-size: 1.1rem; width: 32px; height: 32px; cursor: pointer; flex-shrink: 0; transition: 0.2s; display: flex; align-items: center; justify-content: center; margin-top: 2px; }
+        .city-detail-close:hover { border-color: var(--gold); background: rgba(197,160,89,0.1); }
+        .city-detail-list { padding: 22px 28px 30px; display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-flow: column; gap: 3px 14px; }
+        .city-detail-item { display: flex; align-items: baseline; gap: 9px; padding: 5px 8px 5px 6px; border-bottom: 1px solid #111; }
+        .city-detail-num { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: rgba(197,160,89,0.9); line-height: 1; flex-shrink: 0; width: 26px; text-align: right; }
+        .city-detail-name { font-size: 14px; color: #ccc; line-height: 1.35; }
+        .city-detail-item.capital { background: rgba(197,160,89,0.09); border: 1px solid rgba(197,160,89,0.4); border-radius: 0; padding: 5px 8px 5px 6px; }
+        .city-detail-item.capital .city-detail-name { color: #fff; font-weight: 600; letter-spacing: 0.3px; }
+        .city-detail-item.capital .city-detail-num { color: var(--gold); }
+
+        /* ── About Me Modal ── */
+        .aboutme-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .aboutme-modal-box { position: relative; width: 92%; max-width: 1260px; max-height: 90vh; overflow: hidden; background: #060606; border: 1px solid var(--gold); box-shadow: 0 0 80px rgba(197,160,89,0.1); display: flex; flex-direction: column; }
+
+        /* Header bar: name + origin + stats + close — all one row */
+        .aboutme-header-bar { display: flex; align-items: center; gap: 0; border-bottom: 1px solid #1a1a1a; flex-shrink: 0; padding: 0; }
+        .aboutme-header-identity { padding: 22px 28px; border-right: 1px solid #1a1a1a; flex-shrink: 0; }
+        .aboutme-name-large { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 600; display: block; line-height: 1; letter-spacing: 1px; white-space: nowrap; }
+        .aboutme-origin { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--light-grey); margin-top: 7px; display: block; white-space: nowrap; }
+        .aboutme-header-stats { display: flex; flex: 1; }
+        .aboutme-stat { flex: 1; padding: 14px 18px; border-right: 1px solid #1a1a1a; text-align: center; }
+        .aboutme-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 600; line-height: 1; display: block; }
+        .aboutme-stat-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey); margin-top: 3px; display: block; white-space: nowrap; }
+        .aboutme-close { flex-shrink: 0; color: var(--gold); font-size: 2.4rem; cursor: pointer; transition: 0.3s; line-height: 1; z-index: 10001; width: 60px; height: 100%; display: flex; align-items: center; justify-content: center; border-left: 1px solid #1a1a1a; }
+        .aboutme-close:hover { color: #fff; background: rgba(197,160,89,0.06); }
+
+        /* Two-column layout */
+        .aboutme-layout { display: grid; grid-template-columns: 300px 1fr; flex: 1; overflow: hidden; min-height: 0; }
+
+        /* Left: photo column — full height, photos stretched, name/origin overlaid at bottom */
+        .aboutme-photo-col { position: relative; overflow: hidden; background: #000; display: flex; flex-direction: column; }
+        .aboutme-photo { width: 100%; flex: 1; display: block; filter: grayscale(0.15) brightness(0.9); object-fit: cover; object-position: center top; min-height: 0; }
+        .aboutme-photo-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to right, transparent 70%, #060606 100%); pointer-events: none; }
+
+        /* Right: content column */
+        .aboutme-content-col { padding: 30px 45px 35px 38px; overflow-y: auto; display: flex; flex-direction: column; gap: 26px; }
+
+        /* Section headings */
+        .aboutme-section-label { font-size: 9px; letter-spacing: 4px; text-transform: uppercase; color: var(--gold); border-bottom: 1px solid #1a1a1a; padding-bottom: 8px; margin-bottom: 12px; display: block; }
+
+        /* Roles grid */
+        .aboutme-roles { display: grid; grid-template-columns: 1fr 1fr; gap: 0; }
+        .aboutme-role-item { display: flex; align-items: center; gap: 10px; padding: 7px 0; border-bottom: 1px solid #111; }
+        .aboutme-role-item:nth-last-child(-n+2) { border-bottom: none; }
+        .aboutme-role-dot { width: 4px; height: 4px; background: var(--gold); border-radius: 50%; flex-shrink: 0; }
+        .aboutme-role-text { font-size: 13px; color: var(--light-grey); letter-spacing: 0.3px; line-height: 1.3; }
+
+        /* Favorites */
+        .aboutme-favorites { display: grid; grid-template-columns: 1fr 1fr; gap: 7px; }
+        .aboutme-fav-item { display: flex; flex-direction: column; gap: 2px; padding: 9px 13px; border: 1px solid #111; transition: 0.2s; }
+        .aboutme-fav-item:hover { border-color: rgba(197,160,89,0.3); background: rgba(197,160,89,0.02); }
+        .aboutme-fav-cat { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); }
+        .aboutme-fav-val { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #fff; font-weight: 300; line-height: 1.3; }
+
+        /* Languages — single row, flex nowrap, pills shrink to fit */
+        .aboutme-langs { display: flex; gap: 6px; flex-wrap: nowrap; }
+        .aboutme-lang-pill { display: flex; flex-direction: column; align-items: center; gap: 3px; padding: 8px 12px; border: 1px solid #1a1a1a; flex: 1; min-width: 0; }
+        .aboutme-lang-name { font-size: 12px; color: var(--light-grey); letter-spacing: 0.3px; white-space: nowrap; }
+        .aboutme-lang-level { font-size: 9px; letter-spacing: 1px; text-transform: uppercase; color: var(--gold); white-space: nowrap; }
+
+        /* Motto */
+        .aboutme-motto { border-left: 2px solid var(--gold); padding: 14px 20px; background: rgba(197,160,89,0.03); }
+        .aboutme-motto-text { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; color: #fff; font-weight: 300; font-style: italic; line-height: 1.5; }
+        .aboutme-motto-attr { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); margin-top: 6px; display: block; }
+
+        /* ── Trips Map Modal ── */
+        .trips-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .trips-modal-box { position: relative; width: 94%; max-width: 1400px; height: 88vh; background: #060606; border: 1px solid var(--gold); box-shadow: 0 0 80px rgba(197,160,89,0.1); display: flex; flex-direction: column; overflow: hidden; }
+        .trips-modal-header { display: flex; align-items: center; gap: 0; border-bottom: 1px solid #1a1a1a; flex-shrink: 0; }
+        .trips-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 300; padding: 16px 28px; border-right: 1px solid #1a1a1a; white-space: nowrap; }
+        .trips-modal-stats { display: flex; gap: 0; flex: 1; justify-content: center; }
+        .trips-modal-stat { padding: 12px 22px; border-right: 1px solid #1a1a1a; text-align: center; }
+        .trips-modal-stat-num { font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; color: #fff; font-weight: 600; line-height: 1; display: block; }
+        .trips-modal-stat-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--light-grey); margin-top: 2px; display: block; }
+        .trips-modal-close { flex-shrink: 0; color: var(--gold); font-size: 2.4rem; cursor: pointer; width: 60px; display: flex; align-items: center; justify-content: center; border-left: 1px solid #1a1a1a; align-self: stretch; transition: 0.2s; }
+        .trips-modal-close:hover { color: #fff; background: rgba(197,160,89,0.06); }
+        .trips-modal-body { display: flex; flex: 1; min-height: 0; }
+        .trips-sidebar { width: 300px; flex-shrink: 0; border-right: 1px solid #1a1a1a; overflow-y: auto; display: flex; flex-direction: column; }
+        .trips-show-all-btn { padding: 10px 18px; background: none; border: none; border-bottom: 1px solid #1a1a1a; color: var(--grey); font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; text-align: left; transition: 0.2s; flex-shrink: 0; }
+        .trips-show-all-btn:hover, .trips-show-all-btn.active { color: var(--gold); background: rgba(197,160,89,0.04); }
+        .trips-year-group { border-bottom: 1px solid #111; }
+        .trips-year-header { display: flex; align-items: center; justify-content: space-between; padding: 9px 18px; cursor: pointer; transition: 0.2s; user-select: none; }
+        .trips-year-header:hover { background: rgba(255,255,255,0.02); }
+        .trips-year-label { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--light-grey); font-weight: 300; }
+        .trips-year-meta { display: flex; align-items: center; gap: 8px; }
+        .trips-year-count { font-size: 10px; color: var(--grey); letter-spacing: 1px; }
+        .trips-year-arrow { font-size: 9px; color: var(--grey); transition: transform 0.2s; display: inline-block; }
+        .trips-year-arrow.open { transform: rotate(90deg); }
+        .trips-trip-item { display: flex; align-items: flex-start; gap: 10px; padding: 8px 14px 8px 18px; cursor: pointer; transition: 0.15s; border-left: 3px solid transparent; border-bottom: 1px solid #0d0d0d; }
+        .trips-trip-item:hover { background: rgba(255,255,255,0.03); }
+        .trips-trip-item.active { background: rgba(197,160,89,0.07); border-left-color: var(--gold); }
+        .trips-trip-dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; margin-top: 3px; outline: 2px solid transparent; outline-offset: 1px; }
+        .trips-trip-dot.dot-dark { outline-color: rgba(255,255,255,0.35); }
+        .trips-trip-info { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+        .trips-trip-name { font-size: 12px; color: var(--light-grey); line-height: 1.3; }
+        .trips-trip-dates { font-size: 10px; color: var(--grey); letter-spacing: 0.3px; }
+        .trips-trip-count { font-size: 10px; color: var(--grey); white-space: nowrap; padding-top: 2px; }
+        .trips-stop-list { padding: 6px 18px 12px 38px; border-top: 1px solid #0d0d0d; background: rgba(0,0,0,0.3); }
+        .trips-stop-item { display: flex; align-items: baseline; gap: 8px; padding: 3px 0; border-bottom: 1px solid #0d0d0d; }
+        .trips-stop-item:last-child { border-bottom: none; }
+        .trips-stop-num { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: #fff; width: 22px; text-align: right; flex-shrink: 0; }
+        .trips-stop-name { font-size: 11px; color: #ccc; line-height: 1.3; flex: 1; }
+        .trips-stop-date { font-size: 10px; color: var(--grey); white-space: nowrap; }
+        .trips-map-panel { flex: 1; position: relative; min-width: 0; }
+        #trips-map { width: 100%; height: 100%; }
+
+        /* ── Trips Timeline Modal ── */
+        .trips-tl-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .trips-tl-box { position: relative; width: 88%; max-width: 1200px; max-height: 88vh; overflow-y: auto; background: #080808; border: 1px solid var(--gold); padding: 50px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .trips-tl-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-top: 0; margin-bottom: 35px; gap: 20px; }
+        .trips-tl-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
+        .trips-tl-close { color: var(--gold); font-size: 3rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
+        .trips-tl-close:hover { color: #fff; transform: scale(1.1); }
+
+        /* Year pill nav */
+        .trips-tl-year-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; }
+        .trips-tl-year-pill { background: none; border: 1px solid #333; color: var(--grey); padding: 5px 14px; cursor: pointer; transition: 0.3s; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; letter-spacing: 1px; }
+        .trips-tl-year-pill:hover { color: var(--gold); border-color: var(--gold); }
+
+        /* Year sections */
+        .trips-tl-year-section { margin-bottom: 45px; }
+        .trips-tl-year-heading { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; border-bottom: 1px solid #1a1a1a; padding-bottom: 10px; margin: 0 0 20px; display: flex; align-items: baseline; gap: 15px; }
+        .trips-tl-year-count { font-size: 1rem; color: var(--grey); letter-spacing: 2px; font-family: 'Inter', sans-serif; font-weight: 200; }
+
+        /* Trip entry boxes — same feel as wonders timeline entries */
+        .trips-tl-entries { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+        .trips-tl-entry { display: flex; flex-direction: column; gap: 5px; padding: 12px 15px; border: 1px solid #1a1a1a; cursor: pointer; transition: 0.3s; background: rgba(255,255,255,0.01); position: relative; border-left-width: 3px; border-left-style: solid; }
+        .trips-tl-entry.border-dark { border-left-color: #444 !important; box-shadow: inset 2px 0 0 rgba(255,255,255,0.15); }
+        .trips-tl-entry:hover { border-color: var(--gold); background: rgba(197,160,89,0.06); }
+        .trips-tl-entry-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #fff; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .trips-tl-entry-dates { font-size: 10px; color: var(--grey); letter-spacing: 1px; text-transform: uppercase; }
+
+        /* ── Music List Modal ── */
+        .music-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .music-modal-box { position: relative; width: 88%; max-width: 1100px; max-height: 88vh; overflow-y: auto; background: #080808; border: 1px solid var(--gold); padding: 50px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .music-modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 28px; gap: 20px; }
+        .music-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
+        .music-modal-count { font-size: 1rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
+        .music-modal-close { color: var(--gold); font-size: 3rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
+        .music-modal-close:hover { color: #fff; transform: scale(1.1); }
+
+        /* ── Next Wonders modal ── */
+        .nw-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .nw-modal-box { position: relative; width: 88%; max-width: 1100px; max-height: 88vh; overflow-y: auto; background: #080808; border: 1px solid var(--gold); padding: 50px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .nw-modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 28px; gap: 20px; }
+        .nw-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
+        .nw-modal-count { font-size: 1rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
+        .nw-modal-close { color: var(--gold); font-size: 3rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
+        .nw-modal-close:hover { color: #fff; transform: scale(1.1); }
+        .nw-sort-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
+        .nw-sort-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--grey); padding: 8px 22px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: 0.2s; margin-bottom: -1px; }
+        .nw-sort-tab:hover { color: var(--gold); }
+        .nw-sort-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+        .nw-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+        .nw-table { width: 100%; border-collapse: collapse; }
+        .nw-table th { text-align: left; font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--grey); padding: 8px 14px; border-bottom: 1px solid #1a1a1a; font-weight: 400; }
+        .nw-table td { padding: 10px 14px; border-bottom: 1px solid #111; vertical-align: middle; }
+        .nw-table tbody tr { cursor: default; transition: background 0.15s; }
+        .nw-table tbody tr:hover { background: rgba(197,160,89,0.04); }
+        .nw-td-wonder { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #ddd; line-height: 1.3; }
+        .nw-td-country { font-size: 12px; color: var(--grey); letter-spacing: 0.5px; white-space: nowrap; }
+        .nw-flag { font-size: 1.1em; vertical-align: middle; margin-right: 5px; }
+
+        /* Sort tabs */
+        .music-sort-tabs { display: flex; gap: 0; margin-bottom: 28px; border-bottom: 1px solid #1a1a1a; }
+        .music-sort-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--grey); padding: 8px 22px 10px; cursor: pointer; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: 0.25s; margin-bottom: -1px; }
+        .music-sort-tab:hover { color: var(--light-grey); }
+        .music-sort-tab.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+        /* Table */
+        .music-table { width: 100%; border-collapse: collapse; }
+        .music-table th { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: var(--grey); padding: 0 15px 12px; text-align: left; border-bottom: 1px solid #1a1a1a; font-weight: 400; }
+        .music-table th:first-child { padding-left: 0; }
+        .music-table th.th-wonder { width: 38%; }
+        .music-table th.th-title { width: 34%; }
+        .music-table th.th-author { width: 28%; }
+        .music-table td { padding: 10px 15px; border-bottom: 1px solid #0d0d0d; vertical-align: middle; }
+        .music-table td:first-child { padding-left: 0; }
+        .music-table tr { cursor: pointer; transition: background 0.18s; }
+        .music-table tr:hover td { background: rgba(197,160,89,0.08); outline: 1px solid rgba(197,160,89,0.45); }
+        .music-table tr:hover td:first-child { border-left: 2px solid var(--gold); padding-left: 0; margin-left: -2px; }
+        .music-td-wonder { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: #fff; line-height: 1.3; }
+        .music-td-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-style: italic; line-height: 1.3; }
+        .music-td-author { font-size: 12px; color: var(--light-grey); letter-spacing: 0.3px; }
+
+        /* Last update tag */
+        .last-update-tag { font-size: 10px; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-top: 12px; display: block; }
+
+        /* Explorer nav row shown only on mobile — hidden on desktop */
+        .explorer-nav-mobile { display: none; }
+
+        /* ═══════════════════════════════════════════════════════════
+           HAMBURGER + MOBILE NAV — hidden on desktop
+           ═══════════════════════════════════════════════════════════ */
+        .hamburger-btn {
+            display: none;
+            position: fixed; top: 14px; left: 14px; z-index: 3100;
+            width: 44px; height: 44px;
+            background: rgba(0,0,0,0.85); border: 1px solid var(--gold);
+            color: var(--gold); font-size: 1.1rem; cursor: pointer;
+            align-items: center; justify-content: center;
+            transition: background 0.2s;
+        }
+        .hamburger-btn:hover { background: rgba(197,160,89,0.15); }
+
+        .mobile-nav-overlay {
+            display: none;
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.7); z-index: 3000;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.25s;
+        }
+        .mobile-nav-overlay.open { opacity: 1; pointer-events: auto; }
+
+        .mobile-nav-panel {
+            position: absolute; top: 0; left: 0;
+            width: 280px; height: 100%; background: #060606;
+            border-right: 1px solid var(--gold);
+            padding: 70px 24px 30px;
+            overflow-y: auto;
+            transform: translateX(-100%);
+            transition: transform 0.25s ease;
+            display: flex; flex-direction: column;
+        }
+        .mobile-nav-overlay.open .mobile-nav-panel { transform: translateX(0); }
+
+        .mobile-nav-name {
+            color: var(--gold); font-family: 'Cormorant Garamond', serif;
+            font-size: 1.6rem; font-weight: 600; letter-spacing: 1px;
+            margin-bottom: 20px; padding-bottom: 14px;
+            border-bottom: 1px solid #1a1a1a;
+        }
+        .mobile-nav-link {
+            display: block; color: var(--grey); font-size: 12px;
+            text-decoration: none; margin-bottom: 14px; cursor: pointer;
+            text-transform: uppercase; letter-spacing: 1px; font-weight: 400;
+            transition: 0.2s; padding: 4px 0;
+            border-bottom: 1px solid #111;
+        }
+        .mobile-nav-link:hover { color: var(--gold); padding-left: 6px; }
+
+        /* ═══════════════════════════════════════════════════════════
+           TABLET LANDSCAPE  ≤ 1280px
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1280px) {
+            /* Switch header from absolute-overlay to stacked flex so
+               author-card and top-controls stop overlapping the title */
+            header {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                padding: 24px 30px 20px;
+                gap: 16px;
+            }
+            .author-card {
+                position: static;
+                width: 100%;
+                max-width: 680px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 20px;
+                padding: 10px 20px;
+                border-left: 1px solid var(--gold);
+            }
+            .top-controls {
+                position: static;
+                width: 100%;
+                max-width: 680px;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 8px;
+                pointer-events: auto;
+            }
+            .top-controls > * { pointer-events: auto; }
+            h1 { font-size: 3.2rem; }
+            .subtitle { font-size: 1.05rem; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 20px 30px 120px; }
+            .map-wrap { height: 420px; }
+            .explorer-info { width: 520px; padding: 20px 40px; }
+            .modal-content-box { width: 88%; padding: 36px; }
+            .cities-modal-box { padding: 36px 40px; }
+            .trips-modal-box { width: 96%; }
+            .aboutme-modal-box { width: 94%; }
+            .music-modal-box { width: 90%; padding: 36px; }
+            .trips-tl-box { width: 92%; padding: 36px; }
+            .nw-modal-box { width: 90%; padding: 36px; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           TABLET LANDSCAPE  ≤ 1024px
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1024px) {
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 20px 30px 120px; }
+            .author-card { width: 100%; max-width: 580px; padding: 8px 16px; }
+            .top-controls { width: 100%; max-width: 580px; }
+            header { padding: 20px 24px 16px; gap: 12px; }
+            h1 { font-size: 3rem; }
+            .map-wrap { height: 380px; }
+            .explorer-info { width: 480px; padding: 20px 32px; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           TABLET PORTRAIT  ≤ 768px
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 768px) {
+
+            /* ── Page flow: flex column so we can reorder elements ── */
+            .page-flow {
+                display: flex;
+                flex-direction: column;
+            }
+            /* DOM order: top-controls, header, region-nav, map-wrap, grid */
+            /* Desired order: header(1), top-controls(2), region-nav(3), map(4), grid(5) */
+            header { order: 1; padding: 60px 20px 20px; }
+
+            h1 { font-size: 2.8rem; }
+            .subtitle { font-size: 1rem; padding: 0 10px; }
+            .author-tag { font-size: 10px; letter-spacing: 3px; }
+
+            /* Hide desktop author card, show hamburger + mobile nav */
+            .author-card { display: none; }
+            .hamburger-btn { display: flex; }
+            .mobile-nav-overlay { display: block; }
+
+            /* Top controls: full width, stacked */
+            .top-controls {
+                order: 2;
+                position: static;
+                width: 100%;
+                padding: 12px 16px 0;
+                align-items: stretch;
+                flex-direction: column;
+                gap: 8px;
+                pointer-events: auto;
+                box-sizing: border-box;
+            }
+            .lang-bar { justify-content: stretch; }
+            .search-box { font-size: 1.1rem; }
+            .stats-box { width: 100%; box-sizing: border-box; }
+
+            /* Region nav */
+            .region-nav {
+                order: 3;
+                flex-wrap: wrap;
+                gap: 10px;
+                padding: 16px 16px 0;
+                margin: 16px 0 8px;
+                max-width: 100%;
+            }
+            .region-list { gap: 12px; flex-wrap: wrap; justify-content: flex-start; }
+            .region-label { width: 100%; margin-right: 0; margin-bottom: 4px; }
+            .unesco-nav-filter { margin-left: 0; width: 100%; justify-content: flex-start; }
+
+            /* Map */
+            .map-wrap { order: 4; height: 300px; margin: 0 16px 24px; width: auto; }
+
+            /* Grid: 2 columns */
+            .grid { order: 5; grid-template-columns: repeat(2, 1fr); gap: 18px; padding: 12px 16px 100px; }
+            .card-frame { min-height: 360px; padding: 14px; }
+            .card-img-wrap { height: 220px; }
+            .card-content h3 { font-size: 1.4rem; }
+            .wonder-number { font-size: 1.8rem; }
+
+            /* Explorer: full-screen stacked (info on top, gallery below) */
+            .explorer { flex-direction: column; overflow-y: auto; }
+            .explorer-info {
+                width: 100%;
+                border-right: none;
+                border-bottom: 1px solid #1a1a1a;
+                padding: 20px 20px 16px;
+                flex-shrink: 0;
+                overflow-y: visible;
+            }
+            .explorer-gallery {
+                padding: 20px 16px 40px;
+                flex-grow: 1;
+                overflow-y: visible;
+                min-height: 0;
+            }
+            .explorer-info h2 { font-size: 2.6rem !important; }
+            .explorer-info p { font-size: 1rem !important; }
+
+            /* Controls row: stacked, centered, lang first then volume */
+            .controls-row { flex-direction: column; align-items: center; gap: 10px; }
+            .internal-lang-bar-vertical { flex-direction: row; gap: 5px; justify-content: center; width: 100%; }
+            .lang-btn-vertical { min-width: 0; flex: 1; padding: 5px 6px; font-size: 9px; }
+            .vol-section { justify-content: center; width: 100%; }
+
+            /* Mobile nav row (Prev/Close/Next) — show here, hide gallery duplicate */
+            .explorer-nav-mobile { display: flex; justify-content: space-between; gap: 8px; width: 100%; margin: 10px 0 6px; }
+            .explorer-nav-mobile .nav-action-btn { flex: 1; padding: 8px 6px; font-size: 10px; min-width: 0; }
+            .gallery-nav-row { display: none; }
+
+            /* Collage: 3 columns, reset ALL JS-assigned span classes to 1x1 */
+            .collage-grid { grid-template-columns: repeat(3, 1fr); grid-auto-rows: 130px; gap: 6px; }
+            .collage-grid .collage-item,
+            .collage-grid .collage-vid-wrap { grid-column: span 1 !important; grid-row: span 1 !important; }
+
+            /* Expanded photo: fixed full viewport, scrollable */
+            .expanded-overlay {
+                position: fixed;
+                top: 0; left: 0; width: 100%; height: 100%;
+                z-index: 2100;
+                padding: 16px;
+                justify-content: flex-start;
+                overflow-y: auto;
+            }
+            .expanded-overlay .expanded-img { max-height: 55vh; }
+            .expanded-overlay video { max-height: 55vh !important; }
+            .photo-caption { font-size: 1rem; margin-top: 10px; padding: 0 8px; }
+            .photo-nav-row { margin-top: 12px; gap: 6px; flex-wrap: wrap; justify-content: center; padding-bottom: 16px; }
+
+            /* Slideshow: fixed full viewport on mobile, controls always visible */
+            .slideshow-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 2200; }
+            .slideshow-bottom { opacity: 1 !important; pointer-events: auto !important; }
+            .slideshow-caption { opacity: 1; bottom: 80px; font-size: 1rem; padding: 0 16px; }
+
+            /* All modal overlays: start from top so header is never clipped */
+            .generic-modal,
+            .cities-modal-overlay,
+            .trips-tl-overlay,
+            .music-modal-overlay,
+            .nw-modal-overlay,
+            .city-detail-overlay {
+                align-items: flex-start;
+                padding-top: 20px;
+                padding-bottom: 20px;
+                overflow-y: auto;
+            }
+            /* City detail: switch to row flow so cities stack in rows not a single horizontal line */
+            .city-detail-box .city-detail-list {
+                grid-template-columns: repeat(3, 1fr);
+                grid-auto-flow: row;
+                grid-template-rows: unset;
+            }
+
+            /* ── MODAL GLOBAL: position:relative boxes, absolute close X ── */
+            .modal-content-box {
+                width: 96%;
+                max-height: none;
+                padding: 44px 16px 20px;
+                position: relative;
+                box-sizing: border-box;
+            }
+            /* Close X: always top-right of the box */
+            .modal-content-box .close-modal-btn,
+            .cities-modal-box .close-modal-btn {
+                position: absolute;
+                top: 0; right: 0;
+                width: 44px; height: 44px;
+                font-size: 2rem;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                background: #080808;
+                border-left: 1px solid #1a1a1a;
+                border-bottom: 1px solid #1a1a1a;
+                z-index: 10;
+                text-shadow: none;
+                /* override desktop absolute positioning */
+                left: auto; right: 0; top: 0;
+            }
+            /* Headline: pad right so text doesn't go under the X */
+            .modal-content-box > h2 {
+                font-size: 1.8rem !important;
+                padding-right: 50px;
+                margin-top: 0 !important;
+            }
+            /* Wonders count: new row below headline */
+            .modal-content-box > h2 span {
+                display: block;
+                margin-left: 0 !important;
+                font-size: 0.85rem;
+                letter-spacing: 2px;
+                margin-top: 4px;
+            }
+            /* Cities modal */
+            .cities-modal-box {
+                width: 96%;
+                max-height: none;
+                padding: 44px 16px 20px;
+                position: relative;
+                box-sizing: border-box;
+            }
+            .cities-modal-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 6px;
+                padding: 0 0 14px;
+                margin-bottom: 14px;
+            }
+            .cities-modal-title-wrap { flex-shrink: 1; }
+            .cities-modal-title { font-size: 1.8rem; white-space: normal; padding-right: 50px; line-height: 1.2; margin: 0 0 6px; }
+            .cities-modal-count { font-size: 1.4rem; }
+            .cities-modal-hint { text-align: left; font-size: 11px; }
+            .cities-country-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; padding: 0 16px 16px; }
+
+            /* Music modal */
+            .music-modal-box {
+                width: 96%; max-height: 92vh;
+                padding: 0;
+                display: flex; flex-direction: column;
+            }
+            .music-modal-header { padding: 0 16px 14px; margin-bottom: 14px; }
+            .music-modal-title { font-size: 1.8rem; }
+            .music-sort-tabs { padding: 0 16px; }
+            .music-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }
+            .music-table { min-width: 520px; }
+
+            /* Next Wonders modal */
+            .nw-modal-box {
+                width: 96%; max-height: 92vh;
+                padding: 0;
+                display: flex; flex-direction: column;
+            }
+            .nw-modal-header { padding: 0 16px 14px; margin-bottom: 14px; }
+            .nw-modal-title { font-size: 1.8rem; }
+            .nw-sort-tabs { padding: 0 16px; }
+            .nw-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }
+            .nw-table { min-width: 420px; }
+
+            /* Trips map modal — stack header vertically */
+            .trips-modal-overlay { align-items: flex-start; padding-top: 20px; overflow-y: auto; }
+            /* height:auto causes flex:1 children to collapse to 0 in Firefox —
+               give the box a fixed height and the map panel an explicit min-height */
+            .trips-modal-box { width: 99%; height: 90vh; min-height: unset; }
+            .trips-map-panel { min-height: 320px; flex: 1; }
+            #trips-map { min-height: 320px; }
+            .trips-sidebar { width: 200px; }
+            .trips-modal-header {
+                position: relative;
+                flex-direction: column;
+                align-items: stretch;
+            }
+            /* Row 1: title + close on same line; pad right so text doesn't go under the X */
+            .trips-modal-title {
+                font-size: 1.4rem;
+                padding: 10px 14px 10px 14px;
+                padding-right: 50px;
+                border-right: none;
+                border-bottom: 1px solid #1a1a1a;
+                white-space: normal;
+                flex: 1;
+            }
+            .trips-modal-close {
+                position: absolute;
+                top: 0; right: 0;
+                width: 44px; height: 44px;
+                font-size: 1.8rem;
+                border-left: 1px solid #1a1a1a;
+                border-bottom: 1px solid #1a1a1a;
+                background: #060606;
+                z-index: 10;
+            }
+            /* Row 2: stats below title */
+            .trips-modal-stats {
+                border-bottom: 1px solid #1a1a1a;
+                justify-content: flex-start;
+            }
+            .trips-modal-stat { padding: 8px 14px; }
+            .trips-modal-stat-num { font-size: 1.3rem; }
+            .trips-modal-stat-label { font-size: 8px; }
+
+            /* Trips timeline modal */
+            .trips-tl-box {
+                width: 96%; max-height: 92vh;
+                padding: 0;
+                display: flex; flex-direction: column;
+                overflow-y: auto;
+            }
+            .trips-tl-header {
+                padding: 0 16px 14px;
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+            .trips-tl-title { font-size: 1.8rem; }
+            .trips-tl-close { font-size: 2.2rem; }
+            .trips-tl-year-nav { padding: 0 16px; margin-bottom: 20px; display: flex; flex-wrap: wrap; gap: 8px; }
+            .trips-tl-year-pill { flex: 0 0 auto; }
+            .trips-tl-entries { grid-template-columns: repeat(2, 1fr); }
+            .trips-tl-year-section { padding: 0 16px; }
+            .trips-tl-year-heading { font-size: 2rem; }
+
+            /* Wonders timeline */
+            .timeline-entries { grid-template-columns: repeat(2, 1fr); }
+
+            /* About Me modal — complete mobile rewrite */
+            /* The box scrolls as one unit; no internal scroll columns */
+            /* Overlay: align to top so header is never off-screen */
+            .aboutme-modal-overlay { align-items: flex-start; padding-top: 20px; padding-bottom: 20px; overflow-y: auto; }
+            .aboutme-modal-box {
+                width: 96%;
+                max-height: none;
+                overflow: visible;
+                display: block !important;
+                position: relative;
+            }
+            /* Close X: absolute top-right of the modal box itself */
+            .aboutme-close {
+                position: absolute;
+                top: 0;
+                right: 0;
+                width: 44px;
+                height: 44px;
+                font-size: 1.6rem;
+                background: #060606;
+                border-left: 1px solid #1a1a1a;
+                border-bottom: 1px solid #1a1a1a;
+                z-index: 30;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+            }
+            /* Header bar: stacked column, padding-right so name/stats don't go under the X */
+            .aboutme-header-bar {
+                display: flex;
+                flex-direction: column;
+                align-items: stretch;
+                overflow: visible;
+                padding-right: 44px;
+            }
+            .aboutme-header-identity {
+                border-right: none;
+                border-bottom: 1px solid #1a1a1a;
+                padding: 12px 16px;
+            }
+            .aboutme-name-large { font-size: 1.4rem; }
+            .aboutme-origin { font-size: 9px; white-space: normal; }
+            /* Stats: number + label on same row */
+            .aboutme-header-stats {
+                display: flex;
+                flex-direction: row;
+                border-bottom: 1px solid #1a1a1a;
+                width: 100%;
+            }
+            .aboutme-stat {
+                flex: 1;
+                padding: 8px 6px;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                gap: 6px;
+                text-align: left;
+                border-right: 1px solid #1a1a1a;
+            }
+            .aboutme-stat:last-child { border-right: none; }
+            .aboutme-stat-num { font-size: 1.3rem; line-height: 1; display: block; flex-shrink: 0; }
+            .aboutme-stat-label { font-size: 8px; display: block; white-space: normal; margin-top: 0; line-height: 1.2; }
+            /* Layout: single column, no overflow hidden */
+            .aboutme-layout {
+                display: block !important;
+                overflow: visible;
+            }
+            .aboutme-photo-col { display: none !important; }
+            .aboutme-photo-overlay { display: none !important; }
+            .aboutme-content-col {
+                padding: 16px 16px 24px;
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+                overflow: visible;
+            }
+            .aboutme-roles { grid-template-columns: 1fr; }
+            .aboutme-favorites { grid-template-columns: 1fr; }
+            /* Languages: exactly 2 per row — use width not flex shorthand */
+            .aboutme-langs { display: flex !important; flex-wrap: wrap !important; gap: 6px; }
+            .aboutme-lang-pill { width: calc(50% - 3px) !important; flex: none !important; }
+
+            /* Countries grid */
+            .countries-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 16px; }
+
+            /* Back to top */
+            .back-to-top { bottom: 20px; right: 16px; width: 40px; height: 40px; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           LARGE PHONE  ≤ 600px
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 600px) {
+            h1 { font-size: 2.3rem; }
+            .subtitle { font-size: 0.95rem; }
+
+            /* Grid: still 2 columns but tighter */
+            .grid { gap: 12px; padding: 10px 12px 90px; }
+            .card-frame { min-height: 300px; padding: 10px; }
+            .card-img-wrap { height: 180px; }
+            .card-content h3 { font-size: 1.25rem; }
+            .wonder-number { font-size: 1.6rem; }
+            .location-tag { font-size: 1.2rem; }
+
+            /* Explorer info panel text scaling */
+            .explorer-info { padding: 16px 14px 12px; }
+            .explorer-info h2 { font-size: 2.2rem !important; }
+            .song-title-compact { font-size: 1.25rem; }
+            .info-location { font-size: 11px; letter-spacing: 2px; }
+            .visited-tag { font-size: 13px; }
+            .explorer-info p { font-size: 0.95rem !important; line-height: 1.9 !important; }
+
+            /* Collage: 2 columns on large phone, reset spans */
+            .collage-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 140px; gap: 5px; }
+            .collage-grid .collage-item,
+            .collage-grid .collage-vid-wrap { grid-column: span 1 !important; grid-row: span 1 !important; }
+
+            /* Map */
+            .map-wrap { height: 260px; margin: 0 12px 18px; }
+
+            /* Trips modal: hide sidebar, show map only when no trip selected */
+            .trips-modal-box { height: 94vh; }
+            .trips-sidebar { width: 200px; }
+            .trips-modal-title { font-size: 1.5rem; padding: 12px 14px; }
+            .trips-modal-stat { padding: 8px 12px; }
+            .trips-modal-stat-num { font-size: 1.4rem; }
+
+            /* Timeline entries: single column */
+            .trips-tl-entries { grid-template-columns: 1fr; }
+            .timeline-entries { grid-template-columns: 1fr; }
+
+            /* Modal adjustments */
+            .modal-content-box { padding: 22px 14px; }
+            .cities-modal-box { padding: 22px 14px; }
+            .music-modal-box { padding: 22px 14px; }
+            .nw-modal-box { padding: 22px 14px; }
+            .trips-tl-box { padding: 22px 14px; }
+
+            /* About me: collapse stats row */
+            .aboutme-header-stats { flex-wrap: wrap; }
+            .aboutme-stat { flex: 0 0 50%; border-bottom: 1px solid #1a1a1a; }
+
+            /* Wiki/share buttons: stack */
+            .wiki-btn { padding: 10px 6px; font-size: 10px; width: 30%; flex: 0 0 auto; min-width: 0; text-align: center; box-sizing: border-box; }
+
+            /* Been there confirm */
+            .been-there-confirm { flex-wrap: wrap; gap: 6px; }
+        }
+
+        /* ═══════════════════════════════════════════════════════════
+           PHONE  ≤ 480px
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 480px) {
+            header { padding: 72px 12px 20px; }
+            h1 { font-size: 2rem; letter-spacing: 0; }
+            .subtitle { font-size: 0.88rem; line-height: 1.6; }
+
+            /* Grid: 1 column on small phones */
+            .grid { grid-template-columns: 1fr; gap: 14px; padding: 10px 10px 80px; }
+            .card-frame { min-height: auto; padding: 12px; }
+            .card-img-wrap { height: 240px; }
+            .card-content h3 { font-size: 1.5rem; }
+            .wonder-number { font-size: 1.9rem; }
+
+            /* Explorer */
+            .explorer-info { padding: 14px 12px 10px; }
+            .explorer-info h2 { font-size: 1.9rem !important; }
+            .explorer-gallery { padding: 14px 10px 30px; }
+
+            /* Collage: 2 columns, shorter rows, reset spans */
+            .collage-grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 110px; gap: 4px; }
+            .collage-grid .collage-item,
+            .collage-grid .collage-vid-wrap { grid-column: span 1 !important; grid-row: span 1 !important; }
+
+            /* Gallery nav: tighter */
+            .gallery-nav-row { flex-wrap: wrap; gap: 8px; justify-content: center; }
+            .nav-action-btn { padding: 7px 12px; font-size: 9px; min-width: 70px; }
+
+            /* Top controls full width */
+            .top-controls { padding: 10px 10px 0; }
+
+            /* Region nav compact */
+            .region-nav { padding: 12px 10px 0; gap: 8px; }
+            .region-item { font-size: 10px; }
+
+            /* Map */
+            .map-wrap { height: 230px; margin: 0 10px 16px; }
+
+            /* Modals: nearly full screen */
+            .modal-content-box { width: 98%; padding: 18px 12px; border-width: 1px; }
+            .cities-modal-box { width: 98%; padding: 18px 12px; }
+            .music-modal-box { width: 98%; padding: 18px 12px; }
+            .nw-modal-box { width: 98%; padding: 18px 12px; }
+            .nw-table { min-width: 360px; }
+            .trips-tl-box { width: 98%; padding: 18px 12px; }
+            .aboutme-modal-box { width: 98%; }
+            .trips-modal-box { width: 99%; height: 96vh; }
+
+            /* Trips sidebar: full-width stack on very small screens */
+            .trips-modal-body { flex-direction: column; }
+            .trips-sidebar { width: 100%; height: 200px; border-right: none; border-bottom: 1px solid #1a1a1a; flex-shrink: 0; }
+            .trips-map-panel { min-height: 260px; }
+            #trips-map { min-height: 260px; }
+
+            /* Cities: 1 column */
+            .cities-country-grid { grid-template-columns: 1fr; }
+            .countries-grid { grid-template-columns: 1fr; }
+
+            /* City detail: full width, 2-col row flow, no cropping */
+            .city-detail-box { width: 96vw; min-width: 0; max-width: 96vw; }
+            .city-detail-overlay { align-items: flex-start; padding-top: 20px; overflow-y: auto; }
+            .city-detail-head { padding: 14px 14px 10px; }
+            .city-detail-country { font-size: 1.6rem; gap: 8px; }
+            .city-detail-box .city-detail-list {
+                grid-template-columns: 1fr 1fr;
+                grid-auto-flow: row;
+                grid-template-rows: unset;
+                padding: 10px 10px 18px;
+                gap: 2px 6px;
+            }
+            .city-detail-box .city-detail-name { font-size: 13px; word-break: break-word; }
+            .city-detail-box .city-detail-item { padding: 4px; }
+
+            /* About me: tighten padding at 480px */
+            .aboutme-content-col { padding: 14px 12px 20px; }
+            .aboutme-lang-pill { width: calc(50% - 3px) !important; flex: none !important; }
+            /* Music table keeps scrolling at this size */
+            .music-table { min-width: 480px; }
+
+            /* Music table: smaller font, keep horizontal scroll from 768px rule */
+            .music-modal-title { font-size: 1.8rem; }
+            .music-table th, .music-table td { padding: 8px 8px; }
+            .music-td-wonder, .music-td-title { font-size: 1rem; }
+            .music-td-author { font-size: 11px; }
+
+            /* Slideshow controls: compact */
+            .slideshow-counter { display: none; }
+            .slideshow-wonder-name { font-size: 1.1rem; }
+
+            /* Lang bar: compact */
+            .lang-btn { font-size: 8px; padding: 5px 6px; }
+
+            /* Back to top: smaller on phone */
+            .back-to-top { bottom: 16px; right: 10px; width: 38px; height: 38px; font-size: 0.9rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div id="app">
+    <audio ref="bgMusic" loop></audio>
+
+    <!-- Hamburger button — mobile only, hidden when explorer is open -->
+    <button v-if="!selected" class="hamburger-btn" @click="mobileNavOpen = !mobileNavOpen" :aria-expanded="mobileNavOpen">
+        <i :class="mobileNavOpen ? 'fa-solid fa-xmark' : 'fa-solid fa-bars'"></i>
+    </button>
+
+    <!-- Mobile nav overlay -->
+    <div class="mobile-nav-overlay" :class="{ open: mobileNavOpen }" @click.self="mobileNavOpen = false">
+        <div class="mobile-nav-panel">
+            <div class="mobile-nav-name">Ricardo Duek</div>
+            <a class="mobile-nav-link" @click="showFullMap = true; mobileNavOpen = false">{{ content[lang].seeMap }}</a>
+            <a class="mobile-nav-link" @click="showCountriesList = true; mobileNavOpen = false">{{ content[lang].seeList }}</a>
+            <a class="mobile-nav-link" @click="showCitiesList = true; mobileNavOpen = false">{{ content[lang].seeCities }}</a>
+            <a class="mobile-nav-link" @click="showTimeline = true; mobileNavOpen = false">{{ content[lang].seeTimeline }}</a>
+            <a class="mobile-nav-link" @click="openTripsModal(); mobileNavOpen = false">{{ content[lang].seeTrips }}</a>
+            <a class="mobile-nav-link" @click="openTripsTimeline(); mobileNavOpen = false">{{ content[lang].seeTripsTimeline }}</a>
+            <a class="mobile-nav-link" @click="showNextWonders = true; mobileNavOpen = false">{{ content[lang].seeNextWonders }}</a>
+            <a class="mobile-nav-link" @click="showMusicList = true; mobileNavOpen = false">{{ content[lang].seeMusic }}</a>
+            <a class="mobile-nav-link" @click="showAboutMe = true; mobileNavOpen = false">{{ content[lang].seeAboutMe }}</a>
+            <div class="social-bar" style="margin-top: 20px;">
+                <a href="https://instagram.com/ricardoduek" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+                <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
+            </div>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 27 Apr 2026</span>
+        </div>
+    </div>
+
+    <div class="author-card">
+        <div class="author-name-small">Ricardo Duek</div>
+        <a class="author-link" @click="showFullMap = true">→ {{ content[lang].seeMap }}</a>
+        <a class="author-link" @click="showCountriesList = true">→ {{ content[lang].seeList }}</a>
+        <a class="author-link" @click="showCitiesList = true">→ {{ content[lang].seeCities }}</a>
+        <a class="author-link" @click="showTimeline = true">→ {{ content[lang].seeTimeline }}</a>
+        <a class="author-link" @click="openTripsModal">→ {{ content[lang].seeTrips }}</a>
+        <a class="author-link" @click="openTripsTimeline">→ {{ content[lang].seeTripsTimeline }}</a>
+        <a class="author-link" @click="showNextWonders = true">→ {{ content[lang].seeNextWonders }}</a>
+        <a class="author-link" @click="showMusicList = true">→ {{ content[lang].seeMusic }}</a>
+        <a class="author-link" @click="showAboutMe = true">→ {{ content[lang].seeAboutMe }}</a>
+        <div class="social-bar">
+            <a href="https://instagram.com/ricardoduek" target="_blank" title="Instagram"><i class="fa-brands fa-instagram"></i></a>
+            <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
+            <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
+        </div>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 27 Apr 2026</span>
+    </div>
+
+    <div class="page-flow">
+
+    <div class="top-controls">
+        <div class="lang-bar">
+            <button v-for="l in ['en', 'pt', 'es']" :class="['lang-btn', lang === l ? 'active' : '']" @click="lang = l">{{ l.toUpperCase() }}</button>
+        </div>
+        <div class="search-wrapper">
+            <div class="search-input-wrap">
+                <input type="text" class="search-box" v-model="search" :placeholder="content[lang].searchPlaceholder">
+                <button v-if="search" @click="search = ''" class="clear-btn"></button>
+            </div>
+            <span class="search-caption">{{ content[lang].searchCaption }}</span>
+        </div>
+        <div class="stats-box">
+            <div class="stats-row">
+                <span class="stats-label">{{ content[lang].statsWonders }}</span>
+                <span class="stats-value">{{ wonders.length }}</span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">{{ content[lang].statsCountriesVisited }}</span>
+                <span class="stats-value">{{ visitedCountries.length }}</span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">{{ content[lang].statsCountriesWithWonders }}</span>
+                <span class="stats-value">{{ countriesWithWonders }}</span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">{{ content[lang].statsCities }}</span>
+                <span class="stats-value">{{ visitedCitiesCount }}</span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">{{ content[lang].statsPhotos }}</span>
+                <span class="stats-value">{{ totalPhotos }}</span>
+            </div>
+            <div v-if="visitedWonders.length > 0" class="stats-row" style="border-top: 1px solid #2a2a2a; margin-top: 4px; padding-top: 8px; border-bottom: none;">
+                <span class="stats-label" style="color: var(--gold); opacity: 0.85;">{{ content[lang].statsVisitedByYou }}</span>
+                <span class="stats-value" style="font-size: 1.2rem;">{{ visitedWonders.length }} / {{ wonders.length }}</span>
+            </div>
+            <button class="stats-last-btn" @click="openWonder(filteredWonders[Math.floor(Math.random() * filteredWonders.length)])">{{ content[lang].statsGoToRandom }}</button>
+            <button class="stats-last-btn" @click="openWonder(wonders[wonders.length - 1])">{{ content[lang].statsGoToLast }}</button>
+        </div>
+    </div>
+
+    <header>
+        <span class="author-tag">Ricardo Duek · A Personal Collection</span>
+        <h1>{{ content[lang].title }}</h1>
+        <p class="subtitle">{{ content[lang].subtitle }}</p>
+    </header>
+
+    <div class="region-nav">
+        <span class="region-label">{{ content[lang].exploreByRegion }}</span>
+        <div class="region-list">
+            <div :class="['region-item', selectedRegion === '' ? 'active' : '']" @click="selectedRegion = ''">All <span>{{ wonders.length }}</span></div>
+            <div v-for="region in regions" :key="region" :class="['region-item', selectedRegion === region ? 'active' : '']" @click="selectedRegion = region">{{ region }} <span>{{ countByRegion(region) }}</span></div>
+        </div>
+        <div :class="['unesco-nav-filter', unescoFilter ? 'active' : '']" @click="unescoFilter = !unescoFilter">
+            <input type="checkbox" class="unesco-checkbox" v-model="unescoFilter" @click.stop>
+            <i class="fa-solid fa-landmark" style="color: var(--gold); font-size: 0.9rem;"></i>
+            <span>{{ lang === 'en' ? 'UNESCO ONLY' : (lang === 'pt' ? 'SÓ UNESCO' : 'SOLO UNESCO') }}</span>
+        </div>
+    </div>
+
+    <div class="map-wrap"><div id="map"></div></div>
+
+    <div class="grid">
+        <div v-for="w in visibleWonders" :key="w.id" class="card-frame" @click="openWonder(w)">
+            <div class="card-img-wrap">
+                <img :src="mediaBase + 'Gallery/' + (w.images[0] || 'placeholder.jpg')" class="card-img" loading="lazy">
+                <div v-if="w.videos && w.videos.length" class="video-badge"><i class="fa-solid fa-circle-play"></i></div>
+                <div v-if="visitedWonders.includes(w.id)" class="card-visited-badge">✓ {{ content[lang].beenThereDone.replace('✓ ', '') }}</div>
+            </div>
+            <div class="card-content">
+                <div>
+                    <div class="wonder-number">{{ formatId(w.id) }}</div>
+                    <h3>{{ getVal(w, 'name') }}</h3>
+                </div>
+                <span class="location-tag">
+                    {{ getLoc(w) }}
+                    <span v-for="code in getCountryCode(w.country_en)" :key="code" :class="['fi', 'fi-' + code, 'card-flag']"></span>
+                </span>
+            </div>
+        </div>
+    </div>
+    <div ref="sentinel" style="height:1px;"></div>
+
+    </div> <!-- /page-flow -->
+
+    <!-- Full map modal -->
+    <div v-if="showFullMap" class="generic-modal" @click.self="showFullMap = false">
+        <div class="modal-content-box" style="padding:0; border-width:2px; width:auto;" @click="showFullMap = false">
+            <span class="close-modal-btn" @click="showFullMap = false">&times;</span>
+            <img :src="mediaBase + 'Gallery/travel-map.webp'" style="display:block; max-width:100%; max-height:85vh; object-fit:contain;">
+        </div>
+    </div>
+
+    <!-- Countries list modal -->
+    <div v-if="showCountriesList" class="generic-modal" @click.self="showCountriesList = false">
+        <div class="modal-content-box">
+            <span class="close-modal-btn" @click="showCountriesList = false">&times;</span>
+            <h2 style="font-family: 'Cormorant Garamond'; font-size: 3rem; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-top: 0; font-weight:300;">
+                {{ content[lang].visitedCountriesTitle }} (101)
+            </h2>
+            <div class="countries-grid">
+                <div v-for="c in visitedCountries" :key="c.name" class="country-item">
+                    <span :class="['fi', 'fi-' + c.code, 'country-flag']"></span>
+                    <span class="country-name">{{ c.name }}</span>
+                    <span v-if="wondersPerCountry[c.name]" class="country-wonder-count">{{ wondersPerCountry[c.name] }} ✦</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Cities & Places modal -->
+    <div v-if="showCitiesList" class="cities-modal-overlay" @click.self="showCitiesList = false">
+        <div class="cities-modal-box">
+            <span class="close-modal-btn" @click="showCitiesList = false">&times;</span>
+            <div class="cities-modal-header">
+                <h2 class="cities-modal-title">{{ content[lang].citiesTitle }} <span class="cities-modal-count">({{ visitedCitiesCount }})</span></h2>
+                <span class="cities-modal-hint">{{ content[lang].citiesHint }}</span>
+            </div>
+            <div class="cities-country-grid">
+                <div v-for="c in visitedCountries" :key="c.name"
+                    class="cities-country-card"
+                    @click="openCityDetail(c)">
+                    <span :class="['fi', 'fi-' + c.code, 'cities-card-flag']"></span>
+                    <span class="cities-card-name">{{ c.name }}</span>
+                    <span class="cities-card-count">{{ getCityCount(c.name) }} {{ content[lang].citiesLabel }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- City detail modal (second layer) -->
+    <div v-if="selectedCityCountry" class="city-detail-overlay" @click.self="selectedCityCountry = null">
+        <div class="city-detail-box">
+            <div class="city-detail-head">
+                <div>
+                    <h3 class="city-detail-country">
+                        <span :class="['fi', 'fi-' + selectedCityCountry.code, 'city-detail-flag']"></span>
+                        {{ selectedCityCountry.name }}
+                        <span style="font-size:1.3rem; color: var(--grey); font-weight:300;"> ({{ getCityCount(selectedCityCountry.name) }})</span>
+                    </h3>
+                    <div class="city-detail-sub">{{ content[lang].citiesLabel }}</div>
+                </div>
+                <button class="city-detail-close" @click="selectedCityCountry = null">&times;</button>
+            </div>
+            <div class="city-detail-list"
+                :style="isMobile ? {} : { gridTemplateRows: 'repeat(' + Math.ceil(getCities(selectedCityCountry.name).length / 3) + ', auto)' }">
+                <div v-for="(city, idx) in getCities(selectedCityCountry.name)" :key="idx"
+                    :class="['city-detail-item', isCapital(city, selectedCityCountry.name) ? 'capital' : '']">
+                    <span class="city-detail-num">{{ idx + 1 }}</span>
+                    <span class="city-detail-name">{{ city }}</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Timeline modal -->
+    <div v-if="showTimeline" class="generic-modal" @click.self="showTimeline = false">
+        <div class="modal-content-box" style="width: 88%; max-width: 1200px;">
+            <span class="close-modal-btn" @click="showTimeline = false">&times;</span>
+            <h2 style="font-family: 'Cormorant Garamond'; font-size: 3rem; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-top: 0; font-weight: 300;">
+                {{ content[lang].timelineTitle }}
+                <span style="font-size: 1rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; margin-left: 15px;">{{ wonders.length }} WONDERS</span>
+            </h2>
+            <div class="timeline-year-nav">
+                <button v-for="group in timelineByYear" :key="group.year" class="timeline-year-pill"
+                    @click="scrollToTimelineYear(group.year)">
+                    {{ group.label }} <span style="color: var(--gold); margin-left: 5px;">{{ group.wonders.length }}</span>
+                </button>
+            </div>
+            <div v-for="group in timelineByYear" :key="group.year" class="timeline-year-section" :id="'tl-year-' + group.year">
+                <h3 class="timeline-year-heading">
+                    {{ group.label }}
+                    <span class="timeline-year-count">{{ group.wonders.length }} {{ group.wonders.length === 1 ? 'wonder' : 'wonders' }}</span>
+                </h3>
+                <div class="timeline-entries">
+                    <div v-for="w in group.wonders" :key="w.id" class="timeline-entry"
+                        @click="showTimeline = false; $nextTick(() => openWonder(w))">
+                        <span class="timeline-entry-num">{{ formatId(w.id) }}</span>
+                        <div class="timeline-entry-body">
+                            <div class="timeline-entry-name" :title="getVal(w, 'name')">{{ getVal(w, 'name') }}</div>
+                            <div class="timeline-entry-meta">
+                                <span class="timeline-entry-flag" v-for="code in getCountryCode(w.country_en)" :key="code" :class="['fi', 'fi-' + code]"></span>
+                                <span>{{ getVal(w, 'visited') || '—' }}</span>
+                                <span v-if="w.is_unesco === 'yes'" style="color: var(--gold);" title="UNESCO">✦</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Music List modal ── -->
+    <!-- ── Next Wonders modal ── -->
+    <div v-if="showNextWonders" class="nw-modal-overlay" @click.self="showNextWonders = false">
+        <div class="nw-modal-box">
+            <div class="nw-modal-header">
+                <div style="display:flex;align-items:baseline;gap:18px;flex-wrap:wrap;">
+                    <h2 class="nw-modal-title">{{ content[lang].nextWondersTitle }}</h2>
+                    <span class="nw-modal-count">{{ nextWonders.length }} {{ content[lang].nextWondersCount }}</span>
+                </div>
+                <span class="nw-modal-close" @click="showNextWonders = false">&times;</span>
+            </div>
+
+            <!-- Sort tabs -->
+            <div class="nw-sort-tabs">
+                <button :class="['nw-sort-tab', nextWondersSort === 'wonder'  ? 'active' : '']" @click="nextWondersSort = 'wonder'">{{ content[lang].nextWondersSortWonder }}</button>
+                <button :class="['nw-sort-tab', nextWondersSort === 'country' ? 'active' : '']" @click="nextWondersSort = 'country'">{{ content[lang].nextWondersSortCountry }}</button>
+            </div>
+
+            <!-- Table -->
+            <div class="nw-table-wrap">
+            <table class="nw-table">
+                <thead>
+                    <tr>
+                        <th>{{ content[lang].nextWondersColWonder }}</th>
+                        <th>{{ content[lang].nextWondersColCountry }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="entry in sortedNextWonders" :key="entry.wonder + entry.country">
+                        <td><span class="nw-td-wonder">{{ entry.wonder }}</span></td>
+                        <td>
+                            <span class="nw-td-country">
+                                <template v-for="(part, i) in entry.countryParts" :key="part">
+                                    <span v-if="getCountryCode(part)[0]" :class="'fi fi-' + getCountryCode(part)[0]" class="nw-flag"></span>{{ part }}<template v-if="i < entry.countryParts.length - 1"> &amp; </template>
+                                </template>
+                            </span>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Music List modal ── -->
+    <div v-if="showMusicList" class="music-modal-overlay" @click.self="showMusicList = false">
+        <div class="music-modal-box">
+            <div class="music-modal-header">
+                <h2 class="music-modal-title">{{ content[lang].musicTitle }}</h2>
+                <span class="music-modal-close" @click="showMusicList = false">&times;</span>
+            </div>
+
+            <!-- Sort tabs -->
+            <div class="music-sort-tabs">
+                <button :class="['music-sort-tab', musicSort === 'wonder' ? 'active' : '']" @click="musicSort = 'wonder'">{{ content[lang].musicSortWonder }}</button>
+                <button :class="['music-sort-tab', musicSort === 'title'  ? 'active' : '']" @click="musicSort = 'title'">{{ content[lang].musicSortTitle }}</button>
+                <button :class="['music-sort-tab', musicSort === 'author' ? 'active' : '']" @click="musicSort = 'author'">{{ content[lang].musicSortAuthor }}</button>
+            </div>
+
+            <!-- Table -->
+            <div class="music-table-wrap">
+            <table class="music-table">
+                <thead>
+                    <tr>
+                        <th class="th-wonder">{{ content[lang].musicColWonder }}</th>
+                        <th class="th-title">{{ content[lang].musicColTitle }}</th>
+                        <th class="th-author">{{ content[lang].musicColAuthor }}</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="(entry, idx) in sortedMusicEntries" :key="entry.id"
+                        @click="openWonderFromMusic(entry.wonder)">
+                        <td><span class="music-td-wonder">{{ formatId(entry.wonder.id) }} · {{ getVal(entry.wonder, 'name') }}</span></td>
+                        <td><span class="music-td-title">{{ entry.title }}</span></td>
+                        <td><span class="music-td-author">{{ entry.author }}</span></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div> <!-- /music-table-wrap -->
+        </div>
+    </div>
+
+    <!-- ── About Me modal ── -->
+    <div v-if="showAboutMe" class="aboutme-modal-overlay" @click.self="showAboutMe = false">
+        <div class="aboutme-modal-box">
+
+            <!-- HEADER ROW: name + origin | stat | stat | stat | ✕ -->
+            <div class="aboutme-header-bar">
+                <div class="aboutme-header-identity">
+                    <span class="aboutme-name-large">Ricardo Duek</span>
+                    <span class="aboutme-origin">{{ content[lang].aboutBorn }} <span class="fi fi-ar" style="font-size:0.95em;vertical-align:middle;margin-left:5px;"></span></span>
+                    <span class="aboutme-origin">{{ content[lang].aboutLiving }} <span class="fi fi-br" style="font-size:0.95em;vertical-align:middle;margin-left:5px;"></span></span>
+                </div>
+                <div class="aboutme-header-stats">
+                    <div class="aboutme-stat">
+                        <span class="aboutme-stat-num">101</span>
+                        <span class="aboutme-stat-label">{{ content[lang].aboutStatCountries }}</span>
+                    </div>
+                    <div class="aboutme-stat">
+                        <span class="aboutme-stat-num">{{ visitedCitiesCount }}</span>
+                        <span class="aboutme-stat-label">{{ content[lang].aboutStatCities }}</span>
+                    </div>
+                    <div class="aboutme-stat" style="border-right: none;">
+                        <span class="aboutme-stat-num">{{ wonders.length }}</span>
+                        <span class="aboutme-stat-label">{{ content[lang].aboutStatWonders }}</span>
+                    </div>
+                </div>
+                <span class="aboutme-close" @click="showAboutMe = false">&times;</span>
+            </div>
+
+            <!-- BODY: photo left | content right -->
+            <div class="aboutme-layout">
+
+                <!-- LEFT: Photo — natural size, top-aligned, no stretching -->
+                <div class="aboutme-photo-col">
+                    <img :src="mediaBase + 'Gallery/Ricardo.webp'" alt="Ricardo Duek" class="aboutme-photo">
+                    <img :src="mediaBase + 'Gallery/Ricardo2.webp'" alt="Ricardo Duek 2" class="aboutme-photo" style="margin-top:4px;">
+                    <div class="aboutme-photo-overlay"></div>
+                </div>
+
+                <!-- RIGHT: Content -->
+                <div class="aboutme-content-col">
+
+                    <!-- What I do -->
+                    <div>
+                        <span class="aboutme-section-label">{{ content[lang].aboutRolesLabel }}</span>
+                        <div class="aboutme-roles">
+                            <div v-for="role in content[lang].aboutRoles" :key="role" class="aboutme-role-item">
+                                <span class="aboutme-role-dot"></span>
+                                <span class="aboutme-role-text">{{ role }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Languages — single row -->
+                    <div>
+                        <span class="aboutme-section-label">{{ content[lang].aboutLangsLabel }}</span>
+                        <div class="aboutme-langs">
+                            <div v-for="lang_item in content[lang].aboutLangs" :key="lang_item.name" class="aboutme-lang-pill">
+                                <span class="aboutme-lang-name">{{ lang_item.name }}</span>
+                                <span class="aboutme-lang-level">{{ lang_item.level }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Favorites -->
+                    <div>
+                        <span class="aboutme-section-label">{{ content[lang].aboutFavsLabel }}</span>
+                        <div class="aboutme-favorites">
+                            <div v-for="fav in content[lang].aboutFavs" :key="fav.cat" class="aboutme-fav-item">
+                                <span class="aboutme-fav-cat">{{ fav.cat }}</span>
+                                <span class="aboutme-fav-val">{{ fav.val }}</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Motto -->
+                    <div class="aboutme-motto">
+                        <div class="aboutme-motto-text">{{ content[lang].aboutMotto }}</div>
+                        <span class="aboutme-motto-attr">{{ content[lang].aboutMottoAttr }}</span>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Trips Map modal ── -->
+    <div v-if="showTrips" class="trips-modal-overlay" @click.self="closeTripsModal()">
+        <div class="trips-modal-box">
+
+            <!-- Header -->
+            <div class="trips-modal-header">
+                <div class="trips-modal-title">{{ content[lang].tripsTitle }}</div>
+                <div class="trips-modal-stats">
+                    <div class="trips-modal-stat">
+                        <span class="trips-modal-stat-num">{{ trips.length }}</span>
+                        <span class="trips-modal-stat-label">{{ content[lang].tripsStatTrips }}</span>
+                    </div>
+                    <div class="trips-modal-stat">
+                        <span class="trips-modal-stat-num">{{ totalTripStops }}</span>
+                        <span class="trips-modal-stat-label">{{ content[lang].tripsStatStops }}</span>
+                    </div>
+                    <div class="trips-modal-stat" style="border-right:none;">
+                        <span class="trips-modal-stat-num">1,503</span>
+                        <span class="trips-modal-stat-label">{{ content[lang].tripsStatDays }}</span>
+                    </div>
+                </div>
+                <span class="trips-modal-close" @click="closeTripsModal()">&times;</span>
+            </div>
+
+            <!-- Body -->
+            <div class="trips-modal-body">
+
+                <!-- Sidebar -->
+                <div class="trips-sidebar">
+                    <button :class="['trips-show-all-btn', selectedTrip === null ? 'active' : '']"
+                        @click="selectTrip(null)">
+                        ✦ {{ content[lang].tripsShowAll }}
+                    </button>
+
+                    <template v-for="trip in trips" :key="trip.id">
+                        <div :class="['trips-trip-item', selectedTrip && selectedTrip.id === trip.id ? 'active' : '']"
+                            @click="selectTrip(trip)">
+                            <span class="trips-trip-dot" :style="{ background: trip.color }" :class="{ 'dot-dark': trip.color === '#000000' }"></span>
+                            <span class="trips-trip-info">
+                                <span class="trips-trip-name">{{ getTripName(trip) }}</span>
+                                <span v-if="trip.date_from" class="trips-trip-dates">{{ trip.date_from }} → {{ trip.date_to }}</span>
+                            </span>
+                            <span class="trips-trip-count">{{ trip.stops.length }}</span>
+                        </div>
+                        <!-- Stop list — shown when this trip is selected -->
+                        <div v-if="selectedTrip && selectedTrip.id === trip.id" class="trips-stop-list">
+                            <div v-for="(stop, idx) in trip.stops" :key="idx" class="trips-stop-item">
+                                <span class="trips-stop-num">{{ idx + 1 }}</span>
+                                <span class="trips-stop-name">{{ stop.name }}</span>
+                            </div>
+                        </div>
+                    </template>
+                </div>
+
+                <!-- Map -->
+                <div class="trips-map-panel">
+                    <div id="trips-map"></div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Trips Timeline modal ── -->
+    <div v-if="showTripsTimeline" class="trips-tl-overlay" @click.self="showTripsTimeline = false">
+        <div class="trips-tl-box">
+            <!-- Header -->
+            <div class="trips-tl-header">
+                <h2 class="trips-tl-title">
+                    {{ content[lang].tripsTimelineTitle }}
+                    <span style="font-size: 1rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; margin-left: 15px;">{{ trips.length }} {{ content[lang].tripsStatTrips.toUpperCase() }}</span>
+                </h2>
+                <span class="trips-tl-close" @click="showTripsTimeline = false">&times;</span>
+            </div>
+
+            <!-- Year pill nav -->
+            <div class="trips-tl-year-nav">
+                <button v-for="group in tripsByYearGrouped" :key="group.year"
+                    class="trips-tl-year-pill"
+                    @click="scrollToTripsYear(group.year)">
+                    {{ group.label }} <span style="color: var(--gold); margin-left: 5px;">{{ group.trips.length }}</span>
+                </button>
+            </div>
+
+            <!-- Year sections -->
+            <div v-for="group in tripsByYearGrouped" :key="group.year"
+                class="trips-tl-year-section"
+                :id="'trips-tl-year-' + group.year">
+                <h3 class="trips-tl-year-heading">
+                    {{ group.label }}
+                    <span class="trips-tl-year-count">{{ group.trips.length }} {{ group.trips.length === 1 ? content[lang].tripsSingular : content[lang].tripsPlural }}</span>
+                </h3>
+                <div class="trips-tl-entries">
+                    <div v-for="trip in group.trips" :key="trip.id"
+                        :class="['trips-tl-entry', trip.color === '#000000' ? 'border-dark' : '']"
+                        :style="{ borderLeftColor: trip.color }"
+                        @click="openTripFromTimeline(trip)">
+                        <div class="trips-tl-entry-name" :title="getTripName(trip)">{{ getTripName(trip) }}</div>
+                        <div v-if="trip.date_from" class="trips-tl-entry-dates">{{ trip.date_from }} → {{ trip.date_to }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Wonder explorer -->
+    <div v-if="selected" class="explorer">
+        <div class="explorer-info">
+            <div class="controls-row">
+                <div class="internal-lang-bar-vertical">
+                    <button :class="['lang-btn-vertical', lang === 'en' ? 'active' : '']" @click="lang = 'en'">English</button>
+                    <button :class="['lang-btn-vertical', lang === 'pt' ? 'active' : '']" @click="lang = 'pt'">Português</button>
+                    <button :class="['lang-btn-vertical', lang === 'es' ? 'active' : '']" @click="lang = 'es'">Español</button>
+                </div>
+                <div class="vol-section">
+                    <input type="range" class="vol-slider" min="0" max="1" step="0.01" v-model="volume" @input="updateVolume">
+                    <button class="mute-btn-small" @click="toggleMute">{{ isMuted ? 'UNMUTE' : 'MUTE' }}</button>
+                </div>
+            </div>
+
+            <span class="song-title-compact">{{ selected.song_name || 'No Track' }}</span>
+
+            <!-- Prev / Close / Next — here on mobile, in gallery on desktop -->
+            <div class="explorer-nav-mobile">
+                <button class="nav-action-btn" @click="navWonder(-1)">{{ content[lang].prev }}</button>
+                <button class="nav-action-btn" @click="closeWonder">{{ content[lang].close }}</button>
+                <button class="nav-action-btn" @click="navWonder(1)">{{ content[lang].next }}</button>
+            </div>
+
+            <span style="color: var(--gold); font-family: 'Cormorant Garamond'; font-size: 4rem; line-height: 1; display: block; margin-top: 5px;">{{ formatId(selected.id) }}</span>
+            <h2 style="font-family: 'Cormorant Garamond'; font-size: 3.5rem; color: var(--gold); margin: 5px 0 10px; font-weight: 300; font-style: italic; line-height: 1.1;">{{ getVal(selected, 'name') }}</h2>
+            <p class="info-location">{{ getLoc(selected) }}</p>
+
+            <div v-if="getVal(selected, 'visited')" class="visited-tag">
+                {{ lang === 'en' ? 'Visited: ' : (lang === 'es' ? 'Visitado: ' : 'Visitado em: ') }} {{ getVal(selected, 'visited') }}
+            </div>
+
+            <p style="line-height: 2.1; color: #ccc; font-weight: 200; font-size: 1.1rem; text-align: justify; margin-bottom: 10px;">{{ getVal(selected, 'desc') }}</p>
+
+            <div style="display: flex; justify-content: center; align-items: stretch; width: 100%; margin-top: 10px; gap: 8px;">
+                <button @click="copyLink" class="wiki-btn" style="border-color: #888; color: #888; flex: 0 0 auto; width: 30%;">
+                    <i class="fa-solid fa-link" style="font-size: 0.8rem; margin-right: 8px;"></i> {{ shareStatus || content[lang].shareLink }}
+                </button>
+
+                <a v-if="selected.is_unesco === 'yes'" :href="selected.unesco_url" target="_blank" class="wiki-btn unesco-btn" style="flex: 0 0 auto; width: 30%;" title="UNESCO World Heritage">
+                    <i class="fa-solid fa-landmark" style="font-size: 0.8rem; margin-right: 8px;"></i> UNESCO
+                </a>
+
+                <a v-if="getVal(selected, 'wiki')" :href="getVal(selected, 'wiki')" target="_blank" class="wiki-btn" style="flex: 0 0 auto; width: 30%;">
+                    <i class="fa-brands fa-wikipedia-w" style="font-size: 0.8rem; margin-right: 8px;"></i> WIKI
+                </a>
+            </div>
+
+            <!-- Been There button -->
+            <div style="width: 100%; margin-top: 8px;">
+                <button :class="['been-there-btn', visitedWonders.includes(selected.id) ? 'visited' : '']"
+                        style="width: 100%;"
+                        @click="toggleBeenThere(selected.id)">
+                    <i :class="visitedWonders.includes(selected.id) ? 'fa-solid fa-check' : 'fa-regular fa-circle-check'" style="font-size: 0.85rem;"></i>
+                    {{ visitedWonders.includes(selected.id) ? content[lang].beenThereDone : content[lang].beenThereBtn }}
+                </button>
+                <div v-if="beenThereConfirm" class="been-there-confirm">
+                    <span>{{ content[lang].beenThereConfirmMsg }}</span>
+                    <button @click="confirmRemove(selected.id)">{{ content[lang].beenThereYes }}</button>
+                    <button @click="beenThereConfirm = false">{{ content[lang].beenThereNo }}</button>
+                </div>
+            </div>
+
+            <div class="copyright-box">
+                <p>{{ selected.images ? selected.images.length : 0 }} {{ content[lang].copy2 }}</p>
+            </div>
+        </div>
+
+        <div class="explorer-gallery">
+            <div class="gallery-nav-row">
+                <button class="nav-action-btn" @click="navWonder(-1)">{{ content[lang].prev }}</button>
+                <button class="nav-action-btn" @click="closeWonder">{{ content[lang].close }}</button>
+                <button class="nav-action-btn" @click="navWonder(1)">{{ content[lang].next }}</button>
+            </div>
+
+            <div v-if="!expandedMedia" class="collage-grid">
+                <img v-if="selected.images && selected.images.length"
+                     :src="mediaBase + 'Gallery/' + selected.images[0]"
+                     :key="selected.images[0]"
+                     :data-total="selected.images.length + (selected.videos ? selected.videos.length : 0) + (selected.videos_audio ? selected.videos_audio.length : 0)"
+                     class="collage-item"
+                     @load="e => applyImageClass(e.target, 0)"
+                     :ref="el => { if (el && el.complete) applyImageClass(el, 0); }"
+                     @click="expandedMedia = selected.images[0]">
+                <div v-for="vid in selected.videos" :key="vid"
+                    class="collage-vid-wrap"
+                    @mouseenter="e => { const v = e.currentTarget.querySelector('video'); if(v) v.play(); }"
+                    @mouseleave="e => { const v = e.currentTarget.querySelector('video'); if(v) { v.pause(); v.currentTime = 0; } }"
+                    @click="expandedMedia = vid">
+                    <video muted playsinline preload="metadata"
+                        @loadedmetadata="e => applyVideoClass(e.target.closest('.collage-vid-wrap'))">
+                        <source :src="mediaBase + 'Videos/' + vid" type="video/webm">
+                    </video>
+                    <div class="collage-vid-badge"><i class="fa-solid fa-circle-play"></i></div>
+                </div>
+                <div v-for="vid in selected.videos_audio" :key="'a_' + vid"
+                    class="collage-vid-wrap"
+                    @mouseenter="e => { const v = e.currentTarget.querySelector('video'); if(v) v.play(); }"
+                    @mouseleave="e => { const v = e.currentTarget.querySelector('video'); if(v) { v.pause(); v.currentTime = 0; } }"
+                    @click="expandAudioVideo(vid)">
+                    <video muted playsinline preload="metadata"
+                        @loadedmetadata="e => applyVideoClass(e.target.closest('.collage-vid-wrap'))">
+                        <source :src="mediaBase + 'Videos/' + vid" type="video/webm">
+                    </video>
+                    <div class="collage-vid-badge has-audio">
+                        <i class="fa-solid fa-circle-play"></i>
+                        <i class="fa-solid fa-volume-high" style="font-size:0.9rem; position:absolute; bottom:-8px; right:-12px; filter: drop-shadow(0 0 4px rgba(0,0,0,1));"></i>
+                    </div>
+                </div>
+                <img v-for="(img, idx) in selected.images.slice(1)" :key="img"
+                     :src="mediaBase + 'Gallery/' + img"
+                     class="collage-item"
+                     @load="e => applyImageClass(e.target, idx + 1)"
+                     :ref="el => { if (el && el.complete) applyImageClass(el, idx + 1); }"
+                     @click="expandedMedia = img" loading="lazy">
+            </div>
+
+            <div v-else class="expanded-overlay">
+                <video v-if="isVideo(expandedMedia)" :key="expandedMedia"
+                    :muted="!isAudioVideo(expandedMedia)"
+                    controls autoplay loop playsinline
+                    style="max-width:100%; max-height:85vh; border:1px solid #222; background:#000;">
+                    <source :src="mediaBase + 'Videos/' + expandedMedia" type="video/webm">
+                </video>
+                <img v-else :src="mediaBase + 'Gallery/' + expandedMedia" class="expanded-img">
+                <p v-if="getCaption(selected, expandedMedia)" class="photo-caption">{{ getCaption(selected, expandedMedia) }}</p>
+                <div class="photo-nav-row">
+                    <button class="photo-nav-btn" @click="navPhoto(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                    <button class="nav-action-btn" @click="() => { if(isAudioVideo(expandedMedia)) fadeOutAndPlay(mediaBase + 'Music/' + selected.id + '.mp3'); expandedMedia = null; }">{{ content[lang].backToGallery }}</button>
+                    <button class="nav-action-btn" @click="startSlideshow"><i class="fa-solid fa-play" style="font-size:0.7rem; margin-right:7px;"></i>{{ content[lang].slideshowBtn }}</button>
+                    <button class="photo-nav-btn" @click="navPhoto(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                </div>
+            </div>
+
+            <!-- Slideshow overlay -->
+            <div v-if="slideshowActive" class="slideshow-overlay"
+                 @mouseenter="pauseSlideshow" @mouseleave="resumeSlideshow">
+                <div class="slideshow-progress-bar" :style="{ width: slideshowProgress + '%' }"></div>
+
+                <div class="slideshow-media-wrap">
+                    <video v-if="isVideo(slideshowMedia)" :key="slideshowMedia"
+                           muted autoplay playsinline class="slideshow-video"
+                           @ended="slideshowAdvance">
+                        <source :src="mediaBase + 'Videos/' + slideshowMedia" type="video/webm">
+                    </video>
+                    <img v-else :src="mediaBase + 'Gallery/' + slideshowMedia" class="slideshow-img">
+                </div>
+
+                <p v-if="getCaption(selected, slideshowMedia)" class="slideshow-caption">{{ getCaption(selected, slideshowMedia) }}</p>
+
+                <div class="slideshow-bottom">
+                    <div>
+                        <span class="slideshow-wonder-name">{{ getVal(selected, 'name') }}</span>
+                    </div>
+                    <div class="slideshow-controls">
+                        <button class="slideshow-btn" @click.stop="slideshowStep(-1)"><i class="fa-solid fa-chevron-left"></i></button>
+                        <button class="slideshow-btn" @click.stop="slideshowPaused = !slideshowPaused">
+                            <i :class="slideshowPaused ? 'fa-solid fa-play' : 'fa-solid fa-pause'"></i>
+                        </button>
+                        <button class="slideshow-btn" @click.stop="slideshowStep(1)"><i class="fa-solid fa-chevron-right"></i></button>
+                        <span class="slideshow-counter">{{ slideshowIndex + 1 }} / {{ slideshowAllMedia.length }}</span>
+                        <button class="slideshow-btn" @click.stop="stopSlideshow" title="Exit slideshow"><i class="fa-solid fa-xmark"></i></button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Back to top -->
+    <button v-if="!selected" :class="['back-to-top', showBackToTop ? 'visible' : '']" @click="scrollToTop" title="Back to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
+
+</div>
+
+<script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
+const { createApp } = Vue;
+createApp({
+    data() {
+        return {
+            wonders: [], search: '', lang: (() => { const u = new URLSearchParams(window.location.search).get('lang'); if (u === 'pt' || u === 'es' || u === 'en') return u; const l = (navigator.language || 'en').toLowerCase(); if (l.startsWith('pt')) return 'pt'; if (l.startsWith('es')) return 'es'; return 'en'; })(), selected: null, volume: 0.5, isMuted: false, fadeInterval: null, selectedRegion: '', mobileNavOpen: false,
+            expandedMedia: null, showFullMap: false, showCountriesList: false, showTimeline: false, showCitiesList: false,
+            showAboutMe: false, showTrips: false, showTripsTimeline: false, showMusicList: false, showNextWonders: false,
+            musicSort: 'wonder', nextWondersSort: 'wonder', _returnToMusic: false,
+            visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
+            beenThereConfirm: false, showBackToTop: false,
+            slideshowActive: false, slideshowIndex: 0, slideshowProgress: 0,
+            slideshowPaused: false, _slideshowRaf: null, _slideshowStart: null, _slideshowElapsed: 0,
+            selectedCityCountry: null, shareStatus: null,
+            trips: [], selectedTrip: null, openYearGroups: new Set(),
+            mediaBase: 'https://media.ricardoduek.com/',
+            unescoFilter: false, markers: [], regionLabels: [], visibleCount: 40, visitedCities: {},
+            regions: ["Europe", "Asia", "Africa", "Americas", "Oceania"],
+            regionCoords: {
+                "Europe": { center: [50, 15], zoom: 4 },
+                "Asia": { center: [18, 85], zoom: 3 },
+                "Africa": { center: [0, 20], zoom: 3 },
+                "Americas": { center: [5, -88], zoom: 2 },
+                "Oceania": { center: [-32, 160], zoom: 4 },
+                "Default": { center: [20, 10], zoom: 2 }
+            },
+            visitedCountries: [
+                {"name": "Albania", "code": "al"}, {"name": "Andorra", "code": "ad"}, {"name": "Antigua And Barbuda", "code": "ag"}, {"name": "Argentina", "code": "ar"}, {"name": "Aruba", "code": "aw"}, {"name": "Australia", "code": "au"}, {"name": "Austria", "code": "at"}, {"name": "Barbados", "code": "bb"}, {"name": "Belarus", "code": "by"}, {"name": "Belgium", "code": "be"}, {"name": "Belize", "code": "bz"}, {"name": "Bosnia And Herzegovina", "code": "ba"}, {"name": "Brazil", "code": "br"}, {"name": "Bulgaria", "code": "bg"}, {"name": "Cambodia", "code": "kh"}, {"name": "Chile", "code": "cl"}, {"name": "China", "code": "cn"}, {"name": "Colombia", "code": "co"}, {"name": "Costa Rica", "code": "cr"}, {"name": "Croatia", "code": "hr"}, {"name": "Cuba", "code": "cu"}, {"name": "Curaçao", "code": "cw"}, {"name": "Czech Republic", "code": "cz"}, {"name": "Denmark", "code": "dk"}, {"name": "Dominican Republic", "code": "do"}, {"name": "Ecuador", "code": "ec"}, {"name": "Egypt", "code": "eg"}, {"name": "El Salvador", "code": "sv"}, {"name": "England", "code": "gb-eng"}, {"name": "Eswatini", "code": "sz"}, {"name": "Estonia", "code": "ee"}, {"name": "Finland", "code": "fi"}, {"name": "France", "code": "fr"}, {"name": "Germany", "code": "de"}, {"name": "Gibraltar", "code": "gi"}, {"name": "Greece", "code": "gr"}, {"name": "Guadeloupe", "code": "gp"}, {"name": "Guatemala", "code": "gt"}, {"name": "Honduras", "code": "hn"}, {"name": "Hong Kong", "code": "hk"}, {"name": "Hungary", "code": "hu"}, {"name": "Iceland", "code": "is"}, {"name": "India", "code": "in"}, {"name": "Indonesia", "code": "id"}, {"name": "Ireland", "code": "ie"}, {"name": "Israel", "code": "il"}, {"name": "Italy", "code": "it"}, {"name": "Jordan", "code": "jo"}, {"name": "Kenya", "code": "ke"}, {"name": "Latvia", "code": "lv"}, {"name": "Liechtenstein", "code": "li"}, {"name": "Lithuania", "code": "lt"}, {"name": "Luxembourg", "code": "lu"}, {"name": "Macau", "code": "mo"}, {"name": "Malaysia", "code": "my"}, {"name": "Malta", "code": "mt"}, {"name": "Martinique", "code": "mq"}, {"name": "Mexico", "code": "mx"}, {"name": "Monaco", "code": "mc"}, {"name": "Montenegro", "code": "me"}, {"name": "Morocco", "code": "ma"}, {"name": "Netherlands", "code": "nl"}, {"name": "New Zealand", "code": "nz"}, {"name": "Nicaragua", "code": "ni"}, {"name": "Northern Ireland", "code": "gb-nir"}, {"name": "North Macedonia", "code": "mk"}, {"name": "Norway", "code": "no"}, {"name": "Palestine", "code": "ps"}, {"name": "Panama", "code": "pa"}, {"name": "Paraguay", "code": "py"}, {"name": "Peru", "code": "pe"}, {"name": "Poland", "code": "pl"}, {"name": "Portugal", "code": "pt"}, {"name": "Puerto Rico", "code": "pr"}, {"name": "Qatar", "code": "qa"}, {"name": "Romania", "code": "ro"}, {"name": "Russia", "code": "ru"}, {"name": "Saint Kitts And Nevis", "code": "kn"}, {"name": "Scotland", "code": "gb-sct"}, {"name": "Serbia", "code": "rs"}, {"name": "Singapore", "code": "sg"}, {"name": "Sint Maarten", "code": "sx"}, {"name": "Slovakia", "code": "sk"}, {"name": "Slovenia", "code": "si"}, {"name": "South Africa", "code": "za"}, {"name": "Spain", "code": "es"}, {"name": "Sweden", "code": "se"}, {"name": "Switzerland", "code": "ch"}, {"name": "Tanzania", "code": "tz"}, {"name": "Thailand", "code": "th"}, {"name": "Trinidad And Tobago", "code": "tt"}, {"name": "Turkey", "code": "tr"}, {"name": "United Arab Emirates", "code": "ae"}, {"name": "United States", "code": "us"}, {"name": "Uruguay", "code": "uy"}, {"name": "Vatican City", "code": "va"}, {"name": "Venezuela", "code": "ve"}, {"name": "Vietnam", "code": "vn"}, {"name": "Wales", "code": "gb-wls"}, {"name": "Zambia", "code": "zm"}, {"name": "Zimbabwe", "code": "zw"}
+            ],
+            content: {
+                en: {
+                    title: "My Wonders of the World", subtitle: "A collection of extraordinary places worth visiting across all five continents,\nphotographed, filmed, described, set to music, and enjoyed in person.",
+                    exploreByRegion: "Explore by Region", searchCaption: "Search wonders, countries, cities...", searchPlaceholder: "Search...", close: "Close", next: "Next", prev: "Previous", backToGallery: "Back to Gallery", slideshowBtn: "Slideshow",
+                    copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
+                    shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
+                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToLast: "→ Go to latest wonder",
+                    statsVisitedByYou: "visited by you",
+                    beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
+                    seeTimeline: "See my wonders timeline", timelineTitle: "My Wonders Timeline", timelineUndated: "Date Unknown",
+                    citiesTitle: "Cities & Places Visited", citiesSubtitle: "cities & places across 101 countries", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
+                    seeAboutMe: "About me",
+                    seeMusic: "See the music list",
+                    musicTitle: "The Music List", musicCount: "songs",
+                    musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
+                    musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
+                    lastUpdate: "Last update",
+                    seeTripsTimeline: "See my trips timeline",
+                    tripsTimelineTitle: "My Trips Timeline",
+                    seeNextWonders: "See my next wonders",
+                    nextWondersTitle: "My Next Wonders", nextWondersCount: "wonders",
+                    nextWondersSortWonder: "By Wonder", nextWondersSortCountry: "By Country",
+                    nextWondersColWonder: "Wonder", nextWondersColCountry: "Country",
+                    tripsDaysLabel: "days",
+                    tripsSingular: "trip", tripsPlural: "trips",
+                    seeTrips: "See my trips map",
+                    tripsTitle: "My Trips Map",
+                    tripsStatTrips: "Trips", tripsStatStops: "Stops", tripsStatDays: "Days Travelled",
+                    tripsShowAll: "Show all trips", tripsUnknownYear: "Unknown Year",
+                    regions: { "Europe": "Europe", "Asia": "Asia", "Africa": "Africa", "Americas": "Americas", "Oceania": "Oceania" },
+                    aboutOrigin: "Born in Mendoza, Argentina · Living in Balneário Camboriú, Brazil",
+                    aboutBorn: "Born in Mendoza, Argentina", aboutLiving: "Living in Balneário Camboriú, Brazil",
+                    aboutStatCountries: "Countries Visited", aboutStatCities: "Cities & Places", aboutStatWonders: "Wonders",
+                    aboutRolesLabel: "What I Do",
+                    aboutRoles: [
+                        "English, Spanish, Portuguese, French & Italian Professor",
+                        "Physics & Mathematics Professor",
+                        "Crypto Trader & Investor",
+                        "Translator & Interpreter",
+                        "Customized Travel Planner & Agent",
+                        "Photography & Video Enthusiast",
+                        "Movies, Series & Music Fanatic",
+                        "Avid Reader & Philosophy Aficionado",
+                        "Science Devotee & Skeptical Thinker",
+                        "Chocolate Addict",
+                        "Multisport Player",
+                        "Lionel Messi's Admirer"
+                    ],
+                    aboutLangsLabel: "Languages",
+                    aboutLangs: [
+                        { name: "Spanish", level: "Native" },
+                        { name: "English", level: "Fluent" },
+                        { name: "Portuguese", level: "Fluent" },
+                        { name: "French", level: "Intermediate" },
+                        { name: "Italian", level: "Intermediate" },
+                        { name: "German", level: "Basic" }
+                    ],
+                    aboutFavsLabel: "Favorites",
+                    aboutFavs: [
+                        { cat: "Movie", val: "Peter Jackson's The Lord of the Rings Trilogy" },
+                        { cat: "Series", val: "Game of Thrones" },
+                        { cat: "Band", val: "Coldplay" },
+                        { cat: "Opera", val: "Verdi's La Traviata" },
+                        { cat: "Book", val: "Tolkien's The Lord of the Rings" },
+                        { cat: "Video Game", val: "Sid Meier's Civilization V" }
+                    ],
+                    aboutMotto: "\"Would you like to make God laugh? Make plans.\"",
+                    aboutMottoAttr: "Life Motto"
+                },
+                pt: {
+                    title: "Minhas Maravilhas do Mundo", subtitle: "Uma coleção de lugares extraordinários que valem a pena visitar em todos os cinco continentes,\nfotografados, filmados, descritos, musicalizados e desfrutados pessoalmente.",
+                    exploreByRegion: "Explorar por Região", searchCaption: "Pesquisar Maravilhas, países, cidades...", searchPlaceholder: "Pesquisar...", close: "Fechar", next: "Próxima", prev: "Anterior", backToGallery: "Voltar para a Galeria", slideshowBtn: "Apresentação",
+                    copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
+                    shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
+                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToLast: "→ Ir para a última maravilha",
+                    statsVisitedByYou: "visitadas por você",
+                    beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
+                    seeTimeline: "Ver linha do tempo das maravilhas", timelineTitle: "Linha do Tempo das Maravilhas", timelineUndated: "Data Desconhecida",
+                    citiesTitle: "Cidades e Lugares Visitados", citiesSubtitle: "cidades e lugares em 101 países", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
+                    seeAboutMe: "Ver meu perfil",
+                    seeMusic: "Ver a lista de músicas",
+                    musicTitle: "A Lista de Músicas", musicCount: "músicas",
+                    musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
+                    musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
+                    lastUpdate: "Última atualização",                    seeTripsTimeline: "Ver linha do tempo das viagens",
+                    tripsTimelineTitle: "Linha do Tempo das Viagens",
+                    seeNextWonders: "Ver minhas próximas maravilhas",
+                    nextWondersTitle: "Minhas Próximas Maravilhas", nextWondersCount: "maravilhas",
+                    nextWondersSortWonder: "Por Maravilha", nextWondersSortCountry: "Por País",
+                    nextWondersColWonder: "Maravilha", nextWondersColCountry: "País",
+                    tripsDaysLabel: "dias",
+                    tripsSingular: "viagem", tripsPlural: "viagens",                    seeTrips: "Ver meu mapa de viagens",
+                    tripsTitle: "Meu Mapa de Viagens",
+                    tripsStatTrips: "Viagens", tripsStatStops: "Paradas", tripsStatDays: "Dias Viajados",
+                    tripsShowAll: "Ver todas as viagens", tripsUnknownYear: "Ano Desconhecido",                    regions: { "Europe": "Europa", "Asia": "Ásia", "Africa": "África", "Americas": "Américas", "Oceania": "Oceania" },
+                    aboutOrigin: "Nascido em Mendoza, Argentina · Morando em Balneário Camboriú, Brasil",
+                    aboutBorn: "Nascido em Mendoza, Argentina", aboutLiving: "Morando em Balneário Camboriú, Brasil",
+                    aboutStatCountries: "Países Visitados", aboutStatCities: "Cidades e Lugares", aboutStatWonders: "Maravilhas",
+                    aboutRolesLabel: "O Que Faço",
+                    aboutRoles: [
+                        "Professor de Inglês, Espanhol, Português, Francês e Italiano",
+                        "Professor de Física e Matemática",
+                        "Trader e Investidor em Crypto",
+                        "Tradutor e Intérprete",
+                        "Planejador e Agente de Viagens Personalizado",
+                        "Entusiasta de Fotografia e Vídeo",
+                        "Fanático por Filmes, Séries e Música",
+                        "Leitor Ávido e Aficionado por Filosofia",
+                        "Devoto da Ciência e Pensador Cético",
+                        "Viciado em Chocolate",
+                        "Multidesportista",
+                        "Admirador de Lionel Messi"
+                    ],
+                    aboutLangsLabel: "Idiomas",
+                    aboutLangs: [
+                        { name: "Espanhol", level: "Nativo" },
+                        { name: "Inglês", level: "Fluente" },
+                        { name: "Português", level: "Fluente" },
+                        { name: "Francês", level: "Intermediário" },
+                        { name: "Italiano", level: "Intermediário" },
+                        { name: "Alemão", level: "Básico" }
+                    ],
+                    aboutFavsLabel: "Favoritos",
+                    aboutFavs: [
+                        { cat: "Filme", val: "O Senhor dos Anéis de Peter Jackson" },
+                        { cat: "Série", val: "Game of Thrones" },
+                        { cat: "Banda", val: "Coldplay" },
+                        { cat: "Ópera", val: "La Traviata de Verdi" },
+                        { cat: "Livro", val: "O Senhor dos Anéis de Tolkien" },
+                        { cat: "Videogame", val: "Civilization V de Sid Meier" }
+                    ],
+                    aboutMotto: "\"Você gostaria de fazer Deus rir? Faça planos.\"",
+                    aboutMottoAttr: "Lema de Vida"
+                },
+                es: {
+                    title: "Mis Maravillas del Mundo", subtitle: "Una colección de lugares extraordinarios que vale la pena visitar en los cinco continentes,\nfotografiados, filmados, descritos, musicalizados y disfrutados en persona.",
+                    exploreByRegion: "Explorar por Región", searchCaption: "Buscar Maravillas, países, ciudades...", searchPlaceholder: "Buscar...", close: "Cerrar", next: "Siguiente", prev: "Anterior", backToGallery: "Volver a la Galería", slideshowBtn: "Presentación",
+                    copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
+                    shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
+                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToLast: "→ Ir a la última maravilla",
+                    statsVisitedByYou: "visitadas por ti",
+                    beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
+                    seeTimeline: "Ver línea de tiempo de maravillas", timelineTitle: "Línea de Tiempo de Maravillas", timelineUndated: "Fecha Desconocida",
+                    citiesTitle: "Ciudades y Lugares Visitados", citiesSubtitle: "ciudades y lugares en 101 países", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
+                    seeAboutMe: "Ver mi perfil",
+                    seeMusic: "Ver la lista de música",
+                    musicTitle: "La Lista de Música", musicCount: "canciones",
+                    musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
+                    musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
+                    lastUpdate: "Última actualización",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
+                    tripsTimelineTitle: "Línea de Tiempo de Viajes",
+                    seeNextWonders: "Ver mis próximas maravillas",
+                    nextWondersTitle: "Mis Próximas Maravillas", nextWondersCount: "maravillas",
+                    nextWondersSortWonder: "Por Maravilla", nextWondersSortCountry: "Por País",
+                    nextWondersColWonder: "Maravilla", nextWondersColCountry: "País",
+                    tripsDaysLabel: "días",
+                    tripsSingular: "viaje", tripsPlural: "viajes",                    seeTrips: "Ver mi mapa de viajes",
+                    tripsTitle: "Mi Mapa de Viajes",
+                    tripsStatTrips: "Viajes", tripsStatStops: "Paradas", tripsStatDays: "Días Viajados",
+                    tripsShowAll: "Ver todos los viajes", tripsUnknownYear: "Año Desconocido",                    regions: { "Europe": "Europa", "Asia": "Asia", "Africa": "África", "Americas": "Américas", "Oceania": "Oceanía" },
+                    aboutOrigin: "Nacido en Mendoza, Argentina · Viviendo en Balneário Camboriú, Brasil",
+                    aboutBorn: "Nacido en Mendoza, Argentina", aboutLiving: "Viviendo en Balneário Camboriú, Brasil",
+                    aboutStatCountries: "Países Visitados", aboutStatCities: "Ciudades y Lugares", aboutStatWonders: "Maravillas",
+                    aboutRolesLabel: "Lo Que Hago",
+                    aboutRoles: [
+                        "Profesor de Inglés, Español, Portugués, Francés e Italiano",
+                        "Profesor de Física y Matemáticas",
+                        "Trader e Inversor en Cripto",
+                        "Traductor e Intérprete",
+                        "Planificador y Agente de Viajes Personalizado",
+                        "Entusiasta de Fotografía y Video",
+                        "Fanático de Películas, Series y Música",
+                        "Lector Ávido y Aficionado a la Filosofía",
+                        "Devoto de la Ciencia y Pensador Escéptico",
+                        "Adicto al Chocolate",
+                        "Multideportista",
+                        "Admirador de Lionel Messi"
+                    ],
+                    aboutLangsLabel: "Idiomas",
+                    aboutLangs: [
+                        { name: "Español", level: "Nativo" },
+                        { name: "Inglés", level: "Fluido" },
+                        { name: "Portugués", level: "Fluido" },
+                        { name: "Francés", level: "Intermedio" },
+                        { name: "Italiano", level: "Intermedio" },
+                        { name: "Alemán", level: "Básico" }
+                    ],
+                    aboutFavsLabel: "Favoritos",
+                    aboutFavs: [
+                        { cat: "Película", val: "El Señor de los Anillos de Peter Jackson" },
+                        { cat: "Serie", val: "Game of Thrones" },
+                        { cat: "Banda", val: "Coldplay" },
+                        { cat: "Ópera", val: "La Traviata de Verdi" },
+                        { cat: "Libro", val: "El Señor de los Anillos de Tolkien" },
+                        { cat: "Videojuego", val: "Civilization V de Sid Meier" }
+                    ],
+                    aboutMotto: "\"¿Querés hacer reír a Dios? Hacé planes.\"",
+                    aboutMottoAttr: "Lema de Vida"
+                }
+            }
+        }
+    },
+    computed: {
+        totalTripStops() {
+            return this.trips.reduce((sum, t) => sum + t.stops.length, 0);
+        },
+        tripsYearRange() {
+            const years = this.trips.map(t => t.year).filter(Boolean);
+            if (!years.length) return '—';
+            return `${Math.min(...years)}–${Math.max(...years)}`;
+        },
+        tripsByYearGrouped() {
+            const groups = {};
+            this.trips.forEach(t => {
+                const key = t.year ? String(t.year) : '__unknown__';
+                if (!groups[key]) groups[key] = [];
+                groups[key].push(t);
+            });
+            const sortedKeys = Object.keys(groups)
+                .filter(k => k !== '__unknown__')
+                .sort((a, b) => parseInt(b) - parseInt(a));
+            if (groups['__unknown__']) sortedKeys.push('__unknown__');
+            return sortedKeys.map(key => ({
+                year: key,
+                label: key === '__unknown__' ? (this.content[this.lang].tripsUnknownYear || '?') : key,
+                trips: groups[key]
+            }));
+        },
+        filteredWonders() {
+            const s = this.search.toLowerCase();
+            return this.wonders.filter(w => {
+                const matchesSearch = !s ||
+                    this.getVal(w, 'name').toLowerCase().includes(s) ||
+                    this.getLoc(w).toLowerCase().includes(s) ||
+                    this.getVal(w, 'desc').toLowerCase().includes(s) ||
+                    (w[`country_${this.lang}`] || w.country_en || '').toLowerCase().includes(s);
+                const matchesRegion = this.selectedRegion === '' || w.region === this.selectedRegion;
+                const matchesUnesco = !this.unescoFilter || w.is_unesco === 'yes';
+                return matchesSearch && matchesRegion && matchesUnesco;
+            });
+        },
+        visibleWonders() {
+            return this.filteredWonders.slice(0, this.visibleCount);
+        },
+        isMobile() { return window.innerWidth <= 768; },
+        visitedCitiesCount() {
+            return Object.values(this.visitedCities).reduce((sum, cities) => sum + cities.length, 0);
+        },
+        totalPhotos() {
+            return this.wonders.reduce((sum, w) => sum + (w.images ? w.images.length : 0), 0);
+        },
+        countriesWithWonders() {
+            const seen = new Set();
+            this.wonders.forEach(w => {
+                this.splitCountries(w.country_en).forEach(c => seen.add(this.resolveAlias(c)));
+            });
+            return seen.size;
+        },
+        timelineByYear() {
+            const MONTH_ORDER = ['January','February','March','April','May','June','July','August','September','October','November','December'];
+            const extractAllYears = (str) => {
+                if (!str) return null;
+                const matches = str.match(/\d{4}/g);
+                if (!matches) return null;
+                return [...new Set(matches.map(Number))];
+            };
+            const extractFirstMonth = (str) => {
+                if (!str) return 99;
+                for (let i = 0; i < MONTH_ORDER.length; i++) {
+                    if (str.includes(MONTH_ORDER[i])) return i;
+                }
+                return 99;
+            };
+            const groups = {};
+            this.wonders.forEach(w => {
+                const years = extractAllYears(w.visited_en);
+                if (!years) {
+                    if (!groups['__undated__']) groups['__undated__'] = [];
+                    groups['__undated__'].push(w);
+                } else {
+                    years.forEach(year => {
+                        const key = String(year);
+                        if (!groups[key]) groups[key] = [];
+                        groups[key].push(w);
+                    });
+                }
+            });
+            Object.keys(groups).forEach(year => {
+                groups[year].sort((a, b) => extractFirstMonth(a.visited_en) - extractFirstMonth(b.visited_en));
+            });
+            const sortedYears = Object.keys(groups)
+                .filter(y => y !== '__undated__')
+                .sort((a, b) => parseInt(b) - parseInt(a));
+            if (groups['__undated__']) sortedYears.push('__undated__');
+            return sortedYears.map(year => ({
+                year,
+                label: year === '__undated__' ? this.content[this.lang].timelineUndated : year,
+                wonders: groups[year]
+            }));
+        },
+        wondersPerCountry() {
+            const map = {};
+            this.wonders.forEach(w => {
+                this.splitCountries(w.country_en).forEach(c => {
+                    const resolved = this.resolveAlias(c);
+                    map[resolved] = (map[resolved] || 0) + 1;
+                });
+            });
+            return map;
+        },
+        countryCodeMap() {
+            const map = {};
+            this.visitedCountries.forEach(c => { map[c.name] = c.code; });
+            return map;
+        },
+        nextWonders() {
+            // Inline data from next_wonders.csv
+            // "Check Republic" corrected to "Czech Republic"
+            // "Trinidad & Tobago" kept as single country
+            // "Zambia & Zimbabwe" split as two countries
+            const raw = [
+                {wonder:"Ischigualasto",country:"Argentina"},
+                {wonder:"Bariloche & Nahuel Huapí",country:"Argentina"},
+                {wonder:"Whale Watching in the Valdés Peninsula",country:"Argentina"},
+                {wonder:"Las Leñas",country:"Argentina"},
+                {wonder:"Ghent",country:"Belgium"},
+                {wonder:"Antwerp",country:"Belgium"},
+                {wonder:"Barrier Reef Reserve",country:"Belize"},
+                {wonder:"Historic Center of Salvador",country:"Brazil"},
+                {wonder:"Ouro Preto",country:"Brazil"},
+                {wonder:"Saint Alexander Nevsky Cathedral, Sofia",country:"Bulgaria"},
+                {wonder:"Silver Pagoda, Phnom Penh",country:"Cambodia"},
+                {wonder:"Kutna Hora",country:"Czech Republic"},
+                {wonder:"Portillo",country:"Chile"},
+                {wonder:"Shanghai Museum",country:"China"},
+                {wonder:"West Lake, Hangzhou",country:"China"},
+                {wonder:"Mount Huangshan, Anhui",country:"China"},
+                {wonder:"Tiananmen Square, Beijing",country:"China"},
+                {wonder:"Cartagena Old Town",country:"Colombia"},
+                {wonder:"Comuna 13, Medellín",country:"Colombia"},
+                {wonder:"Arenal Volcano National Park",country:"Costa Rica"},
+                {wonder:"Manuel Antonio National Park",country:"Costa Rica"},
+                {wonder:"Trogir Old Town",country:"Croatia"},
+                {wonder:"Nyhavn",country:"Denmark"},
+                {wonder:"Egeskov Castle",country:"Denmark"},
+                {wonder:"Galapagos Islands",country:"Ecuador"},
+                {wonder:"Ciudad Mitad del Mundo, Quito",country:"Ecuador"},
+                {wonder:"National Gallery, London",country:"England"},
+                {wonder:"Buckingham Palace & Guards",country:"England"},
+                {wonder:"Tate Britain/Modern",country:"England"},
+                {wonder:"Musée d'Orsay, Paris",country:"France"},
+                {wonder:"Old Strasbourg",country:"France"},
+                {wonder:"Annecy",country:"France"},
+                {wonder:"Chamonix",country:"France"},
+                {wonder:"Sainte-Chapelle, Paris",country:"France"},
+                {wonder:"Black Forest",country:"Germany"},
+                {wonder:"Aachen Cathedral",country:"Germany"},
+                {wonder:"Sanssouci Palace, Potsdam",country:"Germany"},
+                {wonder:"Antigua",country:"Guatemala"},
+                {wonder:"Flores",country:"Guatemala"},
+                {wonder:"Lake Atitlán",country:"Guatemala"},
+                {wonder:"Tikal",country:"Guatemala"},
+                {wonder:"Copan Mayan Ruins",country:"Honduras"},
+                {wonder:"Gullfoss Waterfalls",country:"Iceland"},
+                {wonder:"Geysir Geothermal Field",country:"Iceland"},
+                {wonder:"Þingvellir National Park",country:"Iceland"},
+                {wonder:"Fatehpur Sikri, Uttar Pradesh",country:"India"},
+                {wonder:"Jantar Mantar, Jaipur",country:"India"},
+                {wonder:"Konark Sun Temple",country:"India"},
+                {wonder:"Humayun's Tomb",country:"India"},
+                {wonder:"Lake Palace, Udaipur",country:"India"},
+                {wonder:"Cliffs of Moher",country:"Ireland"},
+                {wonder:"Trinity College Library",country:"Ireland"},
+                {wonder:"Roman Forum, Rome",country:"Italy"},
+                {wonder:"Basilica of Saint Anthony of Padua",country:"Italy"},
+                {wonder:"Trulli District",country:"Italy"},
+                {wonder:"Vaduz",country:"Liechtenstein"},
+                {wonder:"Valletta",country:"Malta"},
+                {wonder:"Mdina",country:"Malta"},
+                {wonder:"Victoria in Gozo",country:"Malta"},
+                {wonder:"Hassan II Mosque",country:"Morocco"},
+                {wonder:"Fez",country:"Morocco"},
+                {wonder:"Meknes",country:"Morocco"},
+                {wonder:"Tangier Medina",country:"Morocco"},
+                {wonder:"Tetouan Medina",country:"Morocco"},
+                {wonder:"Chefchaouen",country:"Morocco"},
+                {wonder:"Giant's Causeway",country:"Northern Ireland"},
+                {wonder:"Fjords of Norway",country:"Norway"},
+                {wonder:"Bergen Old Town & Wharves",country:"Norway"},
+                {wonder:"Akershus Fortress",country:"Norway"},
+                {wonder:"Gdańsk Old Town",country:"Poland"},
+                {wonder:"Lublin Old Town",country:"Poland"},
+                {wonder:"Malbork Castle",country:"Poland"},
+                {wonder:"Warsaw Market Square",country:"Poland"},
+                {wonder:"Wawel Castle & Cathedral",country:"Poland"},
+                {wonder:"Transylvanian Cities",country:"Romania"},
+                {wonder:"Drakensberg Mountains",country:"South Africa"},
+                {wonder:"Park Güell",country:"Spain"},
+                {wonder:"Canary Islands",country:"Spain"},
+                {wonder:"Cuenca Old Town",country:"Spain"},
+                {wonder:"Costa del Sol",country:"Spain"},
+                {wonder:"Ibiza",country:"Spain"},
+                {wonder:"Plaza Mayor of Madrid",country:"Spain"},
+                {wonder:"Pamplona",country:"Spain"},
+                {wonder:"Ronda",country:"Spain"},
+                {wonder:"Royal Palace, Madrid",country:"Spain"},
+                {wonder:"Salamanca Old City",country:"Spain"},
+                {wonder:"Santiago de Compostela",country:"Spain"},
+                {wonder:"Stockholm Old Town",country:"Sweden"},
+                {wonder:"Skansen Historical Village",country:"Sweden"},
+                {wonder:"Gstaad",country:"Switzerland"},
+                {wonder:"Ngorongoro Crater",country:"Tanzania"},
+                {wonder:"Mt. Kilimanjaro",country:"Tanzania"},
+                {wonder:"Zanzibar Stone Town",country:"Tanzania"},
+                {wonder:"Arusha National Park",country:"Tanzania"},
+                {wonder:"Tarangire National Park",country:"Tanzania"},
+                {wonder:"Trinidad Carnival, Port of Spain",country:"Trinidad & Tobago"},
+                {wonder:"Grand Bazaar, Istanbul",country:"Turkey"},
+                {wonder:"Kennedy Space Center, Florida",country:"United States"},
+                {wonder:"Victoria Falls",country:"Zambia & Zimbabwe"},
+            ];
+            // Resolve country parts for flag display
+            return raw.map(e => {
+                // Special single-country with & in name
+                const SINGLE = ['Trinidad & Tobago'];
+                const parts = SINGLE.includes(e.country)
+                    ? [e.country]
+                    : e.country.split(' & ').map(c => c.trim());
+                return { ...e, countryParts: parts };
+            });
+        },
+        sortedNextWonders() {
+            const list = [...this.nextWonders];
+            if (this.nextWondersSort === 'country') {
+                list.sort((a, b) => a.country.localeCompare(b.country) || a.wonder.localeCompare(b.wonder));
+            } else {
+                list.sort((a, b) => a.wonder.localeCompare(b.wonder));
+            }
+            return list;
+        },
+        musicEntries() {
+            const entries = [];
+            this.wonders.forEach(w => {
+                if (!w.song_name) return;
+                const raw = w.song_name.trim();
+                const sep = raw.indexOf('—');
+                if (sep === -1) return;
+                const title  = raw.slice(0, sep).trim();
+                const author = raw.slice(sep + 1).trim();
+                if (!title || !author) return;
+                entries.push({ id: w.id, wonder: w, title, author });
+            });
+            return entries;
+        },
+        sortedMusicEntries() {
+            const list = [...this.musicEntries];
+            if (this.musicSort === 'wonder') {
+                list.sort((a, b) => parseInt(a.id) - parseInt(b.id));
+            } else if (this.musicSort === 'title') {
+                list.sort((a, b) => a.title.localeCompare(b.title));
+            } else if (this.musicSort === 'author') {
+                list.sort((a, b) => a.author.localeCompare(b.author));
+            }
+            return list;
+        },
+        slideshowAllMedia() {
+            if (!this.selected) return [];
+            const imgs  = this.selected.images       || [];
+            const vids  = this.selected.videos       || [];
+            const vidsA = this.selected.videos_audio || [];
+            return [
+                ...(imgs.length ? [imgs[0]] : []),
+                ...vids, ...vidsA,
+                ...imgs.slice(1)
+            ];
+        },
+        slideshowMedia() {
+            if (!this.slideshowAllMedia.length) return null;
+            return this.slideshowAllMedia[this.slideshowIndex] || null;
+        }
+    },
+    async mounted() {
+        const res = await fetch('master_wonders.json');
+        this.wonders = await res.json();
+        try {
+            const cityRes = await fetch('visited_cities.json');
+            this.visitedCities = await cityRes.json();
+        } catch(e) {}
+        this.initMap();
+        const urlParams = new URLSearchParams(window.location.search);
+        const sharedId = urlParams.get('id');
+        if (sharedId) {
+            const wonder = this.wonders.find(w => w.id == sharedId);
+            if (wonder) {
+                const sharedLang = urlParams.get('lang');
+                if (sharedLang && ['en','pt','es'].includes(sharedLang)) this.lang = sharedLang;
+                this.openWonder(wonder);
+                const sharedPhoto = urlParams.get('photo');
+                if (sharedPhoto) {
+                    this.$nextTick(() => {
+                        const allMedia = [
+                            ...(wonder.images || []),
+                            ...(wonder.videos || []),
+                            ...(wonder.videos_audio || [])
+                        ];
+                        if (allMedia.includes(sharedPhoto)) this.expandedMedia = sharedPhoto;
+                    });
+                }
+            }
+        }
+
+        this._observer = new IntersectionObserver(entries => {
+            if (entries[0].isIntersecting && this.visibleCount < this.filteredWonders.length) {
+                this.visibleCount += 20;
+            }
+        }, { rootMargin: '200px' });
+        this.$nextTick(() => { if (this.$refs.sentinel) this._observer.observe(this.$refs.sentinel); });
+
+        this._onKey = (e) => {
+            if (e.key === 'Escape') {
+                if      (this.mobileNavOpen)        this.mobileNavOpen = false;
+                else if (this.slideshowActive)     this.stopSlideshow();
+                else if (this.expandedMedia)       this.expandedMedia = null;
+                else if (this.selectedCityCountry) this.selectedCityCountry = null;
+                else if (this.showCitiesList)      this.showCitiesList = false;
+                else if (this.showAboutMe)         this.showAboutMe = false;
+                else if (this.showMusicList)       this.showMusicList = false;
+                else if (this.showNextWonders)     this.showNextWonders = false;
+                else if (this.showTrips)           this.closeTripsModal();
+                else if (this.showTripsTimeline)   this.showTripsTimeline = false;
+                else if (this.showFullMap)         this.showFullMap = false;
+                else if (this.showCountriesList)   this.showCountriesList = false;
+                else if (this.showTimeline)        this.showTimeline = false;
+                else if (this.selected)            this.closeWonder();
+            } else if (this.selected && !this.expandedMedia) {
+                if      (e.key === 'ArrowRight')  this.navWonder(1);
+                else if (e.key === 'ArrowLeft')   this.navWonder(-1);
+            }
+        };
+        window.addEventListener('keydown', this._onKey);
+        this._onScroll = () => { this.showBackToTop = window.scrollY > 500; };
+        window.addEventListener('scroll', this._onScroll, { passive: true });
+    },
+    unmounted() {
+        if (this._observer) this._observer.disconnect();
+        if (this._onKey) window.removeEventListener('keydown', this._onKey);
+        if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+        if (this._slideshowRaf) cancelAnimationFrame(this._slideshowRaf);
+    },
+    methods: {
+        // ── Trips Map ─────────────────────────────────────────────
+        async openTripsModal(preselect = null) {
+            this.showTrips = true;
+            this._returnToTimeline = !!preselect;
+            if (!this.trips.length) {
+                try {
+                    const res = await fetch('trips.json');
+                    this.trips = await res.json();
+                } catch(e) { console.warn('trips.json not found'); return; }
+            }
+            if (this.openYearGroups.size === 0 && this.tripsByYearGrouped.length) {
+                this.openYearGroups = new Set([this.tripsByYearGrouped[0].year]);
+            }
+            this.$nextTick(() => {
+                // Double-rAF ensures the modal has fully painted and has real
+                // dimensions before Leaflet measures the container.
+                // Without this, Leaflet initializes against a zero-height element
+                // on tablet/mobile and loads no tiles.
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        this.initTripsMap();
+                        if (preselect) {
+                            const trip = this.trips.find(t => t.id === preselect.id);
+                            if (trip) this.$nextTick(() => this.selectTrip(trip));
+                        }
+                    });
+                });
+            });
+        },
+        closeTripsModal() {
+            this.showTrips = false;
+            if (this.tripsMap) {
+                this.tripsMap.remove();
+                this.tripsMap = null;
+                this.tripsPolylines = [];
+            }
+            if (this._returnToTimeline) {
+                this._returnToTimeline = false;
+                this.showTripsTimeline = true;
+            }
+        },
+        getTripName(trip) {
+            const name = trip[`name_${this.lang}`] || trip.name_en || '';
+            return name.replace(/\s+\d{4}$/, '').trim();
+        },
+        scrollToTripsYear(year) {
+            const el = document.getElementById('trips-tl-year-' + year);
+            if (!el) return;
+            const box = el.closest('.trips-tl-box');
+            if (box) box.scrollTo({ top: el.offsetTop - 20, behavior: 'smooth' });
+        },
+        async openTripsTimeline() {
+            if (!this.trips.length) {
+                try {
+                    const res = await fetch('trips.json');
+                    this.trips = await res.json();
+                } catch(e) { console.warn('trips.json not found'); return; }
+            }
+            this.showTripsTimeline = true;
+        },
+        openTripFromTimeline(trip) {
+            this.showTripsTimeline = false;
+            this.$nextTick(() => this.openTripsModal(trip));
+        },
+        toggleYearGroup(year) {
+            const s = new Set(this.openYearGroups);
+            if (s.has(year)) s.delete(year); else s.add(year);
+            this.openYearGroups = s;
+        },
+        selectTrip(trip) {
+            this.selectedTrip = trip;
+            this.renderTripsMap();
+            if (trip) {
+                const key = trip.year ? String(trip.year) : '__unknown__';
+                const s = new Set(this.openYearGroups);
+                s.add(key);
+                this.openYearGroups = s;
+                if (this.tripsMap && trip.stops.length) {
+                    const lats = trip.stops.map(s => s.lat);
+                    const lngs = trip.stops.map(s => s.lng);
+                    const bounds = [[Math.min(...lats), Math.min(...lngs)], [Math.max(...lats), Math.max(...lngs)]];
+                    this.tripsMap.fitBounds(bounds, { padding: [40, 40], maxZoom: 8 });
+                }
+                this.$nextTick(() => {
+                    const el = document.querySelector('.trips-stop-list');
+                    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                });
+            } else {
+                if (this.tripsMap) this.tripsMap.setView([20, 10], 2);
+            }
+        },
+        initTripsMap() {
+            if (this.tripsMap) {
+                this.tripsMap.invalidateSize();
+                this.renderTripsMap();
+                return;
+            }
+            this.tripsMap = L.map('trips-map', { zoomControl: true, minZoom: 2 }).setView([20, 10], 2);
+            L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+                attribution: '© Stadia Maps © OpenMapTiles © OpenStreetMap'
+            }).addTo(this.tripsMap);
+            this.tripsPolylines = [];
+            // Force Leaflet to recalculate container size after tile layer is added
+            this.tripsMap.invalidateSize();
+            this.renderTripsMap();
+        },
+        renderTripsMap() {
+            if (!this.tripsMap) return;
+            if (this.tripsPolylines) this.tripsPolylines.forEach(l => this.tripsMap.removeLayer(l));
+            this.tripsPolylines = [];
+            const isAll = !this.selectedTrip;
+            this.trips.forEach(trip => {
+                if (!trip.stops || trip.stops.length < 2) return;
+                const latlngs = trip.stops.map(s => [s.lat, s.lng]);
+                const isActive = this.selectedTrip && this.selectedTrip.id === trip.id;
+                const weight  = isAll ? 2 : (isActive ? 4 : 1.5);
+                const opacity = isAll ? 0.75 : (isActive ? 1 : 0.2);
+                const poly = L.polyline(latlngs, { color: trip.color, weight, opacity, smoothFactor: 1.5 }).addTo(this.tripsMap);
+                poly.on('click', () => this.selectTrip(trip));
+                poly.on('mouseover', () => { if (!isActive) poly.setStyle({ weight: weight + 1.5, opacity: 1 }); });
+                poly.on('mouseout',  () => { if (!isActive) poly.setStyle({ weight, opacity }); });
+                if (isActive) {
+                    trip.stops.forEach((stop, idx) => {
+                        const marker = L.circleMarker([stop.lat, stop.lng], {
+                            radius: 4, fillColor: trip.color, color: '#fff', weight: 1, fillOpacity: 1
+                        }).addTo(this.tripsMap);
+                        marker.bindTooltip(
+                            `<strong>${idx + 1}. ${stop.name}</strong>`,
+                            { direction: 'top', offset: [0, -6], opacity: 1 }
+                        );
+                        this.tripsPolylines.push(marker);
+                    });
+                }
+                this.tripsPolylines.push(poly);
+            });
+        },
+        // ── Cities & Places ───────────────────────────────────────
+        getCityCount(countryName) {
+            const key = Object.keys(this.visitedCities).find(k =>
+                k.toLowerCase() === countryName.toLowerCase()
+            );
+            return key ? this.visitedCities[key].length : 0;
+        },
+        getCities(countryName) {
+            const key = Object.keys(this.visitedCities).find(k =>
+                k.toLowerCase() === countryName.toLowerCase()
+            );
+            return key ? this.visitedCities[key] : [];
+        },
+        openCityDetail(country) {
+            this.selectedCityCountry = country;
+        },
+        getCaption(wonder, filename) {
+            if (!wonder || !filename || !wonder.captions) return '';
+            const entry = wonder.captions[filename];
+            if (!entry) return '';
+            return entry[this.lang] || entry.en || '';
+        },
+        initMap() {
+            if(this.map) {
+                this.markers.forEach(m => this.map.removeLayer(m));
+                this.markers = [];
+                if (this.regionLabels) this.regionLabels.forEach(l => this.map.removeLayer(l));
+                this.regionLabels = [];
+            } else {
+                this.map = L.map('map', { zoomControl: false, minZoom: 2 }).setView([20, 10], 2);
+                L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png').addTo(this.map);
+                this.map.on('zoomend', () => this.updateLabelVisibility());
+                // Mobile fix: layout reflows after Vue renders, so invalidate at multiple points
+                const fixMap = () => { this.map.invalidateSize(); this.map.setView([20, 10], 2); };
+                setTimeout(fixMap, 100);
+                setTimeout(fixMap, 500);
+                setTimeout(fixMap, 1200);
+                // Also fix on any window resize (orientation change, etc.)
+                window.addEventListener('resize', () => { setTimeout(() => { if (this.map) this.map.invalidateSize(); }, 200); }, { passive: true });
+            }
+
+            this.regionLabels = [];
+
+            const labelPositions = {
+                "Europe":   [54, 15],
+                "Asia":     [48, 100],
+                "Africa":   [2, 20],
+                "Americas": [8, -80],
+                "Oceania":  [-25, 150]
+            };
+            Object.keys(this.regionCoords).forEach(reg => {
+                if (reg === "Default") return;
+                const coords = labelPositions[reg] || this.regionCoords[reg].center;
+                const labelText = this.content[this.lang].regions[reg];
+                const label = L.marker(coords, {
+                    icon: L.divIcon({
+                        className: 'continent-label',
+                        html: labelText,
+                        iconSize: [200, 30],
+                        iconAnchor: [100, 15]
+                    }),
+                    interactive: false
+                }).addTo(this.map);
+                label.regionName = reg;
+                this.regionLabels.push(label);
+            });
+
+            this.updateLabelVisibility();
+
+            const groups = {};
+            this.wonders.forEach(w => {
+                if (w.lat && w.lng) {
+                    const isVisible = !this.unescoFilter || w.is_unesco === 'yes';
+                    if (isVisible) {
+                        const key = `${w.lat}_${w.lng}`;
+                        if (!groups[key]) groups[key] = [];
+                        groups[key].push(w);
+                    }
+                }
+            });
+
+            Object.values(groups).forEach(wondersAtLoc => {
+                const first = wondersAtLoc[0];
+                const marker = L.circleMarker([first.lat, first.lng], { radius: 4, fillColor: "#000000", color: "#c5a059", weight: 1, fillOpacity: 1 }).addTo(this.map);
+
+                let tooltipHtml = '<div class="tooltip-card-container">';
+                wondersAtLoc.forEach(w => {
+                    const thumb = w.images && w.images[0] ? `<img class="mini-card-thumb" src="${this.mediaBase}Gallery/${w.images[0]}" loading="lazy" alt="">` : '';
+                    tooltipHtml += `<div class="mini-card">${thumb}<div class="mini-card-body"><span class="card-number">#${this.formatId(w.id)}</span><span class="card-name">${this.getVal(w, 'name')}</span><span class="card-location">${this.getLoc(w)}</span></div></div>`;
+                });
+                tooltipHtml += '</div>';
+
+                const CARD_W = 232, CARD_H = 198;
+                const totalW = CARD_W * wondersAtLoc.length + (wondersAtLoc.length - 1);
+                const getDirAndOffset = () => {
+                    const pt   = this.map.latLngToContainerPoint([first.lat, first.lng]);
+                    const size = this.map.getSize();
+                    const spaceTop    = pt.y;
+                    const spaceBottom = size.y - pt.y;
+                    const spaceLeft   = pt.x;
+                    const spaceRight  = size.x - pt.x;
+                    const halfW = totalW / 2;
+                    const halfH = CARD_H / 2;
+                    if (spaceTop >= CARD_H + 15 && spaceLeft >= halfW && spaceRight >= halfW)
+                        return { dir: 'top', offset: [0, -10] };
+                    if (spaceTop >= CARD_H + 15 && spaceLeft >= totalW)
+                        return { dir: 'top', offset: [-(totalW / 2 - 15), -10] };
+                    if (spaceTop >= CARD_H + 15 && spaceRight >= totalW)
+                        return { dir: 'top', offset: [(totalW / 2 - 15), -10] };
+                    if (spaceBottom >= CARD_H + 15 && spaceLeft >= halfW && spaceRight >= halfW)
+                        return { dir: 'bottom', offset: [0, 10] };
+                    if (spaceRight >= totalW + 15 && spaceBottom >= halfH)
+                        return { dir: 'right', offset: [10, 0] };
+                    if (spaceLeft  >= totalW + 15 && spaceBottom >= halfH)
+                        return { dir: 'left', offset: [-10, 0] };
+                    return spaceTop >= spaceBottom
+                        ? { dir: 'top', offset: [0, -10] }
+                        : { dir: 'bottom', offset: [0, 10] };
+                };
+
+                marker.bindTooltip(tooltipHtml, { direction: 'top', offset: [0, -10], sticky: false, opacity: 1 });
+                marker.on('mouseover', () => {
+                    const { dir, offset } = getDirAndOffset();
+                    marker.unbindTooltip();
+                    marker.bindTooltip(tooltipHtml, { direction: dir, offset: offset, sticky: false, opacity: 1 });
+                    marker.openTooltip();
+                });
+                marker.on('click', () => { this.openWonder(first); });
+                this.markers.push(marker);
+            });
+        },
+        updateLabelVisibility() {
+            const isZoomedOut = this.map.getZoom() <= 2;
+            this.regionLabels.forEach(label => {
+                const el = label.getElement();
+                if (el) {
+                    if (isZoomedOut || this.selectedRegion === label.regionName) {
+                        el.style.opacity = '1';
+                    } else {
+                        el.style.opacity = '0';
+                    }
+                }
+            });
+        },
+        isCapital(city, countryName) {
+            const CAPITALS = {
+                'Albania': ['Tirana'],
+                'Andorra': ['Andorra la Vella'],
+                'Antigua And Barbuda': ["St. John's"],
+                'Argentina': ['Buenos Aires'],
+                'Aruba': ['Oranjestad'],
+                'Australia': ['Canberra'],
+                'Austria': ['Vienna'],
+                'Barbados': ['Bridgetown'],
+                'Belarus': ['Minsk'],
+                'Belgium': ['Brussels'],
+                'Belize': ['Belmopan'],
+                'Bosnia And Herzegovina': ['Sarajevo'],
+                'Brazil': ['Brasília', 'Brasilia'],
+                'Bulgaria': ['Sofia'],
+                'Cambodia': ['Phnom Penh'],
+                'Chile': ['Santiago'],
+                'China': ['Beijing'],
+                'Colombia': ['Bogotá', 'Bogota'],
+                'Costa Rica': ['San José', 'San Jose'],
+                'Croatia': ['Zagreb'],
+                'Cuba': ['Havana'],
+                'Curaçao': ['Willemstad'],
+                'Czech Republic': ['Prague'],
+                'Denmark': ['Copenhagen'],
+                'Dominican Republic': ['Santo Domingo'],
+                'Ecuador': ['Quito'],
+                'Egypt': ['Cairo'],
+                'El Salvador': ['San Salvador'],
+                'England': ['London'],
+                'Estonia': ['Tallinn'],
+                'Eswatini': ['Mbabane'],
+                'Finland': ['Helsinki'],
+                'France': ['Paris'],
+                'Germany': ['Berlin'],
+                'Gibraltar': ['Gibraltar'],
+                'Greece': ['Athens'],
+                'Guadeloupe': ['Basse-Terre'],
+                'Guatemala': ['Ciudad de Guatemala'],
+                'Honduras': ['Tegucigalpa'],
+                'Hong Kong': ['Hong Kong'],
+                'Hungary': ['Budapest'],
+                'Iceland': ['Reykjavik'],
+                'India': ['New Delhi'],
+                'Indonesia': ['Jakarta'],
+                'Ireland': ['Dublin'],
+                'Israel': ['Jerusalem'],
+                'Italy': ['Roma', 'Rome'],
+                'Jordan': ['Amman'],
+                'Kenya': ['Nairobi'],
+                'Latvia': ['Riga'],
+                'Liechtenstein': ['Vaduz'],
+                'Lithuania': ['Vilnius'],
+                'Luxembourg': ['Luxembourg'],
+                'Macau': ['Macau'],
+                'Malaysia': ['Kuala Lumpur'],
+                'Malta': ['Valletta'],
+                'Martinique': ['Fort-de-France'],
+                'Mexico': ['Mexico City'],
+                'Monaco': ['Monaco'],
+                'Montenegro': ['Podgorica'],
+                'Morocco': ['Rabat'],
+                'Netherlands': ['Amsterdam'],
+                'New Zealand': ['Wellington'],
+                'Nicaragua': ['Managua'],
+                'North Macedonia': ['Skopje'],
+                'Northern Ireland': ['Belfast'],
+                'Norway': ['Oslo'],
+                'Palestine': ['Ramallah'],
+                'Panama': ['Panama City'],
+                'Paraguay': ['Asunción', 'Asuncion'],
+                'Peru': ['Lima'],
+                'Poland': ['Warsaw'],
+                'Portugal': ['Lisbon'],
+                'Puerto Rico': ['San Juan'],
+                'Qatar': ['Doha'],
+                'Romania': ['Bucharest'],
+                'Russia': ['Moscow'],
+                'Saint Kitts And Nevis': ['Basseterre'],
+                'Scotland': ['Edinburgh'],
+                'Serbia': ['Belgrade'],
+                'Singapore': ['Singapore'],
+                'Sint Maarten': ['Philipsburg'],
+                'Slovakia': ['Bratislava'],
+                'Slovenia': ['Ljubljana'],
+                'South Africa': ['Cape Town', 'Pretoria', 'Bloemfontein'],
+                'Spain': ['Madrid'],
+                'Sweden': ['Stockholm'],
+                'Switzerland': ['Bern'],
+                'Tanzania': ['Dodoma'],
+                'Thailand': ['Bangkok'],
+                'Trinidad And Tobago': ['Port of Spain'],
+                'Turkey': ['Ankara'],
+                'United Arab Emirates': ['Abu Dhabi'],
+                'United States': ['Washington D.C.', 'Washington DC'],
+                'Uruguay': ['Montevideo'],
+                'Vatican City': ['Vatican City'],
+                'Venezuela': ['Caracas'],
+                'Vietnam': ['Hanoi'],
+                'Wales': ['Cardiff'],
+                'Zambia': ['Lusaka'],
+                'Zimbabwe': ['Harare']
+            };
+            const caps = CAPITALS[countryName];
+            if (!caps) return false;
+            return caps.some(cap => city.trim().toLowerCase() === cap.trim().toLowerCase());
+        },
+        countByRegion(r) { return this.wonders.filter(w => w.region === r).length; },
+        formatId(id) { return parseInt(id).toString().padStart(2, '0'); },
+        getVal(w, type) { return w[`${type}_${this.lang}`] || w[`${type}_en`]; },
+        getLoc(w) { const city = w[`city_${this.lang}`] || w.city_en || ""; const country = w[`country_${this.lang}`] || w.country_en || ""; return city ? `${city}, ${country}` : country; },
+        splitCountries(countryStr) {
+            if (!countryStr) return [];
+            const SINGLE_COUNTRIES = ['Bosnia & Herzegovina'];
+            if (SINGLE_COUNTRIES.includes(countryStr)) return [countryStr];
+            return countryStr.split(' & ').map(c => c.trim());
+        },
+        resolveAlias(countryName) {
+            const ALIASES = { 'Türkiye': 'Turkey', 'Bosnia & Herzegovina': 'Bosnia And Herzegovina', 'Trinidad & Tobago': 'Trinidad And Tobago' };
+            return ALIASES[countryName] || countryName;
+        },
+        getCountryCode(countryStr) {
+            const countries = this.splitCountries(countryStr);
+            return countries.map(c => this.countryCodeMap[this.resolveAlias(c)]).filter(Boolean);
+        },
+        scrollToTimelineYear(year) {
+            const el = document.getElementById('tl-year-' + year);
+            if (!el) return;
+            const modal = el.closest('.modal-content-box');
+            if (modal) {
+                const offset = el.offsetTop - modal.offsetTop - 20;
+                modal.scrollTo({ top: offset, behavior: 'smooth' });
+            } else {
+                el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        },
+        applyVideoClass(el) {
+            const video = el.querySelector ? el.querySelector('video') : el;
+            const wrap  = el.classList.contains('collage-vid-wrap') ? el : el.closest('.collage-vid-wrap');
+            if (!wrap) return;
+            wrap.classList.remove('c1r1','c1r2','c2r1','c2r2','c3r1','c3r2');
+            const r = video.videoWidth && video.videoHeight ? video.videoWidth / video.videoHeight : 16/9;
+            if      (r >= 1.5)  wrap.classList.add('c2r1');
+            else if (r >= 0.85) wrap.classList.add('c1r1');
+            else                wrap.classList.add('c1r2');
+            wrap.classList.add('loaded');
+        },
+        applyImageClass(el, idx) {
+            el.classList.remove('c1r1','c1r2','c2r1','c2r2','c3r1','c3r2','c4r2','c2r3','c3r3');
+            const r = el.naturalWidth / el.naturalHeight || 1;
+            if (idx === 0) {
+                const total = parseInt(el.dataset.total) || 1;
+                if (r >= 1.5) {
+                    el.classList.add(total >= 6 ? 'c4r2' : 'c3r2');
+                } else if (r >= 0.85) {
+                    el.classList.add(total >= 6 ? 'c3r2' : 'c3r2');
+                } else {
+                    el.classList.add(total >= 6 ? 'c2r3' : 'c2r3');
+                }
+            } else {
+                if      (r >= 1.5)  el.classList.add('c2r1');
+                else if (r >= 0.85) el.classList.add('c1r1');
+                else                el.classList.add('c1r2');
+            }
+            el.classList.add('loaded');
+        },
+        isVideo(filename) { return filename && filename.endsWith('.webm'); },
+        isAudioVideo(filename) {
+            if (!filename || !this.selected) return false;
+            return (this.selected.videos_audio || []).includes(filename);
+        },
+        expandAudioVideo(vid) {
+            const a = this.$refs.bgMusic;
+            clearInterval(this.fadeInterval);
+            if (!a.paused) {
+                this.fadeInterval = setInterval(() => {
+                    if (a.volume > 0.05) a.volume -= 0.05;
+                    else { clearInterval(this.fadeInterval); a.pause(); }
+                }, 30);
+            }
+            this.expandedMedia = vid;
+        },
+        navPhoto(dir) {
+            const imgs  = this.selected.images       || [];
+            const vids  = this.selected.videos       || [];
+            const vidsA = this.selected.videos_audio || [];
+            const media = [
+                ...(imgs.length ? [imgs[0]] : []),
+                ...vids,
+                ...vidsA,
+                ...imgs.slice(1)
+            ];
+            if (!media.length) return;
+            const idx  = media.indexOf(this.expandedMedia);
+            const next = media[(idx + dir + media.length) % media.length];
+            if (vidsA.includes(next)) {
+                this.expandAudioVideo(next);
+            } else {
+                if (vidsA.includes(this.expandedMedia)) {
+                    this.fadeOutAndPlay(`${this.mediaBase}Music/${this.selected.id}.mp3`);
+                }
+                this.expandedMedia = next;
+            }
+        },
+        openWonder(w) {
+            document.querySelectorAll('.collage-item, .collage-vid-wrap').forEach(el => {
+                el.classList.remove('c1r1','c1r2','c2r1','c2r2','c3r1','c3r2','c4r2','c2r3','c3r3','loaded');
+            });
+            this.selected = w; this.expandedMedia = null; this.beenThereConfirm = false;
+            if (this.slideshowActive) this.stopSlideshow();
+            this.fadeOutAndPlay(`${this.mediaBase}Music/${w.id}.mp3`);
+            if (w.lat && w.lng) this.map.flyTo([w.lat, w.lng], 4); window.scrollTo({ top: 0, behavior: 'smooth' });
+            const url = new URL(window.location); url.searchParams.set('id', w.id); window.history.pushState({}, '', url);
+        },
+        scrollToTop() { window.scrollTo({ top: 0, behavior: 'smooth' }); },
+        startSlideshow() {
+            if (!this.slideshowAllMedia.length) return;
+            const cur = this.slideshowAllMedia.indexOf(this.expandedMedia);
+            this.slideshowIndex   = cur >= 0 ? cur : 0;
+            this.slideshowProgress = 0;
+            this.slideshowPaused  = false;
+            this.slideshowActive  = true;
+            this._slideshowElapsed = 0;
+            this._slideshowStart   = null;
+            this._runSlideshow();
+        },
+        _slideshowDuration() {
+            return this.isVideo(this.slideshowMedia) ? 0 : 5000;
+        },
+        _runSlideshow() {
+            if (this._slideshowRaf) cancelAnimationFrame(this._slideshowRaf);
+            if (!this.slideshowActive) return;
+            const duration = 5000;
+            const tick = (ts) => {
+                if (!this.slideshowActive) return;
+                // freeze timer while a video is playing — @ended drives the advance
+                if (this.isVideo(this.slideshowMedia) || this.slideshowPaused) {
+                    if (this.isVideo(this.slideshowMedia)) this.slideshowProgress = 100;
+                    this._slideshowStart = null;
+                    this._slideshowRaf = requestAnimationFrame(tick);
+                    return;
+                }
+                if (!this._slideshowStart) this._slideshowStart = ts - this._slideshowElapsed;
+                this._slideshowElapsed = ts - this._slideshowStart;
+                this.slideshowProgress = Math.min((this._slideshowElapsed / duration) * 100, 100);
+                if (this._slideshowElapsed >= duration) {
+                    this.slideshowAdvance();
+                }
+                this._slideshowRaf = requestAnimationFrame(tick);
+            };
+            this._slideshowRaf = requestAnimationFrame(tick);
+        },
+        slideshowAdvance() {
+            this._slideshowElapsed = 0;
+            this._slideshowStart   = null;
+            this.slideshowProgress = 0;
+            this.slideshowIndex = (this.slideshowIndex + 1) % this.slideshowAllMedia.length;
+        },
+        pauseSlideshow() {
+            this.slideshowPaused = true;
+        },
+        resumeSlideshow() {
+            if (!this.slideshowActive) return;
+            this.slideshowPaused = false;
+        },
+        slideshowStep(dir) {
+            if (!this.slideshowAllMedia.length) return;
+            this._slideshowElapsed = 0;
+            this._slideshowStart   = null;
+            this.slideshowProgress = 0;
+            this.slideshowIndex = (this.slideshowIndex + dir + this.slideshowAllMedia.length) % this.slideshowAllMedia.length;
+        },
+        stopSlideshow() {
+            this.slideshowActive = false;
+            this.slideshowPaused = false;
+            this.slideshowProgress = 0;
+            if (this._slideshowRaf) { cancelAnimationFrame(this._slideshowRaf); this._slideshowRaf = null; }
+            // return to the photo that was showing
+            this.expandedMedia = this.slideshowAllMedia[this.slideshowIndex] || this.expandedMedia;
+        },
+        toggleBeenThere(id) {
+            if (this.visitedWonders.includes(id)) {
+                this.beenThereConfirm = true;
+            } else {
+                this.visitedWonders.push(id);
+                localStorage.setItem('wonders_visited', JSON.stringify(this.visitedWonders));
+            }
+        },
+        confirmRemove(id) {
+            const idx = this.visitedWonders.indexOf(id);
+            if (idx !== -1) this.visitedWonders.splice(idx, 1);
+            localStorage.setItem('wonders_visited', JSON.stringify(this.visitedWonders));
+            this.beenThereConfirm = false;
+        },
+        navWonder(dir) {
+            const idx = this.filteredWonders.findIndex(w => w.id === this.selected.id);
+            let nextIdx = (idx + dir + this.filteredWonders.length) % this.filteredWonders.length;
+            this.openWonder(this.filteredWonders[nextIdx]);
+            document.querySelectorAll('.explorer-gallery, .explorer-info').forEach(el => el.scrollTop = 0);
+        },
+        openWonderFromMusic(w) {
+            this.showMusicList = false;
+            this._returnToMusic = true;
+            this.$nextTick(() => this.openWonder(w));
+        },
+        closeWonder() {
+            if (this.slideshowActive) this.stopSlideshow();
+            this.selected = null; this.expandedMedia = null; const a = this.$refs.bgMusic;
+            const int = setInterval(() => { if (a.volume > 0.05) a.volume -= 0.05; else { clearInterval(int); a.pause(); a.currentTime = 0; } }, 50);
+            const url = new URL(window.location); url.searchParams.delete('id'); window.history.pushState({}, '', url);
+            if (this._returnToMusic) {
+                this._returnToMusic = false;
+                this.showMusicList = true;
+                return;
+            }
+            if (this.map) {
+                const target = this.selectedRegion
+                    ? (this.regionCoords[this.selectedRegion] || this.regionCoords['Default'])
+                    : this.regionCoords['Default'];
+                this.map.flyTo(target.center, target.zoom);
+            }
+        },
+        copyLink() {
+            const url = new URL(window.location);
+            url.searchParams.set('lang', this.lang);
+            if (this.expandedMedia) {
+                url.searchParams.set('photo', this.expandedMedia);
+            } else {
+                url.searchParams.delete('photo');
+            }
+            navigator.clipboard.writeText(url.toString()).then(() => {
+                this.shareStatus = this.content[this.lang].copied;
+                setTimeout(() => { this.shareStatus = null; }, 2000);
+            });
+        },
+        updateVolume() { this.$refs.bgMusic.volume = this.volume; },
+        toggleMute() { this.isMuted = !this.isMuted; this.$refs.bgMusic.muted = this.isMuted; },
+        fadeOutAndPlay(src) {
+            const a = this.$refs.bgMusic; const target = this.volume; clearInterval(this.fadeInterval);
+            const fadeIn = () => { a.src = src; a.volume = 0; a.play().catch(()=>{}); this.fadeInterval = setInterval(() => { if (a.volume < target - 0.02) a.volume += 0.02; else { a.volume = target; clearInterval(this.fadeInterval); } }, 30); };
+            if (a.paused || !a.src) fadeIn(); else this.fadeInterval = setInterval(() => { if (a.volume > 0.05) a.volume -= 0.05; else { clearInterval(this.fadeInterval); fadeIn(); } }, 30);
+        }
+    },
+    watch: {
+        lang() { this.initMap(); },
+        unescoFilter() { this.initMap(); },
+        selectedRegion(newRegion) {
+            if (this.map) {
+                const target = this.regionCoords[newRegion] || this.regionCoords['Default'];
+                this.map.flyTo(target.center, target.zoom);
+                this.updateLabelVisibility();
+            }
+       },
+        search() { this.visibleCount = 40; },
+        filteredWonders() { this.visibleCount = 40; },
+        expandedMedia(val) {
+            const url = new URL(window.location);
+            if (val) {
+                url.searchParams.set('photo', val);
+            } else {
+                url.searchParams.delete('photo');
+            }
+            window.history.replaceState({}, '', url);
+        }
+    }
+}).mount('#app');
+</script>
+</body>
+</html>
