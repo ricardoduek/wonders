@@ -2470,9 +2470,8 @@ createApp({
                 return;
             }
             this.tripsMap = L.map('trips-map', { zoomControl: true, minZoom: 2 }).setView([20, 10], 2);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
-                attribution: '© OpenStreetMap contributors © CARTO',
-                maxZoom: 19
+            L.tileLayer('https://tiles.stadiamaps.com/tiles/outdoors/{z}/{x}/{y}{r}.png', {
+                attribution: '© Stadia Maps © OpenMapTiles © OpenStreetMap'
             }).addTo(this.tripsMap);
             this.tripsPolylines = [];
             // Force Leaflet to recalculate container size after tile layer is added
