@@ -60,3 +60,4 @@ Desktop.ini
 
 # ── Node (just in case) ───────────────────────────────
 node_modules/
+*.docx
