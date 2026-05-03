@@ -1168,7 +1168,8 @@
                 "pt": "Dia de fortes emoções em Pequim. Comecei na fabulosa Cidade Proibida, 980 edifícios cobrindo 72 hectares, é o maior complexo palaciano do mundo e o museu mais visitado com mais de 16 milhões por ano. É Patrimônio da Humanidade desde 1987. Na minha opinião, deveria estar entre as 7 Maravilhas do Mundo.",
                 "es": "Día de fuertes emociones en Beijing. Comencé en la fabulosa Ciudad Prohibida, 980 edificios cubriendo 72 hectáreas, es el mayor complejo palaciego del mundo y el museo más visitado con más de 16 millones por año. Es Patrimonio de la Humanidad desde 1987. En mi opinión, debería estar entre las 7 Maravillas del Mundo."
             }
-        }
+        },
+        "song_name": "The Eternal Vow (Crouching Tiger, Hidden Dragon) — Yo-Yo Ma"
     },
     {
         "id": "014",
@@ -1301,7 +1302,55 @@
         "lng": 32.6573,
         "images": [
             "016_01.webp",
-            "016_02.webp"
+            "016_02.webp",
+            "016_03.webp",
+            "016_04.webp",
+            "016_05.webp",
+            "016_06.webp",
+            "016_07.webp",
+            "016_08.webp",
+            "016_09.webp",
+            "016_10.webp",
+            "016_11.webp",
+            "016_12.webp",
+            "016_13.webp",
+            "016_14.webp",
+            "016_15.webp",
+            "016_16.webp",
+            "016_17.webp",
+            "016_18.webp",
+            "016_19.webp",
+            "016_20.webp",
+            "016_21.webp",
+            "016_22.webp",
+            "016_23.webp",
+            "016_24.webp",
+            "016_25.webp",
+            "016_26.webp",
+            "016_27.webp",
+            "016_28.webp",
+            "016_29.webp",
+            "016_30.webp",
+            "016_31.webp",
+            "016_32.webp",
+            "016_33.webp",
+            "016_34.webp",
+            "016_35.webp",
+            "016_36.webp",
+            "016_37.webp",
+            "016_38.webp",
+            "016_39.webp",
+            "016_40.webp",
+            "016_41.webp",
+            "016_42.webp",
+            "016_43.webp",
+            "016_44.webp",
+            "016_45.webp",
+            "016_46.webp",
+            "016_47.webp",
+            "016_48.webp",
+            "016_49.webp",
+            "016_50.webp"
         ],
         "videos": [],
         "region": "Africa",
@@ -1319,6 +1368,11 @@
                 "en": "First day in Luxor. Karnak Temple.",
                 "pt": "Primeiro dia em Luxor. Templo de Karnak.",
                 "es": "Primer día en Luxor. Templo de Karnak."
+            },
+            "016_39.webp": {
+                "es": "Capiteles y arquitrabes de papiro calados en forma de umbela sobre las columnas centrales de la Sala Hipóstila.",
+                "en": "Open papyrus umbel capitals and architrave on the central columns of the Hypostyle Hall",
+                "pt": "Capitéis e arquitrave em papiro vazado nas colunas centrais do Salão Hipostilo."
             }
         }
     },
@@ -6662,7 +6716,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Guilin",
         "wiki_es": "https://es.wikipedia.org/wiki/Terrazas_de_arroz_de_Longji",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Longing (Hero Soundtrack) — Tan Dun"
     },
     {
         "id": "107",
@@ -9596,9 +9651,9 @@
         "country_en": "China",
         "country_pt": "China",
         "country_es": "China",
-        "desc_en": "The fortifications of Xi'an, or its City Walls, represent the oldest, largest and best preserved city walls in all of China. Many cities in China once had massive defensive walls to thwart invading armies. Among the few city walls that still remain, the one of Xi'an is undoubtedly the most impressive and photogenic, and a UNESCO World Heritage Site. The rectangular wall is 14km long and encloses the old center of Xi'an. Its average height is 12m. Each side of the wall has a gate, and each corner has an imposing watchtower. Yes, rent a bike and have a wonderful time riding around and taking pictures of the beautiful views.",
-        "desc_pt": "As fortificações de Xi'an, representam as muralhas mais antigas, maiores e mais bem preservadas de toda a China. Muitas cidades chinesas já tiveram muros defensivos maciços para impedir os exércitos invasores. Entre as poucas muralhas que ainda restam, a de Xi'an é, sem dúvida, a mais impressionante e fotogênica, e Patrimônio Mundial da UNESCO. O muro retangular tem 14 km de comprimento e envolve o antigo centro de Xi'an. Sua altura média é de 12m. Cada lado da parede tem um portão e cada canto tem uma imponente torre de vigia. Sim, alugue uma bicicleta e se divirta passeando e tirando fotos das belas paisagens.",
-        "desc_es": "Las fortificaciones de Xi'an, o sus murallas, representan las murallas urbanas más antiguas, grandes y mejor conservadas de toda China. Muchas ciudades chinas alguna vez tuvieron enormes murallas defensivas para repeler a los ejércitos invasores. Entre las pocas murallas que aún se conservan, la de Xi'an es sin duda la más impresionante y fotogénica, y es Patrimonio de la Humanidad de la UNESCO. La muralla rectangular tiene 14 km de longitud y rodea el casco antiguo de Xi'an. Su altura media es de 12 m. Cada lado de la muralla tiene una puerta y cada esquina cuenta con una imponente torre de vigilancia. Alquila una bicicleta y disfruta de un maravilloso paseo y toma fotos de las hermosas vistas.",
+        "desc_en": "The fortifications of Xi'an, or its City Walls, represent the oldest, largest and best preserved city walls in all of China. Many cities in China once had massive defensive walls to thwart invading armies. Among the few city walls that still remain, the one of Xi'an is undoubtedly the most impressive and photogenic, and it's in the UNESCO World Heritage Site tentative list. The rectangular wall is 14km long and encloses the old center of Xi'an. Its average height is 12m. Each side of the wall has a gate, and each corner has an imposing watchtower. Yes, rent a bike and have a wonderful time riding around and taking pictures of the beautiful views.",
+        "desc_pt": "As fortificações de Xi'an, representam as muralhas mais antigas, maiores e mais bem preservadas de toda a China. Muitas cidades chinesas já tiveram muros defensivos maciços para impedir os exércitos invasores. Entre as poucas muralhas que ainda restam, a de Xi'an é, sem dúvida, a mais impressionante e fotogênica, e está na lista provisória de Patrimônio Mundial da UNESCO. O muro retangular tem 14 km de comprimento e envolve o antigo centro de Xi'an. Sua altura média é de 12m. Cada lado da parede tem um portão e cada canto tem uma imponente torre de vigia. Sim, alugue uma bicicleta e se divirta passeando e tirando fotos das belas paisagens.",
+        "desc_es": "Las fortificaciones de Xi'an, o sus murallas, representan las murallas urbanas más antiguas, grandes y mejor conservadas de toda China. Muchas ciudades chinas alguna vez tuvieron enormes murallas defensivas para repeler a los ejércitos invasores. Entre las pocas murallas que aún se conservan, la de Xi'an es sin duda la más impresionante y fotogénica, y está en la lista provisional de Patrimonio de la Humanidad de la UNESCO. La muralla rectangular tiene 14 km de longitud y rodea el casco antiguo de Xi'an. Su altura media es de 12 m. Cada lado de la muralla tiene una puerta y cada esquina cuenta con una imponente torre de vigilancia. Alquila una bicicleta y disfruta de un maravilloso paseo y toma fotos de las hermosas vistas.",
         "lat": 34.255,
         "lng": 108.9398,
         "images": [
@@ -9623,7 +9678,8 @@
                 "pt": "Hoje ao meio-dia cheguei de trem-bala (350 km/h) a Xi'an, que já foi uma das maiores e mais cultas cidades do planeta durante a dinastia Tang. Pedalar os 14 km do perímetro das famosas muralhas Ming é uma experiência surreal.",
                 "es": "Hoy al mediodía llegué en tren bala (350 km/h) a Xi'an, que supo ser una de las mayores y más cultas ciudades del planeta durante la dinastía Tang. Pedalear los 14 km del perímetro de las famosas murallas Ming es una experiencia surrealista."
             }
-        }
+        },
+        "song_name": "Lovers (Mei and Jin) (House of Flying Daggers)  — Shigeru Umebayashi"
     },
     {
         "id": "163",
