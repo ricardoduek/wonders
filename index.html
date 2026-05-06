@@ -512,6 +512,21 @@
         /* ═══════════════════════════════════════════════════════════
            TABLET LANDSCAPE  ≤ 1280px
            ═══════════════════════════════════════════════════════════ */
+        /* ═══════════════════════════════════════════════════════════
+           LAPTOP  ≤ 1440px
+           Targets the most common laptop resolution (1366×768, 1440×900)
+           where the full desktop layout cramps but ≤1280px goes too far.
+           ═══════════════════════════════════════════════════════════ */
+        @media (max-width: 1440px) {
+            header { padding: 50px 50px 20px; }
+            h1 { font-size: 3.8rem; }
+            .subtitle { font-size: 1.15rem; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 20px 40px 140px; }
+            .map-wrap { height: 460px; }
+            .explorer-info { width: 580px; padding: 20px 50px; }
+            .collage-grid { grid-auto-rows: 165px; }
+        }
+
         @media (max-width: 1280px) {
             /* Switch header from absolute-overlay to stacked flex so
                author-card and top-controls stop overlapping the title */
@@ -1130,7 +1145,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 4 May 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 5 May 2026</span>
         </div>
     </div>
 
@@ -1150,7 +1165,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 4 May 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 5 May 2026</span>
     </div>
 
     <div class="page-flow">
