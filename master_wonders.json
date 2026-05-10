@@ -4774,7 +4774,14 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Monta%C3%B1a_de_la_Mesa",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Waka Waka (This Time For Africa) — Shakira"
+        "song_name": "Waka Waka (This Time For Africa) — Shakira",
+        "captions": {
+            "065_08.webp": {
+                "en": "After Durban we spent 4 wonderful days in Cape Town. We rented a spectacular house where we celebrated my mother's and my sister Carolina's birthdays. In the photo, Blouberg Beach and the iconic Table Mountain with Lion's Head in the background.",
+                "pt": "Depois de Durban passamos 4 dias maravilhosos na Cidade do Cabo. Alugamos uma casa espetacular onde comemoramos os aniversários da minha mãe e da minha irmã Carolina. Na foto, Blouberg Beach e a icônica Table Mountain com Lion's Head ao fundo.",
+                "es": "Después de Durban pasamos 4 maravillosos días en Ciudad del Cabo. Alquilamos una casa espectacular donde celebramos los cumples de mi madre y de mi hermana Carolina. En la foto, Blouberg Beach y la icónica Table Mountain con Lion's Head al fondo."
+            }
+        }
     },
     {
         "id": "066",
@@ -6247,7 +6254,14 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Palacio_de_los_Papas_de_Avi%C3%B1%C3%B3n",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/228",
-        "song_name": "Mea Culpa - Part II (Catholic Version) — Enigma"
+        "song_name": "Mea Culpa - Part II (Catholic Version) — Enigma",
+        "captions": {
+            "088_03.webp": {
+                "en": "The medieval city of Avignon, Provence, was the home of the Popes for 68 years and is now the theater capital of the world. The UNESCO Heritage site of the Palais des Papes is the most fortified and beautiful house in existence. It's great to be here during the famous Festival, one of the best of its kind. The bright light in the sky is the moon.",
+                "pt": "A cidade medieval de Avignon, Provença, foi a casa dos Papas por 68 anos e agora é a capital mundial do teatro. O sítio Patrimônio da UNESCO do Palais des Papes é a casa mais fortificada e bela que existe. É ótimo estar aqui durante o famoso Festival, um dos melhores do gênero. A luz brilhante no céu é a lua.",
+                "es": "La ciudad medieval de Aviñón, Provenza, fue el hogar de los Papas durante 68 años y ahora es la capital mundial del teatro. El sitio Patrimonio de la UNESCO del Palais des Papes es la casa más fortificada y hermosa que existe. Es genial estar aquí durante el famoso Festival, uno de los mejores de su tipo. La luz brillante en el cielo es la luna."
+            }
+        }
     },
     {
         "id": "089",
@@ -12444,6 +12458,46 @@
                 "en": "Kruger National Park has been one of the most amazing experiences of my life. I've just returned from a night safari where our vehicle followed a pride with one of the few remaining white lions (his name is 'Casper') and seven lionesses at a walking pace, before they faced a pack of hyenas defending their cubs. Our first day at Satara Camp.",
                 "pt": "O Parque Nacional Kruger foi uma das experiências mais incríveis da minha vida. Acabei de voltar de um safári noturno onde nosso veículo acompanhou um grupo de leões, incluindo um dos poucos leões brancos restantes (seu nome é 'Casper') e sete leoas, caminhando em ritmo lento, antes de enfrentarem uma matilha de hienas defendendo seus filhotes. Nosso primeiro dia no Acampamento Satara.",
                 "es": "El Parque Kruger ha sido una de las experiencias más alucinantes de mi vida. Acabo de volver de un safari nocturno en el que nuestro vehículo acompañó una manada con uno de los pocos leones blancos que quedan (se llama 'Casper') y 7 leonas al paso, antes de enfrentarse a una jauría de hienas que defendían a sus crías. Nuestro primer día en Satara Camp."
+            },
+            "200_01.webp": {
+                "en": "Second day at Skukuza camp. Amazing safaris early morning, mid-morning, and late afternoon. Delicious landscapes and many incredible sightings. In the photo, from left to right: Valentín, Inti, Carolina, Ricardo, Claudia, Lucía, and Gastón, my dear family of explorers at the Mathekenyane Hill (Koppie) View Point.",
+                "pt": "Segundo dia no acampamento de Skukuza. Altos safáris de manhã cedo, meio da manhã e final da tarde. Paisagens deliciosas e muitos avistamentos incríveis. Na foto, da esquerda para a direita: Valentín, Inti, Carolina, Ricardo, Claudia, Lucía e Gastón, minha querida família de exploradores no Mathekenyane Hill (Koppie) View Point.",
+                "es": "Segundo día en el campamento de Skukuza. Altos safaris temprano de mañana, media mañana y al final de la tarde. Deliciosos paisajes y muchos avistamientos increíbles. En la foto, de izquierda a derecha: Valentín, Inti, Carolina, Ricardo, Claudia, Lucía y Gastón, mi querida familia de exploradores en el Mathekenyane Hill (Koppie) View Point."
+            },
+            "200_02.webp": {
+                "en": "A herd of chubby hippos with their young.",
+                "pt": "Manada de hipopótamos gordinhos com seus filhotes.",
+                "es": "Manada de gorditos hipopótamos con sus crías."
+            },
+            "200_03.webp": {
+                "en": "Very fast ostriches crossing the road in front of our car.",
+                "pt": "Avestruzes velocíssimos cruzando a estrada na frente do nosso carro.",
+                "es": "Rapidísimos avestruces cruzando la carretera enfrente a nuestro auto."
+            },
+            "200_04.webp": {
+                "en": "The ubiquitous zebras are always a pleasure to see, especially the little one in the middle.",
+                "pt": "As zebras onipresentes são sempre um prazer de ver, especialmente a pequenina do meio.",
+                "es": "Las ubicuas cebras son siempre un placer de ver, especialmente la chiquitita del medio."
+            },
+            "200_05.webp": {
+                "en": "Claudia, Lucía, and Carolina, posing at one of the rest stops.",
+                "pt": "Claudia, Lucía e Carolina posando em uma das paradas de descanso.",
+                "es": "Claudia, Lucía y Carolina posando en una de las rest stops."
+            },
+            "200_06.webp": {
+                "en": "Carolina and Inti, the happiness of being so close to those immense elephants.",
+                "pt": "Carolina e Inti, a felicidade de estar tão perto desses elefantes imensos.",
+                "es": "Carolina e Inti, la felicidad de estar tan cerca de esos inmensos elefantes."
+            },
+            "200_19.webp": {
+                "en": "First day at Skukuza Rest Camp, third in Kruger. Tense encounter with a huge elephant that felt the need to not let us pass. Finally, our VW Transporter won, and we took endless photos of it.",
+                "pt": "Primeiro dia no Skukuza Rest Camp, terceiro no Kruger. Encontro tenso com um elefante imenso que sentiu a necessidade de não nos deixar passar. Finalmente nossa VW Transporter ganhou e tiramos infinitas fotos dele.",
+                "es": "Primer día en el Skukuza Rest Camp, tercero en el Krüger. Encuentro tenso con un inmenso elefante que sintió la necesidad de no dejarnos pasar. Finalmente ganó nuestra VW Transporter y le sacamos infinitas fotos."
+            },
+            "200_07.webp": {
+                "en": "Dreamlike sunset at Kruger Park.",
+                "pt": "Pôr do sol de sonho no Parque Kruger.",
+                "es": "Atardecer de ensueño en el Parque Kruger."
             }
         }
     }
