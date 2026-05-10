@@ -503,7 +503,7 @@
         "visited_en": "January 2005 & January 2016",
         "visited_es": "Enero 2005 y Enero 2016",
         "visited_pt": "Janeiro 2005 & Janeiro 2016",
-        "song_name": "Now We Are Free — Hans Zimmer & Lisa Gerrard",
+        "song_name": "Now We Are Free (from 'Gladiator') — Hans Zimmer & Lisa Gerrard",
         "wiki_en": "https://en.wikipedia.org/wiki/Colosseum",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Coliseu",
         "wiki_es": "https://es.wikipedia.org/wiki/Coliseo_de_Roma",
@@ -649,7 +649,7 @@
         "wiki_en": "https://en.wikipedia.org/wiki/Christ_the_Redeemer_(statue)",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Cristo_Redentor",
         "wiki_es": "https://es.wikipedia.org/wiki/Cristo_Redentor",
-        "song_name": "Mas Que Nada (2011 Rio Version) (part. Gracinha Leporace) — Sergio Mendes",
+        "song_name": "Mas Que Nada (from ' Rio') (part. Gracinha Leporace) — Sergio Mendes",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/1100",
         "captions": {
@@ -1069,7 +1069,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Cataratas_del_Igua%C3%BA",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/303",
-        "song_name": "Gabriel's Oboe (The Mission) — Ennio Morricone"
+        "song_name": "Gabriel's Oboe (from 'The Mission') — Ennio Morricone"
     },
     {
         "id": "013",
@@ -1169,7 +1169,7 @@
                 "es": "Día de fuertes emociones en Beijing. Comencé en la fabulosa Ciudad Prohibida, 980 edificios cubriendo 72 hectáreas, es el mayor complejo palaciego del mundo y el museo más visitado con más de 16 millones por año. Es Patrimonio de la Humanidad desde 1987. En mi opinión, debería estar entre las 7 Maravillas del Mundo."
             }
         },
-        "song_name": "The Eternal Vow (Crouching Tiger, Hidden Dragon) — Yo-Yo Ma"
+        "song_name": "The Eternal Vow (from 'Crouching Tiger, Hidden Dragon') — Yo-Yo Ma"
     },
     {
         "id": "014",
@@ -1435,7 +1435,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Karnak",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/87",
-        "song_name": "Time — Hans Zimmer",
+        "song_name": "Time (from 'Inception') — Hans Zimmer",
         "captions": {
             "016_01.webp": {
                 "en": "First day in Luxor. Karnak Temple.",
@@ -2392,7 +2392,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Stonehenge",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/373",
-        "song_name": "Evenstar — Howard Shore & Isabel Bayrakdarian",
+        "song_name": "Evenstar (from 'The Lord of The Rings: The Two Towers') — Howard Shore & Isabel Bayrakdarian",
         "captions": {
             "024_01.webp": {
                 "en": "Stonehenge, 5000 years of mysteries. UNESCO World Heritage site.",
@@ -2477,7 +2477,9 @@
             "026_03.webp",
             "026_04.webp"
         ],
-        "videos": [],
+        "videos": [
+            "026_01.webm"
+        ],
         "region": "Europe",
         "visited_en": "July 2017",
         "visited_es": "Julio 2017",
@@ -2597,7 +2599,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Gran_Palacio_de_Bangkok",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "One Day Suite — Rachel Portman"
+        "song_name": "One Day Suite (from 'One Day') — Rachel Portman"
     },
     {
         "id": "030",
@@ -3823,9 +3825,42 @@
         "images": [
             "039_01.webp",
             "039_02.webp",
-            "039_03.webp"
+            "039_03.webp",
+            "039_04.webp",
+            "039_05.webp",
+            "039_06.webp",
+            "039_07.webp",
+            "039_08.webp",
+            "039_09.webp",
+            "039_10.webp",
+            "039_11.webp",
+            "039_12.webp",
+            "039_13.webp",
+            "039_14.webp",
+            "039_15.webp",
+            "039_16.webp",
+            "039_17.webp",
+            "039_18.webp",
+            "039_19.webp",
+            "039_20.webp",
+            "039_21.webp",
+            "039_22.webp",
+            "039_23.webp",
+            "039_24.webp",
+            "039_25.webp",
+            "039_26.webp",
+            "039_27.webp",
+            "039_28.webp",
+            "039_29.webp",
+            "039_30.webp",
+            "039_31.webp",
+            "039_32.webp",
+            "039_33.webp",
+            "039_34.webp"
         ],
-        "videos": [],
+        "videos": [
+            "039_01.webm"
+        ],
         "region": "Europe",
         "visited_en": "January 2001 & January 2018",
         "visited_es": "Enero 2001 y Enero 2018",
@@ -4053,7 +4088,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Florencia",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/174",
-        "song_name": "Vide cor meum — Danielle de Niesse & Bruno Lazzaretti"
+        "song_name": "Vide cor meum (from 'Hannibal') — Danielle de Niesse & Bruno Lazzaretti"
     },
     {
         "id": "046",
@@ -4616,7 +4651,8 @@
             "061_01.webp",
             "061_02.webp",
             "061_03.webp",
-            "061_04.webp"
+            "061_04.webp",
+            "061_05.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -4728,7 +4764,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Bas%C3%ADlica_de_S%C3%A3o_Marcos",
         "wiki_es": "https://es.wikipedia.org/wiki/Bas%C3%ADlica_de_San_Marcos",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/394"
+        "unesco_url": "https://whc.unesco.org/en/list/394",
+        "song_name": "Vivaldi's Concerto No. 4 \\\"Winter\\\": I. Allegro non molto — Boston Symphony Orchestra (Joseph Silverstein)"
     },
     {
         "id": "065",
@@ -4875,7 +4912,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Milford_Sound",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/551",
-        "song_name": "The Return of the King — Howard Shore & James Galway, Viggo Mortenson & Renee Fleming",
+        "song_name": "The Return of the King (from 'The Lord of the Rings: The Return of the King') — Howard Shore & James Galway, Viggo Mortenson & Renee Fleming",
         "captions": {
             "067_01.webp": {
                 "en": "It's so beautiful you want to cry. The fiord, incorrectly named Milford Sound, Fiordland, New Zealand.",
@@ -5111,7 +5148,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Walt_Disney_World_Resort",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Love Theme (Revised Suite) — Hans Zimmer"
+        "song_name": "Love Theme (from 'Pirates of the Caribbean: At World's End) — Hans Zimmer"
     },
     {
         "id": "073",
@@ -5455,7 +5492,10 @@
             "074_02.webp",
             "074_03.webp",
             "074_04.webp",
-            "074_05.webp"
+            "074_05.webp",
+            "074_06.webp",
+            "074_07.webp",
+            "074_08.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -5501,7 +5541,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Palacio_de_Sch%C3%B6nbrunn",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/786",
-        "song_name": "Concerto No. 2 \"Summer\": III. Presto — Boston Symphony Orchestra (Joseph Silverstein)"
+        "song_name": "Vivaldi's Concerto No. 2 \\\"Summer\\\": III. Presto — Boston Symphony Orchestra (Joseph Silverstein)"
     },
     {
         "id": "076",
@@ -6295,7 +6335,7 @@
         "wiki_en": "https://en.wikipedia.org/wiki/Edinburgh",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Edimburgo",
         "wiki_es": "https://es.wikipedia.org/wiki/Edimburgo",
-        "song_name": "For The Love Of A Princess — James Horner",
+        "song_name": "For The Love of a Princess (from 'Braveheart') — James Horner",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/728"
     },
@@ -6481,7 +6521,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Siena",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/717",
-        "song_name": "Cavalleria Rusticana: Intermezzo sinfonico — Bonn Classical Philharmonic and Heribert Beissel"
+        "song_name": "Mascagni's Cavalleria Rusticana: Intermezzo Sinfonico — Bonn Classical Philharmonic and Heribert Beissel"
     },
     {
         "id": "095",
@@ -6513,7 +6553,7 @@
         "wiki_en": "https://en.wikipedia.org/wiki/Museo_del_Prado",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Museu_do_Prado",
         "wiki_es": "https://es.wikipedia.org/wiki/Museo_del_Prado",
-        "song_name": "Concierto de Aranjuez: II. Adagio — John Williams",
+        "song_name": "Rodrigo's Concierto de Aranjuez: II. Adagio — John Williams",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/1618"
     },
@@ -6699,7 +6739,13 @@
         "images": [
             "101_01.webp",
             "101_02.webp",
-            "101_03.webp"
+            "101_03.webp",
+            "101_04.webp",
+            "101_05.webp",
+            "101_06.webp",
+            "101_07.webp",
+            "101_08.webp",
+            "101_09.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -7133,7 +7179,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Terrazas_de_arroz_de_Longji",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Longing (Hero Soundtrack) — Tan Dun"
+        "song_name": "Longing (from 'Hero') — Tan Dun"
     },
     {
         "id": "107",
@@ -8501,7 +8547,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Islas_Phi_Phi",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Pure Shores — All Saints"
+        "song_name": "Pure Shores (from 'The Beach') — All Saints"
     },
     {
         "id": "133",
@@ -8647,7 +8693,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/%C3%93pera_Garnier",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Lakmé, Act 1: Duo des fleurs. \"Viens, Mallika\" — Sabine Devieilhe & Marianne Crebassa"
+        "song_name": "Delibes' Lakmé, Act 1: Duo des fleurs. \\\"Viens, Mallika\\\" — Sabine Devieilhe & Marianne Crebassa"
     },
     {
         "id": "137",
@@ -8800,7 +8846,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Fontana_di_Trevi",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/91",
-        "song_name": "Carmina Burana: O Fortuna — London Philharmonic Orchestra",
+        "song_name": "Orff's Carmina Burana: O Fortuna — London Philharmonic Orchestra",
         "captions": {
             "140_03.webp": {
                 "en": "The most famous of all the fountains in the world, the Trevi Fountain. Under restoration for 20 months, it was reopened just 2 months ago with super illumination from 100 additional LEDs. By throwing some coins, one ensures returning to Rome, as I was able to verify this year.",
@@ -9101,7 +9147,29 @@
             "143_03.webp",
             "143_04.webp",
             "143_05.webp",
-            "143_06.webp"
+            "143_06.webp",
+            "143_07.webp",
+            "143_08.webp",
+            "143_09.webp",
+            "143_10.webp",
+            "143_11.webp",
+            "143_12.webp",
+            "143_13.webp",
+            "143_14.webp",
+            "143_15.webp",
+            "143_16.webp",
+            "143_17.webp",
+            "143_18.webp",
+            "143_19.webp",
+            "143_20.webp",
+            "143_21.webp",
+            "143_22.webp",
+            "143_23.webp",
+            "143_24.webp",
+            "143_25.webp",
+            "143_26.webp",
+            "143_27.webp",
+            "143_28.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -9180,7 +9248,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Wulingyuan",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/640",
-        "song_name": "Becoming one of \"The People\" Becoming one with Neytiri — James Horner",
+        "song_name": "Becoming one of \\\"The People\\\" Becoming one with Neytiri (from 'Avatar') — James Horner",
         "captions": {
             "145_01.webp": {
                 "en": "This is the amazing landscape that Cameron used as inspiration to imagine Pandora's floating mountains in Avatar. Wulingyuan Park, Zhangjiajie. World Heritage Site.",
@@ -9291,7 +9359,7 @@
         "visited_en": "July 2017",
         "visited_es": "Julio 2017",
         "visited_pt": "Julho 2017",
-        "song_name": "Hungarian Dance No. 5 in G Minor — London Philharmonic Orchestra",
+        "song_name": "Tchaikovsky's The Nutcracker Suite, Op. 71, TH 35: No. 14, 'Pas de deux' — National Philharmonic Orchestra of Russia",
         "wiki_en": "https://en.wikipedia.org/wiki/Bolshoi_Theatre",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Teatro_Bolshoi",
         "wiki_es": "https://es.wikipedia.org/wiki/Teatro_Bolsh%C3%B3i",
@@ -9834,7 +9902,7 @@
         "visited_en": "July 2017",
         "visited_es": "Julio 2017",
         "visited_pt": "Julho 2017",
-        "song_name": "Swan Lake Suite, Op. 20: Scéne — London Philharmonic Orchestra",
+        "song_name": "Tchaikovsky's Swan Lake Suite, Op. 20: Scéne — London Philharmonic Orchestra",
         "wiki_en": "https://en.wikipedia.org/wiki/Mariinsky_Theatre",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Teatro_Mariinski",
         "wiki_es": "https://es.wikipedia.org/wiki/Teatro_Mariinski",
@@ -10099,7 +10167,7 @@
                 "es": "Hoy al mediodía llegué en tren bala (350 km/h) a Xi'an, que supo ser una de las mayores y más cultas ciudades del planeta durante la dinastía Tang. Pedalear los 14 km del perímetro de las famosas murallas Ming es una experiencia surrealista."
             }
         },
-        "song_name": "Lovers (Mei and Jin) (House of Flying Daggers)  — Shigeru Umebayashi"
+        "song_name": "Lovers (Mei and Jin) (from 'House of Flying Daggers') — Shigeru Umebayashi"
     },
     {
         "id": "163",
@@ -10171,9 +10239,48 @@
             "164_02.webp",
             "164_03.webp",
             "164_04.webp",
-            "164_05.webp"
+            "164_05.webp",
+            "164_06.webp",
+            "164_07.webp",
+            "164_08.webp",
+            "164_09.webp",
+            "164_10.webp",
+            "164_11.webp",
+            "164_12.webp",
+            "164_13.webp",
+            "164_14.webp",
+            "164_15.webp",
+            "164_16.webp",
+            "164_17.webp",
+            "164_18.webp",
+            "164_19.webp",
+            "164_20.webp",
+            "164_21.webp",
+            "164_22.webp",
+            "164_23.webp",
+            "164_24.webp",
+            "164_25.webp",
+            "164_26.webp",
+            "164_27.webp",
+            "164_28.webp",
+            "164_29.webp",
+            "164_30.webp",
+            "164_31.webp",
+            "164_32.webp",
+            "164_33.webp",
+            "164_34.webp",
+            "164_35.webp",
+            "164_36.webp",
+            "164_37.webp",
+            "164_38.webp",
+            "164_39.webp",
+            "164_40.webp"
         ],
-        "videos": [],
+        "videos": [
+            "164_01.webm",
+            "164_02.webm",
+            "164_03.webm"
+        ],
         "region": "Europe",
         "visited_en": "January 2018",
         "visited_es": "Enero 2018",
@@ -10194,7 +10301,8 @@
                 "pt": "Segunda-feira com sol pleno na neve do complexo de Grandvalira, a maior estação de esqui dos Pirineus, com mais de 200 km de pistas de todas as cores e tamanhos.",
                 "es": "Lunes a pleno sol en la nieve del complejo de Grandvalira, la mayor estación de esquí de los Pirineos, con más de 200 km de pistas de todos los colores y tamaños."
             }
-        }
+        },
+        "song_name": "Viva La Vida — Coldplay"
     },
     {
         "id": "165",
@@ -10529,7 +10637,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Arena_de_Verona",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/797",
-        "song_name": "La traviata, Act 1: Libiamo, ne' lieti calici (Brindisi) — Joan Sutherland, Luciano Pavarotti, Elizabethan Sydney Orchestra and Richard Bonynge"
+        "song_name": "Verdi's La Traviata, Act 1: Libiamo, ne' lieti calici (Brindisi) — Joan Sutherland, Luciano Pavarotti, Elizabethan Sydney Orchestra and Richard Bonynge"
     },
     {
         "id": "169",
@@ -10564,7 +10672,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Pingyao",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/812",
-        "song_name": "Suo Gân (feat. James Rainbird) — The Ambrosian Junior Choir",
+        "song_name": "Suo Gân (feat. James Rainbird) (from 'The Empire of the Sun') — The Ambrosian Junior Choir",
         "captions": {
             "169_01.webp": {
                 "en": "The ancient walled city of Pingyao, a World Heritage Site, delightfully picturesque, like the Chinese sweets I was savoring.",
@@ -10825,7 +10933,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Castillo_de_Praga",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/616",
-        "song_name": "Symphony No. 9 in E Minor, Op. 95, \"From the New World\": Largo — London Philharmonic Orchestra"
+        "song_name": "Dvorák's Symphony No. 9 in E Minor, Op. 95, \"From the New World\": Largo — London Philharmonic Orchestra"
     },
     {
         "id": "177",
@@ -10859,7 +10967,7 @@
         "wiki_en": "https://en.wikipedia.org/wiki/Valle_dei_Templi",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Zona_Arqueol%C3%B3gica_de_Agrigento",
         "wiki_es": "https://es.wikipedia.org/wiki/Valle_de_los_Templos",
-        "song_name": "Love theme — Ennio Morricone",
+        "song_name": "Love theme (from 'Cinema Paradiso') — Ennio Morricone",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/831",
         "captions": {
@@ -12147,7 +12255,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Casino_de_Monte_Carlo",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "James Bond Theme (From Goldeneye 1995) — Parodi Fair"
+        "song_name": "James Bond Theme (From 'Goldeneye') — Parodi Fair"
     },
     {
         "id": "195",
@@ -12272,7 +12380,33 @@
             "197_06.webp",
             "197_07.webp",
             "197_08.webp",
-            "197_09.webp"
+            "197_09.webp",
+            "197_10.webp",
+            "197_11.webp",
+            "197_12.webp",
+            "197_13.webp",
+            "197_14.webp",
+            "197_15.webp",
+            "197_16.webp",
+            "197_17.webp",
+            "197_18.webp",
+            "197_19.webp",
+            "197_20.webp",
+            "197_21.webp",
+            "197_22.webp",
+            "197_23.webp",
+            "197_24.webp",
+            "197_25.webp",
+            "197_26.webp",
+            "197_27.webp",
+            "197_28.webp",
+            "197_29.webp",
+            "197_30.webp",
+            "197_31.webp",
+            "197_32.webp",
+            "197_33.webp",
+            "197_34.webp",
+            "197_35.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -12330,7 +12464,7 @@
         "visited_en": "January 2020",
         "visited_es": "Enero 2020",
         "visited_pt": "Janeiro 2020",
-        "song_name": "Concerning Hobbits — Howard Shore",
+        "song_name": "Concerning Hobbits (from 'The Lord of the Rings: The Fellowship of the Ring') — Howard Shore",
         "wiki_en": "https://en.wikipedia.org/wiki/Hobbiton_Movie_Set",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Cen%C3%A1rio_de_filmagem_de_Hobbiton",
         "wiki_es": "https://es.wikipedia.org/wiki/Hobbiton",
@@ -12371,9 +12505,43 @@
             "199_03.webp",
             "199_04.webp",
             "199_05.webp",
-            "199_06.webp"
+            "199_06.webp",
+            "199_07.webp",
+            "199_08.webp",
+            "199_09.webp",
+            "199_10.webp",
+            "199_11.webp",
+            "199_12.webp",
+            "199_13.webp",
+            "199_14.webp",
+            "199_15.webp",
+            "199_16.webp",
+            "199_17.webp",
+            "199_18.webp",
+            "199_19.webp",
+            "199_20.webp",
+            "199_21.webp",
+            "199_22.webp",
+            "199_23.webp",
+            "199_24.webp",
+            "199_25.webp",
+            "199_26.webp",
+            "199_27.webp",
+            "199_28.webp",
+            "199_29.webp",
+            "199_30.webp",
+            "199_31.webp",
+            "199_32.webp",
+            "199_33.webp",
+            "199_34.webp",
+            "199_35.webp",
+            "199_36.webp",
+            "199_37.webp"
         ],
-        "videos": [],
+        "videos": [
+            "199_01.webm",
+            "199_02.webm"
+        ],
         "region": "Europe",
         "visited_en": "January 2018",
         "visited_es": "Enero 2018",
@@ -12389,7 +12557,8 @@
                 "pt": "O centro termal e de lazer Caldea, em Andorra, é o maior spa da Europa. Sua fantástica torre de vidro de 80 m é o edifício mais alto do país. Nada melhor que vir relaxar os músculos cansados depois de um longo dia de esqui em suas múltiplas piscinas, jacuzzis, saunas e outras atrações aquáticas originais.",
                 "es": "El centro termolúdico de Caldea, en Andorra, es el mayor spa de Europa. Su fantástica torre de cristal de 80 m es el edificio más alto del país. Nada mejor que venir a relajar los cansados músculos después de un largo día de esquí en sus múltiples piscinas, jacuzzis, saunas y otras originales ocurrencias acuáticas."
             }
-        }
+        },
+        "song_name": "Bittersweet symphony — The Verve"
     },
     {
         "id": "200",
