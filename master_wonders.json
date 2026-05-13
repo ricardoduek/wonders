@@ -2511,7 +2511,32 @@
             "027_01.webp",
             "027_02.webp",
             "027_03.webp",
-            "027_04.webp"
+            "027_04.webp",
+            "027_05.webp",
+            "027_06.webp",
+            "027_07.webp",
+            "027_08.webp",
+            "027_09.webp",
+            "027_10.webp",
+            "027_11.webp",
+            "027_12.webp",
+            "027_13.webp",
+            "027_14.webp",
+            "027_15.webp",
+            "027_16.webp",
+            "027_17.webp",
+            "027_18.webp",
+            "027_19.webp",
+            "027_20.webp",
+            "027_21.webp",
+            "027_22.webp",
+            "027_23.webp",
+            "027_24.webp",
+            "027_25.webp",
+            "027_26.webp",
+            "027_27.webp",
+            "027_28.webp",
+            "027_29.webp"
         ],
         "videos": [],
         "region": "Asia",
@@ -2683,7 +2708,8 @@
                 "pt": "Os imponentes templos de Ramsés II e de Nefertari em Abu Simbel foram transferidos pedra por pedra para evitar que ficassem submersos ao ser completado o enchimento do lago Nasser quando foi construída a Alta Represa de Assuã. Para chegar a Abu Simbel é preciso levantar às 2:30h, fazer parte do comboio diário com escolta policial que sai às 4h e fazer as 3 horas de van atravessando parte do deserto do Saara.",
                 "es": "Los imponentes templos de Ramses II y de Nefertari en Abu Simbel fueron trasladados piedra por piedra para evitar que quedaran sumergidos al completarse el llenado del lago Nasser cuando se hizo la Alta Represa de Asuán. Para llegar a Abu Simbel hay que levantarse a las 2:30am, formar parte del convoy diario con escolta policial que sale a las 4am y hacer las 3 horas en combi atravesando parte del desierto del Sahara."
             }
-        }
+        },
+        "song_name": "Witching Hours — Clann"
     },
     {
         "id": "032",
@@ -2716,7 +2742,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_de_Versalhes",
         "wiki_es": "https://es.wikipedia.org/wiki/Palacio_de_Versalles",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/83"
+        "unesco_url": "https://whc.unesco.org/en/list/83",
+        "song_name": "Ella, elle l'a — France Gall"
     },
     {
         "id": "033",
@@ -4345,7 +4372,13 @@
             "051_35.webp",
             "051_36.webp",
             "051_37.webp",
-            "051_38.webp"
+            "051_38.webp",
+            "051_39.webp",
+            "051_40.webp",
+            "051_41.webp",
+            "051_42.webp",
+            "051_43.webp",
+            "051_44.webp"
         ],
         "videos": [
             "051_01.webm",
@@ -4713,7 +4746,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Catedral_de_Chartres",
         "wiki_es": "https://es.wikipedia.org/wiki/Catedral_de_Chartres",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/81"
+        "unesco_url": "https://whc.unesco.org/en/list/81",
+        "song_name": "Je Ne Sais Pas — Joyce Jonathan"
     },
     {
         "id": "062",
@@ -4929,7 +4963,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Prambanan",
         "wiki_es": "https://es.wikipedia.org/wiki/Prambanan",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/642"
+        "unesco_url": "https://whc.unesco.org/en/list/642",
+        "song_name": "Silent lucidity — Queensrÿche"
     },
     {
         "id": "067",
@@ -5147,7 +5182,8 @@
                 "pt": "Uma das portas de acesso com 2 das 26 torres que ainda se conservam da antiga muralha defensiva que rodeia o centro histórico de Tallinn, uma cidade saída de um conto de fadas.",
                 "es": "Una de las puertas de acceso con 2 de las 26 torres que aún se conservan de la antigua muralla defensiva que rodea el casco antiguo de Tallinn, una ciudad sacada de un cuento de hadas."
             }
-        }
+        },
+        "song_name": "Life in a northern town — The Dream Academy"
     },
     {
         "id": "072",
@@ -6440,7 +6476,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Chiang_Mai",
         "wiki_es": "https://es.wikipedia.org/wiki/Chiang_Mai",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Nirvana — Elbosco"
     },
     {
         "id": "091",
@@ -6676,7 +6713,10 @@
             "097_01.webp",
             "097_02.webp",
             "097_03.webp",
-            "097_04.webp"
+            "097_04.webp",
+            "097_05.webp",
+            "097_06.webp",
+            "097_07.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -6720,7 +6760,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Catedral_de_Mil%C3%A3o",
         "wiki_es": "https://es.wikipedia.org/wiki/Catedral_de_Mil%C3%A1n",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Nessun dorma - Turandot (Puccini) — Luciano Pavarotti"
     },
     {
         "id": "099",
@@ -6787,7 +6828,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Honolulu",
         "wiki_es": "https://es.wikipedia.org/wiki/Honolulu",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "We'll Meet Again (feat. Emma Carn) — Kungs"
     },
     {
         "id": "101",
@@ -8786,9 +8828,55 @@
             "137_03.webp",
             "137_04.webp",
             "137_05.webp",
-            "137_06.webp"
+            "137_06.webp",
+            "137_07.webp",
+            "137_08.webp",
+            "137_09.webp",
+            "137_10.webp",
+            "137_11.webp",
+            "137_12.webp",
+            "137_13.webp",
+            "137_14.webp",
+            "137_15.webp",
+            "137_16.webp",
+            "137_17.webp",
+            "137_18.webp",
+            "137_19.webp",
+            "137_20.webp",
+            "137_21.webp",
+            "137_22.webp",
+            "137_23.webp",
+            "137_24.webp",
+            "137_25.webp",
+            "137_26.webp",
+            "137_27.webp",
+            "137_28.webp",
+            "137_29.webp",
+            "137_30.webp",
+            "137_31.webp",
+            "137_32.webp",
+            "137_33.webp",
+            "137_34.webp",
+            "137_35.webp",
+            "137_36.webp",
+            "137_37.webp",
+            "137_38.webp",
+            "137_39.webp",
+            "137_40.webp",
+            "137_41.webp",
+            "137_42.webp",
+            "137_43.webp",
+            "137_44.webp",
+            "137_45.webp",
+            "137_46.webp",
+            "137_47.webp",
+            "137_48.webp",
+            "137_49.webp",
+            "137_50.webp"
         ],
-        "videos": [],
+        "videos": [
+            "137_01.webm"
+        ],
         "region": "Europe",
         "visited_en": "July 2017",
         "visited_es": "Julio 2017",
@@ -9497,7 +9585,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Castelo_de_Hohenzollern",
         "wiki_es": "https://es.wikipedia.org/wiki/Castillo_de_Hohenzollern",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Beethoven's Symphony No. 5 in C minor Op.67 - II. Andante con moto — The Cleveland Orchestra (Christoph Von Dohnanyi)"
     },
     {
         "id": "150",
@@ -9535,7 +9624,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Arco_do_Triunfo_(Fran%C3%A7a)",
         "wiki_es": "https://es.wikipedia.org/wiki/Arco_del_Triunfo_(Par%C3%ADs)",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Paris — The Chainsmokers"
     },
     {
         "id": "151",
@@ -10739,7 +10829,8 @@
                 "pt": "Hawa Mahal, erguendo-se 15 metros acima do nível da rua.",
                 "es": "Hawa Mahal, 15 metros de altura por sobre el nivel de la calle."
             }
-        }
+        },
+        "song_name": "On silent wings — Tina Turner"
     },
     {
         "id": "168",
