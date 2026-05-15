@@ -3947,7 +3947,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Templo_Expiat%C3%B3rio_da_Sagrada_Fam%C3%ADlia",
         "wiki_es": "https://es.wikipedia.org/wiki/Sagrada_Familia",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/320"
+        "unesco_url": "https://whc.unesco.org/en/list/320",
+        "song_name": "Sanvean — Sarah Brightman"
     },
     {
         "id": "040",
@@ -4058,7 +4059,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Petronas_Twin_Towers",
         "wiki_es": "https://es.wikipedia.org/wiki/Torres_Petronas",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "The Space Between — Dave Matthews Band"
     },
     {
         "id": "043",
@@ -4099,7 +4101,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Mesquita-Catedral_de_C%C3%B3rdova",
         "wiki_es": "https://es.wikipedia.org/wiki/Mezquita-catedral_de_C%C3%B3rdoba",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/313"
+        "unesco_url": "https://whc.unesco.org/en/list/313",
+        "song_name": "For The Damaged Coda (Samuel Kim Epic Cover) — Blonde Redhead"
     },
     {
         "id": "044",
@@ -4132,7 +4135,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Ba%C3%ADa_de_Ha_Long",
         "wiki_es": "https://es.wikipedia.org/wiki/Bah%C3%ADa_de_Ha_Long",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/672"
+        "unesco_url": "https://whc.unesco.org/en/list/672",
+        "song_name": "Nowhere Near (Mango Remix) — Blake Reary & DJ Fran London"
     },
     {
         "id": "045",
@@ -4484,7 +4488,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Monte_Saint-Michel",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/80",
-        "song_name": "Quelqu'un m'a dit — Carla Bruni"
+        "song_name": "Gortoz a Ran — Denez Prigent & Lisa Gerrard"
     },
     {
         "id": "053",
@@ -4585,7 +4589,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Jardins_da_Ba%C3%ADa",
         "wiki_es": "https://es.wikipedia.org/wiki/Jardines_de_la_Bah%C3%ADa",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Paradise Circus — Massive Attack"
     },
     {
         "id": "056",
@@ -7274,7 +7279,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Mesquita_Azul",
         "wiki_es": "https://es.wikipedia.org/wiki/Mezquita_Azul",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/242"
+        "unesco_url": "https://whc.unesco.org/en/list/242",
+        "song_name": "Umuduna Kat Beni — Çeşitli Müzisyenler"
     },
     {
         "id": "105",
