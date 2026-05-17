@@ -412,6 +412,7 @@
         /* ── Next Wonders modal ── */
         .nw-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; align-items: center; justify-content: center; }
         .nw-modal-box { position: relative; width: 88%; max-width: 1100px; max-height: 88vh; overflow-y: auto; background: #080808; border: 1px solid var(--gold); padding: 50px; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        .nw-modal-subtitle { font-size: 11px; letter-spacing: 1.5px; color: var(--grey); text-transform: uppercase; margin-top: 6px; display: block; font-style: italic; }
         .nw-modal-header { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-bottom: 28px; gap: 20px; }
         .nw-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 3rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
         .nw-modal-count { font-size: 1rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
@@ -801,6 +802,7 @@
             }
             .nw-modal-header { padding: 0 16px 14px; margin-bottom: 14px; }
             .nw-modal-title { font-size: 1.8rem; }
+            .nw-modal-subtitle { font-size: 10px; letter-spacing: 1px; }
             .nw-sort-tabs { padding: 0 16px; }
             .nw-table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; padding: 0 16px 16px; }
             .nw-table { min-width: 420px; }
@@ -1145,7 +1147,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 15 May 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 17 May 2026</span>
         </div>
     </div>
 
@@ -1165,7 +1167,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 15 May 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 17 May 2026</span>
     </div>
 
     <div class="page-flow">
@@ -1371,6 +1373,9 @@
                     <h2 class="nw-modal-title">{{ content[lang].nextWondersTitle }}</h2>
                     <span class="nw-modal-count">{{ nextWonders.length }} {{ content[lang].nextWondersCount }}</span>
                 </div>
+                <div>
+                    <span class="nw-modal-subtitle">{{ content[lang].nextWondersSubtitle }}</span>
+                </div>
                 <span class="nw-modal-close" @click="showNextWonders = false">&times;</span>
             </div>
 
@@ -1395,7 +1400,7 @@
                         <td>
                             <span class="nw-td-country">
                                 <template v-for="(part, i) in entry.countryParts" :key="part">
-                                    <span v-if="getCountryCode(part)[0]" :class="'fi fi-' + getCountryCode(part)[0]" class="nw-flag"></span>{{ part }}<template v-if="i < entry.countryParts.length - 1"> &amp; </template>
+                                    <span v-if="countryCodeMap[resolveAlias(part)]" :class="'fi fi-' + countryCodeMap[resolveAlias(part)]" class="nw-flag"></span>{{ part }}<template v-if="i < entry.countryParts.length - 1"> &amp; </template>
                                 </template>
                             </span>
                         </td>
@@ -1858,6 +1863,7 @@ createApp({
                     tripsTimelineTitle: "My Trips Timeline",
                     seeNextWonders: "See my next wonders",
                     nextWondersTitle: "My Next Wonders", nextWondersCount: "wonders",
+                    nextWondersSubtitle: "Already visited, soon to be part of the Collection.",
                     nextWondersSortWonder: "By Wonder", nextWondersSortCountry: "By Country",
                     nextWondersColWonder: "Wonder", nextWondersColCountry: "Country",
                     tripsDaysLabel: "days",
@@ -1925,6 +1931,7 @@ createApp({
                     tripsTimelineTitle: "Linha do Tempo das Viagens",
                     seeNextWonders: "Ver minhas próximas maravilhas",
                     nextWondersTitle: "Minhas Próximas Maravilhas", nextWondersCount: "maravilhas",
+                    nextWondersSubtitle: "Já visitadas, farão parte da Coleção em breve.",
                     nextWondersSortWonder: "Por Maravilha", nextWondersSortCountry: "Por País",
                     nextWondersColWonder: "Maravilha", nextWondersColCountry: "País",
                     tripsDaysLabel: "dias",
@@ -1990,6 +1997,7 @@ createApp({
                     tripsTimelineTitle: "Línea de Tiempo de Viajes",
                     seeNextWonders: "Ver mis próximas maravillas",
                     nextWondersTitle: "Mis Próximas Maravillas", nextWondersCount: "maravillas",
+                    nextWondersSubtitle: "Ya visitadas, formarán parte de la Colección pronto.",
                     nextWondersSortWonder: "Por Maravilla", nextWondersSortCountry: "Por País",
                     nextWondersColWonder: "Maravilla", nextWondersColCountry: "País",
                     tripsDaysLabel: "días",

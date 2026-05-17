@@ -4837,7 +4837,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Marraquexe",
         "wiki_es": "https://es.wikipedia.org/wiki/Marrakech",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/331"
+        "unesco_url": "https://whc.unesco.org/en/list/331",
+        "song_name": "Unter dem Sternenhimmel von Marrakesch — KlangReise"
     },
     {
         "id": "063",
@@ -5092,7 +5093,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Linhas_de_Nazca",
         "wiki_es": "https://es.wikipedia.org/wiki/L%C3%ADneas_de_Nazca",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/700"
+        "unesco_url": "https://whc.unesco.org/en/list/700",
+        "song_name": "Beats of Peru — Amanecer Andino"
     },
     {
         "id": "069",
@@ -5157,7 +5159,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Grutas_de_Ellora",
         "wiki_es": "https://es.wikipedia.org/wiki/Cuevas_de_Ellora",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/243"
+        "unesco_url": "https://whc.unesco.org/en/list/243",
+        "song_name": "Holes — Matt Berninger"
     },
     {
         "id": "070",
@@ -5648,7 +5651,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Museu_Guggenheim_Bilbao",
         "wiki_es": "https://es.wikipedia.org/wiki/Museo_Guggenheim_Bilbao",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Dauðalogn — Sigur Rós"
     },
     {
         "id": "075",
