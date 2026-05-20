@@ -9632,7 +9632,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Toledo",
         "wiki_es": "https://es.wikipedia.org/wiki/Toledo",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/379"
+        "unesco_url": "https://whc.unesco.org/en/list/379",
+        "song_name": "Don't Let Me Be Misunderstood — Santa Esmeralda"
     },
     {
         "id": "144",
@@ -9664,7 +9665,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Centro_Hist%C3%B3rico_de_Crac%C3%B3via",
         "wiki_es": "https://es.wikipedia.org/wiki/Casco_hist%C3%B3rico_de_Cracovia",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/31"
+        "unesco_url": "https://whc.unesco.org/en/list/31",
+        "song_name": "Szampan — Sanah"
     },
     {
         "id": "145",
@@ -9747,7 +9749,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Aiutaia",
         "wiki_es": "https://es.wikipedia.org/wiki/Ayutthaya_(ciudad_hist%C3%B3rica)",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/576"
+        "unesco_url": "https://whc.unesco.org/en/list/576",
+        "song_name": "The Court of Ayuthaya (from 'The Legend of Suriyotha') — Richard Harvey & Budapest Film Orchestra"
     },
     {
         "id": "147",
@@ -10034,7 +10037,8 @@
                 "pt": "Singapura parece ter sido projetada e planejada por um grupo de arquitetos muito originais e criativos sem nenhuma restrição orçamentária. Tipo: 'façam o melhor e não se preocupem com gastos'. Além disso, parece que terminaram de construí-la ontem. Entrou diretamente no meu top dez de cidades favoritas. Na foto, o famoso Marina Bay Sands Hotel e seu fabuloso skypark no terraço.",
                 "es": "Singapur parece haber sido diseñada y proyectada por un grupo de arquitectos muy originales y creativos sin ninguna restricción presupuestaria. Tipo: \"hagan lo mejor y no se fijen en gastos\". Además, pareciera que la terminaron de construir ayer. Entró directamente en mi top ten de ciudades favoritas. En la foto el famoso Marina Bay Sands Hotel y su fabuloso skypark en la terraza."
             }
-        }
+        },
+        "song_name": "Constellate — Fleurie"
     },
     {
         "id": "153",
@@ -10290,7 +10294,8 @@
                 "pt": "Dia de fortes emoções: travessia de Israel para a Palestina e visita emocionante à Basílica da Natividade em Belém. Na foto, o local de nascimento de Jesus Cristo, a manjedoura original.",
                 "es": "Día de fuertes emociones: cruce de Israel a Palestina y emotiva visita a la Basílica de la Natividad en Belén. En la foto, el lugar de nacimiento de Jesucristo, el pesebre original."
             }
-        }
+        },
+        "song_name": "Do They Know It's Christmas? — Band Aid"
     },
     {
         "id": "158",
