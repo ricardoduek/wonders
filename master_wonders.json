@@ -2590,7 +2590,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Gran_Canal_(Venecia)",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/394",
-        "song_name": "Time To Say Goodbye (Con Te Partiro) (With Andrea Bocelli) — Sarah Brightman"
+        "song_name": "Time To Say Goodbye (Con Te Partiro) — Sarah Brightman & Andrea Bocelli"
     },
     {
         "id": "029",
@@ -4680,7 +4680,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Portofino",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Se Bastasse Una Canzone (with Eros Ramazzotti) — Luciano Pavarotti"
+        "song_name": "Se Bastasse Una Canzone — Luciano Pavarotti & Eros Ramazzotti"
     },
     {
         "id": "054",
@@ -4986,7 +4986,20 @@
             "060_01.webp",
             "060_02.webp",
             "060_03.webp",
-            "060_04.webp"
+            "060_04.webp",
+            "060_05.webp",
+            "060_06.webp",
+            "060_07.webp",
+            "060_08.webp",
+            "060_09.webp",
+            "060_10.webp",
+            "060_11.webp",
+            "060_12.webp",
+            "060_13.webp",
+            "060_14.webp",
+            "060_15.webp",
+            "060_16.webp",
+            "060_17.webp"
         ],
         "videos": [],
         "region": "Europe",
@@ -4998,7 +5011,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Galería_de_los_Uffizi",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/174",
-        "song_name": "Gianni Schicchi: \"O mio babbino caro\" — Eteri Lamoris"
+        "song_name": "Puccini's O mio babbino caro (from the Opera 'Gianni Schicch') — Eteri Lamoris"
     },
     {
         "id": "061",
@@ -6920,7 +6933,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Siena",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/717",
-        "song_name": "Mascagni's Cavalleria Rusticana: Intermezzo Sinfonico — Bonn Classical Philharmonic and Heribert Beissel"
+        "song_name": "Mascagni's Intermezzo Sinfonico (from the Opera 'Cavalleria Rusticana') — Bonn Classical Philharmonic and Heribert Beissel"
     },
     {
         "id": "095",
@@ -7054,7 +7067,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Catedral_de_Mil%C3%A1n",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Nessun dorma - Turandot (Puccini) — Luciano Pavarotti"
+        "song_name": "Puccini's Nessun dorma (from the Opera 'Turandot') — Luciano Pavarotti"
     },
     {
         "id": "099",
@@ -9099,7 +9112,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/%C3%93pera_Garnier",
         "is_unesco": "no",
         "unesco_url": "",
-        "song_name": "Delibes' Lakmé, Act 1: Duo des fleurs. \\\"Viens, Mallika\\\" — Sabine Devieilhe & Marianne Crebassa"
+        "song_name": "Delibes' Duo des fleurs. Viens, Mallika (from the Opera 'Lakmé') — Sabine Devieilhe & Marianne Crebassa"
     },
     {
         "id": "137",
@@ -11171,7 +11184,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Arena_de_Verona",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/797",
-        "song_name": "Verdi's La Traviata, Act 1: Libiamo, ne' lieti calici (Brindisi) — Joan Sutherland, Luciano Pavarotti, Elizabethan Sydney Orchestra and Richard Bonynge"
+        "song_name": "Verdi's Libiamo, ne' lieti calici (Brindisi) (from the Opera 'La Traviata') — Joan Sutherland, Luciano Pavarotti, Elizabethan Sydney Orchestra and Richard Bonynge"
     },
     {
         "id": "169",
@@ -11502,7 +11515,7 @@
         "wiki_en": "https://en.wikipedia.org/wiki/Valle_dei_Templi",
         "wiki_pt": "https://pt.wikipedia.org/wiki/Zona_Arqueol%C3%B3gica_de_Agrigento",
         "wiki_es": "https://es.wikipedia.org/wiki/Valle_de_los_Templos",
-        "song_name": "Love theme (from 'Cinema Paradiso') — Ennio Morricone",
+        "song_name": "Love Theme (from 'Cinema Paradiso') — Ennio Morricone",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/831",
         "captions": {
