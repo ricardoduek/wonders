@@ -5011,7 +5011,64 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Galería_de_los_Uffizi",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/174",
-        "song_name": "Puccini's O mio babbino caro (from the Opera 'Gianni Schicch') — Eteri Lamoris"
+        "song_name": "Puccini's O mio babbino caro (from the Opera 'Gianni Schicch') — Eteri Lamoris",
+        "captions": {
+            "060_12.webp": {
+                "en": "Narrow courtyard between the two wings of the museum, with a view toward the Arno River.",
+                "pt": "Pátio estreito entre as duas alas do museu, com vista para o Rio Arno.",
+                "es": "Patio estrecho entre las dos alas del museo, con vista hacia el río Arno."
+            },
+            "060_03.webp": {
+                "en": "Sandro Botticelli, The Birth of Venus",
+                "pt": "Sandro Botticelli, O Nascimento de Vênus",
+                "es": "Sandro Botticelli, El Nacimiento de Venus"
+            },
+            "060_17.webp": {
+                "en": "Caravaggio, Sacrificio di Isacco",
+                "pt": "Caravaggio, Sacrifício de Isaac",
+                "es": "Caravaggio, Sacrificio de Isaac"
+            },
+            "060_08.webp": {
+                "en": "Titian, Venus of Urbino",
+                "pt": "Ticiano, Vênus de Urbino",
+                "es": "Tiziano, Venus de Urbino"
+            },
+            "060_05.webp": {
+                "en": "Leonardo da Vinci, Annunciation",
+                "pt": "Leonardo da Vinci, Anunciação",
+                "es": "Leonardo da Vinci, Anunciación"
+            },
+            "060_16.webp": {
+                "en": "Albrecht Dürer, Adorazione dei Magi",
+                "pt": "Albrecht Dürer, Adoração dos Magos",
+                "es": "Albrecht Dürer, Adoración de los Magos"
+            },
+            "060_07.webp": {
+                "en": "Raphael, Madonna of the Goldfinch",
+                "pt": "Rafael, Madona do Pintassilgo",
+                "es": "Rafael, Virgen del Jilguero"
+            },
+            "060_06.webp": {
+                "en": "Michelangelo, Doni Tondo",
+                "pt": "Michelangelo, Tondo Doni",
+                "es": "Miguel Ángel, Tondo Doni"
+            },
+            "060_15.webp": {
+                "en": "Botticelli, Primavera",
+                "pt": "Botticelli, Primavera",
+                "es": "Botticelli, Primavera"
+            },
+            "060_09.webp": {
+                "en": "View of the East Hallway, the walls were originally covered with tapestries.",
+                "pt": "Vista do Corredor do Leste, as paredes eram originalmente cobertas com tapeçarias.",
+                "es": "Vista del Corredor del Este, las paredes estaban originalmente cubiertas con tapices."
+            },
+            "060_01.webp": {
+                "en": "Night view of the Uffizi Gallery with Palazzo Vecchio in the background.",
+                "pt": "Vista noturna da Galeria Uffizi com o Palazzo Vecchio ao fundo.",
+                "es": "Vista nocturna de la Galería Uffizi con el Palazzo Vecchio al fondo."
+            }
+        }
     },
     {
         "id": "061",
@@ -13216,6 +13273,61 @@
                 "en": "Dreamlike sunset at Kruger Park.",
                 "pt": "Pôr do sol de sonho no Parque Kruger.",
                 "es": "Atardecer de ensueño en el Parque Kruger."
+            },
+            "200_13.webp": {
+                "en": "Gastón showing off his exclusive VIP accommodation.",
+                "pt": "Gastón exibindo sua acomodação VIP exclusiva.",
+                "es": "Gastón presumiendo de su exclusivo alojamiento VIP."
+            },
+            "200_17.webp": {
+                "en": "Claudia, Lucia and large African elephant.",
+                "pt": "Claudia, Lucia e grande elefante africano.",
+                "es": "Claudia, Lucía y gran elefante africano."
+            },
+            "200_18.webp": {
+                "en": "Lucía, Claudia, Gastón, Carolina and Valentín savoring a delicious and well-deserved South African barbecue, better known as 'Braai'.",
+                "pt": "Lucía, Claudia, Gastón, Carolina e Valentín saboreando um delicioso e bem merecido churrasco sul-africano, mais conhecido como 'Braai'.",
+                "es": "Lucía, Claudia, Gastón, Carolina y Valentín saboreando un delicioso y bien merecido asado sudafricano, mejor conocido como 'Braai'."
+            },
+            "200_15.webp": {
+                "en": "The Cape buffalo, African buffalo or Cape buffalo (Syncerus caffer), is one of the African \"big five\" game animals. It is known as \"the black death\" or \"the widowmaker\" and is considered a very dangerous animal. It is sometimes said that African buffalo kill more people in Africa than any other animal.",
+                "pt": "O búfalo-africano, búfalo-do-cabo ou búfalo cafre (Syncerus caffer), é um dos \"cinco grandes\" animais de caça africanos. É conhecido como \"a peste negra\" ou \"o fazedor de viúvas\" e é considerado um animal muito perigoso. Às vezes se diz que os búfalos africanos matam mais pessoas na África do que qualquer outro animal.",
+                "es": "El búfalo cafre, búfalo africano o búfalo de El Cabo (Syncerus caffer), es uno de los \"cinco grandes\" animales de caza africanos. Se le conoce como \"la peste negra\" o \"el hacedor de viudas\" y se le considera un animal muy peligroso. A veces se dice que los búfalos africanos matan a más personas en África que cualquier otro animal."
+            },
+            "200_16.webp": {
+                "en": "Ricardo, Claudia, Lucía, and Carolina.",
+                "pt": "Ricardo, Claudia, Lucía e Carolina.",
+                "es": "Ricardo, Claudia, Lucía y Carolina."
+            },
+            "200_08.webp": {
+                "en": "The beautiful 'Casper', one of the last white lions in the Kruger Park.  White lions are very rare, but they are not albino. Their white color is called leucism and is caused by an allele at the same locus as the allele that causes albinism.",
+                "pt": "O belo 'Casper', um dos últimos leões brancos do Parque Kruger. Os leões brancos são muito raros, mas não são albinos. Sua cor branca é chamada de leucismo e é causada por um alelo no mesmo locus do alelo que causa albinismo.",
+                "es": "El hermoso 'Casper', uno de los últimos leones blancos del Parque Kruger. Los leones blancos son muy raros, pero no son albinos. Su color blanco se llama leucismo y es causado por un alelo en el mismo locus que el alelo que causa albinismo."
+            },
+            "200_09.webp": {
+                "en": "Ricardo and a very elegant giraffe.",
+                "pt": "Ricardo e uma girafa muito elegante.",
+                "es": "Ricardo y una jirafa muy elegante."
+            },
+            "200_10.webp": {
+                "en": "Ricardo, Carolina, Lucía, Claudia, and Gastón.",
+                "pt": "Ricardo, Carolina, Lucía, Claudia e Gastón.",
+                "es": "Ricardo, Carolina, Lucía, Claudia y Gastón."
+            },
+            "200_20.webp": {
+                "en": "Ricardo, Carolina, Inti, and Valentín cool off in the beautiful pool at Satara Rest Camp.",
+                "pt": "Ricardo, Carolina, Inti e Valentín se refrescam na bela piscina do Satara Rest Camp.",
+                "es": "Ricardo, Carolina, Inti y Valentín se refrescan en la hermosa pileta del Satara Rest Camp."
+            },
+            "200_21.webp": {
+                "en": "Valentín, Carolina, Lucía, Ricardo, Gastón, Inti and Claudia taking a break to nourish body and spirit between intense South African safaris in Kruger.",
+                "pt": "Valentín, Carolina, Lucía, Ricardo, Gastón, Inti e Claudia fazendo uma pausa para alimentar corpo e espírito entre intensos safáris sul-africanos no Kruger.",
+                "es": "Valentín, Carolina, Lucía, Ricardo, Gastón, Inti y Claudia tomándose una pausa para alimentar cuerpo y espíritu entre intensos safaris sudafricanos en el Kruger."
+            },
+            "200_22.webp": {
+                "en": "Claudia was the main driver for the safaris in Kruger.",
+                "pt": "Claudia foi a condutora titular dos safáris no Kruger.",
+                "es": "Claudia fue la conductora titular de los safaris en el Kruger."
             }
         }
     }
