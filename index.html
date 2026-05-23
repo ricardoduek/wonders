@@ -183,7 +183,7 @@
 
         /* Slideshow */
         .slideshow-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: #000; z-index: 200; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .slideshow-progress-bar { position: absolute; top: 0; left: 0; height: 2px; background: var(--gold); transition: width 0.1s linear; z-index: 10; }
+        .slideshow-progress-bar { position: absolute; bottom: 62px; left: 0; height: 4px; background: var(--gold); z-index: 10; transition: width 0.1s linear; }
         .slideshow-media-wrap { flex: 1; width: 100%; display: flex; align-items: center; justify-content: center; overflow: hidden; }
         .slideshow-img { max-width: 100%; max-height: 100%; object-fit: contain; }
         .slideshow-video { max-width: 100%; max-height: 100%; object-fit: contain; background: #000; }
@@ -208,9 +208,40 @@
         .close-modal-btn:hover { color: #fff; transform: scale(1.1); }
 
         .countries-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 30px; }
-        .country-item { display: flex; align-items: center; gap: 15px; padding: 12px; border-bottom: 1px solid #1a1a1a; }
-        .country-flag { font-size: 1.5rem; width: 30px; }
-        .country-name { font-size: 13px; color: var(--light-grey); letter-spacing: 0.5px; }
+        .country-item { display: flex; align-items: center; gap: 15px; padding: 10px 12px; border: 1px solid #1a1a1a; transition: 0.25s; }
+        .country-item-clickable { cursor: pointer; }
+        .country-item-clickable:hover { background: rgba(197,160,89,0.06); border-color: var(--gold); }
+        .country-item-clickable:hover .country-name { color: var(--gold); }
+        .country-flag { font-size: 1.5rem; width: 30px; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
+        .country-name { font-size: 13px; color: var(--light-grey); letter-spacing: 0.5px; transition: color 0.2s; }
+
+        /* ── Country Wonders modal ── */
+        .cw-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.92); z-index: 10000; display: flex; align-items: center; justify-content: center; }
+        .cw-box { position: relative; width: 82%; max-width: 1100px; max-height: 88vh; overflow-y: auto; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 80px rgba(197,160,89,0.15); padding: 50px 55px 50px; box-sizing: border-box; }
+        .cw-close { position: absolute; top: 18px; right: 22px; background: none; border: none; color: var(--grey); font-size: 2.2rem; cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s; z-index: 2; }
+        .cw-close:hover { color: #fff; }
+        .cw-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; margin-bottom: 0; padding-right: 40px; }
+        .cw-flag-name { display: flex; align-items: center; gap: 22px; flex: 1; min-width: 0; }
+        .cw-flag { font-size: 3.5rem; flex-shrink: 0; line-height: 1; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
+        .cw-country-name { font-family: 'Cormorant Garamond', serif; font-size: 3.6rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
+        .cw-wonder-count-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin: 6px 0 0; font-weight: 500; }
+        .cw-map-wrap { flex-shrink: 0; display: flex; align-items: center; justify-content: center; opacity: 0.75; }
+        .cw-map-canvas { display: block; }
+        .cw-divider { border: none; border-top: 1px solid var(--gold); margin: 22px 0 14px; }
+        .cw-hint { font-size: 11px; letter-spacing: 2px; color: var(--grey); text-transform: uppercase; margin: 0 0 22px; font-family: 'Inter', sans-serif; }
+        .cw-wonders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+        .cw-wonder-card { border: 1px solid #1a1a1a; cursor: pointer; transition: 0.25s; overflow: hidden; display: flex; flex-direction: column; position: relative; }
+        .cw-wonder-card::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: var(--gold); transform: scaleY(0); transition: transform 0.25s; transform-origin: bottom; }
+        .cw-wonder-card:hover { border-color: var(--gold); background: rgba(197,160,89,0.04); }
+        .cw-wonder-card:hover::before { transform: scaleY(1); }
+        .cw-wonder-thumb-wrap { width: 100%; height: 130px; overflow: hidden; flex-shrink: 0; }
+        .cw-wonder-thumb { width: 100%; height: 100%; object-fit: cover; display: block; filter: brightness(0.85); transition: transform 0.4s, filter 0.3s; }
+        .cw-wonder-card:hover .cw-wonder-thumb { transform: scale(1.05); filter: brightness(1); }
+        .cw-wonder-thumb-placeholder { width: 100%; height: 100%; background: #111; }
+        .cw-wonder-info { padding: 10px 14px 12px; display: flex; align-items: baseline; gap: 8px; flex-wrap: wrap; }
+        .cw-wonder-num { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-weight: 600; flex-shrink: 0; }
+        .cw-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #fff; line-height: 1.3; flex: 1; }
+        .cw-wonder-unesco { font-size: 8px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; border: 1px solid var(--gold); padding: 1px 5px; flex-shrink: 0; }
 
         .leaflet-tooltip-pane .leaflet-tooltip { background: rgba(0, 0, 0, 0.95) !important; border: 1px solid var(--gold) !important; color: var(--text) !important; padding: 0 !important; box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important; border-radius: 0 !important; }
         .leaflet-tooltip-top:before { border-top-color: var(--gold) !important; }
@@ -242,6 +273,7 @@
         @media (max-width: 900px) { .timeline-entries { grid-template-columns: repeat(2, 1fr); } }
 
         @media (max-width: 900px) { .countries-grid { grid-template-columns: repeat(2, 1fr); } }
+        @media (max-width: 900px) { .cw-wonders-grid { grid-template-columns: repeat(2, 1fr); } }
 
         .photo-caption { max-width: 100%; width: 100%; text-align: center; color: #bbb; font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; font-weight: 300; line-height: 1.6; margin-top: 14px; padding: 0 20px; letter-spacing: 0.3px; }
 
@@ -957,6 +989,17 @@
             /* Countries grid */
             .countries-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 16px; }
 
+            /* Country Wonders modal */
+            .cw-box { width: 94%; padding: 36px 24px 36px; }
+            .cw-header { flex-direction: column; gap: 16px; padding-right: 36px; }
+            .cw-map-wrap { width: 100%; justify-content: flex-start; }
+            .cw-map-canvas { width: 160px; height: 100px; }
+            .cw-country-name { font-size: 2.8rem; }
+            .cw-wonder-count-label { font-size: 10px; letter-spacing: 2px; }
+            .cw-flag { font-size: 2.8rem; }
+            .cw-wonders-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+            .slideshow-progress-bar { bottom: 74px; }
+
             /* Back to top */
             .back-to-top { bottom: 20px; right: 16px; width: 40px; height: 40px; }
         }
@@ -1009,6 +1052,13 @@
             .music-modal-box { padding: 22px 14px; }
             .nw-modal-box { padding: 22px 14px; }
             .trips-tl-box { padding: 22px 14px; }
+            .cw-box { padding: 28px 16px 28px; }
+            .cw-country-name { font-size: 2.2rem; }
+            .cw-wonder-count-label { font-size: 9px; letter-spacing: 2px; }
+            .cw-flag { font-size: 2.2rem; }
+            .cw-wonder-thumb-wrap { height: 110px; }
+            .cw-wonders-grid { gap: 8px; }
+            .slideshow-progress-bar { bottom: 74px; }
 
             /* About me: collapse stats row */
             .aboutme-header-stats { flex-wrap: wrap; }
@@ -1069,6 +1119,16 @@
             .trips-tl-box { width: 98%; padding: 18px 12px; }
             .aboutme-modal-box { width: 98%; }
             .trips-modal-box { width: 99%; height: 96vh; }
+            .cw-box { width: 98%; padding: 16px 12px 20px; }
+            .cw-country-name { font-size: 1.9rem; }
+            .cw-wonder-count-label { font-size: 9px; letter-spacing: 1.5px; margin-top: 3px; }
+            .cw-flag { font-size: 2rem; }
+            .cw-flag-name { gap: 14px; }
+            .cw-wonders-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
+            .cw-wonder-thumb-wrap { height: 90px; }
+            .cw-wonder-name { font-size: 1rem; }
+            .cw-map-canvas { width: 130px; height: 82px; }
+            .slideshow-progress-bar { bottom: 80px; }
 
             /* Trips sidebar: full-width stack on very small screens */
             .trips-modal-body { flex-direction: column; }
@@ -1273,10 +1333,50 @@
                 {{ content[lang].visitedCountriesTitle }} (101)
             </h2>
             <div class="countries-grid">
-                <div v-for="c in visitedCountries" :key="c.name" class="country-item">
+                <div v-for="c in sortedVisitedCountries" :key="c.name"
+                    :class="['country-item', wondersPerCountry[c.name] ? 'country-item-clickable' : '']"
+                    @click="wondersPerCountry[c.name] ? openCountryWonders(c) : null">
                     <span :class="['fi', 'fi-' + c.code, 'country-flag']"></span>
-                    <span class="country-name">{{ c.name }}</span>
+                    <span class="country-name">{{ lang === 'pt' ? c.name_pt : lang === 'es' ? c.name_es : c.name }}</span>
                     <span v-if="wondersPerCountry[c.name]" class="country-wonder-count">{{ wondersPerCountry[c.name] }} ✦</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Country Wonders modal -->
+    <div v-if="selectedWonderCountry" class="cw-overlay" @click.self="selectedWonderCountry = null">
+        <div class="cw-box">
+            <button class="cw-close" @click="selectedWonderCountry = null">&times;</button>
+            <div class="cw-header">
+                <div class="cw-flag-name">
+                    <span :class="['fi', 'fi-' + selectedWonderCountry.code, 'cw-flag']"></span>
+                    <div>
+                        <h2 class="cw-country-name">{{ lang === 'pt' ? selectedWonderCountry.name_pt : lang === 'es' ? selectedWonderCountry.name_es : selectedWonderCountry.name }}</h2>
+                        <p class="cw-wonder-count-label">{{ wondersForCountry(selectedWonderCountry.name).length }} {{ (wondersForCountry(selectedWonderCountry.name).length === 1 ? content[lang].countryWondersTitleSingle : content[lang].countryWondersTitle).toUpperCase() }}</p>
+                    </div>
+                </div>
+                <div class="cw-map-wrap">
+                    <canvas class="cw-map-canvas" :ref="'cwCanvas'" width="220" height="140"></canvas>
+                </div>
+            </div>
+            <div class="cw-divider"></div>
+            <p class="cw-hint">{{ content[lang].countryWondersHint }}</p>
+            <div class="cw-wonders-grid">
+                <div v-for="w in wondersForCountry(selectedWonderCountry.name)" :key="w.id"
+                    class="cw-wonder-card"
+                    @click="openWonderFromCountry(w)">
+                    <div class="cw-wonder-thumb-wrap">
+                        <img v-if="w.images && w.images.length"
+                            :src="mediaBase + 'Gallery/' + w.id + '_01.webp'"
+                            class="cw-wonder-thumb" loading="lazy" />
+                        <div v-else class="cw-wonder-thumb-placeholder"></div>
+                    </div>
+                    <div class="cw-wonder-info">
+                        <span class="cw-wonder-num">{{ w.id }}</span>
+                        <span class="cw-wonder-name">{{ lang === 'pt' ? w.name_pt : lang === 'es' ? w.name_es : w.name_en }}</span>
+                        <span v-if="w.is_unesco === 'yes'" class="cw-wonder-unesco">UNESCO</span>
+                    </div>
                 </div>
             </div>
         </div>
@@ -1774,9 +1874,7 @@
             </div>
 
             <!-- Slideshow overlay -->
-            <div v-if="slideshowActive" class="slideshow-overlay"
-                 @mouseenter="pauseSlideshow" @mouseleave="resumeSlideshow">
-                <div class="slideshow-progress-bar" :style="{ width: slideshowProgress + '%' }"></div>
+            <div v-if="slideshowActive" class="slideshow-overlay">
 
                 <div class="slideshow-media-wrap">
                     <video v-if="isVideo(slideshowMedia)" :key="slideshowMedia"
@@ -1788,7 +1886,7 @@
                 </div>
 
                 <p v-if="getCaption(selected, slideshowMedia)" class="slideshow-caption">{{ getCaption(selected, slideshowMedia) }}</p>
-
+                <div class="slideshow-progress-bar" :style="{ width: slideshowProgress + '%' }"></div>
                 <div class="slideshow-bottom">
                     <div>
                         <span class="slideshow-wonder-name">{{ getVal(selected, 'name') }}</span>
@@ -1820,6 +1918,7 @@ createApp({
         return {
             wonders: [], search: '', lang: (() => { const u = new URLSearchParams(window.location.search).get('lang'); if (u === 'pt' || u === 'es' || u === 'en') return u; const l = (navigator.language || 'en').toLowerCase(); if (l.startsWith('pt')) return 'pt'; if (l.startsWith('es')) return 'es'; return 'en'; })(), selected: null, volume: 0.5, isMuted: false, fadeInterval: null, selectedRegion: '', mobileNavOpen: false,
             expandedMedia: null, showFullMap: false, showCountriesList: false, showTimeline: false, showCitiesList: false,
+            selectedWonderCountry: null,
             showAboutMe: false, showTrips: false, showTripsTimeline: false, showMusicList: false, showNextWonders: false,
             musicSort: 'wonder', nextWondersSort: 'wonder', _returnToMusic: false,
             visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
@@ -1840,7 +1939,7 @@ createApp({
                 "Default": { center: [20, 10], zoom: 2 }
             },
             visitedCountries: [
-                {"name": "Albania", "code": "al"}, {"name": "Andorra", "code": "ad"}, {"name": "Antigua And Barbuda", "code": "ag"}, {"name": "Argentina", "code": "ar"}, {"name": "Aruba", "code": "aw"}, {"name": "Australia", "code": "au"}, {"name": "Austria", "code": "at"}, {"name": "Barbados", "code": "bb"}, {"name": "Belarus", "code": "by"}, {"name": "Belgium", "code": "be"}, {"name": "Belize", "code": "bz"}, {"name": "Bosnia And Herzegovina", "code": "ba"}, {"name": "Brazil", "code": "br"}, {"name": "Bulgaria", "code": "bg"}, {"name": "Cambodia", "code": "kh"}, {"name": "Chile", "code": "cl"}, {"name": "China", "code": "cn"}, {"name": "Colombia", "code": "co"}, {"name": "Costa Rica", "code": "cr"}, {"name": "Croatia", "code": "hr"}, {"name": "Cuba", "code": "cu"}, {"name": "Curaçao", "code": "cw"}, {"name": "Czech Republic", "code": "cz"}, {"name": "Denmark", "code": "dk"}, {"name": "Dominican Republic", "code": "do"}, {"name": "Ecuador", "code": "ec"}, {"name": "Egypt", "code": "eg"}, {"name": "El Salvador", "code": "sv"}, {"name": "England", "code": "gb-eng"}, {"name": "Eswatini", "code": "sz"}, {"name": "Estonia", "code": "ee"}, {"name": "Finland", "code": "fi"}, {"name": "France", "code": "fr"}, {"name": "Germany", "code": "de"}, {"name": "Gibraltar", "code": "gi"}, {"name": "Greece", "code": "gr"}, {"name": "Guadeloupe", "code": "gp"}, {"name": "Guatemala", "code": "gt"}, {"name": "Honduras", "code": "hn"}, {"name": "Hong Kong", "code": "hk"}, {"name": "Hungary", "code": "hu"}, {"name": "Iceland", "code": "is"}, {"name": "India", "code": "in"}, {"name": "Indonesia", "code": "id"}, {"name": "Ireland", "code": "ie"}, {"name": "Israel", "code": "il"}, {"name": "Italy", "code": "it"}, {"name": "Jordan", "code": "jo"}, {"name": "Kenya", "code": "ke"}, {"name": "Latvia", "code": "lv"}, {"name": "Liechtenstein", "code": "li"}, {"name": "Lithuania", "code": "lt"}, {"name": "Luxembourg", "code": "lu"}, {"name": "Macau", "code": "mo"}, {"name": "Malaysia", "code": "my"}, {"name": "Malta", "code": "mt"}, {"name": "Martinique", "code": "mq"}, {"name": "Mexico", "code": "mx"}, {"name": "Monaco", "code": "mc"}, {"name": "Montenegro", "code": "me"}, {"name": "Morocco", "code": "ma"}, {"name": "Netherlands", "code": "nl"}, {"name": "New Zealand", "code": "nz"}, {"name": "Nicaragua", "code": "ni"}, {"name": "Northern Ireland", "code": "gb-nir"}, {"name": "North Macedonia", "code": "mk"}, {"name": "Norway", "code": "no"}, {"name": "Palestine", "code": "ps"}, {"name": "Panama", "code": "pa"}, {"name": "Paraguay", "code": "py"}, {"name": "Peru", "code": "pe"}, {"name": "Poland", "code": "pl"}, {"name": "Portugal", "code": "pt"}, {"name": "Puerto Rico", "code": "pr"}, {"name": "Qatar", "code": "qa"}, {"name": "Romania", "code": "ro"}, {"name": "Russia", "code": "ru"}, {"name": "Saint Kitts And Nevis", "code": "kn"}, {"name": "Scotland", "code": "gb-sct"}, {"name": "Serbia", "code": "rs"}, {"name": "Singapore", "code": "sg"}, {"name": "Sint Maarten", "code": "sx"}, {"name": "Slovakia", "code": "sk"}, {"name": "Slovenia", "code": "si"}, {"name": "South Africa", "code": "za"}, {"name": "Spain", "code": "es"}, {"name": "Sweden", "code": "se"}, {"name": "Switzerland", "code": "ch"}, {"name": "Tanzania", "code": "tz"}, {"name": "Thailand", "code": "th"}, {"name": "Trinidad And Tobago", "code": "tt"}, {"name": "Turkey", "code": "tr"}, {"name": "United Arab Emirates", "code": "ae"}, {"name": "United States", "code": "us"}, {"name": "Uruguay", "code": "uy"}, {"name": "Vatican City", "code": "va"}, {"name": "Venezuela", "code": "ve"}, {"name": "Vietnam", "code": "vn"}, {"name": "Wales", "code": "gb-wls"}, {"name": "Zambia", "code": "zm"}, {"name": "Zimbabwe", "code": "zw"}
+                {"name": "Albania", "name_pt": "Albânia", "name_es": "Albania", "code": "al"}, {"name": "Andorra", "name_pt": "Andorra", "name_es": "Andorra", "code": "ad"}, {"name": "Antigua And Barbuda", "name_pt": "Antígua e Barbuda", "name_es": "Antigua y Barbuda", "code": "ag"}, {"name": "Argentina", "name_pt": "Argentina", "name_es": "Argentina", "code": "ar"}, {"name": "Aruba", "name_pt": "Aruba", "name_es": "Aruba", "code": "aw"}, {"name": "Australia", "name_pt": "Austrália", "name_es": "Australia", "code": "au"}, {"name": "Austria", "name_pt": "Áustria", "name_es": "Austria", "code": "at"}, {"name": "Barbados", "name_pt": "Barbados", "name_es": "Barbados", "code": "bb"}, {"name": "Belarus", "name_pt": "Bielorrússia", "name_es": "Bielorrusia", "code": "by"}, {"name": "Belgium", "name_pt": "Bélgica", "name_es": "Bélgica", "code": "be"}, {"name": "Belize", "name_pt": "Belize", "name_es": "Belice", "code": "bz"}, {"name": "Bosnia And Herzegovina", "name_pt": "Bósnia e Herzegovina", "name_es": "Bosnia y Herzegovina", "code": "ba"}, {"name": "Brazil", "name_pt": "Brasil", "name_es": "Brasil", "code": "br"}, {"name": "Bulgaria", "name_pt": "Bulgária", "name_es": "Bulgaria", "code": "bg"}, {"name": "Cambodia", "name_pt": "Camboja", "name_es": "Camboya", "code": "kh"}, {"name": "Chile", "name_pt": "Chile", "name_es": "Chile", "code": "cl"}, {"name": "China", "name_pt": "China", "name_es": "China", "code": "cn"}, {"name": "Colombia", "name_pt": "Colômbia", "name_es": "Colombia", "code": "co"}, {"name": "Costa Rica", "name_pt": "Costa Rica", "name_es": "Costa Rica", "code": "cr"}, {"name": "Croatia", "name_pt": "Croácia", "name_es": "Croacia", "code": "hr"}, {"name": "Cuba", "name_pt": "Cuba", "name_es": "Cuba", "code": "cu"}, {"name": "Curaçao", "name_pt": "Curaçao", "name_es": "Curazao", "code": "cw"}, {"name": "Czech Republic", "name_pt": "República Tcheca", "name_es": "República Checa", "code": "cz"}, {"name": "Denmark", "name_pt": "Dinamarca", "name_es": "Dinamarca", "code": "dk"}, {"name": "Dominican Republic", "name_pt": "República Dominicana", "name_es": "República Dominicana", "code": "do"}, {"name": "Ecuador", "name_pt": "Equador", "name_es": "Ecuador", "code": "ec"}, {"name": "Egypt", "name_pt": "Egito", "name_es": "Egipto", "code": "eg"}, {"name": "El Salvador", "name_pt": "El Salvador", "name_es": "El Salvador", "code": "sv"}, {"name": "England", "name_pt": "Inglaterra", "name_es": "Inglaterra", "code": "gb-eng"}, {"name": "Eswatini", "name_pt": "Eswatini", "name_es": "Esuatini", "code": "sz"}, {"name": "Estonia", "name_pt": "Estônia", "name_es": "Estonia", "code": "ee"}, {"name": "Finland", "name_pt": "Finlândia", "name_es": "Finlandia", "code": "fi"}, {"name": "France", "name_pt": "França", "name_es": "Francia", "code": "fr"}, {"name": "Germany", "name_pt": "Alemanha", "name_es": "Alemania", "code": "de"}, {"name": "Gibraltar", "name_pt": "Gibraltar", "name_es": "Gibraltar", "code": "gi"}, {"name": "Greece", "name_pt": "Grécia", "name_es": "Grecia", "code": "gr"}, {"name": "Guadeloupe", "name_pt": "Guadalupe", "name_es": "Guadalupe", "code": "gp"}, {"name": "Guatemala", "name_pt": "Guatemala", "name_es": "Guatemala", "code": "gt"}, {"name": "Honduras", "name_pt": "Honduras", "name_es": "Honduras", "code": "hn"}, {"name": "Hong Kong", "name_pt": "Hong Kong", "name_es": "Hong Kong", "code": "hk"}, {"name": "Hungary", "name_pt": "Hungria", "name_es": "Hungría", "code": "hu"}, {"name": "Iceland", "name_pt": "Islândia", "name_es": "Islandia", "code": "is"}, {"name": "India", "name_pt": "Índia", "name_es": "India", "code": "in"}, {"name": "Indonesia", "name_pt": "Indonésia", "name_es": "Indonesia", "code": "id"}, {"name": "Ireland", "name_pt": "Irlanda", "name_es": "Irlanda", "code": "ie"}, {"name": "Israel", "name_pt": "Israel", "name_es": "Israel", "code": "il"}, {"name": "Italy", "name_pt": "Itália", "name_es": "Italia", "code": "it"}, {"name": "Jordan", "name_pt": "Jordânia", "name_es": "Jordania", "code": "jo"}, {"name": "Kenya", "name_pt": "Quênia", "name_es": "Kenia", "code": "ke"}, {"name": "Latvia", "name_pt": "Letônia", "name_es": "Letonia", "code": "lv"}, {"name": "Liechtenstein", "name_pt": "Liechtenstein", "name_es": "Liechtenstein", "code": "li"}, {"name": "Lithuania", "name_pt": "Lituânia", "name_es": "Lituania", "code": "lt"}, {"name": "Luxembourg", "name_pt": "Luxemburgo", "name_es": "Luxemburgo", "code": "lu"}, {"name": "Macau", "name_pt": "Macau", "name_es": "Macao", "code": "mo"}, {"name": "Malaysia", "name_pt": "Malásia", "name_es": "Malasia", "code": "my"}, {"name": "Malta", "name_pt": "Malta", "name_es": "Malta", "code": "mt"}, {"name": "Martinique", "name_pt": "Martinica", "name_es": "Martinica", "code": "mq"}, {"name": "Mexico", "name_pt": "México", "name_es": "México", "code": "mx"}, {"name": "Monaco", "name_pt": "Mônaco", "name_es": "Mónaco", "code": "mc"}, {"name": "Montenegro", "name_pt": "Montenegro", "name_es": "Montenegro", "code": "me"}, {"name": "Morocco", "name_pt": "Marrocos", "name_es": "Marruecos", "code": "ma"}, {"name": "Netherlands", "name_pt": "Países Baixos", "name_es": "Países Bajos", "code": "nl"}, {"name": "New Zealand", "name_pt": "Nova Zelândia", "name_es": "Nueva Zelanda", "code": "nz"}, {"name": "Nicaragua", "name_pt": "Nicarágua", "name_es": "Nicaragua", "code": "ni"}, {"name": "Northern Ireland", "name_pt": "Irlanda do Norte", "name_es": "Irlanda del Norte", "code": "gb-nir"}, {"name": "North Macedonia", "name_pt": "Macedônia do Norte", "name_es": "Macedonia del Norte", "code": "mk"}, {"name": "Norway", "name_pt": "Noruega", "name_es": "Noruega", "code": "no"}, {"name": "Palestine", "name_pt": "Palestina", "name_es": "Palestina", "code": "ps"}, {"name": "Panama", "name_pt": "Panamá", "name_es": "Panamá", "code": "pa"}, {"name": "Paraguay", "name_pt": "Paraguai", "name_es": "Paraguay", "code": "py"}, {"name": "Peru", "name_pt": "Peru", "name_es": "Perú", "code": "pe"}, {"name": "Poland", "name_pt": "Polônia", "name_es": "Polonia", "code": "pl"}, {"name": "Portugal", "name_pt": "Portugal", "name_es": "Portugal", "code": "pt"}, {"name": "Puerto Rico", "name_pt": "Porto Rico", "name_es": "Puerto Rico", "code": "pr"}, {"name": "Qatar", "name_pt": "Catar", "name_es": "Catar", "code": "qa"}, {"name": "Romania", "name_pt": "Romênia", "name_es": "Rumania", "code": "ro"}, {"name": "Russia", "name_pt": "Rússia", "name_es": "Rusia", "code": "ru"}, {"name": "Saint Kitts And Nevis", "name_pt": "São Cristóvão e Névis", "name_es": "San Cristóbal y Nieves", "code": "kn"}, {"name": "Scotland", "name_pt": "Escócia", "name_es": "Escocia", "code": "gb-sct"}, {"name": "Serbia", "name_pt": "Sérvia", "name_es": "Serbia", "code": "rs"}, {"name": "Singapore", "name_pt": "Singapura", "name_es": "Singapur", "code": "sg"}, {"name": "Sint Maarten", "name_pt": "Sint Maarten", "name_es": "Sint Maarten", "code": "sx"}, {"name": "Slovakia", "name_pt": "Eslováquia", "name_es": "Eslovaquia", "code": "sk"}, {"name": "Slovenia", "name_pt": "Eslovênia", "name_es": "Eslovenia", "code": "si"}, {"name": "South Africa", "name_pt": "África do Sul", "name_es": "Sudáfrica", "code": "za"}, {"name": "Spain", "name_pt": "Espanha", "name_es": "España", "code": "es"}, {"name": "Sweden", "name_pt": "Suécia", "name_es": "Suecia", "code": "se"}, {"name": "Switzerland", "name_pt": "Suíça", "name_es": "Suiza", "code": "ch"}, {"name": "Tanzania", "name_pt": "Tanzânia", "name_es": "Tanzania", "code": "tz"}, {"name": "Thailand", "name_pt": "Tailândia", "name_es": "Tailandia", "code": "th"}, {"name": "Trinidad And Tobago", "name_pt": "Trinidad e Tobago", "name_es": "Trinidad y Tobago", "code": "tt"}, {"name": "Turkey", "name_pt": "Turquia", "name_es": "Turquía", "code": "tr"}, {"name": "United Arab Emirates", "name_pt": "Emirados Árabes Unidos", "name_es": "Emiratos Árabes Unidos", "code": "ae"}, {"name": "United States", "name_pt": "Estados Unidos", "name_es": "Estados Unidos", "code": "us"}, {"name": "Uruguay", "name_pt": "Uruguai", "name_es": "Uruguay", "code": "uy"}, {"name": "Vatican City", "name_pt": "Cidade do Vaticano", "name_es": "Ciudad del Vaticano", "code": "va"}, {"name": "Venezuela", "name_pt": "Venezuela", "name_es": "Venezuela", "code": "ve"}, {"name": "Vietnam", "name_pt": "Vietnã", "name_es": "Vietnam", "code": "vn"}, {"name": "Wales", "name_pt": "Gales", "name_es": "Gales", "code": "gb-wls"}, {"name": "Zambia", "name_pt": "Zâmbia", "name_es": "Zambia", "code": "zm"}, {"name": "Zimbabwe", "name_pt": "Zimbábue", "name_es": "Zimbabue", "code": "zw"}
             ],
             content: {
                 en: {
@@ -1848,6 +1947,7 @@ createApp({
                     exploreByRegion: "Explore by Region", searchCaption: "Search wonders, countries, cities...", searchPlaceholder: "Search...", close: "Close", next: "Next", prev: "Previous", backToGallery: "Back to Gallery", slideshowBtn: "Slideshow",
                     copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
+                    countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersLabel: "Wonders in", countryWondersHint: "Click a wonder to open it", countryWondersBack: "← Back to Countries",
                     statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
@@ -1917,6 +2017,7 @@ createApp({
                     exploreByRegion: "Explorar por Região", searchCaption: "Pesquisar Maravilhas, países, cidades...", searchPlaceholder: "Pesquisar...", close: "Fechar", next: "Próxima", prev: "Anterior", backToGallery: "Voltar para a Galeria", slideshowBtn: "Apresentação",
                     copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
+                    countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersLabel: "Maravilhas em", countryWondersHint: "Clique em uma maravilha para abri-la", countryWondersBack: "← Voltar aos Países",
                     statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
@@ -1983,6 +2084,7 @@ createApp({
                     exploreByRegion: "Explorar por Región", searchCaption: "Buscar Maravillas, países, ciudades...", searchPlaceholder: "Buscar...", close: "Cerrar", next: "Siguiente", prev: "Anterior", backToGallery: "Volver a la Galería", slideshowBtn: "Presentación",
                     copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
+                    countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersLabel: "Maravillas en", countryWondersHint: "Haz clic en una maravilla para abrirla", countryWondersBack: "← Volver a Países",
                     statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
@@ -2103,6 +2205,10 @@ createApp({
             });
             return seen.size;
         },
+        sortedVisitedCountries() {
+            const key = this.lang === 'pt' ? 'name_pt' : this.lang === 'es' ? 'name_es' : 'name';
+            return [...this.visitedCountries].sort((a, b) => a[key].localeCompare(b[key], this.lang));
+        },
         timelineByYear() {
             const MONTH_ORDER = ['January','February','March','April','May','June','July','August','September','October','November','December'];
             const extractAllYears = (str) => {
@@ -2147,10 +2253,24 @@ createApp({
         },
         wondersPerCountry() {
             const map = {};
+            // Special overrides: these wonders are filed under China but belong to HK/Macau
+            const HK_IDS = ['019'];
+            const MO_IDS = ['190'];
             this.wonders.forEach(w => {
+                if (HK_IDS.includes(w.id)) { map['Hong Kong'] = (map['Hong Kong'] || 0) + 1; return; }
+                if (MO_IDS.includes(w.id)) { map['Macau'] = (map['Macau'] || 0) + 1; return; }
                 this.splitCountries(w.country_en).forEach(c => {
                     const resolved = this.resolveAlias(c);
+                    if (resolved === 'China') return; // exclude China if all its remaining wonders are mainland
                     map[resolved] = (map[resolved] || 0) + 1;
+                });
+            });
+            // Re-count China excluding HK/Macau overrides
+            this.wonders.forEach(w => {
+                if (HK_IDS.includes(w.id) || MO_IDS.includes(w.id)) return;
+                this.splitCountries(w.country_en).forEach(c => {
+                    const resolved = this.resolveAlias(c);
+                    if (resolved === 'China') map['China'] = (map['China'] || 0) + 1;
                 });
             });
             return map;
@@ -2368,6 +2488,7 @@ createApp({
                 if      (this.mobileNavOpen)        this.mobileNavOpen = false;
                 else if (this.slideshowActive)     this.stopSlideshow();
                 else if (this.expandedMedia)       this.expandedMedia = null;
+                else if (this.selectedWonderCountry) this.selectedWonderCountry = null;
                 else if (this.selectedCityCountry) this.selectedCityCountry = null;
                 else if (this.showCitiesList)      this.showCitiesList = false;
                 else if (this.showAboutMe)         this.showAboutMe = false;
@@ -2722,7 +2843,8 @@ createApp({
                 'India': ['New Delhi'],
                 'Indonesia': ['Jakarta'],
                 'Ireland': ['Dublin'],
-                'Israel': ['Jerusalem'],
+                'Israel': ['Tel Aviv'],
+                'Palestine': ['Jerusalem'],
                 'Italy': ['Roma', 'Rome'],
                 'Jordan': ['Amman'],
                 'Kenya': ['Nairobi'],
@@ -2744,7 +2866,6 @@ createApp({
                 'North Macedonia': ['Skopje'],
                 'Northern Ireland': ['Belfast'],
                 'Norway': ['Oslo'],
-                'Palestine': ['Ramallah'],
                 'Panama': ['Panama City'],
                 'Paraguay': ['Asunción', 'Asuncion'],
                 'Peru': ['Lima'],
@@ -2800,6 +2921,204 @@ createApp({
         getCountryCode(countryStr) {
             const countries = this.splitCountries(countryStr);
             return countries.map(c => this.countryCodeMap[this.resolveAlias(c)]).filter(Boolean);
+        },
+        wondersForCountry(countryName) {
+            const HK_IDS = ['019'];
+            const MO_IDS = ['190'];
+            if (countryName === 'Hong Kong') return this.wonders.filter(w => HK_IDS.includes(w.id));
+            if (countryName === 'Macau')     return this.wonders.filter(w => MO_IDS.includes(w.id));
+            return this.wonders.filter(w => {
+                if (HK_IDS.includes(w.id) || MO_IDS.includes(w.id)) return false;
+                return this.splitCountries(w.country_en).some(c => this.resolveAlias(c) === countryName);
+            });
+        },
+        openCountryWonders(country) {
+            this.selectedWonderCountry = country;
+            this.$nextTick(() => this.drawCountryMap(country));
+        },
+        openWonderFromCountry(w) {
+            this.selectedWonderCountry = null;
+            this.$nextTick(() => {
+                this.showCountriesList = false;
+                this.$nextTick(() => this.openWonder(w));
+            });
+        },
+        async drawCountryMap(country) {
+            const canvas = this.$refs.cwCanvas;
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            const W = canvas.width, H = canvas.height;
+            ctx.clearRect(0, 0, W, H);
+
+            // ── Custom inline shapes (countries not in Natural Earth, or needing special treatment) ──
+            const CUSTOM_SHAPES = {
+                'England': [[[-2.666, 51.617], [-2.86, 51.546], [-2.975, 51.563], [-3.173, 51.453], [-3.184, 51.398], [-3.289, 51.384], [-3.559, 51.406], [-3.739, 51.49], [-3.843, 51.622], [-3.991, 51.607], [-3.976, 51.563], [-4.027, 51.554], [-4.289, 51.556], [-4.289, 51.617], [-4.07, 51.676], [-4.315, 51.678], [-4.379, 51.727], [-4.311, 51.733], [-4.365, 51.789], [-4.462, 51.735], [-4.646, 51.732], [-4.711, 51.651], [-4.941, 51.597], [-5.121, 51.678], [-4.844, 51.713], [-4.88, 51.762], [-4.826, 51.796], [-4.934, 51.776], [-4.894, 51.728], [-4.988, 51.706], [-5.182, 51.69], [-5.251, 51.733], [-5.125, 51.769], [-5.114, 51.828], [-5.139, 51.864], [-5.312, 51.864], [-5.29, 51.918], [-5.121, 51.96], [-5.071, 52.026], [-4.84, 52.016], [-4.721, 52.113], [-4.315, 52.216], [-4.138, 52.33], [-4.055, 52.529], [-3.947, 52.549], [-4.052, 52.542], [-4.124, 52.603], [-3.987, 52.735], [-4.048, 52.721], [-4.145, 52.802], [-4.077, 52.927], [-4.426, 52.887], [-4.516, 52.789], [-4.761, 52.789], [-4.595, 52.929], [-4.358, 53.029], [-4.34, 53.113], [-4.178, 53.218], [-3.832, 53.289], [-3.879, 53.338], [-3.602, 53.289], [-3.371, 53.351], [-3.087, 53.235], [-3.188, 53.393], [-3.058, 53.436], [-2.882, 53.289], [-2.698, 53.351], [-2.925, 53.349], [-3.101, 53.559], [-2.9, 53.736], [-3.047, 53.77], [-3.058, 53.907], [-2.857, 53.968], [-2.831, 54.017], [-2.918, 54.035], [-2.795, 54.124], [-2.853, 54.194], [-2.795, 54.249], [-2.939, 54.155], [-3.047, 54.222], [-3.145, 54.064], [-3.242, 54.113], [-3.206, 54.263], [-3.231, 54.202], [-3.307, 54.192], [-3.407, 54.278], [-3.415, 54.346], [-3.634, 54.513], [-3.389, 54.883], [-3.256, 54.9], [-3.317, 54.92], [-3.278, 54.944], [-3.022, 54.976], [-3.569, 54.996], [-3.58, 54.884], [-3.821, 54.856], [-3.818, 54.886], [-3.832, 54.82], [-4.012, 54.768], [-4.063, 54.832], [-4.124, 54.773], [-4.21, 54.827], [-4.199, 54.866], [-4.271, 54.839], [-4.405, 54.908], [-4.405, 54.825], [-4.343, 54.795], [-4.383, 54.68], [-4.858, 54.866], [-4.955, 54.81], [-4.858, 54.633], [-4.955, 54.66], [-4.955, 54.729], [-5.157, 54.879], [-5.171, 55.009], [-5.114, 55.031], [-5.013, 54.91], [-4.988, 54.935], [-5.049, 55.05], [-1.443, 55.05], [-1.276, 54.748], [-1.172, 54.702], [-1.201, 54.621], [-1.139, 54.646], [-0.563, 54.477], [-0.369, 54.248], [-0.074, 54.113], [-0.218, 54.023], [-0.149, 53.9], [0.135, 53.643], [0.139, 53.577], [0.056, 53.642], [-0.113, 53.638], [-0.261, 53.736], [-0.725, 53.701], [-0.279, 53.707], [0.247, 53.392], [0.344, 53.226], [0.337, 53.093], [0.009, 52.887], [0.106, 52.89], [0.247, 52.796], [0.383, 52.769], [0.52, 52.956], [0.967, 52.975], [1.395, 52.892], [1.697, 52.731], [1.769, 52.487], [1.629, 52.27], [1.582, 52.081], [1.471, 52.056], [1.334, 51.94], [1.157, 52.029], [1.273, 51.956], [1.067, 51.953], [1.283, 51.946], [1.201, 51.877], [1.287, 51.882], [1.276, 51.845], [1.064, 51.776], [0.981, 51.843], [0.873, 51.747], [0.7, 51.72], [0.761, 51.693], [0.931, 51.744], [0.923, 51.588], [0.772, 51.528], [0.455, 51.505], [0.383, 51.453], [0.697, 51.477], [0.722, 51.446], [0.556, 51.413], [0.585, 51.391], [0.715, 51.384], [0.725, 51.419], [0.765, 51.364], [0.977, 51.349], [1.449, 51.382], [1.377, 51.327], [1.413, 51.222], [1.384, 51.151], [1.067, 51.065], [0.967, 50.982], [0.981, 50.918], [0.761, 50.931], [0.625, 50.859], [0.365, 50.818], [0.272, 50.747], [-0.268, 50.832], [-0.758, 50.778], [-0.79, 50.73], [-0.913, 50.778], [-0.862, 50.808], [-0.938, 50.844], [-1.021, 50.844], [-1.082, 50.781], [-1.067, 50.844], [-1.165, 50.844], [-1.125, 50.818], [-1.15, 50.781], [-1.467, 50.918], [-1.316, 50.8], [-1.561, 50.719], [-1.694, 50.741], [-1.939, 50.692], [-2.039, 50.741], [-2.083, 50.698], [-1.953, 50.676], [-1.964, 50.602], [-2.399, 50.646], [-2.461, 50.607], [-2.453, 50.528], [-2.482, 50.59], [-2.864, 50.734], [-3.26, 50.675], [-3.368, 50.617], [-3.465, 50.678], [-3.433, 50.611], [-3.505, 50.521], [-3.487, 50.459], [-3.555, 50.432], [-3.487, 50.405], [-3.631, 50.312], [-3.659, 50.221], [-3.789, 50.212], [-3.962, 50.322], [-4.055, 50.3], [-4.106, 50.371], [-4.167, 50.376], [-4.16, 50.459], [-4.199, 50.459], [-4.228, 50.398], [-4.289, 50.398], [-4.192, 50.378], [-4.228, 50.371], [-4.192, 50.322], [-4.336, 50.371], [-4.667, 50.315], [-4.693, 50.344], [-4.765, 50.322], [-4.79, 50.236], [-5.002, 50.145], [-5.053, 50.195], [-5.042, 50.145], [-5.125, 50.096], [-5.056, 50.06], [-5.189, 49.959], [-5.305, 50.08], [-5.474, 50.131], [-5.668, 50.043], [-5.715, 50.082], [-5.686, 50.161], [-5.316, 50.254], [-5.15, 50.351], [-5.154, 50.4], [-5.049, 50.428], [-4.995, 50.548], [-4.844, 50.514], [-4.919, 50.589], [-4.793, 50.595], [-4.577, 50.774], [-4.527, 51.014], [-4.318, 51.001], [-4.207, 51.077], [-4.257, 51.151], [-4.214, 51.151], [-4.228, 51.193], [-3.785, 51.247], [-3.386, 51.186], [-3.022, 51.193], [-3.022, 51.323], [-2.975, 51.384], [-2.716, 51.499], [-2.558, 51.659], [-2.389, 51.75], [-2.399, 51.782], [-2.601, 51.666], [-2.666, 51.617]]],
+                'Scotland': [[[-5.049, 55.05], [-5.01, 55.141], [-4.865, 55.225], [-4.833, 55.332], [-4.617, 55.496], [-4.693, 55.605], [-4.919, 55.708], [-4.862, 55.757], [-4.887, 55.919], [-4.801, 55.958], [-4.48, 55.928], [-4.675, 55.962], [-4.826, 56.078], [-4.779, 55.992], [-4.851, 55.989], [-4.865, 56.066], [-4.754, 56.206], [-4.851, 56.112], [-4.919, 56.168], [-4.894, 55.99], [-4.955, 55.997], [-4.912, 55.962], [-4.984, 55.87], [-5.042, 55.884], [-5.125, 56.011], [-5.085, 55.901], [-5.182, 55.97], [-5.244, 55.892], [-5.2, 55.832], [-5.298, 55.852], [-5.337, 55.997], [-5.204, 56.119], [-4.941, 56.252], [-5.049, 56.237], [-5.37, 56.009], [-5.445, 56.028], [-5.456, 55.955], [-5.319, 55.783], [-5.492, 55.644], [-5.46, 55.578], [-5.585, 55.428], [-5.524, 55.359], [-5.618, 55.306], [-5.784, 55.313], [-5.798, 55.379], [-5.715, 55.448], [-5.683, 55.675], [-5.456, 55.845], [-5.6, 55.764], [-5.661, 55.798], [-5.676, 55.845], [-5.571, 55.935], [-5.672, 55.887], [-5.697, 55.916], [-5.571, 56.038], [-5.708, 55.943], [-5.578, 56.097], [-5.532, 56.087], [-5.56, 56.131], [-5.51, 56.188], [-5.607, 56.141], [-5.492, 56.261], [-5.593, 56.25], [-5.564, 56.342], [-5.449, 56.36], [-5.539, 56.36], [-5.456, 56.441], [-5.207, 56.446], [-5.064, 56.565], [-5.2, 56.462], [-5.377, 56.458], [-5.409, 56.504], [-5.47, 56.475], [-5.427, 56.538], [-5.244, 56.565], [-5.413, 56.544], [-5.319, 56.661], [-4.995, 56.717], [-5.24, 56.717], [-5.121, 56.818], [-5.676, 56.497], [-5.769, 56.538], [-5.747, 56.571], [-5.856, 56.551], [-6.007, 56.642], [-5.838, 56.627], [-5.866, 56.661], [-5.758, 56.701], [-5.542, 56.696], [-6.23, 56.701], [-6.179, 56.755], [-5.963, 56.784], [-5.852, 56.747], [-5.888, 56.784], [-5.758, 56.784], [-5.852, 56.83], [-5.661, 56.873], [-5.92, 56.894], [-5.852, 56.901], [-5.881, 56.922], [-5.816, 57.01], [-5.524, 56.997], [-5.78, 57.053], [-5.722, 57.117], [-5.402, 57.107], [-5.683, 57.157], [-5.578, 57.267], [-5.405, 57.23], [-5.503, 57.277], [-5.441, 57.319], [-5.578, 57.277], [-5.729, 57.297], [-5.449, 57.422], [-5.564, 57.363], [-5.639, 57.373], [-5.625, 57.417], [-5.809, 57.355], [-5.812, 57.443], [-5.873, 57.493], [-5.838, 57.579], [-5.65, 57.512], [-5.513, 57.542], [-5.661, 57.544], [-5.805, 57.642], [-5.791, 57.696], [-5.676, 57.709], [-5.805, 57.743], [-5.809, 57.844], [-5.697, 57.87], [-5.607, 57.77], [-5.585, 57.831], [-5.654, 57.895], [-5.614, 57.929], [-5.488, 57.856], [-5.416, 57.909], [-5.222, 57.846], [-5.395, 57.919], [-5.366, 57.942], [-5.071, 57.833], [-5.222, 57.922], [-5.204, 57.961], [-5.427, 58.032], [-5.449, 58.084], [-5.301, 58.071], [-5.298, 58.135], [-5.244, 58.148], [-5.391, 58.261], [-5.128, 58.272], [-4.934, 58.223], [-4.981, 58.251], [-4.927, 58.265], [-5.049, 58.26], [-5.171, 58.346], [-5.143, 58.415], [-5.017, 58.388], [-5.099, 58.415], [-4.995, 58.437], [-5.107, 58.506], [-5.027, 58.544], [-4.988, 58.628], [-4.837, 58.604], [-4.819, 58.525], [-4.775, 58.608], [-4.66, 58.555], [-4.761, 58.447], [-4.585, 58.574], [-4.477, 58.566], [-4.426, 58.525], [-4.495, 58.449], [-4.343, 58.538], [-4.235, 58.525], [-4.03, 58.596], [-3.897, 58.566], [-3.598, 58.628], [-3.364, 58.601], [-3.415, 58.655], [-3.375, 58.677], [-3.019, 58.64], [-3.13, 58.513], [-3.058, 58.478], [-3.087, 58.413], [-3.22, 58.305], [-3.386, 58.265], [-3.861, 57.998], [-4.001, 57.936], [-4.084, 57.964], [-3.987, 57.909], [-4.009, 57.868], [-4.3, 57.863], [-4.394, 57.909], [-4.307, 57.851], [-4.041, 57.817], [-3.778, 57.856], [-3.987, 57.696], [-4.045, 57.738], [-4.293, 57.681], [-4.43, 57.578], [-4.203, 57.676], [-4.009, 57.689], [-4.106, 57.579], [-4.264, 57.552], [-4.207, 57.539], [-4.25, 57.498], [-4.196, 57.492], [-4.034, 57.557], [-4.084, 57.586], [-3.591, 57.642], [-3.613, 57.669], [-3.407, 57.723], [-3.08, 57.669], [-1.996, 57.703], [-1.831, 57.613], [-1.759, 57.473], [-1.982, 57.319], [-2.075, 57.154], [-2.05, 57.118], [-2.187, 56.985], [-2.191, 56.909], [-2.425, 56.752], [-2.515, 56.592], [-2.738, 56.467], [-3.062, 56.451], [-3.325, 56.365], [-2.885, 56.458], [-2.803, 56.428], [-2.839, 56.365], [-2.803, 56.345], [-2.576, 56.284], [-2.648, 56.228], [-2.965, 56.205], [-3.177, 56.058], [-3.343, 56.028], [-3.836, 56.107], [-3.667, 56.012], [-3.08, 55.947], [-2.939, 55.97], [-2.824, 56.06], [-2.633, 56.058], [-2.583, 56.002], [-2.137, 55.914], [-1.823, 55.636], [-1.633, 55.585], [-1.571, 55.286], [-1.443, 55.05], [-5.049, 55.05]], [[-1.096, 60.416], [-1.064, 60.386], [-1.136, 60.276], [-1.193, 60.256], [-1.193, 60.176], [-1.186, 60.122], [-1.219, 60.04], [-1.276, 59.883], [-1.377, 59.908], [-1.287, 60.075], [-1.312, 60.181], [-1.391, 60.247], [-1.445, 60.156], [-1.514, 60.222], [-1.679, 60.266], [-1.528, 60.306], [-1.395, 60.322], [-1.337, 60.374], [-1.445, 60.492], [-1.611, 60.484], [-1.456, 60.509], [-1.42, 60.587], [-1.291, 60.624], [-1.33, 60.524], [-1.352, 60.418], [-1.262, 60.465], [-1.165, 60.426], [-1.143, 60.389]], [[-6.954, 57.743], [-6.997, 57.853], [-6.846, 57.927], [-7.072, 58.012], [-7.026, 58.059], [-7.112, 58.145], [-7.054, 58.226], [-6.874, 58.116], [-6.774, 58.196], [-6.802, 58.253], [-6.691, 58.343], [-6.169, 58.43], [-6.255, 58.294], [-6.194, 58.251], [-6.212, 58.192], [-6.374, 58.142], [-6.406, 58.106], [-6.37, 58.027], [-6.482, 57.949], [-6.615, 57.949], [-6.694, 58.03], [-6.694, 57.946], [-6.788, 57.898], [-6.784, 57.812]], [[-6.565, 57.346], [-6.716, 57.514], [-6.63, 57.493], [-6.64, 57.6], [-6.453, 57.514], [-6.374, 57.532], [-6.406, 57.65], [-6.234, 57.642], [-6.158, 57.407], [-6.046, 57.307], [-5.902, 57.243], [-5.672, 57.205], [-6.007, 57.029], [-5.845, 57.181], [-6.035, 57.181], [-6.14, 57.188], [-6.331, 57.194], [-6.475, 57.301], [-6.428, 57.351], [-6.511, 57.385]], [[-5.69, 56.434], [-5.784, 56.365], [-5.873, 56.358], [-6.147, 56.284], [-6.291, 56.345], [-6.039, 56.37], [-6.14, 56.434], [-6.129, 56.475], [-6.273, 56.612], [-6.032, 56.619], [-5.766, 56.494], [-5.69, 56.434]]],
+            };
+
+            // Countries needing 50m resolution (too small for 110m)
+            const NEED_50M = ['Hong Kong','Macau','Monaco','Vatican City','Singapore','Andorra','Liechtenstein','Malta','Luxembourg'];
+            // Countries needing 10m resolution
+            const NEED_10M = ['Gibraltar'];
+
+            // France: filter to continental Europe only (exclude overseas territories)
+            const FRANCE_CONTINENTAL = country.name === 'France';
+
+            // Return early for custom shapes
+            if (CUSTOM_SHAPES[country.name]) {
+                const rings = CUSTOM_SHAPES[country.name];
+                const allPts = rings.reduce(function(acc, r) { return acc.concat(r); }, []);
+                this._drawPolygons(ctx, W, H, [rings], allPts);
+                return;
+            }
+
+            // Ensure topojson-client is loaded (lazy, non-blocking)
+            if (!window.topojson) {
+                await new Promise(function(resolve) {
+                    const s = document.createElement('script');
+                    s.src = 'https://unpkg.com/topojson-client@3/dist/topojson-client.min.js';
+                    s.onload = resolve;
+                    s.onerror = resolve;
+                    document.head.appendChild(s);
+                });
+            }
+            if (!window.topojson) return;
+
+            // ISO codes (Natural Earth numeric)
+            const nameToISO = {
+                'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32','Aruba':'533',
+                'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
+                'Belize':'84','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
+                'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
+                'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
+                'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
+                'Estonia':'233','Finland':'246','France':'250','Germany':'276',
+                'Greece':'300','Guatemala':'320','Honduras':'340','Hungary':'348','Iceland':'352',
+                'India':'356','Indonesia':'360','Ireland':'372','Israel':'376','Italy':'380',
+                'Jordan':'400','Kenya':'404','Latvia':'428','Liechtenstein':'438','Lithuania':'440',
+                'Luxembourg':'442','Malaysia':'458','Malta':'470','Mexico':'484','Monaco':'492',
+                'Montenegro':'499','Morocco':'504','Netherlands':'528','New Zealand':'554',
+                'Nicaragua':'558','North Macedonia':'807','Norway':'578','Palestine':'275',
+                'Panama':'591','Paraguay':'600','Peru':'604','Poland':'616','Portugal':'620',
+                'Qatar':'634','Romania':'642','Russia':'643','Serbia':'688',
+                'Singapore':'702','Slovakia':'703','Slovenia':'705','South Africa':'710',
+                'Spain':'724','Sweden':'752','Switzerland':'756','Tanzania':'834',
+                'Thailand':'764','Trinidad And Tobago':'780','Turkey':'792',
+                'United Arab Emirates':'784','United States':'840','Uruguay':'858',
+                'Vatican City':'336','Venezuela':'862','Vietnam':'704',
+                'Zambia':'894','Zimbabwe':'716',
+                'Curaçao':'531','Guadeloupe':'312','Hong Kong':'344','Macau':'446',
+                'Martinique':'474','Puerto Rico':'630','Sint Maarten':'534','Eswatini':'748','Gibraltar':'292',
+            };
+            const iso = nameToISO[country.name];
+            if (!iso) return;
+
+            try {
+                // Choose resolution: 10m > 50m > 110m depending on country
+                const res = NEED_10M.includes(country.name) ? '10m' : NEED_50M.includes(country.name) ? '50m' : '110m';
+                const cacheKey = '_worldFeatures_' + res;
+
+                if (!this[cacheKey]) {
+                    const url = 'https://cdn.jsdelivr.net/npm/world-atlas@2/countries-' + res + '.json';
+                    const resp = await fetch(url);
+                    if (!resp.ok) throw new Error('world-atlas fetch failed ' + res + ': ' + resp.status);
+                    const world = await resp.json();
+                    const all = window.topojson.feature(world, world.objects.countries);
+                    this[cacheKey] = {};
+                    all.features.forEach(function(f) {
+                        this[cacheKey][parseInt(f.id, 10)] = f;
+                    }.bind(this));
+                }
+
+                const feature = this[cacheKey][parseInt(iso, 10)];
+                if (!feature) { console.warn('CW map: no feature for ISO', iso, country.name, 'in', res); return; }
+
+                const geom = feature.geometry;
+                var polygons = [];
+                if (geom.type === 'Polygon') {
+                    polygons.push(geom.coordinates);
+                } else if (geom.type === 'MultiPolygon') {
+                    geom.coordinates.forEach(function(poly) { polygons.push(poly); });
+                }
+
+                // France: keep only continental polygons (center lng -6..11, lat 41..52)
+                if (FRANCE_CONTINENTAL) {
+                    polygons = polygons.filter(function(poly) {
+                        var lngs = [], lats = [];
+                        poly.forEach(function(r) { r.forEach(function(p) { lngs.push(p[0]); lats.push(p[1]); }); });
+                        var cLng = (Math.min.apply(null,lngs) + Math.max.apply(null,lngs)) / 2;
+                        var cLat = (Math.min.apply(null,lats) + Math.max.apply(null,lats)) / 2;
+                        return cLng > -6 && cLng < 11 && cLat > 41 && cLat < 52;
+                    });
+                }
+
+                // Separate antimeridian-crossing polygons from clean ones
+                var cleanPolys = [], wrapPolys = [];
+                polygons.forEach(function(poly) {
+                    var lngs = [];
+                    poly.forEach(function(r) { r.forEach(function(p) { lngs.push(p[0]); }); });
+                    var span = Math.max.apply(null, lngs) - Math.min.apply(null, lngs);
+                    (span > 180 ? wrapPolys : cleanPolys).push(poly);
+                });
+
+                var boundsPolys = cleanPolys.length ? cleanPolys : polygons;
+                var allPts = [];
+                boundsPolys.forEach(function(poly) {
+                    poly.forEach(function(r) { r.forEach(function(p) { allPts.push(p); }); });
+                });
+
+                this._drawPolygons(ctx, W, H, cleanPolys.concat(wrapPolys), allPts);
+
+            } catch(e) {
+                console.error('CW map draw error:', e);
+            }
+        },
+        _drawPolygons(ctx, W, H, polygons, boundsPoints) {
+            if (!boundsPoints.length) return;
+            var minLng = Infinity, maxLng = -Infinity, minLat = Infinity, maxLat = -Infinity;
+            boundsPoints.forEach(function(p) {
+                minLng = Math.min(minLng, p[0]); maxLng = Math.max(maxLng, p[0]);
+                minLat = Math.min(minLat, p[1]); maxLat = Math.max(maxLat, p[1]);
+            });
+            var pad = 10;
+            var spanLng = maxLng - minLng || 0.1;
+            var spanLat = maxLat - minLat || 0.1;
+            var scale = Math.min((W - pad * 2) / spanLng, (H - pad * 2) / spanLat) * 0.92;
+            var midLng = (minLng + maxLng) / 2;
+            var midLat = (minLat + maxLat) / 2;
+            var project = function(pt) {
+                return [W / 2 + (pt[0] - midLng) * scale, H / 2 - (pt[1] - midLat) * scale];
+            };
+            ctx.strokeStyle = 'rgba(197,160,89,0.85)';
+            ctx.fillStyle = 'rgba(197,160,89,0.13)';
+            ctx.lineWidth = 1.2;
+            var splitRing = function(ring) {
+                var segs = [], seg = [];
+                for (var i = 0; i < ring.length; i++) {
+                    if (i > 0 && Math.abs(ring[i][0] - ring[i-1][0]) > 180) {
+                        if (seg.length > 1) segs.push(seg);
+                        seg = [];
+                    }
+                    seg.push(ring[i]);
+                }
+                if (seg.length > 1) segs.push(seg);
+                return segs;
+            };
+            var drawRing = function(ring) {
+                splitRing(ring).forEach(function(seg) {
+                    ctx.beginPath();
+                    seg.forEach(function(pt, i) {
+                        var p = project(pt);
+                        i === 0 ? ctx.moveTo(p[0], p[1]) : ctx.lineTo(p[0], p[1]);
+                    });
+                    ctx.closePath();
+                    ctx.fill();
+                    ctx.stroke();
+                });
+            };
+            polygons.forEach(function(poly) {
+                poly.forEach(drawRing);
+            });
         },
         scrollToTimelineYear(year) {
             const el = document.getElementById('tl-year-' + year);
@@ -2894,10 +3213,10 @@ createApp({
         startSlideshow() {
             if (!this.slideshowAllMedia.length) return;
             const cur = this.slideshowAllMedia.indexOf(this.expandedMedia);
-            this.slideshowIndex   = cur >= 0 ? cur : 0;
+            this.slideshowIndex    = cur >= 0 ? cur : 0;
             this.slideshowProgress = 0;
-            this.slideshowPaused  = false;
-            this.slideshowActive  = true;
+            this.slideshowPaused   = false;
+            this.slideshowActive   = true;
             this._slideshowElapsed = 0;
             this._slideshowStart   = null;
             this._runSlideshow();
