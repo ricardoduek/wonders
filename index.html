@@ -98,7 +98,7 @@
         .stats-row:last-of-type { border-bottom: none; }
         .stats-label { font-size: 9px; letter-spacing: 1.5px; text-transform: uppercase; color: var(--grey); }
         .stats-value { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 600; line-height: 1; }
-        .stats-last-btn { display: block; width: 100%; margin-top: 10px; background: none; border: 1px solid #333; color: var(--grey); padding: 7px 10px; cursor: pointer; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; text-align: center; transition: 0.3s; }
+        .stats-last-btn { display: block; width: 100%; margin-top: 10px; background: none; border: 1px solid #333; color: var(--grey); padding: 7px 10px; cursor: pointer; font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; text-align: center; transition: 0.3s; white-space: normal; word-break: break-word; line-height: 1.4; }
         .stats-last-btn:hover { color: var(--gold); border-color: var(--gold); }
 
         /* Back to top button */
@@ -242,6 +242,53 @@
         .cw-wonder-num { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: var(--gold); font-weight: 600; flex-shrink: 0; }
         .cw-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.15rem; color: #fff; line-height: 1.3; flex: 1; }
         .cw-wonder-unesco { font-size: 8px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; border: 1px solid var(--gold); padding: 1px 5px; flex-shrink: 0; }
+
+        /* ── Next Trip card ── */
+        .next-trip-card { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(197,160,89,0.25); }
+        .next-trip-label { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+        .next-trip-dest { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
+        .next-trip-flag { font-size: 1.4rem; line-height: 1; }
+        .next-trip-country { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #fff; font-weight: 400; }
+        .next-trip-dates { font-size: 11px; color: var(--grey); letter-spacing: 0.5px; font-family: 'Inter', sans-serif; display: block; }
+
+        /* ── Random Photo modal ── */
+        .rp-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .rp-box { position: relative; display: flex; flex-direction: column; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 60px rgba(197,160,89,0.12); max-height: 92vh; overflow: hidden; box-sizing: border-box; }
+        .rp-landscape { width: min(90vw, 1000px); }
+        .rp-portrait { width: min(60vw, 540px); }
+        .rp-close { position: absolute; top: 10px; right: 14px; background: none; border: none; color: var(--grey); font-size: 2rem; cursor: pointer; z-index: 2; line-height: 1; transition: color 0.2s; padding: 0; }
+        .rp-close:hover { color: #fff; }
+        .rp-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 44px 12px 16px; background: rgba(197,160,89,0.07); border-bottom: 1px solid rgba(197,160,89,0.25); flex-shrink: 0; flex-wrap: wrap; gap: 8px; }
+        .rp-header-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        .rp-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.95rem; color: var(--gold); font-weight: 400; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .rp-visited { font-size: 15px; letter-spacing: 1px; color: var(--grey); text-transform: uppercase; }
+        .rp-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .rp-flag { font-size: 2.1rem; }
+        .rp-country { font-size: 18px; color: var(--light-grey); letter-spacing: 0.5px; }
+        .rp-img-wrap { flex: 1 1 auto; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 0; background: #000; }
+        .rp-img { display: block; max-width: 100%; max-height: calc(92vh - 140px); width: auto; height: auto; object-fit: contain; }
+        .rp-caption { padding: 10px 16px; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--grey); line-height: 1.5; border-top: 1px solid #1a1a1a; flex-shrink: 0; max-height: 95px; overflow-y: auto; }
+        .rp-footer { padding: 10px 16px; display: flex; justify-content: center; border-top: 1px solid #1a1a1a; flex-shrink: 0; }
+        .rp-next-btn { margin: 0; width: auto; padding: 7px 28px; }
+
+        /* ── Random Song modal ── */
+        .rs-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .rs-box { position: relative; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 60px rgba(197,160,89,0.12); width: min(92vw, 480px); padding: 44px 36px 32px; box-sizing: border-box; }
+        .rs-close { position: absolute; top: 10px; right: 14px; background: none; border: none; color: var(--grey); font-size: 2rem; cursor: pointer; line-height: 1; transition: color 0.2s; padding: 0; }
+        .rs-close:hover { color: #fff; }
+        .rs-content { display: flex; flex-direction: column; gap: 18px; }
+        .rs-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: #fff; font-weight: 400; line-height: 1.2; }
+        .rs-author { font-size: 12px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; }
+        .rs-controls { display: flex; flex-direction: column; gap: 14px; }
+        .rs-volume-row { display: flex; align-items: center; gap: 12px; }
+        .rs-icon-btn { background: none; border: none; color: var(--grey); font-size: 1.2rem; cursor: pointer; padding: 4px; transition: color 0.2s; flex-shrink: 0; }
+        .rs-icon-btn:hover { color: var(--gold); }
+        .rs-volume-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 2px; background: #333; outline: none; cursor: pointer; }
+        .rs-volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; cursor: pointer; }
+        .rs-volume-slider::-moz-range-thumb { width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: none; cursor: pointer; }
+        .rs-btn-row { display: flex; gap: 10px; }
+        .rs-action-btn { flex: 1; margin: 0; }
+        .rs-active-btn { color: var(--gold) !important; border-color: var(--gold) !important; }
 
         .leaflet-tooltip-pane .leaflet-tooltip { background: rgba(0, 0, 0, 0.95) !important; border: 1px solid var(--gold) !important; color: var(--text) !important; padding: 0 !important; box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important; border-radius: 0 !important; }
         .leaflet-tooltip-top:before { border-top-color: var(--gold) !important; }
@@ -581,6 +628,8 @@
                 padding: 10px 20px;
                 border-left: 1px solid var(--gold);
             }
+            .next-trip-card { width: 100%; max-width: 680px; margin: 8px 0 0 0; }
+            .next-trip-inner { padding: 8px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
             .top-controls {
                 position: static;
                 width: 100%;
@@ -989,6 +1038,11 @@
             /* Countries grid */
             .countries-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 16px; }
 
+            .next-trip-card { width: 100%; max-width: 100%; margin: 8px 0 0 0; }
+            .rp-portrait { width: min(88vw, 480px); }
+            .rp-landscape { width: min(96vw, 900px); }
+            .rs-box { padding: 40px 20px 24px; }
+
             /* Country Wonders modal */
             .cw-box { width: 94%; padding: 36px 24px 36px; }
             .cw-header { flex-direction: column; gap: 16px; padding-right: 36px; }
@@ -1052,7 +1106,13 @@
             .music-modal-box { padding: 22px 14px; }
             .nw-modal-box { padding: 22px 14px; }
             .trips-tl-box { padding: 22px 14px; }
-            .cw-box { padding: 28px 16px 28px; }
+.rp-portrait, .rp-landscape { width: 98vw; }
+            .rp-wonder-name { font-size: 1.5rem; }
+            .rp-img { max-height: calc(88vh - 160px); }
+            .rs-box { width: 96vw; padding: 36px 16px 20px; }
+            .rs-title { font-size: 1.5rem; }
+            .rs-btn-row { flex-direction: column; }
+                        .cw-box { padding: 28px 16px 28px; }
             .cw-country-name { font-size: 2.2rem; }
             .cw-wonder-count-label { font-size: 9px; letter-spacing: 2px; }
             .cw-flag { font-size: 2.2rem; }
@@ -1119,7 +1179,12 @@
             .trips-tl-box { width: 98%; padding: 18px 12px; }
             .aboutme-modal-box { width: 98%; }
             .trips-modal-box { width: 99%; height: 96vh; }
-            .cw-box { width: 98%; padding: 16px 12px 20px; }
+.rp-header { padding: 8px 36px 8px 10px; }
+            .rp-wonder-name { font-size: 1.25rem; }
+            .rp-caption { font-size: 1rem; max-height: 70px; }
+            .rs-box { padding: 32px 12px 16px; }
+            .rs-title { font-size: 1.3rem; }
+                        .cw-box { width: 98%; padding: 16px 12px 20px; }
             .cw-country-name { font-size: 1.9rem; }
             .cw-wonder-count-label { font-size: 9px; letter-spacing: 1.5px; margin-top: 3px; }
             .cw-flag { font-size: 2rem; }
@@ -1207,7 +1272,15 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 21 May 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 31 May 2026</span>
+            <div class="next-trip-card" style="margin-top: 14px;">
+                <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
+                <div class="next-trip-dest">
+                    <span class="fi fi-bo next-trip-flag"></span>
+                    <span class="next-trip-country">Bolivia 2026</span>
+                </div>
+                <span class="next-trip-dates">{{ content[lang].nextTripDates }}</span>
+            </div>
         </div>
     </div>
 
@@ -1227,7 +1300,15 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 21 May 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 31 May 2026</span>
+        <div class="next-trip-card">
+            <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
+            <div class="next-trip-dest">
+                <span class="fi fi-bo next-trip-flag"></span>
+                <span class="next-trip-country">Bolivia 2026</span>
+            </div>
+            <span class="next-trip-dates">{{ content[lang].nextTripDates }}</span>
+        </div>
     </div>
 
     <div class="page-flow">
@@ -1268,6 +1349,8 @@
                 <span class="stats-label" style="color: var(--gold); opacity: 0.85;">{{ content[lang].statsVisitedByYou }}</span>
                 <span class="stats-value" style="font-size: 1.2rem;">{{ visitedWonders.length }} / {{ wonders.length }}</span>
             </div>
+            <button class="stats-last-btn" @click="openRandomPhoto()">{{ content[lang].statsGoToPhoto }}</button>
+            <button class="stats-last-btn" @click="openRandomSong()">{{ content[lang].statsGoToSong }}</button>
             <button class="stats-last-btn" @click="openWonder(filteredWonders[Math.floor(Math.random() * filteredWonders.length)])">{{ content[lang].statsGoToRandom }}</button>
             <button class="stats-last-btn" @click="openWonder(wonders[wonders.length - 1])">{{ content[lang].statsGoToLast }}</button>
         </div>
@@ -1376,6 +1459,58 @@
                         <span class="cw-wonder-num">{{ w.id }}</span>
                         <span class="cw-wonder-name">{{ lang === 'pt' ? w.name_pt : lang === 'es' ? w.name_es : w.name_en }}</span>
                         <span v-if="w.is_unesco === 'yes'" class="cw-wonder-unesco">UNESCO</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Random Photo modal -->
+    <div v-if="showRandomPhoto" class="rp-overlay" @click.self="showRandomPhoto = false">
+        <div class="rp-box" :class="randomPhoto && randomPhoto.portrait ? 'rp-portrait' : 'rp-landscape'">
+            <button class="rp-close" @click="showRandomPhoto = false">&times;</button>
+            <div v-if="randomPhoto" class="rp-header">
+                <div class="rp-header-left">
+                    <span class="rp-wonder-name">{{ lang === 'pt' ? randomPhoto.wonder.name_pt : lang === 'es' ? randomPhoto.wonder.name_es : randomPhoto.wonder.name_en }}</span>
+                    <span class="rp-visited">{{ randomPhoto.wonder['visited_' + lang] || randomPhoto.wonder.visited_en }}</span>
+                </div>
+                <div class="rp-header-right">
+                    <span v-for="code in getCountryCode(randomPhoto.wonder.country_en)" :key="code" :class="['fi', 'fi-' + code, 'rp-flag']"></span>
+                    <span class="rp-country">{{ randomPhoto.wonder['country_' + lang] || randomPhoto.wonder.country_en }}</span>
+                </div>
+            </div>
+            <div v-if="randomPhoto" class="rp-img-wrap">
+                <img :src="mediaBase + 'Gallery/' + randomPhoto.img" class="rp-img" :key="randomPhoto.img" />
+            </div>
+            <div v-if="randomPhoto && getCaption(randomPhoto.wonder, randomPhoto.img)" class="rp-caption">
+                {{ getCaption(randomPhoto.wonder, randomPhoto.img) }}
+            </div>
+            <div class="rp-footer">
+                <button class="stats-last-btn rp-next-btn" @click="openRandomPhoto()">{{ content[lang].randomPhotoNext }}</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Random Song modal -->
+    <div v-if="showRandomSong" class="rs-overlay" @click.self="closeRandomSong()">
+        <div class="rs-box">
+            <button class="rs-close" @click="closeRandomSong()">&times;</button>
+            <div v-if="randomSong" class="rs-content">
+                <div class="rs-title">{{ randomSong.title }}</div>
+                <div class="rs-author">{{ randomSong.author }}</div>
+                <div class="rs-controls">
+                    <div class="rs-volume-row">
+                        <button class="rs-icon-btn" @click="toggleRandomSongMute()">
+                            <i :class="randomSongMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
+                        </button>
+                        <input type="range" class="rs-volume-slider" min="0" max="1" step="0.01"
+                            v-model="randomSongVolume" @input="setRandomSongVolume()" />
+                    </div>
+                    <div class="rs-btn-row">
+                        <button class="stats-last-btn rs-action-btn" @click="openRandomSong()">{{ content[lang].randomSongNext }}</button>
+                        <button class="stats-last-btn rs-action-btn" :class="randomSongContinuous ? 'rs-active-btn' : ''" @click="toggleRandomSongContinuous()">
+                            {{ randomSongContinuous ? content[lang].randomSongStop : content[lang].randomSongPlay }}
+                        </button>
                     </div>
                 </div>
             </div>
@@ -1924,6 +2059,7 @@ createApp({
             visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
             beenThereConfirm: false, showBackToTop: false,
             slideshowActive: false, slideshowIndex: 0, slideshowProgress: 0,
+            showRandomPhoto: false, randomPhoto: null, showRandomSong: false, randomSong: null, randomSongPlaying: false, randomSongContinuous: false, randomSongVolume: 0.7, randomSongMuted: false, _randomSongAudio: null,
             slideshowPaused: false, _slideshowRaf: null, _slideshowStart: null, _slideshowElapsed: 0,
             selectedCityCountry: null, shareStatus: null,
             trips: [], selectedTrip: null, openYearGroups: new Set(),
@@ -1948,17 +2084,17 @@ createApp({
                     copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
                     countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersLabel: "Wonders in", countryWondersHint: "Click a wonder to open it", countryWondersBack: "← Back to Countries",
-                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToLast: "→ Go to latest wonder",
+                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
                     seeTimeline: "See my wonders timeline", timelineTitle: "My Wonders Timeline", timelineUndated: "Date Unknown",
                     citiesTitle: "Cities & Places Visited", citiesSubtitle: "cities & places across 101 countries", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
                     seeAboutMe: "About me",
                     seeMusic: "See the music list",
-                    musicTitle: "The Music List", musicCount: "songs",
+                    musicTitle: "The Music List", musicCount: "songs", randomPhotoNext: "Next Photo", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute",
                     musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
                     musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
-                    lastUpdate: "Last update",
+                    lastUpdate: "Last update", nextTripLabel: "My Next Trip", nextTripDates: "Jul 23 – Aug 9, 2026",
                     seeTripsTimeline: "See my trips timeline",
                     tripsTimelineTitle: "My Trips Timeline",
                     seeNextWonders: "See my next wonders",
@@ -2018,17 +2154,17 @@ createApp({
                     copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersLabel: "Maravilhas em", countryWondersHint: "Clique em uma maravilha para abri-la", countryWondersBack: "← Voltar aos Países",
-                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToLast: "→ Ir para a última maravilha",
+                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
                     seeTimeline: "Ver linha do tempo das maravilhas", timelineTitle: "Linha do Tempo das Maravilhas", timelineUndated: "Data Desconhecida",
                     citiesTitle: "Cidades e Lugares Visitados", citiesSubtitle: "cidades e lugares em 101 países", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
                     seeAboutMe: "Ver meu perfil",
                     seeMusic: "Ver a lista de músicas",
-                    musicTitle: "A Lista de Músicas", musicCount: "músicas",
+                    musicTitle: "A Lista de Músicas", musicCount: "músicas", randomPhotoNext: "Próxima Foto", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som",
                     musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
-                    lastUpdate: "Última atualização",                    seeTripsTimeline: "Ver linha do tempo das viagens",
+                    lastUpdate: "Última atualização", nextTripLabel: "Minha Próxima Viagem", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
                     tripsTimelineTitle: "Linha do Tempo das Viagens",
                     seeNextWonders: "Ver minhas próximas maravilhas",
                     nextWondersTitle: "Minhas Próximas Maravilhas", nextWondersCount: "maravilhas",
@@ -2085,17 +2221,17 @@ createApp({
                     copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersLabel: "Maravillas en", countryWondersHint: "Haz clic en una maravilla para abrirla", countryWondersBack: "← Volver a Países",
-                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToLast: "→ Ir a la última maravilla",
+                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
                     seeTimeline: "Ver línea de tiempo de maravillas", timelineTitle: "Línea de Tiempo de Maravillas", timelineUndated: "Fecha Desconocida",
                     citiesTitle: "Ciudades y Lugares Visitados", citiesSubtitle: "ciudades y lugares en 101 países", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
                     seeAboutMe: "Ver mi perfil",
                     seeMusic: "Ver la lista de música",
-                    musicTitle: "La Lista de Música", musicCount: "canciones",
+                    musicTitle: "La Lista de Música", musicCount: "canciones", randomPhotoNext: "Siguiente Foto", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido",
                     musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
-                    lastUpdate: "Última actualización",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
+                    lastUpdate: "Última actualización", nextTripLabel: "Mi Próximo Viaje", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
                     tripsTimelineTitle: "Línea de Tiempo de Viajes",
                     seeNextWonders: "Ver mis próximas maravillas",
                     nextWondersTitle: "Mis Próximas Maravillas", nextWondersCount: "maravillas",
@@ -2487,6 +2623,8 @@ createApp({
             if (e.key === 'Escape') {
                 if      (this.mobileNavOpen)        this.mobileNavOpen = false;
                 else if (this.slideshowActive)     this.stopSlideshow();
+                else if (this.showRandomPhoto)     this.showRandomPhoto = false;
+                else if (this.showRandomSong)      this.closeRandomSong();
                 else if (this.expandedMedia)       this.expandedMedia = null;
                 else if (this.selectedWonderCountry) this.selectedWonderCountry = null;
                 else if (this.selectedCityCountry) this.selectedCityCountry = null;
@@ -2905,6 +3043,84 @@ createApp({
             return caps.some(cap => city.trim().toLowerCase() === cap.trim().toLowerCase());
         },
         countByRegion(r) { return this.wonders.filter(w => w.region === r).length; },
+
+        // ── Random Photo ──
+        openRandomPhoto() {
+            const pool = [];
+            this.wonders.forEach(function(w) {
+                (w.images || []).forEach(function(img) { pool.push({ wonder: w, img: img }); });
+            });
+            if (!pool.length) return;
+            this.randomPhoto = pool[Math.floor(Math.random() * pool.length)];
+            this.showRandomPhoto = true;
+        },
+
+        // ── Random Song ──
+        openRandomSong() {
+            const pool = this.wonders.filter(function(w) {
+                return w.song_name && w.song_name.indexOf(' \u2014 ') !== -1;
+            });
+            if (!pool.length) return;
+            const w = pool[Math.floor(Math.random() * pool.length)];
+            const sep = w.song_name.indexOf(' \u2014 ');
+            this.randomSong = { wonder: w, title: w.song_name.slice(0, sep).trim(), author: w.song_name.slice(sep + 3).trim(), id: w.id };
+            this.showRandomSong = true;
+            // Pause explorer music if playing
+            if (this.fadeInterval) { clearInterval(this.fadeInterval); this.fadeInterval = null; }
+            const existingAudio = document.getElementById('bg-audio');
+            if (existingAudio) { existingAudio.pause(); }
+            this._playRandomSongAudio();
+        },
+        _playRandomSongAudio() {
+            if (this._randomSongAudio) {
+                this._randomSongAudio.pause();
+                this._randomSongAudio.onended = null;
+                this._randomSongAudio = null;
+            }
+            if (!this.randomSong) return;
+            const audio = new Audio(this.mediaBase + 'Music/' + this.randomSong.id + '.mp3');
+            audio.volume = this.randomSongMuted ? 0 : this.randomSongVolume;
+            this._randomSongAudio = audio;
+            const self = this;
+            audio.onended = function() {
+                if (self.randomSongContinuous && self.showRandomSong) {
+                    self.openRandomSong();
+                }
+            };
+            audio.play().catch(function() {});
+        },
+        closeRandomSong() {
+            this.showRandomSong = false;
+            this.randomSongContinuous = false;
+            if (this._randomSongAudio) {
+                const audio = this._randomSongAudio;
+                this._randomSongAudio = null;
+                audio.onended = null;
+                // Fade out over 600ms then stop
+                const startVol = audio.volume;
+                const steps = 20;
+                const stepTime = 600 / steps;
+                let step = 0;
+                const fade = setInterval(function() {
+                    step++;
+                    audio.volume = Math.max(0, startVol * (1 - step / steps));
+                    if (step >= steps) {
+                        clearInterval(fade);
+                        audio.pause();
+                    }
+                }, stepTime);
+            }
+        },
+        toggleRandomSongMute() {
+            this.randomSongMuted = !this.randomSongMuted;
+            if (this._randomSongAudio) this._randomSongAudio.volume = this.randomSongMuted ? 0 : this.randomSongVolume;
+        },
+        setRandomSongVolume() {
+            if (this._randomSongAudio && !this.randomSongMuted) this._randomSongAudio.volume = this.randomSongVolume;
+        },
+        toggleRandomSongContinuous() {
+            this.randomSongContinuous = !this.randomSongContinuous;
+        },
         formatId(id) { return parseInt(id).toString().padStart(2, '0'); },
         getVal(w, type) { return w[`${type}_${this.lang}`] || w[`${type}_en`]; },
         getLoc(w) { const city = w[`city_${this.lang}`] || w.city_en || ""; const country = w[`country_${this.lang}`] || w.country_en || ""; return city ? `${city}, ${country}` : country; },
