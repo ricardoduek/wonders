@@ -244,7 +244,7 @@
         .cw-wonder-unesco { font-size: 8px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; border: 1px solid var(--gold); padding: 1px 5px; flex-shrink: 0; }
 
         /* ── Next Trip card ── */
-        .next-trip-card { margin-top: 14px; padding-top: 12px; border-top: 1px solid rgba(197,160,89,0.25); }
+        .next-trip-card { margin-top: 14px; padding: 10px 12px; border: 1px solid rgba(197,160,89,0.45); margin-left: -20px; margin-right: -20px; }
         .next-trip-label { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; font-family: 'Inter', sans-serif; }
         .next-trip-dest { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
         .next-trip-flag { font-size: 1.4rem; line-height: 1; }
@@ -628,7 +628,7 @@
                 padding: 10px 20px;
                 border-left: 1px solid var(--gold);
             }
-            .next-trip-card { width: 100%; max-width: 680px; margin: 8px 0 0 0; }
+            .next-trip-card { margin-left: -20px; margin-right: -20px; }
             .next-trip-inner { padding: 8px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
             .top-controls {
                 position: static;
@@ -1038,7 +1038,7 @@
             /* Countries grid */
             .countries-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-top: 16px; }
 
-            .next-trip-card { width: 100%; max-width: 100%; margin: 8px 0 0 0; }
+            .next-trip-card { margin-left: -24px; margin-right: -24px; padding-left: 24px; padding-right: 24px; }
             .rp-portrait { width: min(88vw, 480px); }
             .rp-landscape { width: min(96vw, 900px); }
             .rs-box { padding: 40px 20px 24px; }
@@ -1272,7 +1272,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 31 May 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 1 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1300,7 +1300,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 31 May 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 1 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
@@ -1344,6 +1344,10 @@
             <div class="stats-row">
                 <span class="stats-label">{{ content[lang].statsPhotos }}</span>
                 <span class="stats-value">{{ totalPhotos }}</span>
+            </div>
+            <div class="stats-row">
+                <span class="stats-label">{{ content[lang].statsVideos }}</span>
+                <span class="stats-value">{{ totalVideos }}</span>
             </div>
             <div v-if="visitedWonders.length > 0" class="stats-row" style="border-top: 1px solid #2a2a2a; margin-top: 4px; padding-top: 8px; border-bottom: none;">
                 <span class="stats-label" style="color: var(--gold); opacity: 0.85;">{{ content[lang].statsVisitedByYou }}</span>
@@ -2084,7 +2088,7 @@ createApp({
                     copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
                     countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersLabel: "Wonders in", countryWondersHint: "Click a wonder to open it", countryWondersBack: "← Back to Countries",
-                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
+                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsVideos: "Videos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
                     seeTimeline: "See my wonders timeline", timelineTitle: "My Wonders Timeline", timelineUndated: "Date Unknown",
@@ -2154,7 +2158,7 @@ createApp({
                     copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersLabel: "Maravilhas em", countryWondersHint: "Clique em uma maravilha para abri-la", countryWondersBack: "← Voltar aos Países",
-                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
+                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Vídeos Publicados", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
                     seeTimeline: "Ver linha do tempo das maravilhas", timelineTitle: "Linha do Tempo das Maravilhas", timelineUndated: "Data Desconhecida",
@@ -2221,7 +2225,7 @@ createApp({
                     copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersLabel: "Maravillas en", countryWondersHint: "Haz clic en una maravilla para abrirla", countryWondersBack: "← Volver a Países",
-                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
+                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Videos Publicados", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
                     seeTimeline: "Ver línea de tiempo de maravillas", timelineTitle: "Línea de Tiempo de Maravillas", timelineUndated: "Fecha Desconocida",
@@ -2333,6 +2337,9 @@ createApp({
         },
         totalPhotos() {
             return this.wonders.reduce((sum, w) => sum + (w.images ? w.images.length : 0), 0);
+        },
+        totalVideos() {
+            return this.wonders.reduce((sum, w) => sum + (w.videos ? w.videos.length : 0) + (w.videos_audio ? w.videos_audio.length : 0), 0);
         },
         countriesWithWonders() {
             const seen = new Set();
