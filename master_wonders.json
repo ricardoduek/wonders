@@ -2341,7 +2341,7 @@
                 "es": "Harmandir Sahib y la pasarela de mármol de 60 metros flanqueada por nueve lámparas doradas de cada lado."
             }
         },
-        "song_name": "Return to Innocence — Enigma"
+        "song_name": "Punjab — Karunesh"
     },
     {
         "id": "024",
@@ -6155,7 +6155,11 @@
         "lat": 9.08,
         "lng": -79.68,
         "images": [
-            "078_01.webp"
+            "078_01.webp",
+            "078_02.webp",
+            "078_03.webp",
+            "078_04.webp",
+            "078_05.webp"
         ],
         "videos": [],
         "region": "Americas",
@@ -6166,7 +6170,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Canal_do_Panam%C3%A1",
         "wiki_es": "https://es.wikipedia.org/wiki/Canal_de_Panam%C3%A1",
         "is_unesco": "no",
-        "unesco_url": ""
+        "unesco_url": "",
+        "song_name": "Pacific — Sleeping At Last"
     },
     {
         "id": "079",
@@ -6310,7 +6315,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Grand-Place_de_Bruxelas",
         "wiki_es": "https://es.wikipedia.org/wiki/Grand-Place",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/857"
+        "unesco_url": "https://whc.unesco.org/en/list/857",
+        "song_name": "Quelqu'un m'a dit — Carla Bruni"
     },
     {
         "id": "083",
@@ -8377,7 +8383,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Pal%C3%A1cio_Nacional_da_Pena",
         "wiki_es": "https://es.wikipedia.org/wiki/Palacio_Nacional_de_la_Pena",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/723"
+        "unesco_url": "https://whc.unesco.org/en/list/723",
+        "song_name": "Canção do Mar (Epic Cover) — Dulce Pontes"
     },
     {
         "id": "115",
@@ -8976,7 +8983,8 @@
                 "en": "Military barracks.",
                 "pt": "Barracas militares."
             }
-        }
+        },
+        "song_name": "Return to Innocence — Enigma"
     },
     {
         "id": "128",
