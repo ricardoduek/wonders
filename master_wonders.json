@@ -1819,7 +1819,7 @@
         "wiki_es": "https://es.wikipedia.org/wiki/Museo_del_Louvre",
         "is_unesco": "yes",
         "unesco_url": "https://whc.unesco.org/en/list/600",
-        "song_name": "Chanson du Soleil (feat. Gavin Bradley) — DJ Memê"
+        "song_name": "Le Boléro — Prequell"
     },
     {
         "id": "022",
@@ -8803,7 +8803,8 @@
                 "pt": "Uma excelente caminhada entre gêiseres vulcânicos incríveis, lagos, piscinas de lama e cavernas sulfúricas no Vale Vulcânico de Waimangu, Rotorua, Nova Zelândia.",
                 "es": "Una excelente caminata entre increíbles géiseres volcánicos, lagos, pozas de lodo y cuevas sulfúricas en el Valle Volcánico de Waimangu, Rotorua, Nueva Zelanda."
             }
-        }
+        },
+        "song_name": "The Grace Of Undómiel (feat. Renée Fleming) (from 'The Lord of the Rings: The Return of the King') — Howard Shore"
     },
     {
         "id": "126",
@@ -9160,7 +9161,8 @@
         "wiki_pt": "https://pt.wikipedia.org/wiki/Luxemburgo_(cidade)",
         "wiki_es": "https://es.wikipedia.org/wiki/Luxemburgo_(ciudad)",
         "is_unesco": "yes",
-        "unesco_url": "https://whc.unesco.org/en/list/699"
+        "unesco_url": "https://whc.unesco.org/en/list/699",
+        "song_name": "Chanson du Soleil (feat. Gavin Bradley) — DJ Memê"
     },
     {
         "id": "130",
@@ -9508,7 +9510,8 @@
                 "pt": "Vilnius é a capital barroca da Lituânia, o maior dos 3 países bálticos e a cidade com o maior centro histórico da Europa, Patrimônio Mundial da UNESCO. Encantadora e muito caminhável, contém 65 igrejas e 1500 edifícios antigos bem preservados. Caminhar por suas ruelas é como viajar no tempo.",
                 "es": "Vilnius es la barroca capital de Lituania, el mayor de los 3 países bálticos y la ciudad con el mayor casco antiguo de Europa, Patrimonio de la Humanidad de la UNESCO. Encantadora y altamente caminable, contiene 65 iglesias y 1500 edificios antiguos bien preservados. Caminar por sus callejuelas es como viajar atrás en el tiempo."
             }
-        }
+        },
+        "song_name": "Tu nemoki — Saulius Prūsaitis & Iglė"
     },
     {
         "id": "138",

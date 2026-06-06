@@ -245,11 +245,15 @@
 
         /* ── Next Trip card ── */
         .next-trip-card { margin-top: 14px; padding: 10px 12px; border: 1px solid rgba(197,160,89,0.45); margin-left: -20px; margin-right: -20px; }
-        .next-trip-label { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; font-family: 'Inter', sans-serif; }
+        .next-trip-label { display: block; font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: var(--gold); margin-bottom: 8px; font-family: 'Inter', sans-serif; text-align: center; }
         .next-trip-dest { display: flex; align-items: center; gap: 10px; margin-bottom: 5px; }
         .next-trip-flag { font-size: 1.4rem; line-height: 1; }
         .next-trip-country { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #fff; font-weight: 400; }
-        .next-trip-dates { font-size: 11px; color: var(--grey); letter-spacing: 0.5px; font-family: 'Inter', sans-serif; display: block; }
+        .next-trip-dates { font-size: 11px; color: var(--grey); letter-spacing: 0.5px; font-family: 'Inter', sans-serif; display: block; text-align: left; }
+
+        /* ── Full map close button (outside the image) ── */
+        .fullmap-close-btn { position: absolute; top: -18px; right: -18px; width: 36px; height: 36px; border-radius: 50%; background: #0a0a0a; border: 1px solid var(--gold); color: var(--grey); font-size: 1.4rem; line-height: 1; cursor: pointer; display: flex; align-items: center; justify-content: center; z-index: 2; transition: color 0.2s, background 0.2s; padding: 0; }
+        .fullmap-close-btn:hover { color: #fff; background: #1a1a1a; }
 
         /* ── Random Photo modal ── */
         .rp-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
@@ -1271,7 +1275,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 4 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1299,7 +1303,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 4 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
@@ -1404,10 +1408,10 @@
     </div> <!-- /page-flow -->
 
     <!-- Full map modal -->
-    <div v-if="showFullMap" class="generic-modal" @click.self="showFullMap = false">
-        <div class="modal-content-box" style="padding:0; border-width:2px; width:auto;" @click="showFullMap = false">
-            <span class="close-modal-btn" @click="showFullMap = false">&times;</span>
-            <img :src="mediaBase + 'Gallery/travel-map.webp'" style="display:block; max-width:100%; max-height:85vh; object-fit:contain;">
+    <div v-if="showFullMap" class="generic-modal" @click.self="showFullMap = false" style="align-items:center; justify-content:center;">
+        <div style="position:relative; display:inline-block;">
+            <button class="fullmap-close-btn" @click="showFullMap = false">&times;</button>
+            <img :src="mediaBase + 'Gallery/travel-map.webp'" style="display:block; max-width:90vw; max-height:85vh; object-fit:contain; border: 2px solid var(--gold);">
         </div>
     </div>
 
@@ -2145,7 +2149,9 @@ createApp({
                         { cat: "Series", val: "Game of Thrones" },
                         { cat: "Band", val: "Coldplay" },
                         { cat: "Opera", val: "Verdi's La Traviata" },
-                        { cat: "Book", val: "Tolkien's The Lord of the Rings" },
+                        { cat: "Musical", val: "Baz Luhrmann's Moulin Rouge" },
+                        { cat: "Singer", val: "Sarah Brightman" },
+                        { cat: "Book", val: "JRR Tolkien's The Lord of the Rings" },
                         { cat: "Video Game", val: "Sid Meier's Civilization V" }
                     ],
                     aboutMotto: "\"Would you like to make God laugh? Make plans.\"",
@@ -2212,7 +2218,9 @@ createApp({
                         { cat: "Série", val: "Game of Thrones" },
                         { cat: "Banda", val: "Coldplay" },
                         { cat: "Ópera", val: "La Traviata de Verdi" },
-                        { cat: "Livro", val: "O Senhor dos Anéis de Tolkien" },
+                        { cat: "Musical", val: "Moulin Rouge de Baz Luhrmann" },
+                        { cat: "Cantora", val: "Sarah Brightman" },
+                        { cat: "Livro", val: "O Senhor dos Anéis de JRR Tolkien" },
                         { cat: "Videogame", val: "Civilization V de Sid Meier" }
                     ],
                     aboutMotto: "\"Você gostaria de fazer Deus rir? Faça planos.\"",
@@ -2279,7 +2287,9 @@ createApp({
                         { cat: "Serie", val: "Game of Thrones" },
                         { cat: "Banda", val: "Coldplay" },
                         { cat: "Ópera", val: "La Traviata de Verdi" },
-                        { cat: "Libro", val: "El Señor de los Anillos de Tolkien" },
+                        { cat: "Musical", val: "Moulin Rouge de Baz Luhrmann" },
+                        { cat: "Cantante", val: "Sarah Brightman" },
+                        { cat: "Libro", val: "El Señor de los Anillos de JRR Tolkien" },
                         { cat: "Videojuego", val: "Civilization V de Sid Meier" }
                     ],
                     aboutMotto: "\"¿Querés hacer reír a Dios? Hacé planes.\"",
