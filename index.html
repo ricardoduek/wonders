@@ -276,23 +276,66 @@
         .rp-next-btn { margin: 0; width: auto; padding: 7px 28px; }
 
         /* ── Random Song modal ── */
-        .rs-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
-        .rs-box { position: relative; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 60px rgba(197,160,89,0.12); width: min(92vw, 480px); padding: 44px 36px 32px; box-sizing: border-box; }
-        .rs-close { position: absolute; top: 10px; right: 14px; background: none; border: none; color: var(--grey); font-size: 2rem; cursor: pointer; line-height: 1; transition: color 0.2s; padding: 0; }
+        .rs-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .rs-box { position: relative; border: 1px solid rgba(197,160,89,0.5); box-shadow: 0 0 80px rgba(0,0,0,0.9); width: min(92vw, 820px); overflow: hidden; box-sizing: border-box; background: #050505; }
+        /* Photo top section */
+        .rs-photo-panel { position: relative; height: 375px; overflow: hidden; }
+        .rs-photo-panel img { width: 100%; height: 100%; object-fit: cover; object-position: center 30%; display: block; filter: brightness(0.9); }
+        .rs-photo-gradient { position: absolute; inset: 0; background: linear-gradient(to bottom, rgba(0,0,0,0) 0%, rgba(0,0,0,0.15) 40%, rgba(0,0,0,0.78) 72%, rgba(5,5,5,1) 100%); }
+        /* Wonder info overlaid at bottom of photo */
+        .rs-wonder-info { position: absolute; bottom: 16px; left: 26px; right: 44px; }
+        .rs-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; color: #fff; font-weight: 400; line-height: 1.2; margin-bottom: 6px; text-shadow: 0 1px 6px rgba(0,0,0,0.7); }
+        .rs-wonder-meta { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .rs-wonder-flag { font-size: 1.2rem; line-height: 1; }
+        .rs-wonder-country { font-size: 13px; color: rgba(255,255,255,0.65); letter-spacing: 0.4px; }
+        .rs-wonder-dot { color: rgba(255,255,255,0.2); font-size: 10px; }
+        .rs-wonder-visited { font-size: 10px; color: rgba(197,160,89,0.9); letter-spacing: 1.5px; text-transform: uppercase; }
+        .rs-close { position: absolute; top: 10px; right: 14px; background: none; border: none; color: rgba(255,255,255,0.55); font-size: 2rem; cursor: pointer; line-height: 1; transition: color 0.2s; padding: 0; z-index: 2; text-shadow: 0 1px 4px rgba(0,0,0,0.8); }
         .rs-close:hover { color: #fff; }
-        .rs-content { display: flex; flex-direction: column; gap: 18px; }
-        .rs-title { font-family: 'Cormorant Garamond', serif; font-size: 1.9rem; color: #fff; font-weight: 400; line-height: 1.2; }
-        .rs-author { font-size: 12px; letter-spacing: 1.5px; color: var(--gold); text-transform: uppercase; }
-        .rs-controls { display: flex; flex-direction: column; gap: 14px; }
-        .rs-volume-row { display: flex; align-items: center; gap: 12px; }
-        .rs-icon-btn { background: none; border: none; color: var(--grey); font-size: 1.2rem; cursor: pointer; padding: 4px; transition: color 0.2s; flex-shrink: 0; }
+        /* Controls section */
+        .rs-controls-panel { padding: 20px 26px 24px; display: flex; flex-direction: column; gap: 14px; }
+        .rs-song-info { display: flex; flex-direction: column; gap: 6px; }
+        .rs-title { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: #fff; font-weight: 400; line-height: 1.2; }
+        .rs-author { font-size: 11px; letter-spacing: 1.5px; color: rgba(197,160,89,0.9); text-transform: uppercase; }
+        .rs-divider { height: 1px; background: rgba(197,160,89,0.18); }
+        /* Progress slider (large) */
+        .rs-progress-row { display: flex; align-items: center; gap: 10px; }
+        .rs-time { font-size: 10px; color: rgba(255,255,255,0.35); letter-spacing: 0.5px; font-variant-numeric: tabular-nums; min-width: 32px; }
+        .rs-time-right { text-align: right; }
+        .rs-progress-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 4px; background: rgba(255,255,255,0.12); outline: none; cursor: pointer; border-radius: 2px; }
+        .rs-progress-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; cursor: pointer; }
+        .rs-progress-slider::-moz-range-thumb { width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: none; cursor: pointer; }
+        /* Volume row (compact) */
+        .rs-volume-row { display: flex; align-items: center; gap: 10px; }
+        .rs-icon-btn { background: none; border: none; color: rgba(255,255,255,0.4); font-size: 1rem; cursor: pointer; padding: 2px 4px; transition: color 0.2s; flex-shrink: 0; }
         .rs-icon-btn:hover { color: var(--gold); }
-        .rs-volume-slider { flex: 1; -webkit-appearance: none; appearance: none; height: 2px; background: #333; outline: none; cursor: pointer; }
-        .rs-volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 14px; height: 14px; background: var(--gold); border-radius: 50%; cursor: pointer; }
-        .rs-volume-slider::-moz-range-thumb { width: 14px; height: 14px; background: var(--gold); border-radius: 50%; border: none; cursor: pointer; }
-        .rs-btn-row { display: flex; gap: 10px; }
-        .rs-action-btn { flex: 1; margin: 0; }
+        .rs-vol-label { font-size: 9px; letter-spacing: 1px; color: rgba(255,255,255,0.3); text-transform: uppercase; }
+        .rs-volume-slider { flex: 1; max-width: 140px; -webkit-appearance: none; appearance: none; height: 2px; background: rgba(255,255,255,0.12); outline: none; cursor: pointer; border-radius: 1px; }
+        .rs-volume-slider::-webkit-slider-thumb { -webkit-appearance: none; width: 10px; height: 10px; background: rgba(197,160,89,0.75); border-radius: 50%; cursor: pointer; }
+        .rs-volume-slider::-moz-range-thumb { width: 10px; height: 10px; background: rgba(197,160,89,0.75); border-radius: 50%; border: none; cursor: pointer; }
+        /* Buttons */
+        .rs-btn-row { display: flex; gap: 8px; flex-wrap: wrap; }
+        .rs-action-btn { flex: 1; margin: 0; min-width: 90px; }
+        .rs-see-btn { flex: 0 0 auto; margin: 0; padding: 7px 16px; font-size: 10px; letter-spacing: 1px; background: none; border: 1px solid rgba(197,160,89,0.4); color: rgba(197,160,89,0.8); cursor: pointer; transition: all 0.2s; font-family: 'Inter', sans-serif; text-transform: uppercase; }
+        .rs-see-btn:hover { border-color: var(--gold); color: var(--gold); background: rgba(197,160,89,0.07); }
         .rs-active-btn { color: var(--gold) !important; border-color: var(--gold) !important; }
+
+        /* ── Random Video modal ── */
+        .rv-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.94); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .rv-box { position: relative; display: flex; flex-direction: column; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 60px rgba(197,160,89,0.12); width: min(92vw, 1000px); max-height: 92vh; overflow: hidden; box-sizing: border-box; }
+        .rv-close { position: absolute; top: 10px; right: 14px; background: none; border: none; color: var(--grey); font-size: 2rem; cursor: pointer; z-index: 2; line-height: 1; transition: color 0.2s; padding: 0; }
+        .rv-close:hover { color: #fff; }
+        .rv-header { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 12px 44px 12px 16px; background: rgba(197,160,89,0.07); border-bottom: 1px solid rgba(197,160,89,0.25); flex-shrink: 0; flex-wrap: wrap; gap: 8px; }
+        .rv-header-left { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+        .rv-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.95rem; color: var(--gold); font-weight: 400; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .rv-visited { font-size: 15px; letter-spacing: 1px; color: var(--grey); text-transform: uppercase; }
+        .rv-header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .rv-flag { font-size: 2.1rem; }
+        .rv-country { font-size: 18px; color: var(--light-grey); letter-spacing: 0.5px; }
+        .rv-video-wrap { flex: 1 1 auto; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 0; background: #000; }
+        .rv-video { display: block; max-width: 100%; max-height: calc(92vh - 120px); width: auto; height: auto; object-fit: contain; }
+        .rv-footer { padding: 10px 16px; display: flex; justify-content: center; border-top: 1px solid #1a1a1a; flex-shrink: 0; }
+        .rv-next-btn { margin: 0; width: auto; padding: 7px 28px; }
 
         .leaflet-tooltip-pane .leaflet-tooltip { background: rgba(0, 0, 0, 0.95) !important; border: 1px solid var(--gold) !important; color: var(--text) !important; padding: 0 !important; box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important; border-radius: 0 !important; }
         .leaflet-tooltip-top:before { border-top-color: var(--gold) !important; }
@@ -1112,9 +1155,12 @@
 .rp-portrait, .rp-landscape { width: 98vw; }
             .rp-wonder-name { font-size: 1.5rem; }
             .rp-img { max-height: calc(88vh - 160px); }
-            .rs-box { width: 96vw; padding: 36px 16px 20px; }
+            .rs-box { width: 96vw; }
+            .rs-photo-panel { height: 200px; }
             .rs-title { font-size: 1.5rem; }
             .rs-btn-row { flex-direction: column; }
+            .rv-box { width: 96vw; }
+            .rv-wonder-name { font-size: 1.5rem; }
                         .cw-box { padding: 28px 16px 28px; }
             .cw-country-name { font-size: 2.2rem; }
             .cw-wonder-count-label { font-size: 9px; letter-spacing: 2px; }
@@ -1275,7 +1321,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 7 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1303,7 +1349,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 7 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
@@ -1357,6 +1403,7 @@
                 <span class="stats-value" style="font-size: 1.2rem;">{{ visitedWonders.length }} / {{ wonders.length }}</span>
             </div>
             <button class="stats-last-btn" @click="openRandomPhoto()">{{ content[lang].statsGoToPhoto }}</button>
+            <button class="stats-last-btn" @click="openRandomVideo()">{{ content[lang].statsGoToVideo }}</button>
             <button class="stats-last-btn" @click="openRandomSong()">{{ content[lang].statsGoToSong }}</button>
             <button class="stats-last-btn" @click="openWonder(filteredWonders[Math.floor(Math.random() * filteredWonders.length)])">{{ content[lang].statsGoToRandom }}</button>
             <button class="stats-last-btn" @click="openWonder(wonders[wonders.length - 1])">{{ content[lang].statsGoToLast }}</button>
@@ -1385,7 +1432,7 @@
     <div class="map-wrap"><div id="map"></div></div>
 
     <div class="grid">
-        <div v-for="w in visibleWonders" :key="w.id" class="card-frame" @click="openWonder(w)">
+        <div v-for="w in visibleWonders" :key="w.id" class="card-frame" :data-wonder-id="w.id" @click="openWonder(w)">
             <div class="card-img-wrap">
                 <img :src="mediaBase + 'Gallery/' + (w.images[0] || 'placeholder.jpg')" class="card-img" loading="lazy">
                 <div v-if="w.videos && w.videos.length" class="video-badge"><i class="fa-solid fa-circle-play"></i></div>
@@ -1498,33 +1545,84 @@
         </div>
     </div>
 
+    <!-- Random Video modal -->
+    <div v-if="showRandomVideo" class="rv-overlay" @click.self="showRandomVideo = false">
+        <div class="rv-box">
+            <button class="rv-close" @click="showRandomVideo = false">&times;</button>
+            <div v-if="randomVideo" class="rv-header">
+                <div class="rv-header-left">
+                    <span class="rv-wonder-name">{{ lang === 'pt' ? randomVideo.wonder.name_pt : lang === 'es' ? randomVideo.wonder.name_es : randomVideo.wonder.name_en }}</span>
+                    <span class="rv-visited">{{ randomVideo.wonder['visited_' + lang] || randomVideo.wonder.visited_en }}</span>
+                </div>
+                <div class="rv-header-right">
+                    <span v-for="code in getCountryCode(randomVideo.wonder.country_en)" :key="code" :class="['fi', 'fi-' + code, 'rv-flag']"></span>
+                    <span class="rv-country">{{ randomVideo.wonder['country_' + lang] || randomVideo.wonder.country_en }}</span>
+                </div>
+            </div>
+            <div v-if="randomVideo" class="rv-video-wrap">
+                <video :src="mediaBase + 'Videos/' + randomVideo.vid" :key="randomVideo.vid"
+                    class="rv-video" autoplay controls playsinline loop></video>
+            </div>
+            <div class="rv-footer">
+                <button class="stats-last-btn rv-next-btn" @click="openRandomVideo()">{{ content[lang].randomVideoNext }}</button>
+            </div>
+        </div>
+    </div>
+
     <!-- Random Song modal -->
     <div v-if="showRandomSong" class="rs-overlay" @click.self="closeRandomSong()">
         <div class="rs-box">
             <button class="rs-close" @click="closeRandomSong()">&times;</button>
-            <div v-if="randomSong" class="rs-content">
-                <div class="rs-title">{{ randomSong.title }}</div>
-                <div class="rs-author">{{ randomSong.author }}</div>
-                <div class="rs-controls">
-                    <div class="rs-volume-row">
-                        <button class="rs-icon-btn" @click="toggleRandomSongMute()">
-                            <i :class="randomSongMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
-                        </button>
-                        <input type="range" class="rs-volume-slider" min="0" max="1" step="0.01"
-                            v-model="randomSongVolume" @input="setRandomSongVolume()" />
+            <!-- Photo top panel -->
+            <div v-if="randomSong && randomSong.wonder.images && randomSong.wonder.images.length" class="rs-photo-panel">
+                <img :src="mediaBase + 'Gallery/' + randomSong.wonder.images[0]" :key="randomSong.wonder.id" />
+                <div class="rs-photo-gradient"></div>
+                <div class="rs-wonder-info">
+                    <div class="rs-wonder-name">{{ randomSong.wonder['name_' + lang] || randomSong.wonder.name_en }}</div>
+                    <div class="rs-wonder-meta">
+                        <span v-for="code in getCountryCode(randomSong.wonder.country_en)" :key="code" :class="['fi', 'fi-' + code, 'rs-wonder-flag']"></span>
+                        <span class="rs-wonder-country">{{ randomSong.wonder['country_' + lang] || randomSong.wonder.country_en }}</span>
+                        <span v-if="randomSong.wonder['visited_' + lang]" class="rs-wonder-dot">·</span>
+                        <span v-if="randomSong.wonder['visited_' + lang]" class="rs-wonder-visited">{{ randomSong.wonder['visited_' + lang] }}</span>
                     </div>
-                    <div class="rs-btn-row">
-                        <button class="stats-last-btn rs-action-btn" @click="openRandomSong()">{{ content[lang].randomSongNext }}</button>
-                        <button class="stats-last-btn rs-action-btn" :class="randomSongContinuous ? 'rs-active-btn' : ''" @click="toggleRandomSongContinuous()">
-                            {{ randomSongContinuous ? content[lang].randomSongStop : content[lang].randomSongPlay }}
-                        </button>
-                    </div>
+                </div>
+            </div>
+            <!-- Controls panel -->
+            <div v-if="randomSong" class="rs-controls-panel">
+                <div class="rs-song-info">
+                    <div class="rs-title">{{ randomSong.title }}</div>
+                    <div class="rs-author">{{ randomSong.author }}</div>
+                </div>
+                <div class="rs-divider"></div>
+                <!-- Progress slider -->
+                <div class="rs-progress-row">
+                    <span class="rs-time">{{ randomSongCurrentTime }}</span>
+                    <input type="range" class="rs-progress-slider" min="0" :max="randomSongDuration" step="0.5"
+                        :value="randomSongProgress" @input="seekRandomSong($event)" />
+                    <span class="rs-time rs-time-right">{{ randomSongDurationStr }}</span>
+                </div>
+                <!-- Volume row (compact) -->
+                <div class="rs-volume-row">
+                    <button class="rs-icon-btn" @click="toggleRandomSongMute()">
+                        <i :class="randomSongMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
+                    </button>
+                    <span class="rs-vol-label">Vol</span>
+                    <input type="range" class="rs-volume-slider" min="0" max="1" step="0.01"
+                        v-model="randomSongVolume" @input="setRandomSongVolume()" />
+                </div>
+                <!-- Buttons -->
+                <div class="rs-btn-row">
+                    <button class="stats-last-btn rs-action-btn" @click="openRandomSong()">{{ content[lang].randomSongNext }}</button>
+                    <button class="stats-last-btn rs-action-btn" :class="randomSongContinuous ? 'rs-active-btn' : ''" @click="toggleRandomSongContinuous()">
+                        {{ randomSongContinuous ? content[lang].randomSongStop : content[lang].randomSongPlay }}
+                    </button>
+                    <button class="rs-see-btn" @click="goToRandomSongWonder()">{{ content[lang].randomSongSeeWonder }}</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Cities & Places modal -->
+
     <div v-if="showCitiesList" class="cities-modal-overlay" @click.self="showCitiesList = false">
         <div class="cities-modal-box">
             <span class="close-modal-btn" @click="showCitiesList = false">&times;</span>
@@ -2066,7 +2164,7 @@ createApp({
             visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
             beenThereConfirm: false, showBackToTop: false,
             slideshowActive: false, slideshowIndex: 0, slideshowProgress: 0,
-            showRandomPhoto: false, randomPhoto: null, showRandomSong: false, randomSong: null, randomSongPlaying: false, randomSongContinuous: false, randomSongVolume: 0.7, randomSongMuted: false, _randomSongAudio: null,
+            showRandomPhoto: false, randomPhoto: null, showRandomVideo: false, randomVideo: null, showRandomSong: false, randomSong: null, randomSongPlaying: false, randomSongContinuous: false, randomSongVolume: 0.7, randomSongMuted: false, _randomSongAudio: null, randomSongProgress: 0, randomSongDuration: 0, randomSongCurrentTime: '0:00', randomSongDurationStr: '0:00', _randomSongRAF: null,
             slideshowPaused: false, _slideshowRaf: null, _slideshowStart: null, _slideshowElapsed: 0,
             selectedCityCountry: null, shareStatus: null,
             trips: [], selectedTrip: null, openYearGroups: new Set(),
@@ -2091,14 +2189,14 @@ createApp({
                     copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
                     countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersLabel: "Wonders in", countryWondersHint: "Click a wonder to open it", countryWondersBack: "← Back to Countries",
-                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsVideos: "Videos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
+                    statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsVideos: "Videos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToVideo: "→ Go to a random video", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
                     seeTimeline: "See my wonders timeline", timelineTitle: "My Wonders Timeline", timelineUndated: "Date Unknown",
                     citiesTitle: "Cities & Places Visited", citiesSubtitle: "cities & places across 101 countries", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
                     seeAboutMe: "About me",
                     seeMusic: "See the music list",
-                    musicTitle: "The Music List", musicCount: "songs", randomPhotoNext: "Next Photo", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute",
+                    musicTitle: "The Music List", musicCount: "songs", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
                     musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
                     musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
                     lastUpdate: "Last update", nextTripLabel: "My Next Trip", nextTripDates: "Jul 23 – Aug 9, 2026",
@@ -2163,14 +2261,14 @@ createApp({
                     copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersLabel: "Maravilhas em", countryWondersHint: "Clique em uma maravilha para abri-la", countryWondersBack: "← Voltar aos Países",
-                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Vídeos Publicados", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
+                    statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Vídeos Publicados", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToVideo: "→ Ir para um vídeo aleatório", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
                     seeTimeline: "Ver linha do tempo das maravilhas", timelineTitle: "Linha do Tempo das Maravilhas", timelineUndated: "Data Desconhecida",
                     citiesTitle: "Cidades e Lugares Visitados", citiesSubtitle: "cidades e lugares em 101 países", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
                     seeAboutMe: "Ver meu perfil",
                     seeMusic: "Ver a lista de músicas",
-                    musicTitle: "A Lista de Músicas", musicCount: "músicas", randomPhotoNext: "Próxima Foto", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som",
+                    musicTitle: "A Lista de Músicas", musicCount: "músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
                     musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
                     lastUpdate: "Última atualização", nextTripLabel: "Minha Próxima Viagem", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
@@ -2232,14 +2330,14 @@ createApp({
                     copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersLabel: "Maravillas en", countryWondersHint: "Haz clic en una maravilla para abrirla", countryWondersBack: "← Volver a Países",
-                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Videos Publicados", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
+                    statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Videos Publicados", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToVideo: "→ Ir a un video aleatorio", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
                     seeTimeline: "Ver línea de tiempo de maravillas", timelineTitle: "Línea de Tiempo de Maravillas", timelineUndated: "Fecha Desconocida",
                     citiesTitle: "Ciudades y Lugares Visitados", citiesSubtitle: "ciudades y lugares en 101 países", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
                     seeAboutMe: "Ver mi perfil",
                     seeMusic: "Ver la lista de música",
-                    musicTitle: "La Lista de Música", musicCount: "canciones", randomPhotoNext: "Siguiente Foto", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido",
+                    musicTitle: "La Lista de Música", musicCount: "canciones", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
                     musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
                     lastUpdate: "Última actualización", nextTripLabel: "Mi Próximo Viaje", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
@@ -2640,6 +2738,7 @@ createApp({
                 if      (this.mobileNavOpen)        this.mobileNavOpen = false;
                 else if (this.slideshowActive)     this.stopSlideshow();
                 else if (this.showRandomPhoto)     this.showRandomPhoto = false;
+                else if (this.showRandomVideo)     this.showRandomVideo = false;
                 else if (this.showRandomSong)      this.closeRandomSong();
                 else if (this.expandedMedia)       this.expandedMedia = null;
                 else if (this.selectedWonderCountry) this.selectedWonderCountry = null;
@@ -3071,7 +3170,18 @@ createApp({
             this.showRandomPhoto = true;
         },
 
-        // ── Random Song ──
+        // ── Random Video ──
+        openRandomVideo() {
+            const pool = [];
+            this.wonders.forEach(function(w) {
+                (w.videos || []).forEach(function(vid) { pool.push({ wonder: w, vid: vid }); });
+            });
+            if (!pool.length) return;
+            this.randomVideo = pool[Math.floor(Math.random() * pool.length)];
+            this.showRandomVideo = true;
+        },
+
+
         openRandomSong() {
             const pool = this.wonders.filter(function(w) {
                 return w.song_name && w.song_name.indexOf(' \u2014 ') !== -1;
@@ -3087,27 +3197,54 @@ createApp({
             if (existingAudio) { existingAudio.pause(); }
             this._playRandomSongAudio();
         },
+        _fmtTime(s) {
+            if (!isFinite(s) || s < 0) return '0:00';
+            const m = Math.floor(s / 60), ss = Math.floor(s % 60);
+            return m + ':' + (ss < 10 ? '0' : '') + ss;
+        },
         _playRandomSongAudio() {
+            if (this._randomSongRAF) { cancelAnimationFrame(this._randomSongRAF); this._randomSongRAF = null; }
             if (this._randomSongAudio) {
                 this._randomSongAudio.pause();
                 this._randomSongAudio.onended = null;
                 this._randomSongAudio = null;
             }
             if (!this.randomSong) return;
+            this.randomSongProgress = 0;
+            this.randomSongDuration = 0;
+            this.randomSongCurrentTime = '0:00';
+            this.randomSongDurationStr = '0:00';
             const audio = new Audio(this.mediaBase + 'Music/' + this.randomSong.id + '.mp3');
             audio.volume = this.randomSongMuted ? 0 : this.randomSongVolume;
             this._randomSongAudio = audio;
             const self = this;
+            audio.addEventListener('loadedmetadata', function() {
+                self.randomSongDuration = audio.duration || 0;
+                self.randomSongDurationStr = self._fmtTime(audio.duration);
+            });
             audio.onended = function() {
                 if (self.randomSongContinuous && self.showRandomSong) {
                     self.openRandomSong();
                 }
             };
+            function tick() {
+                if (!self._randomSongAudio) return;
+                self.randomSongProgress = audio.currentTime;
+                self.randomSongCurrentTime = self._fmtTime(audio.currentTime);
+                self._randomSongRAF = requestAnimationFrame(tick);
+            }
             audio.play().catch(function() {});
+            this._randomSongRAF = requestAnimationFrame(tick);
+        },
+        seekRandomSong(e) {
+            const t = parseFloat(e.target.value);
+            this.randomSongProgress = t;
+            if (this._randomSongAudio) this._randomSongAudio.currentTime = t;
         },
         closeRandomSong() {
             this.showRandomSong = false;
             this.randomSongContinuous = false;
+            if (this._randomSongRAF) { cancelAnimationFrame(this._randomSongRAF); this._randomSongRAF = null; }
             if (this._randomSongAudio) {
                 const audio = this._randomSongAudio;
                 this._randomSongAudio = null;
@@ -3136,6 +3273,23 @@ createApp({
         },
         toggleRandomSongContinuous() {
             this.randomSongContinuous = !this.randomSongContinuous;
+        },
+        goToRandomSongWonder() {
+            if (!this.randomSong) return;
+            const targetId = this.randomSong.wonder.id;
+            this.closeRandomSong();
+            const self = this;
+            this.$nextTick(function() {
+                const idx = self.wonders.findIndex(function(w) { return w.id === targetId; });
+                if (idx !== -1) {
+                    self.selected = self.wonders[idx];
+                    self.expandedMedia = null;
+                    self.$nextTick(function() {
+                        const card = document.querySelector('[data-wonder-id="' + targetId + '"]');
+                        if (card) card.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    });
+                }
+            });
         },
         formatId(id) { return parseInt(id).toString().padStart(2, '0'); },
         getVal(w, type) { return w[`${type}_${this.lang}`] || w[`${type}_en`]; },
