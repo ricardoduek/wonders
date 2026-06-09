@@ -686,6 +686,12 @@
                 pointer-events: auto;
             }
             .top-controls > * { pointer-events: auto; }
+
+            /* Switch to hamburger at this breakpoint — nav links too cramped in horizontal layout */
+            .author-card { display: none; }
+            .hamburger-btn { display: flex; }
+            .mobile-nav-overlay { display: block; }
+
             h1 { font-size: 3.2rem; }
             .subtitle { font-size: 1.05rem; }
             .grid { grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 20px 30px 120px; }
@@ -705,13 +711,17 @@
            ═══════════════════════════════════════════════════════════ */
         @media (max-width: 1024px) {
             .grid { grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 20px 30px 120px; }
-            .author-card { width: 100%; max-width: 580px; padding: 8px 16px; }
             .top-controls { width: 100%; max-width: 580px; }
             header { padding: 20px 24px 16px; gap: 12px; }
             h1 { font-size: 3rem; }
             .map-wrap { height: 380px; }
             .explorer-info { width: 480px; padding: 20px 32px; }
             .collage-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 145px; }
+
+            /* Switch to hamburger nav at tablet landscape */
+            .author-card { display: none; }
+            .hamburger-btn { display: flex; }
+            .mobile-nav-overlay { display: block; }
         }
 
         /* ═══════════════════════════════════════════════════════════
@@ -732,10 +742,7 @@
             .subtitle { font-size: 1rem; padding: 0 10px; }
             .author-tag { font-size: 10px; letter-spacing: 3px; }
 
-            /* Hide desktop author card, show hamburger + mobile nav */
-            .author-card { display: none; }
-            .hamburger-btn { display: flex; }
-            .mobile-nav-overlay { display: block; }
+            /* Hide desktop author card, show hamburger + mobile nav — already applied at ≤1024px */
 
             /* Top controls: full width, stacked */
             .top-controls {
@@ -1322,7 +1329,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 9 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1350,7 +1357,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 9 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
