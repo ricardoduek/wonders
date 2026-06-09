@@ -1743,12 +1743,12 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <tr v-for="entry in sortedNextWonders" :key="entry.wonder + entry.country">
+                    <tr v-for="entry in sortedNextWonders" :key="entry.wonder_en + entry.country_en">
                         <td><span class="nw-td-wonder">{{ entry.wonder }}</span></td>
                         <td>
                             <span class="nw-td-country">
-                                <template v-for="(part, i) in entry.countryParts" :key="part">
-                                    <span v-if="countryCodeMap[resolveAlias(part)]" :class="'fi fi-' + countryCodeMap[resolveAlias(part)]" class="nw-flag"></span>{{ part }}<template v-if="i < entry.countryParts.length - 1"> &amp; </template>
+                                <template v-for="(part, i) in entry.countryPartsEN" :key="part">
+                                    <span v-if="countryCodeMap[resolveAlias(part)]" :class="'fi fi-' + countryCodeMap[resolveAlias(part)]" class="nw-flag"></span>{{ entry.countryParts[i] }}<template v-if="i < entry.countryParts.length - 1"> &amp; </template>
                                 </template>
                             </span>
                         </td>
@@ -2539,127 +2539,135 @@ createApp({
             return map;
         },
         nextWonders() {
-            // Inline data from next_wonders.csv
-            // "Check Republic" corrected to "Czech Republic"
-            // "Trinidad & Tobago" kept as single country
-            // "Zambia & Zimbabwe" split as two countries
             const raw = [
-                {wonder:"Ischigualasto",country:"Argentina"},
-                {wonder:"Bariloche & Nahuel Huapí",country:"Argentina"},
-                {wonder:"Whale Watching in the Valdés Peninsula",country:"Argentina"},
-                {wonder:"Las Leñas",country:"Argentina"},
-                {wonder:"Ghent",country:"Belgium"},
-                {wonder:"Antwerp",country:"Belgium"},
-                {wonder:"Barrier Reef Reserve",country:"Belize"},
-                {wonder:"Historic Center of Salvador",country:"Brazil"},
-                {wonder:"Ouro Preto",country:"Brazil"},
-                {wonder:"Saint Alexander Nevsky Cathedral, Sofia",country:"Bulgaria"},
-                {wonder:"Silver Pagoda, Phnom Penh",country:"Cambodia"},
-                {wonder:"Kutna Hora",country:"Czech Republic"},
-                {wonder:"Portillo",country:"Chile"},
-                {wonder:"Shanghai Museum",country:"China"},
-                {wonder:"West Lake, Hangzhou",country:"China"},
-                {wonder:"Mount Huangshan, Anhui",country:"China"},
-                {wonder:"Tiananmen Square, Beijing",country:"China"},
-                {wonder:"Cartagena Old Town",country:"Colombia"},
-                {wonder:"Comuna 13, Medellín",country:"Colombia"},
-                {wonder:"Arenal Volcano National Park",country:"Costa Rica"},
-                {wonder:"Manuel Antonio National Park",country:"Costa Rica"},
-                {wonder:"Trogir Old Town",country:"Croatia"},
-                {wonder:"Nyhavn",country:"Denmark"},
-                {wonder:"Egeskov Castle",country:"Denmark"},
-                {wonder:"Galapagos Islands",country:"Ecuador"},
-                {wonder:"Ciudad Mitad del Mundo, Quito",country:"Ecuador"},
-                {wonder:"National Gallery, London",country:"England"},
-                {wonder:"Buckingham Palace & Guards",country:"England"},
-                {wonder:"Tate Britain/Modern",country:"England"},
-                {wonder:"Musée d'Orsay, Paris",country:"France"},
-                {wonder:"Old Strasbourg",country:"France"},
-                {wonder:"Annecy",country:"France"},
-                {wonder:"Chamonix",country:"France"},
-                {wonder:"Sainte-Chapelle, Paris",country:"France"},
-                {wonder:"Black Forest",country:"Germany"},
-                {wonder:"Aachen Cathedral",country:"Germany"},
-                {wonder:"Sanssouci Palace, Potsdam",country:"Germany"},
-                {wonder:"Antigua",country:"Guatemala"},
-                {wonder:"Flores",country:"Guatemala"},
-                {wonder:"Lake Atitlán",country:"Guatemala"},
-                {wonder:"Tikal",country:"Guatemala"},
-                {wonder:"Copan Mayan Ruins",country:"Honduras"},
-                {wonder:"Gullfoss Waterfalls",country:"Iceland"},
-                {wonder:"Geysir Geothermal Field",country:"Iceland"},
-                {wonder:"Þingvellir National Park",country:"Iceland"},
-                {wonder:"Fatehpur Sikri, Uttar Pradesh",country:"India"},
-                {wonder:"Jantar Mantar, Jaipur",country:"India"},
-                {wonder:"Konark Sun Temple",country:"India"},
-                {wonder:"Humayun's Tomb",country:"India"},
-                {wonder:"Lake Palace, Udaipur",country:"India"},
-                {wonder:"Cliffs of Moher",country:"Ireland"},
-                {wonder:"Trinity College Library",country:"Ireland"},
-                {wonder:"Roman Forum, Rome",country:"Italy"},
-                {wonder:"Basilica of Saint Anthony of Padua",country:"Italy"},
-                {wonder:"Trulli District",country:"Italy"},
-                {wonder:"Vaduz",country:"Liechtenstein"},
-                {wonder:"Valletta",country:"Malta"},
-                {wonder:"Mdina",country:"Malta"},
-                {wonder:"Victoria in Gozo",country:"Malta"},
-                {wonder:"Hassan II Mosque",country:"Morocco"},
-                {wonder:"Fez",country:"Morocco"},
-                {wonder:"Meknes",country:"Morocco"},
-                {wonder:"Tangier Medina",country:"Morocco"},
-                {wonder:"Tetouan Medina",country:"Morocco"},
-                {wonder:"Chefchaouen",country:"Morocco"},
-                {wonder:"Giant's Causeway",country:"Northern Ireland"},
-                {wonder:"Fjords of Norway",country:"Norway"},
-                {wonder:"Bergen Old Town & Wharves",country:"Norway"},
-                {wonder:"Akershus Fortress",country:"Norway"},
-                {wonder:"Gdańsk Old Town",country:"Poland"},
-                {wonder:"Lublin Old Town",country:"Poland"},
-                {wonder:"Malbork Castle",country:"Poland"},
-                {wonder:"Warsaw Market Square",country:"Poland"},
-                {wonder:"Wawel Castle & Cathedral",country:"Poland"},
-                {wonder:"Transylvanian Cities",country:"Romania"},
-                {wonder:"Drakensberg Mountains",country:"South Africa"},
-                {wonder:"Park Güell",country:"Spain"},
-                {wonder:"Canary Islands",country:"Spain"},
-                {wonder:"Cuenca Old Town",country:"Spain"},
-                {wonder:"Costa del Sol",country:"Spain"},
-                {wonder:"Ibiza",country:"Spain"},
-                {wonder:"Plaza Mayor of Madrid",country:"Spain"},
-                {wonder:"Pamplona",country:"Spain"},
-                {wonder:"Ronda",country:"Spain"},
-                {wonder:"Royal Palace, Madrid",country:"Spain"},
-                {wonder:"Salamanca Old City",country:"Spain"},
-                {wonder:"Santiago de Compostela",country:"Spain"},
-                {wonder:"Stockholm Old Town",country:"Sweden"},
-                {wonder:"Skansen Historical Village",country:"Sweden"},
-                {wonder:"Gstaad",country:"Switzerland"},
-                {wonder:"Ngorongoro Crater",country:"Tanzania"},
-                {wonder:"Mt. Kilimanjaro",country:"Tanzania"},
-                {wonder:"Zanzibar Stone Town",country:"Tanzania"},
-                {wonder:"Arusha National Park",country:"Tanzania"},
-                {wonder:"Tarangire National Park",country:"Tanzania"},
-                {wonder:"Trinidad Carnival, Port of Spain",country:"Trinidad & Tobago"},
-                {wonder:"Grand Bazaar, Istanbul",country:"Turkey"},
-                {wonder:"Kennedy Space Center, Florida",country:"United States"},
-                {wonder:"Victoria Falls",country:"Zambia & Zimbabwe"},
+                {wonder_en:"Ischigualasto",                          wonder_pt:"Ischigualasto",                              wonder_es:"Ischigualasto",                          country_en:"Argentina", country_pt:"Argentina",       country_es:"Argentina"},
+                {wonder_en:"Bariloche & Nahuel Huapí",               wonder_pt:"Bariloche & Nahuel Huapí",                   wonder_es:"Bariloche & Nahuel Huapí",               country_en:"Argentina", country_pt:"Argentina",       country_es:"Argentina"},
+                {wonder_en:"Whale Watching in the Valdés Peninsula",  wonder_pt:"Observação de Baleias na Península Valdés",  wonder_es:"Avistamiento de Ballenas en la Península Valdés", country_en:"Argentina", country_pt:"Argentina", country_es:"Argentina"},
+                {wonder_en:"Las Leñas",                               wonder_pt:"Las Leñas",                                  wonder_es:"Las Leñas",                              country_en:"Argentina", country_pt:"Argentina",       country_es:"Argentina"},
+                {wonder_en:"Ghent",                                   wonder_pt:"Ghent",                                      wonder_es:"Gante",                                  country_en:"Belgium",   country_pt:"Bélgica",         country_es:"Bélgica"},
+                {wonder_en:"Antwerp",                                 wonder_pt:"Antuérpia",                                  wonder_es:"Amberes",                                country_en:"Belgium",   country_pt:"Bélgica",         country_es:"Bélgica"},
+                {wonder_en:"Barrier Reef Reserve",                    wonder_pt:"Reserva da Barreira de Coral",               wonder_es:"Reserva de la Barrera de Coral",         country_en:"Belize",    country_pt:"Belize",          country_es:"Belice"},
+                {wonder_en:"Historic Center of Salvador",             wonder_pt:"Centro Histórico de Salvador",               wonder_es:"Centro Histórico de Salvador",           country_en:"Brazil",    country_pt:"Brasil",          country_es:"Brasil"},
+                {wonder_en:"Ouro Preto",                              wonder_pt:"Ouro Preto",                                 wonder_es:"Ouro Preto",                             country_en:"Brazil",    country_pt:"Brasil",          country_es:"Brasil"},
+                {wonder_en:"Saint Alexander Nevsky Cathedral, Sofia", wonder_pt:"Catedral Alexandre Nevsky, Sofia",           wonder_es:"Catedral Alejandro Nevsky, Sofía",       country_en:"Bulgaria",  country_pt:"Bulgária",        country_es:"Bulgaria"},
+                {wonder_en:"Silver Pagoda, Phnom Penh",               wonder_pt:"Pagode de Prata, Phnom Penh",                wonder_es:"Pagoda de Plata, Phnom Penh",            country_en:"Cambodia",  country_pt:"Camboja",         country_es:"Camboya"},
+                {wonder_en:"Portillo",                                wonder_pt:"Portillo",                                   wonder_es:"Portillo",                               country_en:"Chile",     country_pt:"Chile",           country_es:"Chile"},
+                {wonder_en:"Shanghai Museum",                         wonder_pt:"Museu de Xangai",                            wonder_es:"Museo de Shanghái",                      country_en:"China",     country_pt:"China",           country_es:"China"},
+                {wonder_en:"West Lake, Hangzhou",                     wonder_pt:"Lago do Oeste, Hangzhou",                    wonder_es:"Lago del Oeste, Hangzhou",               country_en:"China",     country_pt:"China",           country_es:"China"},
+                {wonder_en:"Mount Huangshan, Anhui",                  wonder_pt:"Monte Huangshan, Anhui",                     wonder_es:"Monte Huangshan, Anhui",                 country_en:"China",     country_pt:"China",           country_es:"China"},
+                {wonder_en:"Tiananmen Square, Beijing",               wonder_pt:"Praça Tiananmen, Pequim",                    wonder_es:"Plaza de Tiananmen, Pekín",              country_en:"China",     country_pt:"China",           country_es:"China"},
+                {wonder_en:"Cartagena Old Town",                      wonder_pt:"Centro Histórico de Cartagena",              wonder_es:"Ciudad Amurallada de Cartagena",         country_en:"Colombia",  country_pt:"Colômbia",        country_es:"Colombia"},
+                {wonder_en:"Comuna 13, Medellín",                     wonder_pt:"Comuna 13, Medellín",                        wonder_es:"Comuna 13, Medellín",                    country_en:"Colombia",  country_pt:"Colômbia",        country_es:"Colombia"},
+                {wonder_en:"Arenal Volcano National Park",            wonder_pt:"Parque Nacional Vulcão Arenal",              wonder_es:"Parque Nacional Volcán Arenal",          country_en:"Costa Rica",country_pt:"Costa Rica",      country_es:"Costa Rica"},
+                {wonder_en:"Manuel Antonio National Park",            wonder_pt:"Parque Nacional Manuel Antonio",             wonder_es:"Parque Nacional Manuel Antonio",         country_en:"Costa Rica",country_pt:"Costa Rica",      country_es:"Costa Rica"},
+                {wonder_en:"Trogir Old Town",                         wonder_pt:"Cidade Velha de Trogir",                     wonder_es:"Casco Antiguo de Trogir",                country_en:"Croatia",   country_pt:"Croácia",         country_es:"Croacia"},
+                {wonder_en:"Kutna Hora",                              wonder_pt:"Kutná Hora",                                 wonder_es:"Kutná Hora",                             country_en:"Czech Republic", country_pt:"República Checa", country_es:"República Checa"},
+                {wonder_en:"Nyhavn",                                  wonder_pt:"Nyhavn",                                     wonder_es:"Nyhavn",                                 country_en:"Denmark",   country_pt:"Dinamarca",       country_es:"Dinamarca"},
+                {wonder_en:"Egeskov Castle",                          wonder_pt:"Castelo de Egeskov",                         wonder_es:"Castillo de Egeskov",                    country_en:"Denmark",   country_pt:"Dinamarca",       country_es:"Dinamarca"},
+                {wonder_en:"Galapagos Islands",                       wonder_pt:"Ilhas Galápagos",                            wonder_es:"Islas Galápagos",                        country_en:"Ecuador",   country_pt:"Equador",         country_es:"Ecuador"},
+                {wonder_en:"Ciudad Mitad del Mundo, Quito",           wonder_pt:"Ciudad Mitad del Mundo, Quito",              wonder_es:"Ciudad Mitad del Mundo, Quito",          country_en:"Ecuador",   country_pt:"Equador",         country_es:"Ecuador"},
+                {wonder_en:"National Gallery, London",                wonder_pt:"National Gallery, Londres",                  wonder_es:"National Gallery, Londres",              country_en:"England",   country_pt:"Inglaterra",      country_es:"Inglaterra"},
+                {wonder_en:"Buckingham Palace & Guards",              wonder_pt:"Palácio de Buckingham & Guarda Real",        wonder_es:"Palacio de Buckingham & Guardia Real",   country_en:"England",   country_pt:"Inglaterra",      country_es:"Inglaterra"},
+                {wonder_en:"Tate Britain/Modern",                     wonder_pt:"Tate Britain/Modern",                        wonder_es:"Tate Britain/Modern",                    country_en:"England",   country_pt:"Inglaterra",      country_es:"Inglaterra"},
+                {wonder_en:"Musée d'Orsay, Paris",                    wonder_pt:"Museu d'Orsay, Paris",                       wonder_es:"Museo de Orsay, París",                  country_en:"France",    country_pt:"França",          country_es:"Francia"},
+                {wonder_en:"Old Strasbourg",                          wonder_pt:"Estrasburgo Histórico",                      wonder_es:"Estrasburgo Antiguo",                    country_en:"France",    country_pt:"França",          country_es:"Francia"},
+                {wonder_en:"Annecy",                                  wonder_pt:"Annecy",                                     wonder_es:"Annecy",                                 country_en:"France",    country_pt:"França",          country_es:"Francia"},
+                {wonder_en:"Chamonix",                                wonder_pt:"Chamonix",                                   wonder_es:"Chamonix",                               country_en:"France",    country_pt:"França",          country_es:"Francia"},
+                {wonder_en:"Sainte-Chapelle, Paris",                  wonder_pt:"Santa Capela, Paris",                        wonder_es:"Santa Capilla, París",                   country_en:"France",    country_pt:"França",          country_es:"Francia"},
+                {wonder_en:"Black Forest",                            wonder_pt:"Floresta Negra",                             wonder_es:"Selva Negra",                            country_en:"Germany",   country_pt:"Alemanha",        country_es:"Alemania"},
+                {wonder_en:"Aachen Cathedral",                        wonder_pt:"Catedral de Aachen",                         wonder_es:"Catedral de Aquisgrán",                  country_en:"Germany",   country_pt:"Alemanha",        country_es:"Alemania"},
+                {wonder_en:"Sanssouci Palace, Potsdam",               wonder_pt:"Palácio de Sanssouci, Potsdam",              wonder_es:"Palacio de Sanssouci, Potsdam",          country_en:"Germany",   country_pt:"Alemanha",        country_es:"Alemania"},
+                {wonder_en:"Antigua",                                 wonder_pt:"Antigua",                                    wonder_es:"Antigua",                                country_en:"Guatemala", country_pt:"Guatemala",       country_es:"Guatemala"},
+                {wonder_en:"Flores",                                  wonder_pt:"Flores",                                     wonder_es:"Flores",                                 country_en:"Guatemala", country_pt:"Guatemala",       country_es:"Guatemala"},
+                {wonder_en:"Lake Atitlán",                            wonder_pt:"Lago Atitlán",                               wonder_es:"Lago Atitlán",                           country_en:"Guatemala", country_pt:"Guatemala",       country_es:"Guatemala"},
+                {wonder_en:"Tikal",                                   wonder_pt:"Tikal",                                      wonder_es:"Tikal",                                  country_en:"Guatemala", country_pt:"Guatemala",       country_es:"Guatemala"},
+                {wonder_en:"Copan Mayan Ruins",                       wonder_pt:"Ruínas Maias de Copán",                      wonder_es:"Ruinas Mayas de Copán",                  country_en:"Honduras",  country_pt:"Honduras",        country_es:"Honduras"},
+                {wonder_en:"Gullfoss Waterfalls",                     wonder_pt:"Cachoeiras Gullfoss",                        wonder_es:"Cataratas Gullfoss",                     country_en:"Iceland",   country_pt:"Islândia",        country_es:"Islandia"},
+                {wonder_en:"Geysir Geothermal Field",                 wonder_pt:"Campo Geotérmico Geysir",                    wonder_es:"Campo Geotérmico Geysir",                country_en:"Iceland",   country_pt:"Islândia",        country_es:"Islandia"},
+                {wonder_en:"Þingvellir National Park",                wonder_pt:"Parque Nacional Þingvellir",                 wonder_es:"Parque Nacional Þingvellir",             country_en:"Iceland",   country_pt:"Islândia",        country_es:"Islandia"},
+                {wonder_en:"Fatehpur Sikri, Uttar Pradesh",           wonder_pt:"Fatehpur Sikri, Uttar Pradesh",              wonder_es:"Fatehpur Sikri, Uttar Pradesh",          country_en:"India",     country_pt:"Índia",           country_es:"India"},
+                {wonder_en:"Jantar Mantar, Jaipur",                   wonder_pt:"Jantar Mantar, Jaipur",                      wonder_es:"Jantar Mantar, Jaipur",                  country_en:"India",     country_pt:"Índia",           country_es:"India"},
+                {wonder_en:"Konark Sun Temple",                       wonder_pt:"Templo do Sol de Konark",                    wonder_es:"Templo del Sol de Konark",               country_en:"India",     country_pt:"Índia",           country_es:"India"},
+                {wonder_en:"Humayun's Tomb",                          wonder_pt:"Tumba de Humayun",                           wonder_es:"Tumba de Humayun",                       country_en:"India",     country_pt:"Índia",           country_es:"India"},
+                {wonder_en:"Lake Palace, Udaipur",                    wonder_pt:"Palácio do Lago, Udaipur",                   wonder_es:"Palacio del Lago, Udaipur",              country_en:"India",     country_pt:"Índia",           country_es:"India"},
+                {wonder_en:"Cliffs of Moher",                         wonder_pt:"Falésias de Moher",                          wonder_es:"Acantilados de Moher",                   country_en:"Ireland",   country_pt:"Irlanda",         country_es:"Irlanda"},
+                {wonder_en:"Trinity College Library",                 wonder_pt:"Biblioteca do Trinity College",              wonder_es:"Biblioteca del Trinity College",         country_en:"Ireland",   country_pt:"Irlanda",         country_es:"Irlanda"},
+                {wonder_en:"Roman Forum, Rome",                       wonder_pt:"Foro Romano, Roma",                          wonder_es:"Foro Romano, Roma",                      country_en:"Italy",     country_pt:"Itália",          country_es:"Italia"},
+                {wonder_en:"Basilica of Saint Anthony of Padua",      wonder_pt:"Basílica de Santo António de Pádua",         wonder_es:"Basílica de San Antonio de Padua",       country_en:"Italy",     country_pt:"Itália",          country_es:"Italia"},
+                {wonder_en:"Trulli District",                         wonder_pt:"Distrito dos Trulli",                        wonder_es:"Barrio de los Trulli",                   country_en:"Italy",     country_pt:"Itália",          country_es:"Italia"},
+                {wonder_en:"Vaduz",                                   wonder_pt:"Vaduz",                                      wonder_es:"Vaduz",                                  country_en:"Liechtenstein", country_pt:"Liechtenstein", country_es:"Liechtenstein"},
+                {wonder_en:"Valletta",                                wonder_pt:"Valletta",                                   wonder_es:"La Valeta",                              country_en:"Malta",     country_pt:"Malta",           country_es:"Malta"},
+                {wonder_en:"Mdina",                                   wonder_pt:"Mdina",                                      wonder_es:"Mdina",                                  country_en:"Malta",     country_pt:"Malta",           country_es:"Malta"},
+                {wonder_en:"Victoria in Gozo",                        wonder_pt:"Victoria em Gozo",                           wonder_es:"Victoria en Gozo",                       country_en:"Malta",     country_pt:"Malta",           country_es:"Malta"},
+                {wonder_en:"Hassan II Mosque",                        wonder_pt:"Mesquita Hassan II",                         wonder_es:"Mezquita Hassan II",                     country_en:"Morocco",   country_pt:"Marrocos",        country_es:"Marruecos"},
+                {wonder_en:"Fez",                                     wonder_pt:"Fez",                                        wonder_es:"Fez",                                    country_en:"Morocco",   country_pt:"Marrocos",        country_es:"Marruecos"},
+                {wonder_en:"Meknes",                                  wonder_pt:"Meknes",                                     wonder_es:"Mequinez",                               country_en:"Morocco",   country_pt:"Marrocos",        country_es:"Marruecos"},
+                {wonder_en:"Tangier Medina",                          wonder_pt:"Medina de Tânger",                           wonder_es:"Medina de Tánger",                       country_en:"Morocco",   country_pt:"Marrocos",        country_es:"Marruecos"},
+                {wonder_en:"Tetouan Medina",                          wonder_pt:"Medina de Tetuão",                           wonder_es:"Medina de Tetuán",                       country_en:"Morocco",   country_pt:"Marrocos",        country_es:"Marruecos"},
+                {wonder_en:"Chefchaouen",                             wonder_pt:"Chefchaouen",                                wonder_es:"Chefchauen",                             country_en:"Morocco",   country_pt:"Marrocos",        country_es:"Marruecos"},
+                {wonder_en:"Giant's Causeway",                        wonder_pt:"Calçada dos Gigantes",                       wonder_es:"Calzada del Gigante",                    country_en:"Northern Ireland", country_pt:"Irlanda do Norte", country_es:"Irlanda del Norte"},
+                {wonder_en:"Fjords of Norway",                        wonder_pt:"Fiordes da Noruega",                         wonder_es:"Fiordos de Noruega",                     country_en:"Norway",    country_pt:"Noruega",         country_es:"Noruega"},
+                {wonder_en:"Bergen Old Town & Wharves",               wonder_pt:"Cidade Velha & Cais de Bergen",              wonder_es:"Casco Antiguo & Muelles de Bergen",      country_en:"Norway",    country_pt:"Noruega",         country_es:"Noruega"},
+                {wonder_en:"Akershus Fortress",                       wonder_pt:"Fortaleza de Akershus",                      wonder_es:"Fortaleza de Akershus",                  country_en:"Norway",    country_pt:"Noruega",         country_es:"Noruega"},
+                {wonder_en:"Gdańsk Old Town",                         wonder_pt:"Cidade Velha de Gdańsk",                     wonder_es:"Casco Antiguo de Gdańsk",                country_en:"Poland",    country_pt:"Polônia",         country_es:"Polonia"},
+                {wonder_en:"Lublin Old Town",                         wonder_pt:"Cidade Velha de Lublin",                     wonder_es:"Casco Antiguo de Lublin",                country_en:"Poland",    country_pt:"Polônia",         country_es:"Polonia"},
+                {wonder_en:"Malbork Castle",                          wonder_pt:"Castelo de Malbork",                         wonder_es:"Castillo de Malbork",                    country_en:"Poland",    country_pt:"Polônia",         country_es:"Polonia"},
+                {wonder_en:"Warsaw Market Square",                    wonder_pt:"Praça do Mercado de Varsóvia",               wonder_es:"Plaza del Mercado de Varsovia",          country_en:"Poland",    country_pt:"Polônia",         country_es:"Polonia"},
+                {wonder_en:"Wawel Castle & Cathedral",                wonder_pt:"Castelo & Catedral de Wawel",                wonder_es:"Castillo & Catedral de Wawel",           country_en:"Poland",    country_pt:"Polônia",         country_es:"Polonia"},
+                {wonder_en:"Transylvanian Cities",                    wonder_pt:"Cidades da Transilvânia",                    wonder_es:"Ciudades de Transilvania",               country_en:"Romania",   country_pt:"Romênia",         country_es:"Rumanía"},
+                {wonder_en:"Drakensberg Mountains",                   wonder_pt:"Montanhas Drakensberg",                      wonder_es:"Montañas Drakensberg",                   country_en:"South Africa", country_pt:"África do Sul",  country_es:"Sudáfrica"},
+                {wonder_en:"Park Güell",                              wonder_pt:"Parque Güell",                               wonder_es:"Parque Güell",                           country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Canary Islands",                          wonder_pt:"Ilhas Canárias",                             wonder_es:"Islas Canarias",                         country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Cuenca Old Town",                         wonder_pt:"Cidade Velha de Cuenca",                     wonder_es:"Casco Antiguo de Cuenca",                country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Costa del Sol",                           wonder_pt:"Costa del Sol",                              wonder_es:"Costa del Sol",                          country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Ibiza",                                   wonder_pt:"Ibiza",                                      wonder_es:"Ibiza",                                  country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Plaza Mayor of Madrid",                   wonder_pt:"Plaza Mayor de Madrid",                      wonder_es:"Plaza Mayor de Madrid",                  country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Pamplona",                                wonder_pt:"Pamplona",                                   wonder_es:"Pamplona",                               country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Ronda",                                   wonder_pt:"Ronda",                                      wonder_es:"Ronda",                                  country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Royal Palace, Madrid",                    wonder_pt:"Palácio Real, Madrid",                       wonder_es:"Palacio Real, Madrid",                   country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Salamanca Old City",                      wonder_pt:"Cidade Velha de Salamanca",                  wonder_es:"Ciudad Vieja de Salamanca",              country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Santiago de Compostela",                  wonder_pt:"Santiago de Compostela",                     wonder_es:"Santiago de Compostela",                 country_en:"Spain",     country_pt:"Espanha",         country_es:"España"},
+                {wonder_en:"Stockholm Old Town",                      wonder_pt:"Cidade Velha de Estocolmo",                  wonder_es:"Ciudad Vieja de Estocolmo",              country_en:"Sweden",    country_pt:"Suécia",          country_es:"Suecia"},
+                {wonder_en:"Skansen Historical Village",              wonder_pt:"Aldeia Histórica de Skansen",                wonder_es:"Aldea Histórica de Skansen",             country_en:"Sweden",    country_pt:"Suécia",          country_es:"Suecia"},
+                {wonder_en:"Gstaad",                                  wonder_pt:"Gstaad",                                     wonder_es:"Gstaad",                                 country_en:"Switzerland", country_pt:"Suíça",         country_es:"Suiza"},
+                {wonder_en:"Ngorongoro Crater",                       wonder_pt:"Cratera de Ngorongoro",                      wonder_es:"Cráter del Ngorongoro",                  country_en:"Tanzania",  country_pt:"Tanzânia",        country_es:"Tanzania"},
+                {wonder_en:"Mt. Kilimanjaro",                         wonder_pt:"Monte Kilimanjaro",                          wonder_es:"Monte Kilimanjaro",                      country_en:"Tanzania",  country_pt:"Tanzânia",        country_es:"Tanzania"},
+                {wonder_en:"Zanzibar Stone Town",                     wonder_pt:"Cidade de Pedra de Zanzibar",                wonder_es:"Ciudad de Piedra de Zanzíbar",           country_en:"Tanzania",  country_pt:"Tanzânia",        country_es:"Tanzania"},
+                {wonder_en:"Arusha National Park",                    wonder_pt:"Parque Nacional de Arusha",                  wonder_es:"Parque Nacional de Arusha",              country_en:"Tanzania",  country_pt:"Tanzânia",        country_es:"Tanzania"},
+                {wonder_en:"Tarangire National Park",                 wonder_pt:"Parque Nacional de Tarangire",               wonder_es:"Parque Nacional de Tarangire",           country_en:"Tanzania",  country_pt:"Tanzânia",        country_es:"Tanzania"},
+                {wonder_en:"Trinidad Carnival, Port of Spain",        wonder_pt:"Carnaval de Trinidad, Port of Spain",        wonder_es:"Carnaval de Trinidad, Port of Spain",    country_en:"Trinidad & Tobago", country_pt:"Trinidad e Tobago", country_es:"Trinidad y Tobago"},
+                {wonder_en:"Grand Bazaar, Istanbul",                  wonder_pt:"Grande Bazar, Istambul",                     wonder_es:"Gran Bazar, Estambul",                   country_en:"Turkey",    country_pt:"Turquia",         country_es:"Turquía"},
+                {wonder_en:"Kennedy Space Center, Florida",           wonder_pt:"Kennedy Space Center, Flórida",              wonder_es:"Kennedy Space Center, Florida",          country_en:"United States", country_pt:"Estados Unidos", country_es:"Estados Unidos"},
+                {wonder_en:"Victoria Falls",                          wonder_pt:"Cataratas Vitória",                          wonder_es:"Cataratas Victoria",                     country_en:"Zambia & Zimbabwe", country_pt:"Zâmbia & Zimbábue", country_es:"Zambia & Zimbabue"},
             ];
-            // Resolve country parts for flag display
+            const SINGLE = ['Trinidad & Tobago'];
             return raw.map(e => {
-                // Special single-country with & in name
-                const SINGLE = ['Trinidad & Tobago'];
-                const parts = SINGLE.includes(e.country)
-                    ? [e.country]
-                    : e.country.split(' & ').map(c => c.trim());
-                return { ...e, countryParts: parts };
+                const wk = 'wonder_' + (this.lang || 'en');
+                const ck = 'country_' + (this.lang || 'en');
+                const countryStr = e[ck] || e.country_en;
+                const parts = SINGLE.some(s => countryStr.includes(s))
+                    ? [countryStr]
+                    : countryStr.split(' & ').map(c => c.trim());
+                const enParts = SINGLE.some(s => e.country_en.includes(s))
+                    ? [e.country_en]
+                    : e.country_en.split(' & ').map(c => c.trim());
+                return {
+                    wonder:   e[wk] || e.wonder_en,
+                    country:  countryStr,
+                    wonder_en: e.wonder_en, wonder_pt: e.wonder_pt, wonder_es: e.wonder_es,
+                    country_en: e.country_en,
+                    countryParts: parts,
+                    countryPartsEN: enParts
+                };
             });
         },
         sortedNextWonders() {
             const list = [...this.nextWonders];
+            const lang = this.lang || 'en';
             if (this.nextWondersSort === 'country') {
-                list.sort((a, b) => a.country.localeCompare(b.country) || a.wonder.localeCompare(b.wonder));
+                list.sort((a, b) => a.country.localeCompare(b.country, lang) || a.wonder.localeCompare(b.wonder, lang));
             } else {
-                list.sort((a, b) => a.wonder.localeCompare(b.wonder));
+                list.sort((a, b) => a.wonder.localeCompare(b.wonder, lang));
             }
             return list;
         },
