@@ -270,7 +270,7 @@
         .rp-flag { font-size: 2.1rem; }
         .rp-country { font-size: 18px; color: var(--light-grey); letter-spacing: 0.5px; }
         .rp-img-wrap { flex: 1 1 auto; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 0; background: #000; }
-        .rp-img { display: block; max-width: 100%; max-height: calc(92vh - 140px); width: auto; height: auto; object-fit: contain; }
+        .rp-img { display: block; max-width: 100%; max-height: calc(70vh - 80px); width: auto; height: auto; object-fit: contain; }
         .rp-caption { padding: 10px 16px; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--grey); line-height: 1.5; border-top: 1px solid #1a1a1a; flex-shrink: 0; max-height: 95px; overflow-y: auto; }
         .rp-footer { padding: 10px 16px; display: flex; justify-content: center; border-top: 1px solid #1a1a1a; flex-shrink: 0; }
         .rp-next-btn { margin: 0; width: auto; padding: 7px 28px; }
@@ -651,7 +651,7 @@
             .grid { grid-template-columns: repeat(3, 1fr); gap: 30px; padding: 20px 40px 140px; }
             .map-wrap { height: 460px; }
             .explorer-info { width: 580px; padding: 20px 50px; }
-            .collage-grid { grid-auto-rows: 165px; }
+            .collage-grid { grid-template-columns: repeat(5, 1fr); grid-auto-rows: 155px; }
         }
 
         @media (max-width: 1280px) {
@@ -711,6 +711,7 @@
             h1 { font-size: 3rem; }
             .map-wrap { height: 380px; }
             .explorer-info { width: 480px; padding: 20px 32px; }
+            .collage-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 145px; }
         }
 
         /* ═══════════════════════════════════════════════════════════
@@ -1154,7 +1155,7 @@
             .trips-tl-box { padding: 22px 14px; }
 .rp-portrait, .rp-landscape { width: 98vw; }
             .rp-wonder-name { font-size: 1.5rem; }
-            .rp-img { max-height: calc(88vh - 160px); }
+            .rp-img { max-height: calc(65vh - 100px); }
             .rs-box { width: 96vw; }
             .rs-photo-panel { height: 200px; }
             .rs-title { font-size: 1.5rem; }
@@ -1321,7 +1322,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 8 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1349,7 +1350,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 8 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
@@ -1529,8 +1530,8 @@
                     <span class="rp-visited">{{ randomPhoto.wonder['visited_' + lang] || randomPhoto.wonder.visited_en }}</span>
                 </div>
                 <div class="rp-header-right">
-                    <span v-for="code in getCountryCode(randomPhoto.wonder.country_en)" :key="code" :class="['fi', 'fi-' + code, 'rp-flag']"></span>
-                    <span class="rp-country">{{ randomPhoto.wonder['country_' + lang] || randomPhoto.wonder.country_en }}</span>
+                    <span v-for="code in getWonderFlag(randomPhoto.wonder)" :key="code" :class="['fi', 'fi-' + code, 'rp-flag']"></span>
+                    <span class="rp-country">{{ getWonderCityCountry(randomPhoto.wonder) }}</span>
                 </div>
             </div>
             <div v-if="randomPhoto" class="rp-img-wrap">
@@ -1555,8 +1556,8 @@
                     <span class="rv-visited">{{ randomVideo.wonder['visited_' + lang] || randomVideo.wonder.visited_en }}</span>
                 </div>
                 <div class="rv-header-right">
-                    <span v-for="code in getCountryCode(randomVideo.wonder.country_en)" :key="code" :class="['fi', 'fi-' + code, 'rv-flag']"></span>
-                    <span class="rv-country">{{ randomVideo.wonder['country_' + lang] || randomVideo.wonder.country_en }}</span>
+                    <span v-for="code in getWonderFlag(randomVideo.wonder)" :key="code" :class="['fi', 'fi-' + code, 'rv-flag']"></span>
+                    <span class="rv-country">{{ getWonderCityCountry(randomVideo.wonder) }}</span>
                 </div>
             </div>
             <div v-if="randomVideo" class="rv-video-wrap">
@@ -1580,8 +1581,8 @@
                 <div class="rs-wonder-info">
                     <div class="rs-wonder-name">{{ randomSong.wonder['name_' + lang] || randomSong.wonder.name_en }}</div>
                     <div class="rs-wonder-meta">
-                        <span v-for="code in getCountryCode(randomSong.wonder.country_en)" :key="code" :class="['fi', 'fi-' + code, 'rs-wonder-flag']"></span>
-                        <span class="rs-wonder-country">{{ randomSong.wonder['country_' + lang] || randomSong.wonder.country_en }}</span>
+                        <span v-for="code in getWonderFlag(randomSong.wonder)" :key="code" :class="['fi', 'fi-' + code, 'rs-wonder-flag']"></span>
+                        <span class="rs-wonder-country">{{ getWonderCityCountry(randomSong.wonder) }}</span>
                         <span v-if="randomSong.wonder['visited_' + lang]" class="rs-wonder-dot">·</span>
                         <span v-if="randomSong.wonder['visited_' + lang]" class="rs-wonder-visited">{{ randomSong.wonder['visited_' + lang] }}</span>
                     </div>
@@ -3285,6 +3286,19 @@ createApp({
         formatId(id) { return parseInt(id).toString().padStart(2, '0'); },
         getVal(w, type) { return w[`${type}_${this.lang}`] || w[`${type}_en`]; },
         getLoc(w) { const city = w[`city_${this.lang}`] || w.city_en || ""; const country = w[`country_${this.lang}`] || w.country_en || ""; return city ? `${city}, ${country}` : country; },
+        getWonderFlag(w) {
+            const city = w.city_en || '';
+            if (city === 'Hong Kong') return ['hk'];
+            if (city === 'Macau')     return ['mo'];
+            return this.getCountryCode(w.country_en);
+        },
+        getWonderCityCountry(w) {
+            const city = w['city_' + this.lang] || w.city_en || '';
+            const country = w['country_' + this.lang] || w.country_en || '';
+            // HK/Macau: city IS the territory, show just the city
+            if (w.city_en === 'Hong Kong' || w.city_en === 'Macau') return city;
+            return city ? city + ', ' + country : country;
+        },
         splitCountries(countryStr) {
             if (!countryStr) return [];
             const SINGLE_COUNTRIES = ['Bosnia & Herzegovina'];
