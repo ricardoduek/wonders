@@ -550,35 +550,38 @@
         .nw-modal-close:hover { color: #fff; transform: scale(1.1); }
 
         /* ── Next Wonders Map modal ── */
-        .nwmap-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; flex-direction: column; }
-        .nwmap-header { display: flex; align-items: baseline; justify-content: space-between; padding: 18px 28px 14px; border-bottom: 1px solid var(--gold); flex-shrink: 0; gap: 16px; flex-wrap: wrap; }
-        .nwmap-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
-        .nwmap-count { font-size: 0.9rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
-        .nwmap-close { color: var(--gold); font-size: 2.6rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
+        .nwmap-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 9999; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .nwmap-box { display: flex; flex-direction: column; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 80px rgba(0,0,0,0.9); width: min(96vw, 1100px); height: min(88vh, 680px); overflow: hidden; box-sizing: border-box; position: relative; }
+        .nwmap-header { display: flex; align-items: baseline; justify-content: space-between; padding: 14px 20px 12px; border-bottom: 1px solid rgba(197,160,89,0.35); flex-shrink: 0; gap: 16px; flex-wrap: wrap; }
+        .nwmap-title { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
+        .nwmap-count { font-size: 0.85rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
+        .nwmap-close { color: var(--gold); font-size: 2.4rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
         .nwmap-close:hover { color: #fff; transform: scale(1.1); }
         #nw-map { flex: 1 1 auto; width: 100%; min-height: 0; background: #0a0a0a; }
-        /* Style clusters to match site palette */
-        .nwmap-cluster { background: rgba(197,160,89,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
-        .nwmap-cluster-inner { background: rgba(197,160,89,0.85); color: #000; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: 'Inter', sans-serif; }
+        /* Cluster styling */
         .marker-cluster { background-clip: padding-box; border-radius: 20px; }
-        .marker-cluster div { width: 30px; height: 30px; margin-left: 5px; margin-top: 5px; text-align: center; border-radius: 15px; font: bold 12px 'Inter', sans-serif; background-color: rgba(197,160,89,0.9); color: #000; display: flex; align-items: center; justify-content: center; }
-        .marker-cluster-small { background-color: rgba(197,160,89,0.3); }
-        .marker-cluster-medium { background-color: rgba(197,160,89,0.4); }
-        .marker-cluster-large { background-color: rgba(197,160,89,0.5); }
-        /* Popup styling */
+        .marker-cluster div { width: 30px; height: 30px; margin-left: 5px; margin-top: 5px; text-align: center; border-radius: 15px; font: bold 11px 'Inter', sans-serif; background-color: rgba(197,160,89,0.9); color: #000; display: flex; align-items: center; justify-content: center; }
+        .marker-cluster-small { background-color: rgba(197,160,89,0.25); }
+        .marker-cluster-medium { background-color: rgba(197,160,89,0.35); }
+        .marker-cluster-large { background-color: rgba(197,160,89,0.45); }
+        /* Tooltip styling (used for hover on desktop) */
+        #nw-map .leaflet-tooltip { background: rgba(8,8,8,0.97); border: 1px solid var(--gold); border-radius: 0; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,0.9); padding: 10px 14px; }
+        #nw-map .leaflet-tooltip::before { border-top-color: var(--gold); }
+        /* Popup styling (used for click on touch devices) */
         #nw-map .leaflet-popup-content-wrapper { background: rgba(8,8,8,0.97); border: 1px solid var(--gold); border-radius: 0; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,0.9); }
         #nw-map .leaflet-popup-tip { background: rgba(8,8,8,0.97); }
-        .nwmap-popup-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: #fff; line-height: 1.3; margin-bottom: 5px; }
-        .nwmap-popup-loc { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--grey); }
-        .nwmap-popup-flag { font-size: 1rem; }
+        .nwmap-info-name { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; color: #fff; line-height: 1.3; margin-bottom: 4px; }
+        .nwmap-info-loc { display: flex; align-items: center; gap: 6px; font-size: 11px; color: var(--grey); }
 
         @media (max-width: 768px) {
-            .nwmap-title { font-size: 1.6rem; }
-            .nwmap-header { padding: 12px 16px 10px; }
+            .nwmap-box { width: 96vw; height: 80vh; }
+            .nwmap-title { font-size: 1.5rem; }
+            .nwmap-header { padding: 10px 14px 8px; }
         }
         @media (max-width: 480px) {
-            .nwmap-title { font-size: 1.3rem; }
-            .nwmap-count { font-size: 0.75rem; letter-spacing: 1.5px; }
+            .nwmap-box { width: 98vw; height: 78vh; }
+            .nwmap-title { font-size: 1.2rem; }
+            .nwmap-count { font-size: 0.7rem; letter-spacing: 1px; }
         }
         .nw-sort-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
         .nw-sort-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--grey); padding: 8px 22px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: 0.2s; margin-bottom: -1px; }
@@ -691,28 +694,17 @@
         }
 
         @media (max-width: 1280px) {
-            /* Switch header from absolute-overlay to stacked flex so
-               author-card and top-controls stop overlapping the title */
+            body { display: flex; flex-direction: column; }
             header {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
                 padding: 24px 30px 20px;
                 gap: 16px;
+                order: 1;
             }
-            .author-card {
-                position: static;
-                width: 100%;
-                max-width: 680px;
-                display: flex;
-                flex-direction: row;
-                align-items: center;
-                gap: 20px;
-                padding: 10px 20px;
-            }
-            .next-trip-card { margin-left: -20px; margin-right: -20px; }
-            .next-trip-inner { padding: 8px 16px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
             .top-controls {
+                order: 2;
                 position: static;
                 width: 100%;
                 max-width: 680px;
@@ -720,20 +712,22 @@
                 align-items: stretch;
                 gap: 8px;
                 pointer-events: auto;
+                padding: 0 30px;
+                box-sizing: border-box;
             }
             .top-controls > * { pointer-events: auto; }
 
-            /* Switch to hamburger at this breakpoint — nav links too cramped in horizontal layout */
+            /* Switch to hamburger — fixed top-left, sits visually beside the title */
             .author-card { display: none; }
-            .hamburger-btn { display: flex; }
+            .hamburger-btn { display: flex; position: fixed; top: 14px; left: 14px; z-index: 3100; }
             .mobile-nav-overlay { display: block; }
 
             h1 { font-size: 3.2rem; }
             .subtitle { font-size: 1.05rem; }
             .grid { grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 20px 30px 120px; }
-            .map-wrap { height: 420px; }
-            .explorer-info { width: 520px; padding: 20px 40px; }
-            .modal-content-box { width: 88%; padding: 36px; }
+            .map-wrap { height: 420px; order: 4; }
+            .region-nav { order: 3; }
+            .grid { grid-template-columns: repeat(3, 1fr); gap: 24px; padding: 20px 30px 120px; order: 5; }
             .cities-modal-box { padding: 36px 40px; }
             .trips-modal-box { width: 96%; }
             .aboutme-modal-box { width: 94%; }
@@ -746,17 +740,19 @@
            TABLET LANDSCAPE  ≤ 1024px
            ═══════════════════════════════════════════════════════════ */
         @media (max-width: 1024px) {
+            body { display: flex; flex-direction: column; }
             .grid { grid-template-columns: repeat(3, 1fr); gap: 28px; padding: 20px 30px 120px; }
-            .top-controls { width: 100%; max-width: 580px; }
-            header { padding: 20px 24px 16px; gap: 12px; }
+            .top-controls { order: 2; width: 100%; max-width: 100%; padding: 0 24px; box-sizing: border-box; }
+            header { order: 1; padding: 20px 24px 16px; gap: 12px; }
             h1 { font-size: 3rem; }
-            .map-wrap { height: 380px; }
-            .explorer-info { width: 480px; padding: 20px 32px; }
+            .map-wrap { height: 380px; order: 4; }
+            .region-nav { order: 3; }
+            .grid { order: 5; }
             .collage-grid { grid-template-columns: repeat(4, 1fr); grid-auto-rows: 145px; }
 
             /* Switch to hamburger nav at tablet landscape */
             .author-card { display: none; }
-            .hamburger-btn { display: flex; }
+            .hamburger-btn { display: flex; position: fixed; top: 14px; left: 14px; z-index: 3100; }
             .mobile-nav-overlay { display: block; }
         }
 
@@ -1798,15 +1794,17 @@
     </div>
 
     <!-- ── Next Wonders Map modal ── -->
-    <div v-if="showNextWondersMap" class="nwmap-overlay">
-        <div class="nwmap-header">
-            <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;">
-                <h2 class="nwmap-title">{{ content[lang].nextWondersMapTitle }}</h2>
-                <span class="nwmap-count">{{ nextWonders.length }} {{ content[lang].nextWondersCount }}</span>
+    <div v-if="showNextWondersMap" class="nwmap-overlay" @click.self="closeNextWondersMap()">
+        <div class="nwmap-box">
+            <div class="nwmap-header">
+                <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;">
+                    <h2 class="nwmap-title">{{ content[lang].nextWondersMapTitle }}</h2>
+                    <span class="nwmap-count">{{ nextWonders.length }} {{ content[lang].nextWondersCount }}</span>
+                </div>
+                <span class="nwmap-close" @click="closeNextWondersMap()">&times;</span>
             </div>
-            <span class="nwmap-close" @click="closeNextWondersMap()">&times;</span>
+            <div id="nw-map"></div>
         </div>
-        <div id="nw-map"></div>
     </div>
 
     <!-- ── Music List modal ── -->
@@ -3355,13 +3353,32 @@ createApp({
             if (this.nwMap) { this.nwMap.remove(); this.nwMap = null; this.nwClusterGroup = null; }
             const el = document.getElementById('nw-map');
             if (!el) return;
-            this.nwMap = L.map('nw-map', { zoomControl: true, minZoom: 2 }).setView([20, 10], 2);
-            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png').addTo(this.nwMap);
-            setTimeout(() => { if (this.nwMap) this.nwMap.invalidateSize(); }, 200);
 
-            // ── Coordinates for all 99 Next Wonders ──
-            // To remove an entry when it joins the collection: delete the matching object below.
-            // Each object has wonder_en (must match nextWonders array), lat, lng.
+            // Detect touch device — use click/popup on touch, hover/tooltip on pointer devices
+            const isTouch = window.matchMedia('(hover: none)').matches;
+
+            // World bounds: lock to single world instance, no repetition
+            const worldBounds = L.latLngBounds(L.latLng(-85, -180), L.latLng(85, 180));
+
+            this.nwMap = L.map('nw-map', {
+                zoomControl: true,
+                minZoom: 2,
+                maxZoom: 10,
+                maxBounds: worldBounds,
+                maxBoundsViscosity: 1.0,
+                worldCopyJump: false
+            }).setView([20, 10], 2);
+
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+                noWrap: true,
+                bounds: worldBounds
+            }).addTo(this.nwMap);
+
+            setTimeout(() => { if (this.nwMap) this.nwMap.invalidateSize(); }, 150);
+            setTimeout(() => { if (this.nwMap) this.nwMap.invalidateSize(); }, 500);
+
+            // ── Coordinates — one object per wonder.
+            // TO REMOVE A WONDER: delete the matching {wonder_en, lat, lng} line below.
             const coords = [
                 {wonder_en:"Ischigualasto",                          lat:-29.90, lng:-67.90},
                 {wonder_en:"Bariloche & Nahuel Huapí",               lat:-41.13, lng:-71.31},
@@ -3447,7 +3464,7 @@ createApp({
                 {wonder_en:"Plaza Mayor of Madrid",                   lat:40.42,  lng:-3.71},
                 {wonder_en:"Pamplona",                                lat:42.82,  lng:-1.64},
                 {wonder_en:"Ronda",                                   lat:36.74,  lng:-5.16},
-                {wonder_en:"Royal Palace, Madrid",                    lat:40.42,  lng:-3.71},
+                {wonder_en:"Royal Palace, Madrid",                    lat:40.42,  lng:-3.72},
                 {wonder_en:"Salamanca Old City",                      lat:40.96,  lng:-5.66},
                 {wonder_en:"Santiago de Compostela",                  lat:42.88,  lng:-8.54},
                 {wonder_en:"Stockholm Old Town",                      lat:59.33,  lng:18.07},
@@ -3464,21 +3481,22 @@ createApp({
                 {wonder_en:"Victoria Falls",                          lat:-17.92, lng:25.86},
             ];
 
-            // Build lookup: wonder_en → translated name + country for popup
-            const lang = this.lang || 'en';
+            // Build lookup: wonder_en → translated entry
             const wkMap = {};
             this.nextWonders.forEach(e => { wkMap[e.wonder_en] = e; });
+            const self = this;
 
-            // Cluster group styled to match site
+            // Cluster group — tight radius so only truly overlapping pins cluster
             this.nwClusterGroup = L.markerClusterGroup({
-                maxClusterRadius: 50,
+                maxClusterRadius: 20,
+                disableClusteringAtZoom: 6,
                 iconCreateFunction: function(cluster) {
                     const count = cluster.getChildCount();
                     return L.divIcon({
-                        html: '<div style="background:rgba(197,160,89,0.25);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="background:rgba(197,160,89,0.88);color:#000;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font:bold 11px Inter,sans-serif;">' + count + '</div></div>',
+                        html: '<div style="background:rgba(197,160,89,0.28);width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="background:rgba(197,160,89,0.88);color:#000;border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font:bold 10px Inter,sans-serif;">' + count + '</div></div>',
                         className: '',
-                        iconSize: [44, 44],
-                        iconAnchor: [22, 22]
+                        iconSize: [40, 40],
+                        iconAnchor: [20, 20]
                     });
                 }
             });
@@ -3486,24 +3504,39 @@ createApp({
             coords.forEach(c => {
                 const entry = wkMap[c.wonder_en];
                 if (!entry) return;
+
                 const marker = L.circleMarker([c.lat, c.lng], {
                     radius: 5, fillColor: '#000', color: '#c5a059', weight: 1.5, fillOpacity: 1
                 });
-                // Build flag HTML for popup
+
+                // Build flag + country HTML
                 const enParts = entry.countryPartsEN || [entry.country_en];
                 const localParts = entry.countryParts || enParts;
                 let flagHtml = '';
-                const self = this;
                 enParts.forEach((ep, i) => {
                     const code = self.countryCodeMap[self.resolveAlias(ep)];
-                    if (code) flagHtml += `<span class="fi fi-${code}" style="font-size:1rem;"></span> `;
+                    if (code) flagHtml += `<span class="fi fi-${code}" style="font-size:0.95rem;"></span> `;
                     if (i < enParts.length - 1) flagHtml += '&amp; ';
                 });
-                const popupHtml = `<div style="padding:10px 12px;min-width:160px;">
-                    <div class="nwmap-popup-name">${entry.wonder}</div>
-                    <div class="nwmap-popup-loc">${flagHtml}<span>${entry.country}</span></div>
+                const infoHtml = `<div style="padding:8px 10px;min-width:150px;max-width:240px;">
+                    <div class="nwmap-info-name">${entry.wonder}</div>
+                    <div class="nwmap-info-loc">${flagHtml}<span>${entry.country}</span></div>
                 </div>`;
-                marker.bindPopup(popupHtml, { maxWidth: 260 });
+
+                if (isTouch) {
+                    // Touch: bind popup, open on click
+                    marker.bindPopup(infoHtml, { maxWidth: 260, autoPan: true });
+                } else {
+                    // Desktop: bind tooltip, show on hover
+                    marker.bindTooltip(infoHtml, {
+                        direction: 'top',
+                        offset: [0, -8],
+                        sticky: false,
+                        opacity: 1,
+                        permanent: false
+                    });
+                }
+
                 this.nwClusterGroup.addLayer(marker);
             });
 
