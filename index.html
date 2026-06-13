@@ -8,6 +8,9 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
+    <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
@@ -150,8 +153,9 @@
         .nav-action-btn:hover { background: rgba(197, 160, 89, 0.15); }
 
         .collage-grid { display: grid; grid-template-columns: repeat(6, 1fr); grid-auto-rows: 180px; grid-auto-flow: dense; gap: 10px; width: 100%; max-width: 1100px; }
-        .collage-item { width: 100%; height: 100%; object-fit: cover; border: 1px solid #1a1a1a; cursor: pointer; opacity: 0; min-height: 0; }
+        .collage-item { width: 100%; height: 100%; object-fit: cover; border: 1px solid #1a1a1a; cursor: pointer; opacity: 0; transition: opacity 0.4s ease; min-height: 0; }
         .collage-item.loaded { opacity: 1; transition: opacity 0.4s ease, border-color 0.4s, transform 0.4s; }
+        .collage-item.load-error { opacity: 0.15; }
         .collage-item:hover { border-color: var(--gold); transform: scale(1.02); z-index: 2; box-shadow: 0 8px 20px rgba(0,0,0,0.9); }
         .collage-item.c1r1 { grid-column: span 1; grid-row: span 1; }
         .collage-item.c1r2 { grid-column: span 1; grid-row: span 2; }
@@ -544,6 +548,38 @@
         .nw-modal-count { font-size: 1rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
         .nw-modal-close { color: var(--gold); font-size: 3rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
         .nw-modal-close:hover { color: #fff; transform: scale(1.1); }
+
+        /* ── Next Wonders Map modal ── */
+        .nwmap-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.96); z-index: 9999; display: flex; flex-direction: column; }
+        .nwmap-header { display: flex; align-items: baseline; justify-content: space-between; padding: 18px 28px 14px; border-bottom: 1px solid var(--gold); flex-shrink: 0; gap: 16px; flex-wrap: wrap; }
+        .nwmap-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
+        .nwmap-count { font-size: 0.9rem; color: var(--grey); letter-spacing: 3px; font-family: 'Inter', sans-serif; font-weight: 200; }
+        .nwmap-close { color: var(--gold); font-size: 2.6rem; cursor: pointer; transition: 0.3s; line-height: 1; flex-shrink: 0; }
+        .nwmap-close:hover { color: #fff; transform: scale(1.1); }
+        #nw-map { flex: 1 1 auto; width: 100%; min-height: 0; background: #0a0a0a; }
+        /* Style clusters to match site palette */
+        .nwmap-cluster { background: rgba(197,160,89,0.25); border-radius: 50%; display: flex; align-items: center; justify-content: center; }
+        .nwmap-cluster-inner { background: rgba(197,160,89,0.85); color: #000; border-radius: 50%; width: 28px; height: 28px; display: flex; align-items: center; justify-content: center; font-size: 11px; font-weight: 700; font-family: 'Inter', sans-serif; }
+        .marker-cluster { background-clip: padding-box; border-radius: 20px; }
+        .marker-cluster div { width: 30px; height: 30px; margin-left: 5px; margin-top: 5px; text-align: center; border-radius: 15px; font: bold 12px 'Inter', sans-serif; background-color: rgba(197,160,89,0.9); color: #000; display: flex; align-items: center; justify-content: center; }
+        .marker-cluster-small { background-color: rgba(197,160,89,0.3); }
+        .marker-cluster-medium { background-color: rgba(197,160,89,0.4); }
+        .marker-cluster-large { background-color: rgba(197,160,89,0.5); }
+        /* Popup styling */
+        #nw-map .leaflet-popup-content-wrapper { background: rgba(8,8,8,0.97); border: 1px solid var(--gold); border-radius: 0; color: var(--text); box-shadow: 0 4px 20px rgba(0,0,0,0.9); }
+        #nw-map .leaflet-popup-tip { background: rgba(8,8,8,0.97); }
+        .nwmap-popup-name { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; color: #fff; line-height: 1.3; margin-bottom: 5px; }
+        .nwmap-popup-loc { display: flex; align-items: center; gap: 6px; font-size: 12px; color: var(--grey); }
+        .nwmap-popup-flag { font-size: 1rem; }
+
+        @media (max-width: 768px) {
+            .nwmap-title { font-size: 1.6rem; }
+            .nwmap-header { padding: 12px 16px 10px; }
+        }
+        @media (max-width: 480px) {
+            .nwmap-title { font-size: 1.3rem; }
+            .nwmap-count { font-size: 0.75rem; letter-spacing: 1.5px; }
+        }
         .nw-sort-tabs { display: flex; gap: 0; margin-bottom: 24px; border-bottom: 1px solid #1a1a1a; }
         .nw-sort-tab { background: none; border: none; border-bottom: 2px solid transparent; color: var(--grey); padding: 8px 22px; cursor: pointer; font-family: 'Inter', sans-serif; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; transition: 0.2s; margin-bottom: -1px; }
         .nw-sort-tab:hover { color: var(--gold); }
@@ -1321,7 +1357,8 @@
             <a class="mobile-nav-link" @click="showTimeline = true; mobileNavOpen = false">{{ content[lang].seeTimeline }}</a>
             <a class="mobile-nav-link" @click="openTripsModal(); mobileNavOpen = false">{{ content[lang].seeTrips }}</a>
             <a class="mobile-nav-link" @click="openTripsTimeline(); mobileNavOpen = false">{{ content[lang].seeTripsTimeline }}</a>
-            <a class="mobile-nav-link" @click="showNextWonders = true; mobileNavOpen = false">{{ content[lang].seeNextWonders }}</a>
+            <a class="mobile-nav-link" @click="showNextWonders = true; mobileNavOpen = false">{{ content[lang].seeNextWondersList }}</a>
+            <a class="mobile-nav-link" @click="openNextWondersMap(); mobileNavOpen = false">{{ content[lang].seeNextWondersMap }}</a>
             <a class="mobile-nav-link" @click="showMusicList = true; mobileNavOpen = false">{{ content[lang].seeMusic }}</a>
             <a class="mobile-nav-link" @click="showAboutMe = true; mobileNavOpen = false">{{ content[lang].seeAboutMe }}</a>
             <div class="social-bar" style="margin-top: 20px;">
@@ -1349,7 +1386,8 @@
         <a class="author-link" @click="showTimeline = true">→ {{ content[lang].seeTimeline }}</a>
         <a class="author-link" @click="openTripsModal()">→ {{ content[lang].seeTrips }}</a>
         <a class="author-link" @click="openTripsTimeline">→ {{ content[lang].seeTripsTimeline }}</a>
-        <a class="author-link" @click="showNextWonders = true">→ {{ content[lang].seeNextWonders }}</a>
+        <a class="author-link" @click="showNextWonders = true">→ {{ content[lang].seeNextWondersList }}</a>
+        <a class="author-link" @click="openNextWondersMap()">→ {{ content[lang].seeNextWondersMap }}</a>
         <a class="author-link" @click="showMusicList = true">→ {{ content[lang].seeMusic }}</a>
         <a class="author-link" @click="showAboutMe = true">→ {{ content[lang].seeAboutMe }}</a>
         <div class="social-bar">
@@ -1759,6 +1797,18 @@
         </div>
     </div>
 
+    <!-- ── Next Wonders Map modal ── -->
+    <div v-if="showNextWondersMap" class="nwmap-overlay">
+        <div class="nwmap-header">
+            <div style="display:flex; align-items:baseline; gap:16px; flex-wrap:wrap;">
+                <h2 class="nwmap-title">{{ content[lang].nextWondersMapTitle }}</h2>
+                <span class="nwmap-count">{{ nextWonders.length }} {{ content[lang].nextWondersCount }}</span>
+            </div>
+            <span class="nwmap-close" @click="closeNextWondersMap()">&times;</span>
+        </div>
+        <div id="nw-map"></div>
+    </div>
+
     <!-- ── Music List modal ── -->
     <div v-if="showMusicList" class="music-modal-overlay" @click.self="showMusicList = false">
         <div class="music-modal-box">
@@ -2069,7 +2119,8 @@
                      :data-total="selected.images.length + (selected.videos ? selected.videos.length : 0) + (selected.videos_audio ? selected.videos_audio.length : 0)"
                      class="collage-item"
                      @load="e => applyImageClass(e.target, 0)"
-                     :ref="el => { if (el && el.complete) applyImageClass(el, 0); }"
+                     @error="e => e.target.classList.add('loaded', 'load-error')"
+                     :ref="el => { if (el) ensureImageLoaded(el, 0); }"
                      @click="expandedMedia = selected.images[0]">
                 <div v-for="vid in selected.videos" :key="vid"
                     class="collage-vid-wrap"
@@ -2100,7 +2151,8 @@
                      :src="mediaBase + 'Gallery/' + img"
                      class="collage-item"
                      @load="e => applyImageClass(e.target, idx + 1)"
-                     :ref="el => { if (el && el.complete) applyImageClass(el, idx + 1); }"
+                     @error="e => e.target.classList.add('loaded', 'load-error')"
+                     :ref="el => { if (el) ensureImageLoaded(el, idx + 1); }"
                      @click="expandedMedia = img" loading="lazy">
             </div>
 
@@ -2167,7 +2219,7 @@ createApp({
             wonders: [], search: '', lang: (() => { const u = new URLSearchParams(window.location.search).get('lang'); if (u === 'pt' || u === 'es' || u === 'en') return u; const l = (navigator.language || 'en').toLowerCase(); if (l.startsWith('pt')) return 'pt'; if (l.startsWith('es')) return 'es'; return 'en'; })(), selected: null, volume: 0.5, isMuted: false, fadeInterval: null, selectedRegion: '', mobileNavOpen: false,
             expandedMedia: null, showFullMap: false, showCountriesList: false, showTimeline: false, showCitiesList: false,
             selectedWonderCountry: null,
-            showAboutMe: false, showTrips: false, showTripsTimeline: false, showMusicList: false, showNextWonders: false,
+            showAboutMe: false, showTrips: false, showTripsTimeline: false, showMusicList: false, showNextWonders: false, showNextWondersMap: false, nwMap: null, nwClusterGroup: null,
             musicSort: 'wonder', nextWondersSort: 'wonder', _returnToMusic: false,
             visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
             beenThereConfirm: false, showBackToTop: false,
@@ -2210,8 +2262,8 @@ createApp({
                     lastUpdate: "Last update", nextTripLabel: "My Next Trip", nextTripDates: "Jul 23 – Aug 9, 2026",
                     seeTripsTimeline: "See my trips timeline",
                     tripsTimelineTitle: "My Trips Timeline",
-                    seeNextWonders: "See my next wonders",
-                    nextWondersTitle: "My Next Wonders", nextWondersCount: "wonders",
+                    seeNextWondersList: "See my next wonders list", seeNextWondersMap: "See my next wonders map",
+                    nextWondersTitle: "My Next Wonders List", nextWondersMapTitle: "My Next Wonders Map", nextWondersCount: "wonders",
                     nextWondersSubtitle: "Already visited, soon to be part of the Collection.",
                     nextWondersSortWonder: "By Wonder", nextWondersSortCountry: "By Country",
                     nextWondersColWonder: "Wonder", nextWondersColCountry: "Country",
@@ -2281,8 +2333,8 @@ createApp({
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
                     lastUpdate: "Última atualização", nextTripLabel: "Minha Próxima Viagem", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
                     tripsTimelineTitle: "Linha do Tempo das Viagens",
-                    seeNextWonders: "Ver minhas próximas maravilhas",
-                    nextWondersTitle: "Minhas Próximas Maravilhas", nextWondersCount: "maravilhas",
+                    seeNextWondersList: "Ver lista de próximas maravilhas", seeNextWondersMap: "Ver mapa de próximas maravilhas",
+                    nextWondersTitle: "Lista de Próximas Maravilhas", nextWondersMapTitle: "Mapa de Próximas Maravilhas", nextWondersCount: "maravilhas",
                     nextWondersSubtitle: "Já visitadas, farão parte da Coleção em breve.",
                     nextWondersSortWonder: "Por Maravilha", nextWondersSortCountry: "Por País",
                     nextWondersColWonder: "Maravilha", nextWondersColCountry: "País",
@@ -2350,8 +2402,8 @@ createApp({
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
                     lastUpdate: "Última actualización", nextTripLabel: "Mi Próximo Viaje", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
                     tripsTimelineTitle: "Línea de Tiempo de Viajes",
-                    seeNextWonders: "Ver mis próximas maravillas",
-                    nextWondersTitle: "Mis Próximas Maravillas", nextWondersCount: "maravillas",
+                    seeNextWondersList: "Ver lista de próximas maravillas", seeNextWondersMap: "Ver mapa de próximas maravillas",
+                    nextWondersTitle: "Lista de Próximas Maravillas", nextWondersMapTitle: "Mapa de Próximas Maravillas", nextWondersCount: "maravillas",
                     nextWondersSubtitle: "Ya visitadas, formarán parte de la Colección pronto.",
                     nextWondersSortWonder: "Por Maravilla", nextWondersSortCountry: "Por País",
                     nextWondersColWonder: "Maravilla", nextWondersColCountry: "País",
@@ -2763,6 +2815,7 @@ createApp({
                 else if (this.showAboutMe)         this.showAboutMe = false;
                 else if (this.showMusicList)       this.showMusicList = false;
                 else if (this.showNextWonders)     this.showNextWonders = false;
+                else if (this.showNextWondersMap)  this.closeNextWondersMap();
                 else if (this.showTrips)           this.closeTripsModal();
                 else if (this.showTripsTimeline)   this.showTripsTimeline = false;
                 else if (this.showFullMap)         this.showFullMap = false;
@@ -3175,7 +3228,9 @@ createApp({
         },
         countByRegion(r) { return this.wonders.filter(w => w.region === r).length; },
 
-        // ── Random Photo ──
+        toggleRandomSongContinuous() {
+            this.randomSongContinuous = !this.randomSongContinuous;
+        },
         openRandomPhoto() {
             const pool = [];
             this.wonders.forEach(function(w) {
@@ -3287,9 +3342,175 @@ createApp({
         setRandomSongVolume() {
             if (this._randomSongAudio && !this.randomSongMuted) this._randomSongAudio.volume = this.randomSongVolume;
         },
-        toggleRandomSongContinuous() {
-            this.randomSongContinuous = !this.randomSongContinuous;
+        // ── Next Wonders Map ──
+        openNextWondersMap() {
+            this.showNextWondersMap = true;
+            this.$nextTick(() => { this.initNextWondersMap(); });
         },
+        closeNextWondersMap() {
+            this.showNextWondersMap = false;
+            if (this.nwMap) { this.nwMap.remove(); this.nwMap = null; this.nwClusterGroup = null; }
+        },
+        initNextWondersMap() {
+            if (this.nwMap) { this.nwMap.remove(); this.nwMap = null; this.nwClusterGroup = null; }
+            const el = document.getElementById('nw-map');
+            if (!el) return;
+            this.nwMap = L.map('nw-map', { zoomControl: true, minZoom: 2 }).setView([20, 10], 2);
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png').addTo(this.nwMap);
+            setTimeout(() => { if (this.nwMap) this.nwMap.invalidateSize(); }, 200);
+
+            // ── Coordinates for all 99 Next Wonders ──
+            // To remove an entry when it joins the collection: delete the matching object below.
+            // Each object has wonder_en (must match nextWonders array), lat, lng.
+            const coords = [
+                {wonder_en:"Ischigualasto",                          lat:-29.90, lng:-67.90},
+                {wonder_en:"Bariloche & Nahuel Huapí",               lat:-41.13, lng:-71.31},
+                {wonder_en:"Whale Watching in the Valdés Peninsula",  lat:-42.50, lng:-64.30},
+                {wonder_en:"Las Leñas",                               lat:-35.17, lng:-70.07},
+                {wonder_en:"Ghent",                                   lat:51.05,  lng:3.72},
+                {wonder_en:"Antwerp",                                 lat:51.22,  lng:4.40},
+                {wonder_en:"Barrier Reef Reserve",                    lat:16.80,  lng:-88.10},
+                {wonder_en:"Historic Center of Salvador",             lat:-12.97, lng:-38.51},
+                {wonder_en:"Ouro Preto",                              lat:-20.39, lng:-43.50},
+                {wonder_en:"Saint Alexander Nevsky Cathedral, Sofia", lat:42.70,  lng:23.33},
+                {wonder_en:"Silver Pagoda, Phnom Penh",               lat:11.57,  lng:104.93},
+                {wonder_en:"Portillo",                                lat:-32.55, lng:-70.13},
+                {wonder_en:"Shanghai Museum",                         lat:31.23,  lng:121.47},
+                {wonder_en:"West Lake, Hangzhou",                     lat:30.24,  lng:120.15},
+                {wonder_en:"Mount Huangshan, Anhui",                  lat:30.13,  lng:118.17},
+                {wonder_en:"Tiananmen Square, Beijing",               lat:39.91,  lng:116.39},
+                {wonder_en:"Cartagena Old Town",                      lat:10.42,  lng:-75.55},
+                {wonder_en:"Comuna 13, Medellín",                     lat:6.26,   lng:-75.60},
+                {wonder_en:"Arenal Volcano National Park",            lat:10.46,  lng:-84.70},
+                {wonder_en:"Manuel Antonio National Park",            lat:9.39,   lng:-84.14},
+                {wonder_en:"Trogir Old Town",                         lat:43.52,  lng:16.25},
+                {wonder_en:"Kutna Hora",                              lat:49.95,  lng:15.27},
+                {wonder_en:"Nyhavn",                                  lat:55.68,  lng:12.59},
+                {wonder_en:"Egeskov Castle",                          lat:55.17,  lng:10.49},
+                {wonder_en:"Galapagos Islands",                       lat:-0.95,  lng:-90.97},
+                {wonder_en:"Ciudad Mitad del Mundo, Quito",           lat:-0.00,  lng:-78.46},
+                {wonder_en:"National Gallery, London",                lat:51.51,  lng:-0.13},
+                {wonder_en:"Buckingham Palace & Guards",              lat:51.50,  lng:-0.14},
+                {wonder_en:"Tate Britain/Modern",                     lat:51.49,  lng:-0.12},
+                {wonder_en:"Musée d'Orsay, Paris",                    lat:48.86,  lng:2.33},
+                {wonder_en:"Old Strasbourg",                          lat:48.58,  lng:7.75},
+                {wonder_en:"Annecy",                                  lat:45.90,  lng:6.12},
+                {wonder_en:"Chamonix",                                lat:45.92,  lng:6.87},
+                {wonder_en:"Sainte-Chapelle, Paris",                  lat:48.86,  lng:2.35},
+                {wonder_en:"Black Forest",                            lat:48.00,  lng:8.20},
+                {wonder_en:"Aachen Cathedral",                        lat:50.77,  lng:6.08},
+                {wonder_en:"Sanssouci Palace, Potsdam",               lat:52.40,  lng:13.04},
+                {wonder_en:"Antigua",                                 lat:14.56,  lng:-90.73},
+                {wonder_en:"Flores",                                  lat:16.93,  lng:-89.88},
+                {wonder_en:"Lake Atitlán",                            lat:14.70,  lng:-91.18},
+                {wonder_en:"Tikal",                                   lat:17.22,  lng:-89.62},
+                {wonder_en:"Copan Mayan Ruins",                       lat:14.84,  lng:-89.14},
+                {wonder_en:"Gullfoss Waterfalls",                     lat:64.33,  lng:-20.12},
+                {wonder_en:"Geysir Geothermal Field",                 lat:64.31,  lng:-20.30},
+                {wonder_en:"Þingvellir National Park",                lat:64.26,  lng:-21.13},
+                {wonder_en:"Fatehpur Sikri, Uttar Pradesh",           lat:27.09,  lng:77.66},
+                {wonder_en:"Jantar Mantar, Jaipur",                   lat:26.92,  lng:75.82},
+                {wonder_en:"Konark Sun Temple",                       lat:19.89,  lng:86.09},
+                {wonder_en:"Humayun's Tomb",                          lat:28.59,  lng:77.25},
+                {wonder_en:"Lake Palace, Udaipur",                    lat:24.57,  lng:73.68},
+                {wonder_en:"Cliffs of Moher",                         lat:52.97,  lng:-9.43},
+                {wonder_en:"Trinity College Library",                 lat:53.34,  lng:-6.25},
+                {wonder_en:"Roman Forum, Rome",                       lat:41.89,  lng:12.49},
+                {wonder_en:"Basilica of Saint Anthony of Padua",      lat:45.40,  lng:11.88},
+                {wonder_en:"Trulli District",                         lat:40.78,  lng:17.24},
+                {wonder_en:"Vaduz",                                   lat:47.14,  lng:9.52},
+                {wonder_en:"Valletta",                                lat:35.90,  lng:14.51},
+                {wonder_en:"Mdina",                                   lat:35.89,  lng:14.40},
+                {wonder_en:"Victoria in Gozo",                        lat:36.04,  lng:14.24},
+                {wonder_en:"Hassan II Mosque",                        lat:33.61,  lng:-7.63},
+                {wonder_en:"Fez",                                     lat:34.05,  lng:-5.00},
+                {wonder_en:"Meknes",                                  lat:33.90,  lng:-5.55},
+                {wonder_en:"Tangier Medina",                          lat:35.79,  lng:-5.81},
+                {wonder_en:"Tetouan Medina",                          lat:35.57,  lng:-5.37},
+                {wonder_en:"Chefchaouen",                             lat:35.17,  lng:-5.27},
+                {wonder_en:"Giant's Causeway",                        lat:55.24,  lng:-6.51},
+                {wonder_en:"Fjords of Norway",                        lat:60.47,  lng:6.84},
+                {wonder_en:"Bergen Old Town & Wharves",               lat:60.40,  lng:5.32},
+                {wonder_en:"Akershus Fortress",                       lat:59.91,  lng:10.74},
+                {wonder_en:"Gdańsk Old Town",                         lat:54.35,  lng:18.65},
+                {wonder_en:"Lublin Old Town",                         lat:51.25,  lng:22.57},
+                {wonder_en:"Malbork Castle",                          lat:54.04,  lng:19.03},
+                {wonder_en:"Warsaw Market Square",                    lat:52.25,  lng:21.01},
+                {wonder_en:"Wawel Castle & Cathedral",                lat:50.05,  lng:19.94},
+                {wonder_en:"Transylvanian Cities",                    lat:45.80,  lng:24.15},
+                {wonder_en:"Drakensberg Mountains",                   lat:-29.00, lng:29.40},
+                {wonder_en:"Park Güell",                              lat:41.41,  lng:2.15},
+                {wonder_en:"Canary Islands",                          lat:28.29,  lng:-16.63},
+                {wonder_en:"Cuenca Old Town",                         lat:40.07,  lng:-2.13},
+                {wonder_en:"Costa del Sol",                           lat:36.72,  lng:-4.42},
+                {wonder_en:"Ibiza",                                   lat:38.91,  lng:1.43},
+                {wonder_en:"Plaza Mayor of Madrid",                   lat:40.42,  lng:-3.71},
+                {wonder_en:"Pamplona",                                lat:42.82,  lng:-1.64},
+                {wonder_en:"Ronda",                                   lat:36.74,  lng:-5.16},
+                {wonder_en:"Royal Palace, Madrid",                    lat:40.42,  lng:-3.71},
+                {wonder_en:"Salamanca Old City",                      lat:40.96,  lng:-5.66},
+                {wonder_en:"Santiago de Compostela",                  lat:42.88,  lng:-8.54},
+                {wonder_en:"Stockholm Old Town",                      lat:59.33,  lng:18.07},
+                {wonder_en:"Skansen Historical Village",              lat:59.33,  lng:18.10},
+                {wonder_en:"Gstaad",                                  lat:46.48,  lng:7.29},
+                {wonder_en:"Ngorongoro Crater",                       lat:-3.18,  lng:35.59},
+                {wonder_en:"Mt. Kilimanjaro",                         lat:-3.07,  lng:37.35},
+                {wonder_en:"Zanzibar Stone Town",                     lat:-6.16,  lng:39.19},
+                {wonder_en:"Arusha National Park",                    lat:-3.31,  lng:36.79},
+                {wonder_en:"Tarangire National Park",                 lat:-3.84,  lng:36.00},
+                {wonder_en:"Trinidad Carnival, Port of Spain",        lat:10.65,  lng:-61.52},
+                {wonder_en:"Grand Bazaar, Istanbul",                  lat:41.01,  lng:28.97},
+                {wonder_en:"Kennedy Space Center, Florida",           lat:28.52,  lng:-80.68},
+                {wonder_en:"Victoria Falls",                          lat:-17.92, lng:25.86},
+            ];
+
+            // Build lookup: wonder_en → translated name + country for popup
+            const lang = this.lang || 'en';
+            const wkMap = {};
+            this.nextWonders.forEach(e => { wkMap[e.wonder_en] = e; });
+
+            // Cluster group styled to match site
+            this.nwClusterGroup = L.markerClusterGroup({
+                maxClusterRadius: 50,
+                iconCreateFunction: function(cluster) {
+                    const count = cluster.getChildCount();
+                    return L.divIcon({
+                        html: '<div style="background:rgba(197,160,89,0.25);width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;"><div style="background:rgba(197,160,89,0.88);color:#000;border-radius:50%;width:30px;height:30px;display:flex;align-items:center;justify-content:center;font:bold 11px Inter,sans-serif;">' + count + '</div></div>',
+                        className: '',
+                        iconSize: [44, 44],
+                        iconAnchor: [22, 22]
+                    });
+                }
+            });
+
+            coords.forEach(c => {
+                const entry = wkMap[c.wonder_en];
+                if (!entry) return;
+                const marker = L.circleMarker([c.lat, c.lng], {
+                    radius: 5, fillColor: '#000', color: '#c5a059', weight: 1.5, fillOpacity: 1
+                });
+                // Build flag HTML for popup
+                const enParts = entry.countryPartsEN || [entry.country_en];
+                const localParts = entry.countryParts || enParts;
+                let flagHtml = '';
+                const self = this;
+                enParts.forEach((ep, i) => {
+                    const code = self.countryCodeMap[self.resolveAlias(ep)];
+                    if (code) flagHtml += `<span class="fi fi-${code}" style="font-size:1rem;"></span> `;
+                    if (i < enParts.length - 1) flagHtml += '&amp; ';
+                });
+                const popupHtml = `<div style="padding:10px 12px;min-width:160px;">
+                    <div class="nwmap-popup-name">${entry.wonder}</div>
+                    <div class="nwmap-popup-loc">${flagHtml}<span>${entry.country}</span></div>
+                </div>`;
+                marker.bindPopup(popupHtml, { maxWidth: 260 });
+                this.nwClusterGroup.addLayer(marker);
+            });
+
+            this.nwMap.addLayer(this.nwClusterGroup);
+        },
+
+
         goToRandomSongWonder() {
             if (!this.randomSong) return;
             const w = this.randomSong.wonder;
@@ -3537,6 +3758,28 @@ createApp({
                 el.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         },
+        ensureImageLoaded(el, idx) {
+            // Immediate check for already-complete images (cached)
+            if (el.complete && el.naturalWidth > 0) {
+                this.applyImageClass(el, idx);
+                return;
+            }
+            // Polling fallback: Safari iPad sometimes doesn't fire @load for cached/lazy images
+            let attempts = 0;
+            const poll = setInterval(() => {
+                attempts++;
+                if (el.complete && el.naturalWidth > 0) {
+                    clearInterval(poll);
+                    if (!el.classList.contains('loaded')) this.applyImageClass(el, idx);
+                } else if (attempts > 40) {
+                    // Give up after 4s — make visible anyway so grid isn't blank
+                    clearInterval(poll);
+                    if (!el.classList.contains('loaded')) {
+                        el.classList.add('c1r1', 'loaded');
+                    }
+                }
+            }, 100);
+        },
         applyVideoClass(el) {
             const video = el.querySelector ? el.querySelector('video') : el;
             const wrap  = el.classList.contains('collage-vid-wrap') ? el : el.closest('.collage-vid-wrap');
@@ -3745,7 +3988,7 @@ createApp({
         }
     },
     watch: {
-        lang() { this.initMap(); },
+        lang() { this.initMap(); if (this.showNextWondersMap) this.initNextWondersMap(); },
         unescoFilter() { this.initMap(); },
         selectedRegion(newRegion) {
             if (this.map) {
