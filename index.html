@@ -103,6 +103,8 @@
         .stats-value { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--gold); font-weight: 600; line-height: 1; }
         .stats-last-btn { display: block; width: 100%; margin-top: 10px; background: none; border: 1px solid #333; color: var(--grey); padding: 7px 10px; cursor: pointer; font-size: 9px; letter-spacing: 0.5px; text-transform: uppercase; text-align: center; transition: 0.3s; white-space: normal; word-break: break-word; line-height: 1.4; }
         .stats-last-btn:hover { color: var(--gold); border-color: var(--gold); }
+        .play-games-main-btn { margin-top: 14px; border-color: #c8a84b; color: #e8d08a; background: rgba(200,168,75,0.06); letter-spacing: 2px; font-size: 9px; }
+        .play-games-main-btn:hover { background: rgba(200,168,75,0.14) !important; border-color: #e8d08a !important; color: #f5e8b0 !important; }
 
         /* Back to top button */
         .back-to-top { position: fixed; bottom: 32px; right: 32px; z-index: 1500; width: 44px; height: 44px; background: #0a0a0a; border: 1px solid var(--gold); color: var(--gold); font-size: 1.1rem; cursor: pointer; display: flex; align-items: center; justify-content: center; opacity: 0; pointer-events: none; transition: opacity 0.35s, transform 0.35s, background 0.2s; transform: translateY(12px); }
@@ -621,6 +623,157 @@
 
         /* Last update tag */
         .last-update-tag { font-size: 10px; color: #888; letter-spacing: 1px; text-transform: uppercase; margin-top: 12px; display: block; }
+
+        /* ── LET'S PLAY GAMES button ── */
+        .play-games-btn {
+            display: block; width: calc(100% + 40px); margin: 14px -20px 0;
+            padding: 12px 16px; cursor: pointer; text-align: center;
+            background: linear-gradient(135deg, #1a1200 0%, #0d0900 50%, #1a1200 100%);
+            border: 1px solid #c8a84b; color: #e8d08a;
+            font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 3px;
+            text-transform: uppercase; font-weight: 600;
+            transition: all 0.3s; position: relative; overflow: hidden;
+        }
+        .play-games-btn::before {
+            content: ''; position: absolute; inset: 0;
+            background: linear-gradient(135deg, rgba(200,168,75,0.12) 0%, rgba(232,208,138,0.06) 100%);
+            opacity: 0; transition: opacity 0.3s;
+        }
+        .play-games-btn:hover { border-color: #e8d08a; color: #f5e8b0; }
+        .play-games-btn:hover::before { opacity: 1; }
+        .play-games-btn .pgb-icon { font-size: 1rem; margin-right: 8px; vertical-align: middle; }
+
+        /* ── Games Modal ── */
+        .games-modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.97); z-index: 9999; display: flex; align-items: center; justify-content: center; }
+        .games-modal-box { position: relative; width: 92%; max-width: 1260px; max-height: 92vh; overflow-y: auto; background: #0a0900; border: 1px solid #c8a84b; box-shadow: 0 0 80px rgba(200,168,75,0.2); display: flex; flex-direction: column; }
+        .games-modal-header { display: flex; align-items: center; justify-content: space-between; padding: 18px 28px; border-bottom: 1px solid rgba(200,168,75,0.35); flex-shrink: 0; }
+        .games-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: #e8d08a; font-weight: 300; margin: 0; }
+        .games-modal-subtitle { font-size: 10px; letter-spacing: 2px; color: #666; text-transform: uppercase; margin-top: 4px; }
+        .games-modal-close { color: #c8a84b; font-size: 2.4rem; cursor: pointer; transition: 0.3s; line-height: 1; }
+        .games-modal-close:hover { color: #f5e8b0; }
+        .games-modal-body { display: grid; grid-template-columns: repeat(3, 1fr) 220px; gap: 0; flex: 1; }
+        .games-grid-area { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; padding: 24px; grid-column: 1 / 4; align-content: start; }
+        .game-box { border: 1px solid #2a2000; background: rgba(108,63,197,0.04); padding: 18px 14px; cursor: pointer; transition: all 0.25s; display: flex; flex-direction: column; align-items: center; gap: 8px; text-align: center; position: relative; overflow: hidden; }
+        .game-box::before { content: ''; position: absolute; left: 0; top: 0; width: 3px; height: 100%; background: #c8a84b; transform: scaleY(0); transition: transform 0.25s; transform-origin: bottom; }
+        .game-box:hover { border-color: #c8a84b; background: rgba(200,168,75,0.08); }
+        .game-box:hover::before { transform: scaleY(1); }
+        .game-box.disabled { opacity: 0.35; cursor: not-allowed; pointer-events: none; }
+        .game-box-icon { font-size: 1.6rem; line-height: 1; }
+        .game-box-name { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: #e8d08a; font-weight: 600; line-height: 1.3; }
+        .game-box-desc { font-size: 10px; color: #888; letter-spacing: 0.5px; line-height: 1.4; }
+        .game-box-badge { font-size: 8px; letter-spacing: 1.5px; text-transform: uppercase; color: #c8a84b; border: 1px solid #c8a84b; padding: 1px 6px; }
+        .games-stats-area { border-left: 1px solid rgba(200,168,75,0.25); padding: 24px 18px; display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+        .games-stats-title { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #e8d08a; text-align: center; border-bottom: 1px solid rgba(200,168,75,0.3); padding-bottom: 8px; margin-bottom: 4px; }
+        .games-player-row { display: flex; align-items: center; gap: 8px; margin-bottom: 8px; }
+        .games-player-name { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #f0e8d0; }
+        .games-player-edit { font-size: 9px; color: #888; cursor: pointer; transition: 0.2s; letter-spacing: 1px; text-transform: uppercase; border: 1px solid #444; padding: 2px 7px; }
+        .games-player-edit:hover { color: #e8d08a; border-color: #c8a84b; }
+        .games-stat-row { display: flex; justify-content: space-between; align-items: baseline; padding: 5px 0; border-bottom: 1px solid #111; gap: 8px; }
+        .games-stat-row:last-child { border-bottom: none; }
+        .games-stat-label { font-size: 10px; color: #999; letter-spacing: 0.5px; line-height: 1.3; flex: 1; min-width: 0; }
+        .games-stat-score { font-family: 'Cormorant Garamond', serif; font-size: 1.3rem; color: #e8d08a; white-space: nowrap; }
+        .games-stat-perfect { color: #f0c040; }
+        .games-no-stats { font-size: 11px; color: #777; text-align: center; padding: 20px 0; font-style: italic; }
+        .games-name-input-wrap { display: flex; gap: 6px; align-items: center; margin-bottom: 8px; }
+        .games-name-input { background: rgba(200,168,75,0.06); border: 1px solid #c8a84b; color: #fff; padding: 6px 10px; font-family: 'Inter', sans-serif; font-size: 12px; outline: none; flex: 1; min-width: 0; }
+        .games-name-input::placeholder { color: #555; }
+        .games-name-input:focus { border-color: #e8d08a; }
+        .games-name-save { background: rgba(200,168,75,0.12); border: 1px solid #c8a84b; color: #e8d08a; padding: 6px 12px; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; cursor: pointer; transition: 0.2s; }
+        .games-name-save:hover { background: rgba(200,168,75,0.22); }
+
+        /* ── Game Info Modal ── */
+        .game-info-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
+        .game-info-box { background: #0a0800; border: 1px solid #c8a84b; box-shadow: 0 0 60px rgba(200,168,75,0.2); width: min(92vw, 560px); padding: 40px; box-sizing: border-box; position: relative; }
+        .game-info-close { position: absolute; top: 12px; right: 16px; background: none; border: none; color: #c8a84b; font-size: 2rem; cursor: pointer; line-height: 1; transition: 0.2s; }
+        .game-info-close:hover { color: #f5e8b0; }
+        .game-info-icon { font-size: 2.5rem; margin-bottom: 12px; display: block; text-align: center; }
+        .game-info-title { font-family: 'Cormorant Garamond', serif; font-size: 2.4rem; color: #e8d08a; font-weight: 300; text-align: center; margin: 0 0 6px; }
+        .game-info-badge { font-size: 9px; letter-spacing: 2px; color: #c8a84b; text-transform: uppercase; text-align: center; display: block; margin-bottom: 20px; }
+        .game-info-divider { height: 1px; background: rgba(200,168,75,0.3); margin: 16px 0; }
+        .game-info-rules { font-size: 13px; color: #ccc; line-height: 1.8; margin-bottom: 20px; }
+        .game-info-rules li { margin-bottom: 6px; }
+        .game-info-meta { display: flex; gap: 20px; justify-content: center; margin-bottom: 24px; }
+        .game-info-meta-item { text-align: center; }
+        .game-info-meta-num { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #e8d08a; display: block; line-height: 1; }
+        .game-info-meta-label { font-size: 9px; letter-spacing: 2px; color: #888; text-transform: uppercase; }
+        .game-info-btns { display: flex; gap: 10px; }
+        .game-info-start { flex: 1; padding: 12px; background: rgba(200,168,75,0.12); border: 1px solid #c8a84b; color: #e8d08a; font-size: 11px; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: 0.2s; font-family: 'Inter', sans-serif; }
+        .game-info-start:hover { background: rgba(200,168,75,0.22); border-color: #e8d08a; color: #f5e8b0; }
+        .game-info-exit { padding: 12px 20px; background: none; border: 1px solid #333; color: #555; font-size: 11px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.2s; font-family: 'Inter', sans-serif; }
+        .game-info-exit:hover { border-color: #555; color: #888; }
+
+        /* ── Game Play Modal ── */
+        .game-play-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: #060500; z-index: 10001; display: flex; flex-direction: column; }
+        .game-play-header { display: flex; align-items: center; justify-content: space-between; padding: 12px 24px; border-bottom: 1px solid rgba(200,168,75,0.25); flex-shrink: 0; }
+        .game-play-title { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #c8a84b; }
+        .game-play-progress-text { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #888; }
+        .game-play-score-display { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: #e8d08a; }
+        .game-play-exit { background: none; border: 1px solid #333; color: #555; font-size: 9px; letter-spacing: 1px; text-transform: uppercase; padding: 5px 14px; cursor: pointer; transition: 0.2s; }
+        .game-play-exit:hover { border-color: #555; color: #888; }
+        /* Timer bar */
+        .game-timer-bar-wrap { height: 4px; background: #111; flex-shrink: 0; }
+        .game-timer-bar { height: 4px; background: #c8a84b; transition: width 0.1s linear; }
+        .game-timer-bar.urgent { background: #c53f3f; }
+        /* Main play area */
+        .game-play-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 24px; gap: 20px; overflow: auto; }
+        .game-question-label { font-size: 9px; letter-spacing: 3px; text-transform: uppercase; color: #999; text-align: center; }
+        /* Flag display */
+        .game-flag-display { font-size: 6rem; line-height: 1; text-align: center; }
+        .game-flag-display .fi { box-shadow: 0 0 0 1px rgba(200,168,75,0.55), 0 2px 12px rgba(0,0,0,0.5); border-radius: 2px; }
+        .game-flag-opt .fi { box-shadow: 0 0 0 1px rgba(200,168,75,0.4); border-radius: 2px; }
+        /* Shape canvas */
+        .game-shape-canvas { border: 1px solid rgba(200,168,75,0.3); background: #080600; display: block; }
+        /* Photo display */
+        .game-photo-wrap { width: min(88vw, 560px); max-height: 38vh; overflow: hidden; border: 1px solid rgba(200,168,75,0.3); display: flex; align-items: center; justify-content: center; background: #000; }
+        .game-photo-img { max-width: 100%; max-height: 38vh; object-fit: contain; display: block; }
+        /* 4-photo grid for PHOTO 2 games */
+        .game-photo-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(88vw, 560px); }
+        .game-photo-opt { width: 100%; height: 160px; object-fit: cover; cursor: pointer; border: 2px solid transparent; transition: all 0.2s; display: block; }
+        .game-photo-opt:hover { border-color: #c8a84b; }
+        .game-photo-opt.correct { border-color: #4caf50 !important; }
+        .game-photo-opt.wrong { border-color: #c53f3f !important; }
+        .game-photo-opt.disabled { cursor: default; }
+        /* Question text (city name, wonder name, country name, capital name) */
+        .game-q-text { font-family: 'Cormorant Garamond', serif; font-size: 2.8rem; color: #f0e8d0; text-align: center; line-height: 1.2; max-width: 640px; }
+        /* Answer choices */
+        .game-choices { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; width: min(88vw, 600px); }
+        .game-choice { padding: 14px 18px; border: 1px solid #2a2000; background: rgba(200,168,75,0.03); color: #ddd; font-size: 13px; cursor: pointer; text-align: center; transition: all 0.2s; line-height: 1.3; }
+        .game-choice:hover:not(.disabled) { border-color: #c8a84b; background: rgba(200,168,75,0.1); color: #fff; }
+        .game-choice.correct { border-color: #4caf50 !important; background: rgba(76,175,80,0.15) !important; color: #4caf50 !important; font-weight: 600; }
+        .game-choice.wrong { border-color: #c53f3f !important; background: rgba(197,63,63,0.1) !important; color: #c53f3f !important; }
+        .game-choice.disabled { cursor: default; }
+        /* Feedback message */
+        .game-feedback { font-family: 'Cormorant Garamond', serif; font-size: 2.2rem; font-weight: 600; text-align: center; }
+        .game-feedback.correct { color: #4caf50; }
+        .game-feedback.wrong { color: #c53f3f; }
+        /* Score screen */
+        .game-score-screen { display: flex; flex-direction: column; align-items: center; gap: 20px; padding: 20px; text-align: center; }
+        .game-score-num { font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: #e8d08a; line-height: 1; }
+        .game-score-label { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #999; }
+        .game-score-perfect { font-size: 1.5rem; color: #f0c040; letter-spacing: 1px; }
+        .game-score-btns { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; }
+        .game-score-btn { padding: 12px 28px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: 0.2s; font-family: 'Inter', sans-serif; }
+        .game-score-btn.primary { background: rgba(200,168,75,0.12); border: 1px solid #c8a84b; color: #e8d08a; }
+        .game-score-btn.primary:hover { background: rgba(200,168,75,0.22); }
+        .game-score-btn.secondary { background: none; border: 1px solid #333; color: #555; }
+        .game-score-btn.secondary:hover { border-color: #555; color: #888; }
+
+        @media (max-width: 768px) {
+            .games-modal-body { grid-template-columns: 1fr; }
+            .games-grid-area { grid-column: 1; grid-template-columns: 1fr 1fr; padding: 16px; }
+            .games-stats-area { border-left: none; border-top: 1px solid rgba(200,168,75,0.25); padding: 16px; }
+            .game-q-text { font-size: 2rem; }
+            .game-choices { width: 95vw; }
+            .game-photo-wrap { width: 95vw; }
+            .game-photo-grid { width: 95vw; }
+        }
+        @media (max-width: 480px) {
+            .games-grid-area { grid-template-columns: 1fr; }
+            .game-q-text { font-size: 1.6rem; }
+            .game-flag-display { font-size: 4rem; }
+            .game-photo-opt { height: 110px; }
+            .play-games-btn { font-size: 9px; letter-spacing: 2px; }
+        }
 
         /* Explorer nav row shown only on mobile — hidden on desktop */
         .explorer-nav-mobile { display: none; }
@@ -1346,7 +1499,7 @@
     <!-- Mobile nav overlay -->
     <div class="mobile-nav-overlay" :class="{ open: mobileNavOpen }" @click.self="mobileNavOpen = false">
         <div class="mobile-nav-panel">
-            <div class="mobile-nav-name">Ricardo Duek</div>
+            <div class="mobile-nav-name">Ricardo Duek <span class="fi fi-ar" style="font-size:0.85em;vertical-align:middle;margin-left:4px;box-shadow:0 0 0 1px rgba(200,168,75,0.3);border-radius:1px;"></span></div>
             <a class="mobile-nav-link" @click="showFullMap = true; mobileNavOpen = false">{{ content[lang].seeMap }}</a>
             <a class="mobile-nav-link" @click="showCountriesList = true; mobileNavOpen = false">{{ content[lang].seeList }}</a>
             <a class="mobile-nav-link" @click="showCitiesList = true; mobileNavOpen = false">{{ content[lang].seeCities }}</a>
@@ -1375,7 +1528,7 @@
     </div>
 
     <div class="author-card">
-        <div class="author-name-small">Ricardo Duek</div>
+        <div class="author-name-small">Ricardo Duek <span class="fi fi-ar" style="font-size:0.85em;vertical-align:middle;margin-left:4px;box-shadow:0 0 0 1px rgba(200,168,75,0.3);border-radius:1px;"></span></div>
         <a class="author-link" @click="showFullMap = true">→ {{ content[lang].seeMap }}</a>
         <a class="author-link" @click="showCountriesList = true">→ {{ content[lang].seeList }}</a>
         <a class="author-link" @click="showCitiesList = true">→ {{ content[lang].seeCities }}</a>
@@ -1449,6 +1602,9 @@
             <button class="stats-last-btn" @click="openRandomSong()">{{ content[lang].statsGoToSong }}</button>
             <button class="stats-last-btn" @click="openWonder(filteredWonders[Math.floor(Math.random() * filteredWonders.length)])">{{ content[lang].statsGoToRandom }}</button>
             <button class="stats-last-btn" @click="openWonder(wonders[wonders.length - 1])">{{ content[lang].statsGoToLast }}</button>
+            <button class="stats-last-btn play-games-main-btn" @click="showGames = true">
+                <span style="font-size:1rem;margin-right:6px;vertical-align:middle;">🎮</span>{{ content[lang].gamesBtn }}
+            </button>
         </div>
     </div>
 
@@ -2035,6 +2191,302 @@
         </div>
     </div>
 
+
+    <!-- ── Games Modal ── -->
+    <div v-if="showGames" class="games-modal-overlay" @click.self="showGames = false">
+        <div class="games-modal-box">
+            <div class="games-modal-header">
+                <div>
+                    <h2 class="games-modal-title">{{ content[lang].gamesTitle }}</h2>
+                    <div class="games-modal-subtitle">{{ content[lang].gamesSubtitle }}</div>
+                </div>
+                <span class="games-modal-close" @click="showGames = false">&times;</span>
+            </div>
+            <div class="games-modal-body">
+                <!-- 3-column game grid -->
+                <div class="games-grid-area">
+                    <div v-for="game in gamesList" :key="game.id"
+                        :class="['game-box', game.disabled ? 'disabled' : '']"
+                        @click="!game.disabled && openGameInfo(game)">
+                        <span class="game-box-icon">{{ game.icon }}</span>
+                        <div class="game-box-name">{{ game.name }}</div>
+                        <div class="game-box-desc">{{ game.desc }}</div>
+                        <span v-if="game.disabled" class="game-box-badge">{{ content[lang].gameSoon }}</span>
+                        <span v-if="gameHighScore(game.id)" class="game-box-badge" style="color:#e8d08a;border-color:#c8a84b;">
+                            {{ content[lang].gameBest }}: {{ gameHighScore(game.id) }}/10
+                        </span>
+                    </div>
+                </div>
+                <!-- Stats column -->
+                <div class="games-stats-area">
+                    <div class="games-stats-title">{{ content[lang].gamesStatsTitle }}</div>
+                    <!-- Player name -->
+                    <div v-if="!editingPlayerName">
+                        <div class="games-player-row">
+                            <span class="games-player-name">{{ playerName || '—' }}</span>
+                            <span class="games-player-edit" @click="editingPlayerName = true; playerNameDraft = playerName">✎</span>
+                        </div>
+                    </div>
+                    <div v-else class="games-name-input-wrap">
+                        <input class="games-name-input" v-model="playerNameDraft" :placeholder="content[lang].gamesNamePlaceholder" maxlength="20" @keyup.enter="savePlayerName" />
+                        <button class="games-name-save" @click="savePlayerName">✓</button>
+                    </div>
+                    <!-- Stats list -->
+                    <div v-if="Object.keys(gameStats).length === 0" class="games-no-stats">
+                        {{ content[lang].gamesNoStats }}
+                    </div>
+                    <div v-else>
+                        <div v-for="(stat, gid) in gameStats" :key="gid" class="games-stat-row">
+                            <span class="games-stat-label">{{ gameNameById(gid) }}</span>
+                            <span :class="['games-stat-score', stat.best === 10 ? 'games-stat-perfect' : '']">
+                                {{ stat.best }}/10
+                                <span v-if="stat.best === 10"> ★</span>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Game Info Modal ── -->
+    <div v-if="currentGameInfo" class="game-info-overlay" @click.self="currentGameInfo = null">
+        <div class="game-info-box">
+            <button class="game-info-close" @click="currentGameInfo = null">&times;</button>
+            <span class="game-info-icon">{{ currentGameInfo.icon }}</span>
+            <h2 class="game-info-title">{{ currentGameInfo.name }}</h2>
+            <span class="game-info-badge">{{ content[lang].gameInfoLabel }}</span>
+            <div class="game-info-divider"></div>
+            <div class="game-info-rules">
+                <ul>
+                    <li v-for="rule in currentGameInfo.rules" :key="rule">{{ rule }}</li>
+                </ul>
+            </div>
+            <div class="game-info-meta">
+                <div class="game-info-meta-item">
+                    <span class="game-info-meta-num">10</span>
+                    <span class="game-info-meta-label">{{ content[lang].gameQuestions }}</span>
+                </div>
+                <div class="game-info-meta-item">
+                    <span class="game-info-meta-num">{{ lang === 'en' ? '10sec' : '10seg' }}</span>
+                    <span class="game-info-meta-label">{{ content[lang].gameTimeEach }}</span>
+                </div>
+                <div class="game-info-meta-item">
+                    <span class="game-info-meta-num">{{ gameHighScore(currentGameInfo.id) || '—' }}<span v-if="gameHighScore(currentGameInfo.id)">/10</span></span>
+                    <span class="game-info-meta-label">{{ content[lang].gameBestScore }}</span>
+                </div>
+            </div>
+            <div class="game-info-btns">
+                <button class="game-info-exit" @click="currentGameInfo = null">{{ content[lang].gameExit }}</button>
+                <button class="game-info-start" @click="startGame(currentGameInfo)">{{ content[lang].gameStart }} ▶</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── Game Play Modal ── -->
+    <div v-if="gameActive" class="game-play-overlay">
+        <!-- Header -->
+        <div class="game-play-header">
+            <span class="game-play-title">{{ gameActiveInfo ? gameActiveInfo.name : '' }}</span>
+            <span class="game-play-progress-text">{{ gameQuestionNum }}/10</span>
+            <span class="game-play-score-display">{{ content[lang].gameScore }}: {{ gameScore }}</span>
+            <button class="game-play-exit" @click="exitGame">{{ content[lang].gameExit }}</button>
+        </div>
+        <!-- Timer bar -->
+        <div class="game-timer-bar-wrap">
+            <div class="game-timer-bar" :class="{ urgent: gameTimerPct < 30 }" :style="{ width: gameTimerPct + '%' }"></div>
+        </div>
+
+        <!-- SCORE SCREEN -->
+        <div v-if="gameShowScore" class="game-play-body">
+            <div class="game-score-screen">
+                <div class="game-score-label">{{ content[lang].gameYouScored }}</div>
+                <div class="game-score-num">{{ gameScore }}</div>
+                <div class="game-score-label">{{ content[lang].gameOutOf10 }}</div>
+                <div v-if="gameScore === 10" class="game-score-perfect">🌟 {{ content[lang].gamePerfect }}</div>
+                <div class="game-score-btns">
+                    <button class="game-score-btn secondary" @click="exitGame">{{ content[lang].gameExitMenu }}</button>
+                    <button v-if="gamePlayAgainCount < 3" class="game-score-btn primary" @click="playAgain">{{ content[lang].gamePlayAgain }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION SCREEN -->
+        <div v-else class="game-play-body">
+            <div class="game-question-label">{{ content[lang].gameQuestionLabel }}</div>
+
+            <!-- FLAG 1: show flag, choose country -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'flags1' && gameCurrentQ">
+                <div class="game-flag-display">
+                    <span :class="['fi', 'fi-' + gameCurrentQ.correctCountry.code]" style="font-size:6rem;display:block;line-height:1;text-align:center;box-shadow:0 0 0 1px rgba(200,168,75,0.5),0 2px 16px rgba(0,0,0,0.5);border-radius:2px;"></span>
+                </div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                            gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.name)">
+                        {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- FLAG 2: show country name, choose flag -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'flags2' && gameCurrentQ">
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                            gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                        style="padding: 18px 8px;"
+                        @click="!gameAnswered && answerGame(opt.name)">
+                        <span class="game-flag-opt" style="display:block;line-height:1;"><span :class="['fi', 'fi-' + opt.code]" style="font-size:2.6rem;"></span></span>
+                        <span v-if="gameAnswered && opt.name === gameCurrentQ.correctCountry.name" style="font-size:10px;color:#4caf50;letter-spacing:1px;margin-top:6px;display:block;">{{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}</span>
+                    </div>
+                </div>
+            </template>
+
+            <!-- SHAPE 1: show shape canvas, choose country -->
+            <template v-if="gameActiveInfo && (gameActiveInfo.id === 'shapes1' || gameActiveInfo.id === 'shapes2') && gameCurrentQ">
+                <template v-if="gameActiveInfo.id === 'shapes1'">
+                    <canvas ref="gameShapeCanvas" class="game-shape-canvas" width="300" height="200"></canvas>
+                    <div class="game-choices">
+                        <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                            :class="['game-choice', gameAnswered ? 'disabled' : '',
+                                gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                                gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                            @click="!gameAnswered && answerGame(opt.name)">
+                            {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}
+                        </div>
+                    </div>
+                </template>
+                <template v-if="gameActiveInfo.id === 'shapes2'">
+                    <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                    <div class="game-choices" style="gap:14px;">
+                        <div v-for="(opt, idx) in gameCurrentQ.options" :key="opt.name"
+                            :class="['game-choice', gameAnswered ? 'disabled' : '',
+                                gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                                gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                            @click="!gameAnswered && answerGame(opt.name)"
+                            style="padding:8px 4px;">
+                            <canvas :ref="'shapeOpt' + idx" width="120" height="80" style="display:block;margin:0 auto 4px;"></canvas>
+                            <span v-if="gameAnswered && opt.name === gameCurrentQ.correctCountry.name" style="font-size:9px;color:#4caf50;letter-spacing:1px;margin-top:4px;display:block;">{{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}</span>
+                        </div>
+                    </div>
+                </template>
+            </template>
+
+            <!-- CAPITALS 1: show capital name, choose country -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'capitals1' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameCapital }}</div>
+                <div class="game-q-text">{{ gameCurrentQ.capitalName }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                            gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.name)">
+                        {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- CAPITALS 2: show country name, choose capital -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'capitals2' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhichCapital }}</div>
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt === gameCurrentQ.capitalName ? 'correct' : '',
+                            gameAnswered && opt === gameSelectedAnswer && opt !== gameCurrentQ.capitalName ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt)">
+                        {{ opt }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- PHOTO WONDER 1: show photo, choose wonder -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'photowonder1' && gameCurrentQ">
+                <div class="game-photo-wrap">
+                    <img :src="mediaBase + 'Gallery/' + gameCurrentQ.photo" class="game-photo-img" />
+                </div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.id"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.id === gameCurrentQ.correctWonder.id ? 'correct' : '',
+                            gameAnswered && opt.id === gameSelectedAnswer && opt.id !== gameCurrentQ.correctWonder.id ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.id)">
+                        {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name_en }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- PHOTO WONDER 2: show wonder name, choose photo -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'photowonder2' && gameCurrentQ">
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctWonder.name_pt : lang === 'es' ? gameCurrentQ.correctWonder.name_es : gameCurrentQ.correctWonder.name_en }}</div>
+                <div class="game-photo-grid">
+                    <img v-for="(opt, idx) in gameCurrentQ.photoOptions" :key="opt.photo"
+                        :src="mediaBase + 'Gallery/' + opt.photo"
+                        :class="['game-photo-opt', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.photo === gameCurrentQ.correctPhoto ? 'correct' : '',
+                            gameAnswered && opt.photo === gameSelectedAnswer && opt.photo !== gameCurrentQ.correctPhoto ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.photo)" />
+                </div>
+            </template>
+
+            <!-- PHOTO COUNTRY 1: show photo, choose country -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'photocountry1' && gameCurrentQ">
+                <div class="game-photo-wrap">
+                    <img :src="mediaBase + 'Gallery/' + gameCurrentQ.photo" class="game-photo-img" />
+                </div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.name === gameCurrentQ.correctCountry ? 'correct' : '',
+                            gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.name)">
+                        {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- PHOTO COUNTRY 2: show country name, choose photo -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'photocountry2' && gameCurrentQ">
+                <div class="game-q-text">{{ gameCurrentQ.correctCountryVC ? (lang === 'pt' ? gameCurrentQ.correctCountryVC.name_pt : lang === 'es' ? gameCurrentQ.correctCountryVC.name_es : gameCurrentQ.correctCountry) : gameCurrentQ.correctCountry }}</div>
+                <div class="game-photo-grid">
+                    <img v-for="opt in gameCurrentQ.photoOptions" :key="opt.photo"
+                        :src="mediaBase + 'Gallery/' + opt.photo"
+                        :class="['game-photo-opt', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.photo === gameCurrentQ.correctPhoto ? 'correct' : '',
+                            gameAnswered && opt.photo === gameSelectedAnswer && opt.photo !== gameCurrentQ.correctPhoto ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.photo)" />
+                </div>
+            </template>
+
+            <!-- CITIES: show city name, choose country -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'cities' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhichCountry }}</div>
+                <div class="game-q-text">{{ gameCurrentQ.cityName }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                            gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.name)">
+                        {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- Feedback -->
+            <div v-if="gameAnswered && !gameShowScore" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
+                {{ gameLastCorrect ? content[lang].gameCorrect : content[lang].gameWrong }}
+            </div>
+        </div>
+    </div>
+
     <!-- Wonder explorer -->
     <div v-if="selected" class="explorer">
         <div class="explorer-info">
@@ -2222,6 +2674,14 @@ createApp({
             visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
             beenThereConfirm: false, showBackToTop: false,
             slideshowActive: false, slideshowIndex: 0, slideshowProgress: 0,
+            showGames: false, currentGameInfo: null, gameActive: false, gameActiveInfo: null,
+            gameQuestionNum: 0, gameScore: 0, gameCurrentQ: null, gameAnswered: false,
+            gameSelectedAnswer: null, gameLastCorrect: false, gameTimerPct: 100,
+            _gameTimerRAF: null, _gameTimerStart: null, gameShowScore: false,
+            gamePlayAgainCount: 0, gameStats: JSON.parse(localStorage.getItem('wonders_game_stats') || '{}'),
+            playerName: localStorage.getItem('wonders_player_name') || '',
+            editingPlayerName: false, playerNameDraft: '',
+            _gameUsedIndices: [],
             showRandomPhoto: false, randomPhoto: null, showRandomVideo: false, randomVideo: null, showRandomSong: false, randomSong: null, randomSongPlaying: false, randomSongContinuous: false, randomSongVolume: 0.7, randomSongMuted: false, _randomSongAudio: null, randomSongProgress: 0, randomSongDuration: 0, randomSongCurrentTime: '0:00', randomSongDurationStr: '0:00', _randomSongRAF: null,
             slideshowPaused: false, _slideshowRaf: null, _slideshowStart: null, _slideshowElapsed: 0,
             selectedCityCountry: null, shareStatus: null,
@@ -2311,7 +2771,33 @@ createApp({
                         { cat: "Video Game", val: "Sid Meier's Civilization V" }
                     ],
                     aboutMotto: "\"Would you like to make God laugh? Make plans.\"",
-                    aboutMottoAttr: "Life Motto"
+                    aboutMottoAttr: "Life Motto",
+                    gamesBtn: "GO TO THE GAMES",
+                    gamesTitle: "Let's Play Games",
+                    gamesSubtitle: "10 questions · 10 seconds each",
+                    gamesStatsTitle: "Your Statistics",
+                    gamesNoStats: "No games played yet",
+                    gamesNamePlaceholder: "Enter your name",
+                    gameSoon: "Coming Soon",
+                    gameBest: "Best",
+                    gameInfoLabel: "How to Play",
+                    gameQuestions: "Questions",
+                    gameTimeEach: "Per Question",
+                    gameBestScore: "Best Score",
+                    gameStart: "Start",
+                    gameExit: "Exit",
+                    gameExitMenu: "Back to Menu",
+                    gamePlayAgain: "Play Again",
+                    gameScore: "Score",
+                    gameQuestionLabel: "Question",
+                    gameYouScored: "You Scored",
+                    gameOutOf10: "out of 10",
+                    gamePerfect: "Perfect Score!",
+                    gameCorrect: "✓ Correct!",
+                    gameWrong: "✗ Wrong",
+                    gameCapital: "Which country is this the capital of?",
+                    gameWhichCapital: "What is the capital of…",
+                    gameWhichCountry: "In which country is this city?",
                 },
                 pt: {
                     title: "Minhas Maravilhas do Mundo", subtitle: "Uma coleção de lugares extraordinários que valem a pena visitar em todos os cinco continentes,\nfotografados, filmados, descritos, musicalizados e desfrutados pessoalmente.",
@@ -2380,7 +2866,33 @@ createApp({
                         { cat: "Videogame", val: "Civilization V de Sid Meier" }
                     ],
                     aboutMotto: "\"Você gostaria de fazer Deus rir? Faça planos.\"",
-                    aboutMottoAttr: "Lema de Vida"
+                    aboutMottoAttr: "Lema de Vida",
+                    gamesBtn: "IR PARA OS JOGOS",
+                    gamesTitle: "Vamos Jogar?",
+                    gamesSubtitle: "10 perguntas · 10 segundos cada",
+                    gamesStatsTitle: "Suas Estatísticas",
+                    gamesNoStats: "Nenhum jogo jogado ainda",
+                    gamesNamePlaceholder: "Digite seu nome",
+                    gameSoon: "Em Breve",
+                    gameBest: "Melhor",
+                    gameInfoLabel: "Como Jogar",
+                    gameQuestions: "Perguntas",
+                    gameTimeEach: "Por Pergunta",
+                    gameBestScore: "Melhor Pontuação",
+                    gameStart: "Iniciar",
+                    gameExit: "Sair",
+                    gameExitMenu: "Voltar ao Menu",
+                    gamePlayAgain: "Jogar Novamente",
+                    gameScore: "Pontuação",
+                    gameQuestionLabel: "Pergunta",
+                    gameYouScored: "Você Marcou",
+                    gameOutOf10: "de 10",
+                    gamePerfect: "Pontuação Perfeita!",
+                    gameCorrect: "✓ Correto!",
+                    gameWrong: "✗ Errado",
+                    gameCapital: "De qual país é esta capital?",
+                    gameWhichCapital: "Qual é a capital de…",
+                    gameWhichCountry: "Em qual país fica esta cidade?",
                 },
                 es: {
                     title: "Mis Maravillas del Mundo", subtitle: "Una colección de lugares extraordinarios que vale la pena visitar en los cinco continentes,\nfotografiados, filmados, descritos, musicalizados y disfrutados en persona.",
@@ -2449,12 +2961,257 @@ createApp({
                         { cat: "Videojuego", val: "Civilization V de Sid Meier" }
                     ],
                     aboutMotto: "\"¿Querés hacer reír a Dios? Hacé planes.\"",
-                    aboutMottoAttr: "Lema de Vida"
+                    aboutMottoAttr: "Lema de Vida",
+                    gamesBtn: "IR A LOS JUEGOS",
+                    gamesTitle: "¡Vamos a Jugar!",
+                    gamesSubtitle: "10 preguntas · 10 segundos cada una",
+                    gamesStatsTitle: "Tus Estadísticas",
+                    gamesNoStats: "Aún no has jugado ningún juego",
+                    gamesNamePlaceholder: "Ingresa tu nombre",
+                    gameSoon: "Próximamente",
+                    gameBest: "Mejor",
+                    gameInfoLabel: "Cómo Jugar",
+                    gameQuestions: "Preguntas",
+                    gameTimeEach: "Por Pregunta",
+                    gameBestScore: "Mejor Puntuación",
+                    gameStart: "Iniciar",
+                    gameExit: "Salir",
+                    gameExitMenu: "Volver al Menú",
+                    gamePlayAgain: "Jugar de Nuevo",
+                    gameScore: "Puntuación",
+                    gameQuestionLabel: "Pregunta",
+                    gameYouScored: "Tu Puntuación",
+                    gameOutOf10: "de 10",
+                    gamePerfect: "¡Puntuación Perfecta!",
+                    gameCorrect: "✓ ¡Correcto!",
+                    gameWrong: "✗ Incorrecto",
+                    gameCapital: "¿De qué país es esta capital?",
+                    gameWhichCapital: "¿Cuál es la capital de…",
+                    gameWhichCountry: "¿En qué país se encuentra esta ciudad?",
                 }
             }
         }
     },
     computed: {
+        gamesList() {
+            const l = this.lang;
+            const c = this.content[l];
+            const rules_flags1 = l==='pt' ? [
+                'Uma bandeira de um país visitado é exibida.',
+                'Escolha o país correto entre 4 opções.',
+                'Você tem 10 segundos para responder.',
+                'Após 10 perguntas, veja sua pontuação.'
+            ] : l==='es' ? [
+                'Se muestra una bandera de un país visitado.',
+                'Elige el país correcto entre 4 opciones.',
+                'Tienes 10 segundos para responder.',
+                'Después de 10 preguntas, ve tu puntuación.'
+            ] : [
+                'A flag from the visited countries list is shown.',
+                'Choose the correct country from 4 options.',
+                'You have 10 seconds to answer each question.',
+                'After 10 flags, your score is revealed.'
+            ];
+            const rules_flags2 = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha a bandeira correta entre 4 opções.',
+                'Você tem 10 segundos para responder.',
+                'Após 10 perguntas, veja sua pontuação.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige la bandera correcta entre 4 opciones.',
+                'Tienes 10 segundos para responder.',
+                'Después de 10 preguntas, ve tu puntuación.'
+            ] : [
+                'The name of a visited country is shown.',
+                'Choose the correct flag from 4 options.',
+                'You have 10 seconds to answer.',
+                'After 10 questions, see your score.'
+            ];
+            const rules_shapes1 = l==='pt' ? [
+                'O contorno de um país visitado é exibido.',
+                'Identifique o país pelo formato.',
+                'Escolha entre 4 nomes de países.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el contorno de un país visitado.',
+                'Identifica el país por su forma.',
+                'Elige entre 4 nombres de países.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'The outline/shape of a visited country is shown.',
+                'Identify the country by its shape.',
+                'Choose from 4 country names.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_shapes2 = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha o formato correto entre 4 opções.',
+                'Você tem 10 segundos para responder.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige el contorno correcto entre 4 opciones.',
+                'Tienes 10 segundos para responder.'
+            ] : [
+                'The name of a visited country is shown.',
+                'Choose the correct shape from 4 options.',
+                'You have 10 seconds to answer.'
+            ];
+            const rules_cap1 = l==='pt' ? [
+                'O nome de uma capital visitada é exibido.',
+                'Escolha o país correto entre 4 opções.',
+                'Apenas países com capitais visitadas são usados.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de una capital visitada.',
+                'Elige el país correcto entre 4 opciones.',
+                'Solo se incluyen países con capitales visitadas.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited capital city name is shown.',
+                'Choose which country it belongs to.',
+                'Only countries with visited capitals are used.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_cap2 = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha a capital correta entre 4 cidades.',
+                'Apenas países com capitais visitadas são usados.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige la capital correcta entre 4 ciudades.',
+                'Solo se incluyen países con capitales visitadas.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited country name is shown.',
+                'Choose the correct capital from 4 city options.',
+                'Only countries with visited capitals are used.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_pw1 = l==='pt' ? [
+                'Uma foto da Galeria é exibida.',
+                'Escolha a qual Maravilha ela pertence.',
+                'Escolha entre 4 opções de Maravilhas.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra una foto de la Galería.',
+                'Elige a qué Maravilla pertenece.',
+                'Elige entre 4 opciones de Maravillas.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A photo from the Gallery is shown.',
+                'Choose which Wonder it belongs to.',
+                'Pick from 4 Wonder options.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_pw2 = l==='pt' ? [
+                'O nome de uma Maravilha é exibido.',
+                'Escolha a foto correta entre 4 opções.',
+                '3 fotos são de outras Maravilhas.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de una Maravilla.',
+                'Elige la foto correcta entre 4 opciones.',
+                '3 fotos son de otras Maravillas.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A Wonder name is shown.',
+                'Choose the correct photo from 4 options.',
+                '3 photos are from other Wonders.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_pc1 = l==='pt' ? [
+                'Uma foto da Galeria é exibida.',
+                'Escolha o país ao qual ela pertence.',
+                'Escolha entre 4 países.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra una foto de la Galería.',
+                'Elige el país al que pertenece.',
+                'Elige entre 4 países.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A photo from the Gallery is shown.',
+                'Choose which country it belongs to.',
+                'Pick from 4 country options.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_pc2 = l==='pt' ? [
+                'O nome de um país é exibido.',
+                'Escolha a foto que pertence àquele país.',
+                '3 fotos são de outros países.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país.',
+                'Elige la foto que pertenece a ese país.',
+                '3 fotos son de otros países.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A country name is shown.',
+                'Choose the photo that belongs to that country.',
+                '3 photos are from other countries.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_cities = l==='pt' ? [
+                'O nome de uma cidade ou lugar visitado é exibido.',
+                'Escolha o país correto entre 4 opções.',
+                '1.153 cidades e lugares são usados.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de una ciudad o lugar visitado.',
+                'Elige el país correcto entre 4 opciones.',
+                'Se usan 1.153 ciudades y lugares.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited city or place name is shown.',
+                'Choose which country it belongs to.',
+                '1,153 cities and places are used.',
+                'You have 10 seconds per question.'
+            ];
+            const GAME_NAMES = {
+                flags1:    l==='pt'?'Bandeiras 1':   l==='es'?'Banderas 1':    'Flags 1',
+                flags2:    l==='pt'?'Bandeiras 2':   l==='es'?'Banderas 2':    'Flags 2',
+                shapes1:   l==='pt'?'Formas 1':      l==='es'?'Formas 1':      'Shapes 1',
+                shapes2:   l==='pt'?'Formas 2':      l==='es'?'Formas 2':      'Shapes 2',
+                capitals1: l==='pt'?'Capitais 1':    l==='es'?'Capitales 1':   'Capitals 1',
+                capitals2: l==='pt'?'Capitais 2':    l==='es'?'Capitales 2':   'Capitals 2',
+                photowonder1: l==='pt'?'Fotos Maravilhas 1': l==='es'?'Fotos Maravillas 1': 'Wonder Photos 1',
+                photowonder2: l==='pt'?'Fotos Maravilhas 2': l==='es'?'Fotos Maravillas 2': 'Wonder Photos 2',
+                photocountry1: l==='pt'?'Fotos Países 1': l==='es'?'Fotos Países 1': 'Country Photos 1',
+                photocountry2: l==='pt'?'Fotos Países 2': l==='es'?'Fotos Países 2': 'Country Photos 2',
+                cities:    l==='pt'?'Cidades e Lugares': l==='es'?'Ciudades y Lugares': 'Cities & Places',
+                geoguesser: 'GeoGuesser',
+            };
+            const DESCS = {
+                flags1:    l==='pt'?'Ver bandeira → escolher país': l==='es'?'Ver bandera → elegir país': 'See flag → pick country',
+                flags2:    l==='pt'?'Ver país → escolher bandeira': l==='es'?'Ver país → elegir bandera': 'See country → pick flag',
+                shapes1:   l==='pt'?'Ver forma → escolher país': l==='es'?'Ver forma → elegir país': 'See shape → pick country',
+                shapes2:   l==='pt'?'Ver país → escolher forma': l==='es'?'Ver país → elegir forma': 'See country → pick shape',
+                capitals1: l==='pt'?'Ver capital → escolher país': l==='es'?'Ver capital → elegir país': 'See capital → pick country',
+                capitals2: l==='pt'?'Ver país → escolher capital': l==='es'?'Ver país → elegir capital': 'See country → pick capital',
+                photowonder1: l==='pt'?'Ver foto → escolher Maravilha': l==='es'?'Ver foto → elegir Maravilla': 'See photo → pick Wonder',
+                photowonder2: l==='pt'?'Ver Maravilha → escolher foto': l==='es'?'Ver Maravilla → elegir foto': 'See Wonder → pick photo',
+                photocountry1: l==='pt'?'Ver foto → escolher país': l==='es'?'Ver foto → elegir país': 'See photo → pick country',
+                photocountry2: l==='pt'?'Ver país → escolher foto': l==='es'?'Ver país → elegir foto': 'See country → pick photo',
+                cities:    l==='pt'?'Ver cidade → escolher país': l==='es'?'Ver ciudad → elegir país': 'See city → pick country',
+                geoguesser: l==='pt'?'Em breve!': l==='es'?'¡Próximamente!': 'Coming soon!',
+            };
+            return [
+                {id:'flags1',    icon:'🚩', name:GAME_NAMES.flags1,    desc:DESCS.flags1,    rules:rules_flags1,    disabled:false},
+                {id:'flags2',    icon:'🏳️', name:GAME_NAMES.flags2,    desc:DESCS.flags2,    rules:rules_flags2,    disabled:false},
+                {id:'shapes1',   icon:'🗺️', name:GAME_NAMES.shapes1,   desc:DESCS.shapes1,   rules:rules_shapes1,   disabled:false},
+                {id:'shapes2',   icon:'🌍', name:GAME_NAMES.shapes2,   desc:DESCS.shapes2,   rules:rules_shapes2,   disabled:false},
+                {id:'capitals1', icon:'🏛️', name:GAME_NAMES.capitals1, desc:DESCS.capitals1, rules:rules_cap1,      disabled:false},
+                {id:'capitals2', icon:'🏙️', name:GAME_NAMES.capitals2, desc:DESCS.capitals2, rules:rules_cap2,      disabled:false},
+                {id:'photowonder1', icon:'📷', name:GAME_NAMES.photowonder1, desc:DESCS.photowonder1, rules:rules_pw1, disabled:false},
+                {id:'photowonder2', icon:'🖼️', name:GAME_NAMES.photowonder2, desc:DESCS.photowonder2, rules:rules_pw2, disabled:false},
+                {id:'photocountry1',icon:'📸', name:GAME_NAMES.photocountry1,desc:DESCS.photocountry1,rules:rules_pc1, disabled:false},
+                {id:'photocountry2',icon:'🌐', name:GAME_NAMES.photocountry2,desc:DESCS.photocountry2,rules:rules_pc2, disabled:false},
+                {id:'cities',    icon:'🏙', name:GAME_NAMES.cities,    desc:DESCS.cities,    rules:rules_cities,    disabled:false},
+                {id:'geoguesser',icon:'📍', name:GAME_NAMES.geoguesser,desc:DESCS.geoguesser,rules:[],              disabled:true},
+            ];
+        },
         totalTripStops() {
             return this.trips.reduce((sum, t) => sum + t.stops.length, 0);
         },
@@ -3224,6 +3981,482 @@ createApp({
             if (!caps) return false;
             return caps.some(cap => city.trim().toLowerCase() === cap.trim().toLowerCase());
         },
+
+        // ═══════════════════════════════════════════════════════════
+        // GAMES ENGINE
+        // ═══════════════════════════════════════════════════════════
+
+        gameHighScore(id) {
+            return this.gameStats[id] ? this.gameStats[id].best : 0;
+        },
+        gameNameById(id) {
+            const g = this.gamesList.find(x => x.id === id);
+            return g ? g.name : id;
+        },
+        savePlayerName() {
+            this.playerName = this.playerNameDraft.trim() || this.playerName;
+            localStorage.setItem('wonders_player_name', this.playerName);
+            this.editingPlayerName = false;
+        },
+        openGameInfo(game) {
+            this.currentGameInfo = game;
+        },
+        exitGame() {
+            this._stopGameTimer();
+            this.gameActive = false;
+            this.gameShowScore = false;
+            this.currentGameInfo = null;
+            this.gameActiveInfo = null;
+            this.gamePlayAgainCount = 0;
+        },
+        playAgain() {
+            if (this.gamePlayAgainCount >= 3) return;
+            this.gamePlayAgainCount++;
+            this._startGameRound(this.gameActiveInfo);
+        },
+        startGame(game) {
+            this.currentGameInfo = null;
+            this.gameActiveInfo = game;
+            this.gamePlayAgainCount = 0;
+            this._startGameRound(game);
+        },
+        _startGameRound(game) {
+            this.gameActive = true;
+            this.gameShowScore = false;
+            this.gameScore = 0;
+            this.gameQuestionNum = 0;
+            this._gameUsedKeys = new Set();   // tracks used correct-answer keys per round
+            this._nextGameQuestion(game);
+        },
+        _nextGameQuestion(game) {
+            this.gameAnswered = false;
+            this.gameSelectedAnswer = null;
+            this.gameLastCorrect = false;
+            if (this.gameQuestionNum >= 10) {
+                this._showGameScore();
+                return;
+            }
+            this.gameQuestionNum++;
+            this.gameCurrentQ = this._buildQuestion(game);
+            // For photo games: preload all images before starting timer
+            const photoGames = ['photowonder1','photowonder2','photocountry1','photocountry2'];
+            if (photoGames.includes(game.id)) {
+                this._preloadAndStart(game, this.gameCurrentQ);
+            } else {
+                this._startGameTimer(game);
+                // Draw shape canvas after Vue renders
+                if (game.id === 'shapes1' || game.id === 'shapes2') {
+                    setTimeout(() => this._drawGameShape(game), 80);
+                }
+            }
+        },
+        _preloadAndStart(game, q) {
+            const urls = [];
+            if (q.photo) urls.push(this.mediaBase + 'Gallery/' + q.photo);
+            if (q.photoOptions) q.photoOptions.forEach(o => urls.push(this.mediaBase + 'Gallery/' + o.photo));
+            const loaded = urls.map(src => new Promise(resolve => {
+                const img = new Image();
+                img.onload = img.onerror = resolve;
+                img.src = src;
+            }));
+            // Start timer only after all images resolve (max 4s wait)
+            const timeout = new Promise(resolve => setTimeout(resolve, 4000));
+            Promise.race([Promise.all(loaded), timeout]).then(() => {
+                if (this.gameActive && !this.gameAnswered) this._startGameTimer(game);
+            });
+        },
+        _buildQuestion(game) {
+            const vc = this.visitedCountries;
+            const rand = (arr) => arr[Math.floor(Math.random() * arr.length)];
+            const shuffle = (arr) => [...arr].sort(() => Math.random() - 0.5);
+            // Flag look-alike pairs — never show together as options
+            const FLAG_CONFUSABLE = {
+                'Malta': ['Indonesia'], 'Indonesia': ['Malta','Monaco','Poland'],
+                'Monaco': ['Indonesia','Poland'], 'Poland': ['Monaco','Indonesia'],
+                'Ireland': ['Italy','Côte d\'Ivoire'], 'Italy': ['Ireland'],
+                'Chad': ['Romania'], 'Romania': ['Chad'],
+            };
+            const pick4 = (pool, correct, keyFn) => {
+                const isFlag = game.id === 'flags1' || game.id === 'flags2';
+                const confusable = isFlag ? (FLAG_CONFUSABLE[correct.name] || []) : [];
+                const others = shuffle(pool.filter(x => keyFn(x) !== keyFn(correct) && !confusable.includes(x.name))).slice(0, 3);
+                return shuffle([correct, ...others]);
+            };
+            // pick from pool avoiding already-used keys this round
+            const used = this._gameUsedKeys || new Set();
+            const pickUnused = (pool, keyFn) => {
+                const avail = pool.filter(x => !used.has(keyFn(x)));
+                const pick = avail.length > 0 ? rand(avail) : rand(pool);
+                used.add(keyFn(pick));
+                this._gameUsedKeys = used;
+                return pick;
+            };
+
+            if (game.id === 'flags1' || game.id === 'flags2') {
+                const correct = pickUnused(vc, x => x.name);
+                const options = pick4(vc, correct, x => x.name);
+                return { correctCountry: correct, options };
+            }
+            if (game.id === 'shapes1' || game.id === 'shapes2') {
+                const correct = pickUnused(vc, x => x.name);
+                const options = pick4(vc, correct, x => x.name);
+                return { correctCountry: correct, options };
+            }
+            if (game.id === 'capitals1' || game.id === 'capitals2') {
+                const withCaps = this._countriesWithCapitals();
+                const correct = pickUnused(withCaps, x => x.name);
+                const cap = this._getCapital(correct.name);
+                if (game.id === 'capitals1') {
+                    const options = pick4(vc, correct, x => x.name);
+                    return { correctCountry: correct, capitalName: cap, options };
+                } else {
+                    const allCaps = withCaps.map(c => this._getCapital(c.name)).filter(Boolean);
+                    const others = shuffle(allCaps.filter(c => c !== cap)).slice(0, 3);
+                    const options = shuffle([cap, ...others]);
+                    return { correctCountry: correct, capitalName: cap, options };
+                }
+            }
+            if (game.id === 'photowonder1') {
+                // No-repeat by wonder id
+                const eligibleWonders = this.wonders.filter(w => w.images && w.images.length && !used.has('w'+w.id));
+                const pool = eligibleWonders.length > 0 ? eligibleWonders : this.wonders.filter(w => w.images && w.images.length);
+                const w = rand(pool);
+                used.add('w'+w.id);
+                this._gameUsedKeys = used;
+                const photo = rand(w.images);
+                const options = pick4(this.wonders, w, x => x.id);
+                return { correctWonder: w, photo, options };
+            }
+            if (game.id === 'photowonder2') {
+                const eligible = this.wonders.filter(w => w.images && w.images.length && !used.has(w.id));
+                const pool = eligible.length > 0 ? eligible : this.wonders.filter(w => w.images && w.images.length);
+                const correct = rand(pool);
+                used.add(correct.id);
+                this._gameUsedKeys = used;
+                const correctPhoto = rand(correct.images);
+                const others = shuffle(this.wonders.filter(w => w.id !== correct.id && w.images && w.images.length)).slice(0,3);
+                const photoOptions = shuffle([
+                    { photo: correctPhoto, wonderId: correct.id },
+                    ...others.map(w => ({ photo: rand(w.images), wonderId: w.id }))
+                ]);
+                return { correctWonder: correct, correctPhoto, photoOptions };
+            }
+            if (game.id === 'photocountry1') {
+                // No-repeat by photo filename
+                const pool = [];
+                this.wonders.forEach(w => {
+                    const country = (w.country_en||'').split(' & ')[0].trim();
+                    (w.images||[]).forEach(img => pool.push({photo:img, country}));
+                });
+                const avail = pool.filter(x => !used.has(x.photo));
+                const item = rand(avail.length > 0 ? avail : pool);
+                used.add(item.photo);
+                this._gameUsedKeys = used;
+                const correctVC = vc.find(c => c.name === item.country) || {name:item.country,name_pt:item.country,name_es:item.country,code:''};
+                const options = shuffle([correctVC, ...shuffle(vc.filter(c=>c.name!==item.country)).slice(0,3)]);
+                return { correctCountry: item.country, correctVC, photo: item.photo, options };
+            }
+            if (game.id === 'photocountry2') {
+                const countriesWithPhotos = [...new Set(this.wonders.filter(w=>w.images&&w.images.length).map(w=>(w.country_en||'').split(' & ')[0].trim()))];
+                const avail = countriesWithPhotos.filter(c => !used.has(c));
+                const correctCountry = rand(avail.length > 0 ? avail : countriesWithPhotos);
+                used.add(correctCountry);
+                this._gameUsedKeys = used;
+                const correctWonders = this.wonders.filter(w=>(w.country_en||'').split(' & ')[0].trim()===correctCountry && w.images&&w.images.length);
+                const correctPhoto = rand(rand(correctWonders).images);
+                const otherCountries = shuffle(countriesWithPhotos.filter(c=>c!==correctCountry)).slice(0,3);
+                const otherPhotos = otherCountries.map(c => {
+                    const cw = this.wonders.filter(w=>(w.country_en||'').split(' & ')[0].trim()===c && w.images&&w.images.length);
+                    return { photo: rand(rand(cw).images), country: c };
+                });
+                const correctCountryVC = this.visitedCountries.find(c => c.name === correctCountry) || null;
+                const photoOptions = shuffle([{photo: correctPhoto, country: correctCountry}, ...otherPhotos]);
+                return { correctCountry, correctCountryVC, correctPhoto, photoOptions };
+            }
+            if (game.id === 'cities') {
+                const pool = [];
+                Object.entries(this.visitedCities).forEach(([cKey, cities]) => {
+                    const vcEntry = vc.find(c => c.name.toUpperCase() === cKey.toUpperCase());
+                    if (!vcEntry) return;
+                    cities.forEach(city => pool.push({cityName: city, country: vcEntry}));
+                });
+                const avail = pool.filter(x => !used.has(x.cityName));
+                const item = rand(avail.length > 0 ? avail : pool);
+                used.add(item.cityName);
+                this._gameUsedKeys = used;
+                const options = pick4(vc, item.country, x => x.name);
+                return { cityName: item.cityName, correctCountry: item.country, options };
+            }
+            return {};
+        },
+        _countriesWithCapitals() {
+            // Returns visitedCountries entries that have a known capital in visitedCities
+            const CAPITALS = {
+                'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
+                'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
+                'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
+                'Belgium':'Brussels','Belize':'Belmopan','Bosnia And Herzegovina':'Sarajevo',
+                'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
+                'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
+                'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
+                'Egypt':'Cairo','El Salvador':'San Salvador','England':'London','Estonia':'Tallinn',
+                'Finland':'Helsinki','France':'Paris','Germany':'Berlin','Greece':'Athens',
+                'Guatemala':'Guatemala City','Honduras':'Tegucigalpa','Hungary':'Budapest',
+                'Iceland':'Reykjavik','India':'New Delhi','Indonesia':'Jakarta','Ireland':'Dublin',
+                'Israel':'Tel Aviv','Italy':'Rome','Jordan':'Amman','Kenya':'Nairobi',
+                'Latvia':'Riga','Lithuania':'Vilnius','Luxembourg':'Luxembourg',
+                'Malaysia':'Kuala Lumpur','Malta':'Valletta','Mexico':'Mexico City',
+                'Monaco':'Monaco','Montenegro':'Podgorica','Morocco':'Rabat',
+                'Netherlands':'Amsterdam','New Zealand':'Wellington','Nicaragua':'Managua',
+                'Norway':'Oslo','Panama':'Panama City','Paraguay':'Asunción','Peru':'Lima',
+                'Poland':'Warsaw','Portugal':'Lisbon','Qatar':'Doha','Romania':'Bucharest',
+                'Russia':'Moscow','Scotland':'Edinburgh','Serbia':'Belgrade','Singapore':'Singapore',
+                'Slovakia':'Bratislava','Slovenia':'Ljubljana','South Africa':'Cape Town',
+                'Spain':'Madrid','Sweden':'Stockholm','Switzerland':'Bern','Tanzania':'Dodoma',
+                'Thailand':'Bangkok','Trinidad And Tobago':'Port of Spain','Turkey':'Ankara',
+                'United Arab Emirates':'Abu Dhabi','United States':'Washington D.C.',
+                'Uruguay':'Montevideo','Vatican City':'Vatican City','Venezuela':'Caracas',
+                'Vietnam':'Hanoi','Wales':'Cardiff','Zambia':'Lusaka','Zimbabwe':'Harare'
+            };
+            return this.visitedCountries.filter(c => {
+                const cap = CAPITALS[c.name];
+                if (!cap) return false;
+                const key = Object.keys(this.visitedCities).find(k => k.toUpperCase() === c.name.toUpperCase());
+                if (!key) return false;
+                return this.visitedCities[key].some(city => city.toLowerCase().includes(cap.toLowerCase()) || cap.toLowerCase().includes(city.toLowerCase()));
+            });
+        },
+        _getCapital(countryName) {
+            const CAPITALS = {
+                'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
+                'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
+                'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
+                'Belgium':'Brussels','Belize':'Belmopan','Bosnia And Herzegovina':'Sarajevo',
+                'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
+                'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
+                'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
+                'Egypt':'Cairo','El Salvador':'San Salvador','England':'London','Estonia':'Tallinn',
+                'Finland':'Helsinki','France':'Paris','Germany':'Berlin','Greece':'Athens',
+                'Guatemala':'Guatemala City','Honduras':'Tegucigalpa','Hungary':'Budapest',
+                'Iceland':'Reykjavik','India':'New Delhi','Indonesia':'Jakarta','Ireland':'Dublin',
+                'Israel':'Tel Aviv','Italy':'Rome','Jordan':'Amman','Kenya':'Nairobi',
+                'Latvia':'Riga','Lithuania':'Vilnius','Luxembourg':'Luxembourg',
+                'Malaysia':'Kuala Lumpur','Malta':'Valletta','Mexico':'Mexico City',
+                'Monaco':'Monaco','Montenegro':'Podgorica','Morocco':'Rabat',
+                'Netherlands':'Amsterdam','New Zealand':'Wellington','Nicaragua':'Managua',
+                'Norway':'Oslo','Panama':'Panama City','Paraguay':'Asunción','Peru':'Lima',
+                'Poland':'Warsaw','Portugal':'Lisbon','Qatar':'Doha','Romania':'Bucharest',
+                'Russia':'Moscow','Scotland':'Edinburgh','Serbia':'Belgrade','Singapore':'Singapore',
+                'Slovakia':'Bratislava','Slovenia':'Ljubljana','South Africa':'Cape Town',
+                'Spain':'Madrid','Sweden':'Stockholm','Switzerland':'Bern','Tanzania':'Dodoma',
+                'Thailand':'Bangkok','Trinidad And Tobago':'Port of Spain','Turkey':'Ankara',
+                'United Arab Emirates':'Abu Dhabi','United States':'Washington D.C.',
+                'Uruguay':'Montevideo','Vatican City':'Vatican City','Venezuela':'Caracas',
+                'Vietnam':'Hanoi','Wales':'Cardiff','Zambia':'Lusaka','Zimbabwe':'Harare'
+            };
+            return CAPITALS[countryName] || null;
+        },
+        _startGameTimer(game) {
+            this._stopGameTimer();
+            this.gameTimerPct = 100;
+            const DURATION = 10000;
+            const start = performance.now();
+            const tick = (now) => {
+                const elapsed = now - start;
+                this.gameTimerPct = Math.max(0, 100 - (elapsed / DURATION) * 100);
+                if (this.gameTimerPct > 0 && !this.gameAnswered) {
+                    this._gameTimerRAF = requestAnimationFrame(tick);
+                } else if (this.gameTimerPct <= 0 && !this.gameAnswered) {
+                    this.answerGame(null); // time's up
+                }
+            };
+            this._gameTimerRAF = requestAnimationFrame(tick);
+        },
+        _stopGameTimer() {
+            if (this._gameTimerRAF) { cancelAnimationFrame(this._gameTimerRAF); this._gameTimerRAF = null; }
+        },
+        answerGame(selected) {
+            if (this.gameAnswered) return;
+            this._stopGameTimer();
+            this.gameAnswered = true;
+            this.gameSelectedAnswer = selected;
+            const q = this.gameCurrentQ;
+            const game = this.gameActiveInfo;
+            let correct = false;
+            if (game.id === 'flags1') correct = selected === q.correctCountry.name;
+            else if (game.id === 'flags2') correct = selected === q.correctCountry.name;
+            else if (game.id === 'shapes1') correct = selected === q.correctCountry.name;
+            else if (game.id === 'shapes2') correct = selected === q.correctCountry.name;
+            else if (game.id === 'capitals1') correct = selected === q.correctCountry.name;
+            else if (game.id === 'capitals2') correct = selected === q.capitalName;
+            else if (game.id === 'photowonder1') correct = selected === q.correctWonder.id;
+            else if (game.id === 'photowonder2') correct = selected === q.correctPhoto;
+            else if (game.id === 'photocountry1') correct = selected === q.correctCountry;
+            else if (game.id === 'photocountry2') correct = selected === q.correctPhoto;
+            else if (game.id === 'cities') correct = selected === q.correctCountry.name;
+            this.gameLastCorrect = correct;
+            if (correct) this.gameScore++;
+            // Advance after 2 seconds
+            setTimeout(() => {
+                if (!this.gameActive) return;
+                this._nextGameQuestion(this.gameActiveInfo);
+            }, 2000);
+        },
+        _showGameScore() {
+            this._stopGameTimer();
+            this.gameShowScore = true;
+            // Save high score
+            const id = this.gameActiveInfo.id;
+            const prev = this.gameStats[id] ? this.gameStats[id].best : 0;
+            if (this.gameScore > prev) {
+                const stats = { ...this.gameStats };
+                stats[id] = { best: this.gameScore };
+                this.gameStats = stats;
+                localStorage.setItem('wonders_game_stats', JSON.stringify(stats));
+            }
+        },
+        _drawGameShape(game) {
+            if (!this.gameCurrentQ || !this.gameActive) return;
+            if (game.id === 'shapes1') {
+                const canvas = this.$refs.gameShapeCanvas;
+                if (!canvas) {
+                    // Retry once more after additional tick
+                    setTimeout(() => {
+                        const c2 = this.$refs.gameShapeCanvas;
+                        if (c2 && this.gameCurrentQ) this._drawShapeOnCanvas(c2, this.gameCurrentQ.correctCountry, 300, 200);
+                    }, 150);
+                    return;
+                }
+                this._drawShapeOnCanvas(canvas, this.gameCurrentQ.correctCountry, 300, 200);
+            } else if (game.id === 'shapes2') {
+                const draw = () => {
+                    this.gameCurrentQ.options.forEach((opt, idx) => {
+                        const ref = this.$refs['shapeOpt' + idx];
+                        const canvas = Array.isArray(ref) ? ref[0] : ref;
+                        if (canvas) this._drawShapeOnCanvas(canvas, opt, 120, 80);
+                    });
+                };
+                draw();
+                // Retry for any canvases that weren't mounted yet
+                setTimeout(draw, 150);
+            }
+        },
+        async _drawShapeOnCanvas(canvas, country, W, H) {
+            if (!canvas) return;
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+            ctx.clearRect(0, 0, W, H);
+            const CUSTOM_SHAPES = {
+                'England': [[[-2.666,51.617],[-2.86,51.546],[-2.975,51.563],[-3.173,51.453],[-3.184,51.398],[-3.289,51.384],[-3.559,51.406],[-3.739,51.49],[-3.843,51.622],[-3.991,51.607],[-3.976,51.563],[-4.027,51.554],[-4.289,51.556],[-4.289,51.617],[-4.07,51.676],[-4.315,51.678],[-4.379,51.727],[-4.311,51.733],[-4.365,51.789],[-4.462,51.735],[-4.646,51.732],[-4.711,51.651],[-4.941,51.597],[-5.121,51.678],[-4.844,51.713],[-4.88,51.762],[-4.826,51.796],[-4.934,51.776],[-4.894,51.728],[-4.988,51.706],[-5.182,51.69],[-5.251,51.733],[-5.125,51.769],[-5.114,51.828],[-5.139,51.864],[-5.312,51.864],[-5.29,51.918],[-5.121,51.96],[-5.071,52.026],[-4.84,52.016],[-4.721,52.113],[-4.315,52.216],[-4.138,52.33],[-4.055,52.529],[-3.947,52.549],[-4.052,52.542],[-4.124,52.603],[-3.987,52.735],[-4.048,52.721],[-4.145,52.802],[-4.077,52.927],[-4.426,52.887],[-4.516,52.789],[-4.761,52.789],[-4.595,52.929],[-4.358,53.029],[-4.34,53.113],[-4.178,53.218],[-3.832,53.289],[-3.879,53.338],[-3.602,53.289],[-3.371,53.351],[-3.087,53.235],[-3.188,53.393],[-3.058,53.436],[-2.882,53.289],[-2.698,53.351],[-2.925,53.349],[-3.101,53.559],[-2.9,53.736],[-3.047,53.77],[-3.058,53.907],[-2.857,53.968],[-2.831,54.017],[-2.918,54.035],[-2.795,54.124],[-2.853,54.194],[-2.795,54.249],[-2.939,54.155],[-3.047,54.222],[-3.145,54.064],[-3.242,54.113],[-3.206,54.263],[-3.231,54.202],[-3.307,54.192],[-3.407,54.278],[-3.415,54.346],[-3.634,54.513],[-3.389,54.883],[-3.256,54.9],[-3.317,54.92],[-3.278,54.944],[-3.022,54.976],[-0.563,54.477],[-0.369,54.248],[-0.074,54.113],[0.135,53.643],[0.139,53.577],[-0.113,53.638],[-0.261,53.736],[0.247,53.392],[0.344,53.226],[0.337,53.093],[0.009,52.887],[0.247,52.796],[0.52,52.956],[0.967,52.975],[1.395,52.892],[1.697,52.731],[1.769,52.487],[1.629,52.27],[1.582,52.081],[1.334,51.94],[1.157,52.029],[1.064,51.776],[0.981,51.843],[0.873,51.747],[0.7,51.72],[0.761,51.693],[0.455,51.505],[0.383,51.453],[0.697,51.477],[0.556,51.413],[0.765,51.364],[0.977,51.349],[1.449,51.382],[1.377,51.327],[1.413,51.222],[1.384,51.151],[1.067,51.065],[0.967,50.982],[0.625,50.859],[0.365,50.818],[0.272,50.747],[-0.268,50.832],[-0.758,50.778],[-1.082,50.781],[-1.467,50.918],[-1.316,50.8],[-1.561,50.719],[-1.694,50.741],[-1.939,50.692],[-2.039,50.741],[-2.083,50.698],[-2.399,50.646],[-2.453,50.528],[-2.864,50.734],[-3.26,50.675],[-3.368,50.617],[-3.465,50.678],[-3.433,50.611],[-3.505,50.521],[-3.487,50.459],[-3.555,50.432],[-3.487,50.405],[-3.631,50.312],[-3.659,50.221],[-3.789,50.212],[-3.962,50.322],[-4.055,50.3],[-4.106,50.371],[-4.167,50.376],[-4.16,50.459],[-4.199,50.459],[-4.228,50.398],[-4.289,50.398],[-4.192,50.378],[-4.228,50.371],[-4.192,50.322],[-4.336,50.371],[-4.667,50.315],[-4.693,50.344],[-4.765,50.322],[-4.79,50.236],[-5.002,50.145],[-5.053,50.195],[-5.042,50.145],[-5.125,50.096],[-5.056,50.06],[-5.189,49.959],[-5.305,50.08],[-5.474,50.131],[-5.668,50.043],[-5.715,50.082],[-5.686,50.161],[-5.316,50.254],[-5.15,50.351],[-5.154,50.4],[-5.049,50.428],[-4.995,50.548],[-4.844,50.514],[-4.919,50.589],[-4.793,50.595],[-4.577,50.774],[-4.527,51.014],[-4.318,51.001],[-4.207,51.077],[-4.257,51.151],[-4.214,51.151],[-4.228,51.193],[-3.785,51.247],[-3.386,51.186],[-3.022,51.193],[-3.022,51.323],[-2.975,51.384],[-2.716,51.499],[-2.558,51.659],[-2.389,51.75],[-2.399,51.782],[-2.601,51.666],[-2.666,51.617]]],
+                'Scotland': [[[-5.049,55.05],[-5.01,55.141],[-4.865,55.225],[-4.833,55.332],[-4.617,55.496],[-4.693,55.605],[-4.919,55.708],[-4.862,55.757],[-4.887,55.919],[-4.801,55.958],[-4.48,55.928],[-3.569,54.996],[-3.58,54.884],[-3.821,54.856],[-3.818,54.886],[-3.832,54.82],[-4.012,54.768],[-4.063,54.832],[-4.124,54.773],[-4.21,54.827],[-4.199,54.866],[-4.271,54.839],[-4.405,54.908],[-4.405,54.825],[-4.343,54.795],[-4.383,54.68],[-4.858,54.866],[-4.955,54.81],[-4.955,54.66],[-4.955,54.729],[-5.157,54.879],[-5.171,55.009],[-5.114,55.031],[-5.013,54.91],[-5.049,54.935],[-1.443,55.05],[-1.276,54.748],[-1.172,54.702],[-1.201,54.621],[-1.139,54.646],[-0.563,54.477],[-2.795,54.249],[-2.939,54.155],[-3.047,54.222],[-3.145,54.064],[-3.242,54.113],[-3.206,54.263],[-3.231,54.202],[-3.307,54.192],[-3.407,54.278],[-3.415,54.346],[-3.634,54.513],[-3.389,54.883],[-3.256,54.9],[-3.317,54.92],[-3.278,54.944],[-3.022,54.976],[-1.823,55.636],[-1.633,55.585],[-1.571,55.286],[-1.443,55.05],[-5.049,55.05]]],
+                'Wales': [[[-3.034,51.404],[-2.975,51.384],[-2.716,51.499],[-2.558,51.659],[-2.95,51.608],[-3.173,51.453],[-3.289,51.384],[-3.559,51.406],[-3.739,51.49],[-3.843,51.622],[-3.991,51.607],[-3.976,51.563],[-4.027,51.554],[-4.289,51.556],[-4.289,51.617],[-4.07,51.676],[-4.315,51.678],[-4.379,51.727],[-4.311,51.733],[-4.365,51.789],[-4.462,51.735],[-4.646,51.732],[-4.711,51.651],[-4.941,51.597],[-5.121,51.678],[-4.844,51.713],[-4.88,51.762],[-4.826,51.796],[-4.934,51.776],[-4.894,51.728],[-4.988,51.706],[-5.182,51.69],[-5.251,51.733],[-5.125,51.769],[-5.114,51.828],[-5.139,51.864],[-5.312,51.864],[-5.29,51.918],[-5.121,51.96],[-5.071,52.026],[-4.84,52.016],[-4.721,52.113],[-4.315,52.216],[-4.138,52.33],[-4.055,52.529],[-3.947,52.549],[-4.052,52.542],[-4.124,52.603],[-3.987,52.735],[-4.048,52.721],[-4.145,52.802],[-4.077,52.927],[-4.426,52.887],[-4.516,52.789],[-4.761,52.789],[-4.595,52.929],[-4.358,53.029],[-4.34,53.113],[-4.178,53.218],[-3.832,53.289],[-3.879,53.338],[-3.602,53.289],[-3.371,53.351],[-3.087,53.235],[-3.188,53.393],[-3.058,53.436],[-2.882,53.289],[-2.698,53.351],[-2.925,53.349],[-3.101,53.559],[-2.9,53.736],[-3.047,53.77],[-3.058,53.907],[-2.857,53.968],[-2.831,54.017],[-2.918,54.035],[-2.795,54.124],[-2.853,54.194],[-2.975,54.08],[-3.034,51.404]]],
+                'Northern Ireland': [[[-7.188,55.062],[-6.95,55.198],[-6.668,55.259],[-6.497,55.368],[-6.226,55.327],[-5.988,55.198],[-5.788,55.066],[-5.66,54.856],[-5.724,54.633],[-5.931,54.498],[-6.183,54.404],[-6.511,54.348],[-6.795,54.204],[-7.03,54.415],[-7.282,54.535],[-7.627,54.738],[-7.938,54.898],[-8.092,55.005],[-7.879,55.065],[-7.652,55.068],[-7.364,55.128],[-7.188,55.062]]],
+                'Aruba': [[[-69.882,12.411],[-69.946,12.437],[-70.056,12.534],[-70.058,12.597],[-70.02,12.614],[-69.906,12.552],[-69.861,12.497],[-69.882,12.411]]],
+                'Curaçao': [[[-68.935,12.036],[-69.157,12.167],[-69.254,12.232],[-69.151,12.357],[-68.932,12.265],[-68.736,12.108],[-68.735,12.036],[-68.935,12.036]]],
+                'Sint Maarten': [[[-63.23,18.03],[-63.12,18.04],[-63.01,18.07],[-63.0,18.04],[-63.02,17.99],[-63.11,17.97],[-63.23,18.03]]],
+                'Guadeloupe': [[[-61.73,15.87],[-61.6,15.99],[-61.45,16.1],[-61.25,16.15],[-61.23,16.05],[-61.35,15.9],[-61.55,15.83],[-61.73,15.87]],[[-61.78,16.22],[-61.66,16.36],[-61.57,16.49],[-61.46,16.52],[-61.38,16.45],[-61.42,16.27],[-61.58,16.19],[-61.78,16.22]]],
+                'Martinique': [[[-61.23,14.39],[-60.99,14.49],[-60.85,14.62],[-60.81,14.77],[-60.86,14.88],[-61.01,14.88],[-61.15,14.78],[-61.23,14.63],[-61.24,14.5],[-61.23,14.39]]],
+                'Vatican City': [[[12.44,41.905],[12.456,41.905],[12.456,41.899],[12.44,41.899],[12.44,41.905]]],
+                'Gibraltar': [[[-5.368,36.155],[-5.34,36.18],[-5.338,36.132],[-5.368,36.115],[-5.374,36.135],[-5.368,36.155]]],
+                'Macau': [[[113.528,22.21],[113.543,22.197],[113.568,22.202],[113.576,22.218],[113.563,22.226],[113.528,22.21]]]
+            };
+            const nameToISO = {
+                'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32',
+                'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
+                'Belize':'84','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
+                'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
+                'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
+                'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
+                'Estonia':'233','Finland':'246','France':'250','Germany':'276',
+                'Greece':'300','Guatemala':'320','Honduras':'340','Hungary':'348','Iceland':'352',
+                'India':'356','Indonesia':'360','Ireland':'372','Israel':'376','Italy':'380',
+                'Jordan':'400','Kenya':'404','Latvia':'428','Liechtenstein':'438','Lithuania':'440',
+                'Luxembourg':'442','Malaysia':'458','Malta':'470','Mexico':'484','Monaco':'492',
+                'Montenegro':'499','Morocco':'504','Netherlands':'528','New Zealand':'554',
+                'Nicaragua':'558','North Macedonia':'807','Norway':'578','Palestine':'275',
+                'Panama':'591','Paraguay':'600','Peru':'604','Poland':'616','Portugal':'620',
+                'Qatar':'634','Romania':'642','Russia':'643','Serbia':'688','Singapore':'702',
+                'Slovakia':'703','Slovenia':'705','South Africa':'710','Spain':'724',
+                'Sweden':'752','Switzerland':'756','Tanzania':'834','Thailand':'764',
+                'Trinidad And Tobago':'780','Turkey':'792','United Arab Emirates':'784',
+                'United States':'840','Uruguay':'858','Venezuela':'862',
+                'Vietnam':'704','Zambia':'894','Zimbabwe':'716',
+                'Hong Kong':'344','Puerto Rico':'630','Eswatini':'748',
+                'Saint Kitts And Nevis':'659'
+            };
+            const FRANCE_CONTINENTAL = country.name === 'France';
+            const NEED_50M = ['Hong Kong','Monaco','Singapore','Andorra','Liechtenstein','Malta','Luxembourg','Puerto Rico','Eswatini','Barbados','Trinidad And Tobago','Saint Kitts And Nevis','Antigua And Barbuda','Belize','El Salvador','Costa Rica','Panama','Dominican Republic'];
+            const NEED_10M = [];
+
+            const drawRings = (polygons, allPts) => {
+                const lngs = allPts.map(p=>p[0]), lats = allPts.map(p=>p[1]);
+                const minLng=Math.min(...lngs),maxLng=Math.max(...lngs),minLat=Math.min(...lats),maxLat=Math.max(...lats);
+                const PAD=0.88; const sw=W*PAD,sh=H*PAD;
+                const sx=(maxLng-minLng)||1,sy=(maxLat-minLat)||1;
+                const sc=Math.min(sw/sx,sh/sy);
+                const ox=(W-(sx*sc))/2,oy=(H-(sy*sc))/2;
+                const tx=lng=>(lng-minLng)*sc+ox, ty=lat=>(maxLat-lat)*sc+oy;
+                ctx.fillStyle='rgba(200,168,75,0.45)'; ctx.strokeStyle='rgba(232,208,138,0.9)'; ctx.lineWidth=1;
+                polygons.forEach(rings=>{
+                    ctx.beginPath();
+                    rings.forEach(ring=>{
+                        ring.forEach((p,i)=>{ const x=tx(p[0]),y=ty(p[1]); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+                        ctx.closePath();
+                    });
+                    ctx.fill('evenodd'); ctx.stroke();
+                });
+            };
+
+            if (CUSTOM_SHAPES[country.name]) {
+                // CUSTOM_SHAPES stores arrays of rings; drawRings expects array of polygons
+                // Each ring becomes its own polygon: [[ring1],[ring2],...]
+                const rings = CUSTOM_SHAPES[country.name];
+                const polygons = rings.map(ring => [ring]);
+                const allPts = rings.reduce((a,r)=>a.concat(r),[]);
+                drawRings(polygons, allPts);
+                return;
+            }
+            const iso = nameToISO[country.name];
+            if (!iso) { ctx.fillStyle='#333'; ctx.fillRect(20,20,W-40,H-40); return; }
+            try {
+                if (!window.topojson) {
+                    await new Promise(res=>{const s=document.createElement('script');s.src='https://unpkg.com/topojson-client@3/dist/topojson-client.min.js';s.onload=res;s.onerror=res;document.head.appendChild(s);});
+                }
+                const res2 = NEED_10M.includes(country.name)?'10m':NEED_50M.includes(country.name)?'50m':'110m';
+                const cacheKey = '_worldFeatures_' + res2;
+                if (!this[cacheKey]) {
+                    const resp = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-'+res2+'.json');
+                    const world = await resp.json();
+                    const all = window.topojson.feature(world, world.objects.countries);
+                    this[cacheKey]={};
+                    all.features.forEach(f=>{this[cacheKey][parseInt(f.id,10)]=f;});
+                }
+                const feature = this[cacheKey][parseInt(iso,10)];
+                if (!feature) return;
+                const geom = feature.geometry;
+                let polygons = [];
+                if (geom.type==='Polygon') polygons=[geom.coordinates];
+                else geom.coordinates.forEach(p=>polygons.push(p));
+                if (FRANCE_CONTINENTAL) {
+                    polygons = polygons.filter(poly=>{
+                        const lngs=[],lats=[];
+                        poly.forEach(r=>r.forEach(p=>{lngs.push(p[0]);lats.push(p[1]);}));
+                        const cLng=(Math.min(...lngs)+Math.max(...lngs))/2;
+                        const cLat=(Math.min(...lats)+Math.max(...lats))/2;
+                        return cLng>-6&&cLng<11&&cLat>41&&cLat<52;
+                    });
+                }
+                // filter antimeridian-crossing
+                const clean = polygons.filter(p=>{ const ls=[]; p.forEach(r=>r.forEach(pt=>ls.push(pt[0]))); return Math.max(...ls)-Math.min(...ls)<=180; });
+                const usePolys = clean.length ? clean : polygons;
+                const allPts = usePolys.reduce((a,p)=>{p.forEach(r=>r.forEach(pt=>a.push(pt)));return a;},[]);
+                // Re-check canvas is still in DOM after async fetch
+                if (!canvas.isConnected) return;
+                ctx.clearRect(0, 0, W, H);
+                drawRings(usePolys, allPts);
+            } catch(e) { console.warn('shape draw error', country.name, e); }
+        },
+
         countByRegion(r) { return this.wonders.filter(w => w.region === r).length; },
 
         toggleRandomSongContinuous() {
@@ -3617,7 +4850,7 @@ createApp({
             };
 
             // Countries needing 50m resolution (too small for 110m)
-            const NEED_50M = ['Hong Kong','Macau','Monaco','Vatican City','Singapore','Andorra','Liechtenstein','Malta','Luxembourg'];
+            const NEED_50M = ['Hong Kong','Monaco','Singapore','Andorra','Liechtenstein','Malta','Luxembourg','Puerto Rico','Eswatini','Barbados','Trinidad And Tobago','Saint Kitts And Nevis','Antigua And Barbuda','Belize','El Salvador','Costa Rica','Panama','Dominican Republic'];
             // Countries needing 10m resolution
             const NEED_10M = ['Gibraltar'];
 
@@ -3626,9 +4859,11 @@ createApp({
 
             // Return early for custom shapes
             if (CUSTOM_SHAPES[country.name]) {
+                // Each ring wrapped as its own polygon
                 const rings = CUSTOM_SHAPES[country.name];
+                const polygons = rings.map(function(ring) { return [ring]; });
                 const allPts = rings.reduce(function(acc, r) { return acc.concat(r); }, []);
-                this._drawPolygons(ctx, W, H, [rings], allPts);
+                this._drawPolygons(ctx, W, H, polygons, allPts);
                 return;
             }
 
@@ -3667,8 +4902,9 @@ createApp({
                 'United Arab Emirates':'784','United States':'840','Uruguay':'858',
                 'Vatican City':'336','Venezuela':'862','Vietnam':'704',
                 'Zambia':'894','Zimbabwe':'716',
-                'Curaçao':'531','Guadeloupe':'312','Hong Kong':'344','Macau':'446',
-                'Martinique':'474','Puerto Rico':'630','Sint Maarten':'534','Eswatini':'748','Gibraltar':'292',
+                'Hong Kong':'344',
+                'Puerto Rico':'630','Eswatini':'748',
+                'Saint Kitts And Nevis':'659','Barbados':'52','Trinidad And Tobago':'780','Antigua And Barbuda':'28',
             };
             const iso = nameToISO[country.name];
             if (!iso) return;
