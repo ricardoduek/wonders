@@ -5452,7 +5452,10 @@
             "062_04.webp",
             "062_05.webp"
         ],
-        "videos": [],
+        "videos": [
+            "062_01.webm",
+            "062_02.webm"
+        ],
         "region": "Africa",
         "visited_en": "February 2018",
         "visited_es": "Febrero 2018",
