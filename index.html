@@ -756,6 +756,32 @@
         .game-score-btn.primary { background: rgba(200,168,75,0.12); border: 1px solid #c8a84b; color: #e8d08a; }
         .game-score-btn.primary:hover { background: rgba(200,168,75,0.22); }
         .game-score-btn.secondary { background: none; border: 1px solid #333; color: #555; }
+        /* ── GeoGuesser ── */
+        .geo-play-wrap { display: flex; flex-direction: column; width: 100%; height: 100%; flex: 1; min-height: 0; position: relative; }
+        .geo-map-area { flex: 1; position: relative; min-height: 0; }
+        #geo-leaflet-map { width: 100%; height: 100%; min-height: 320px; cursor: crosshair; }
+        #geo-leaflet-map .leaflet-tile-pane { filter: grayscale(1) invert(1) brightness(0.6) contrast(1.2); }
+        .geo-photo-thumb { position: absolute; top: 12px; left: 12px; z-index: 1000; width: 200px; border: 2px solid #c8a84b; box-shadow: 0 4px 20px rgba(0,0,0,0.7); background: #000; }
+        .geo-photo-thumb img { display: block; width: 100%; height: 130px; object-fit: cover; }
+        .geo-photo-thumb-label { padding: 6px 8px; background: rgba(0,0,0,0.9); }
+        .geo-photo-thumb-name { font-family: 'Cormorant Garamond', serif; font-size: 0.95rem; color: #e8d08a; display: block; line-height: 1.2; }
+        .geo-hint { position: absolute; bottom: 12px; left: 50%; transform: translateX(-50%); z-index: 1000; background: rgba(0,0,0,0.75); border: 1px solid rgba(200,168,75,0.4); padding: 6px 16px; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: #888; pointer-events: none; white-space: nowrap; }
+        .geo-result-bar { flex-shrink: 0; background: rgba(0,0,0,0.92); border-top: 1px solid rgba(200,168,75,0.3); padding: 16px 24px; display: flex; align-items: center; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+        .geo-result-item { text-align: center; }
+        .geo-result-val { font-family: 'Cormorant Garamond', serif; font-size: 2rem; color: #e8d08a; display: block; line-height: 1; }
+        .geo-result-label { font-size: 9px; letter-spacing: 2px; text-transform: uppercase; color: #666; }
+        .geo-result-next { padding: 10px 24px; background: rgba(200,168,75,0.12); border: 1px solid #c8a84b; color: #e8d08a; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; font-family: 'Inter', sans-serif; transition: 0.2s; }
+        .geo-result-next:hover { background: rgba(200,168,75,0.22); }
+        .geo-timesup { color: #c53f3f; font-size: 10px; letter-spacing: 2px; text-transform: uppercase; }
+        /* Final score for geoguesser */
+        .geo-final-score { font-family: 'Cormorant Garamond', serif; font-size: 5rem; color: #e8d08a; line-height: 1; }
+        .geo-final-max { font-size: 10px; letter-spacing: 2px; color: #555; text-transform: uppercase; }
+        @media (max-width: 768px) {
+            .geo-photo-thumb { width: 130px; }
+            .geo-photo-thumb img { height: 86px; }
+            .geo-result-bar { padding: 10px 14px; gap: 12px; }
+            .geo-result-val { font-size: 1.5rem; }
+        }
         .game-score-btn.secondary:hover { border-color: #555; color: #888; }
 
         @media (max-width: 768px) {
@@ -1499,7 +1525,7 @@
     <!-- Mobile nav overlay -->
     <div class="mobile-nav-overlay" :class="{ open: mobileNavOpen }" @click.self="mobileNavOpen = false">
         <div class="mobile-nav-panel">
-            <div class="mobile-nav-name">Ricardo Duek <span class="fi fi-ar" style="font-size:1.0em;vertical-align:0em;margin-left:8px;transform:scaleX(1.4);display:inline-block;transform-origin:left center;box-shadow:0 0 0 1px rgba(200,168,75,0.3);border-radius:1px;"></span></div>
+            <div class="mobile-nav-name">Ricardo Duek <span class="fi fi-ar" style="font-size:1.0em;vertical-align:0em;margin-left:6px;transform:scaleX(1.4);display:inline-block;transform-origin:left center;box-shadow:0 0 0 1px rgba(200,168,75,0.3);border-radius:1px;"></span></div>
             <a class="mobile-nav-link" @click="showFullMap = true; mobileNavOpen = false">{{ content[lang].seeMap }}</a>
             <a class="mobile-nav-link" @click="showCountriesList = true; mobileNavOpen = false">{{ content[lang].seeList }}</a>
             <a class="mobile-nav-link" @click="showCitiesList = true; mobileNavOpen = false">{{ content[lang].seeCities }}</a>
@@ -1515,7 +1541,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 14 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1544,7 +1570,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 14 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 6 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
@@ -2213,7 +2239,7 @@
                         <div class="game-box-desc">{{ game.desc }}</div>
                         <span v-if="game.disabled" class="game-box-badge">{{ content[lang].gameSoon }}</span>
                         <span v-if="gameHighScore(game.id)" class="game-box-badge" style="color:#e8d08a;border-color:#c8a84b;">
-                            {{ content[lang].gameBest }}: {{ gameHighScore(game.id) }}/10
+                            {{ content[lang].gameBest }}: {{ game.id === 'geoguesser' ? gameHighScore(game.id) : gameHighScore(game.id) + '/10' }}
                         </span>
                     </div>
                 </div>
@@ -2238,9 +2264,10 @@
                     <div v-else>
                         <div v-for="(stat, gid) in gameStats" :key="gid" class="games-stat-row">
                             <span class="games-stat-label">{{ gameNameById(gid) }}</span>
-                            <span :class="['games-stat-score', stat.best === 10 ? 'games-stat-perfect' : '']">
-                                {{ stat.best }}/10
-                                <span v-if="stat.best === 10"> ★</span>
+                            <span :class="['games-stat-score', (gid !== 'geoguesser' && stat.best === 10) || (gid === 'geoguesser' && stat.best >= 9500) ? 'games-stat-perfect' : '']">
+                                {{ gid === 'geoguesser' ? stat.best : stat.best + '/10' }}
+                                <span v-if="gid !== 'geoguesser' && stat.best === 10"> ★</span>
+                                <span v-if="gid === 'geoguesser' && stat.best >= 9500"> ★</span>
                             </span>
                         </div>
                     </div>
@@ -2268,11 +2295,11 @@
                     <span class="game-info-meta-label">{{ content[lang].gameQuestions }}</span>
                 </div>
                 <div class="game-info-meta-item">
-                    <span class="game-info-meta-num">{{ lang === 'en' ? '10sec' : '10seg' }}</span>
+                    <span class="game-info-meta-num">{{ currentGameInfo && currentGameInfo.id === 'geoguesser' ? (lang === 'en' ? '30sec' : '30seg') : (lang === 'en' ? '10sec' : '10seg') }}</span>
                     <span class="game-info-meta-label">{{ content[lang].gameTimeEach }}</span>
                 </div>
                 <div class="game-info-meta-item">
-                    <span class="game-info-meta-num">{{ gameHighScore(currentGameInfo.id) || '—' }}<span v-if="gameHighScore(currentGameInfo.id)">/10</span></span>
+                    <span class="game-info-meta-num">{{ gameHighScore(currentGameInfo.id) || '—' }}<span v-if="gameHighScore(currentGameInfo.id)">{{ currentGameInfo && currentGameInfo.id === 'geoguesser' ? '/10k' : '/10' }}</span></span>
                     <span class="game-info-meta-label">{{ content[lang].gameBestScore }}</span>
                 </div>
             </div>
@@ -2481,8 +2508,75 @@
             </template>
 
             <!-- Feedback -->
-            <div v-if="gameAnswered && !gameShowScore" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
+            <div v-if="gameAnswered && !gameShowScore && gameActiveInfo && gameActiveInfo.id !== 'geoguesser'" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
                 {{ gameLastCorrect ? content[lang].gameCorrect : content[lang].gameWrong }}
+            </div>
+        </div>
+    </div>
+
+    <!-- ── GeoGuesser full-screen overlay ── -->
+    <div v-if="gameActive && gameActiveInfo && gameActiveInfo.id === 'geoguesser'" class="game-play-overlay" style="display:flex;flex-direction:column;">
+        <!-- Header -->
+        <div class="game-play-header">
+            <span class="game-play-title">GeoGuesser</span>
+            <span class="game-play-progress-text">{{ gameQuestionNum }}/10</span>
+            <span class="game-play-score-display">{{ content[lang].geoTotalScore }}: {{ geoTotalScore }}</span>
+            <button class="game-play-exit" @click="exitGame">{{ content[lang].gameExit }}</button>
+        </div>
+        <!-- Timer bar -->
+        <div class="game-timer-bar-wrap">
+            <div class="game-timer-bar" :class="{ urgent: gameTimerPct < 30 }" :style="{ width: gameTimerPct + '%' }"></div>
+        </div>
+
+        <!-- FINAL SCORE SCREEN -->
+        <div v-if="gameShowScore" class="game-play-body">
+            <div class="game-score-screen">
+                <div class="game-score-label">{{ content[lang].geoTotalScore }}</div>
+                <div class="geo-final-score">{{ geoTotalScore }}</div>
+                <div class="geo-final-max">{{ content[lang].geoOutOf }}</div>
+                <div v-if="geoTotalScore >= 9500" class="game-score-perfect">🌟 {{ content[lang].geoPerfect }}</div>
+                <div style="margin-top:8px;font-size:11px;color:#666;">
+                    <span v-for="(s,i) in geoRoundScores" :key="i" style="margin:0 4px;">Q{{i+1}}: {{s}}</span>
+                </div>
+                <div class="game-score-btns" style="margin-top:16px;">
+                    <button class="game-score-btn secondary" @click="exitGame">{{ content[lang].gameExitMenu }}</button>
+                    <button v-if="gamePlayAgainCount < 3" class="game-score-btn primary" @click="playAgain">{{ content[lang].gamePlayAgain }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION + MAP -->
+        <div v-else class="geo-play-wrap">
+            <div class="geo-map-area">
+                <div id="geo-leaflet-map"></div>
+                <!-- Thumbnail: wonder photo + name -->
+                <div v-if="gameCurrentQ" class="geo-photo-thumb">
+                    <img :src="mediaBase + 'Gallery/' + gameCurrentQ.heroPhoto" @error="$event.target.style.opacity='0.3'" />
+                    <div class="geo-photo-thumb-label">
+                        <span class="geo-photo-thumb-name">{{ lang === 'pt' ? gameCurrentQ.wonder.name_pt : lang === 'es' ? gameCurrentQ.wonder.name_es : gameCurrentQ.wonder.name_en }}</span>
+                    </div>
+                </div>
+                <!-- Hint text -->
+                <div v-if="!geoPlayerLatLng && !geoShowResult" class="geo-hint">{{ content[lang].geoClickMap }}</div>
+            </div>
+            <!-- Result bar (shown after answer) -->
+            <div v-if="geoShowResult" class="geo-result-bar">
+                <div class="geo-result-item">
+                    <span class="geo-result-val">{{ geoPlayerLatLng ? geoRoundDist + ' km' : '—' }}</span>
+                    <span class="geo-result-label">{{ content[lang].geoDistance }}</span>
+                </div>
+                <div class="geo-result-item">
+                    <span class="geo-result-val" :style="{color: geoRoundPoints >= 900 ? '#f0c040' : geoRoundPoints >= 500 ? '#e8d08a' : '#c53f3f'}">{{ geoRoundPoints }}</span>
+                    <span class="geo-result-label">{{ content[lang].geoPoints }}</span>
+                </div>
+                <div class="geo-result-item">
+                    <span class="geo-result-val">{{ geoTotalScore }}</span>
+                    <span class="geo-result-label">{{ content[lang].geoTotalScore }}</span>
+                </div>
+                <div v-if="!geoPlayerLatLng" class="geo-timesup">{{ content[lang].geoTimesUp }}</div>
+                <button class="geo-result-next" @click="geoNextQuestion">
+                    {{ gameQuestionNum >= 10 ? (lang==='pt' ? 'Ver Pontuação Final' : lang==='es' ? 'Ver Puntuación Final' : 'See Final Score') : '▶ ' + (lang==='pt' ? 'Próxima' : lang==='es' ? 'Siguiente' : 'Next') }}
+                </button>
             </div>
         </div>
     </div>
@@ -2675,6 +2769,11 @@ createApp({
             beenThereConfirm: false, showBackToTop: false,
             slideshowActive: false, slideshowIndex: 0, slideshowProgress: 0,
             showGames: false, currentGameInfo: null, gameActive: false, gameActiveInfo: null,
+            // GeoGuesser-specific state
+            geoMap: null, geoPlayerMarker: null, geoCorrectMarker: null, geoLine: null,
+            geoPlayerLatLng: null, geoRoundPoints: 0, geoRoundDist: 0,
+            geoTotalScore: 0, geoRoundScores: [], geoShowResult: false,
+            geoMapReady: false,
             gameQuestionNum: 0, gameScore: 0, gameCurrentQ: null, gameAnswered: false,
             gameSelectedAnswer: null, gameLastCorrect: false, gameTimerPct: 100,
             _gameTimerRAF: null, _gameTimerStart: null, gameShowScore: false,
@@ -2794,6 +2893,17 @@ createApp({
                     gameOutOf10: "out of 10",
                     gamePerfect: "Perfect Score!",
                     gameCorrect: "✓ Correct!",
+                    geoClickMap: "Click on the map to place your pin",
+                    geoTimesUp: "Time's up!",
+                    geoYourPin: "Your guess",
+                    geoCorrectPin: "Correct location",
+                    geoDistance: "Distance",
+                    geoPoints: "Points this round",
+                    geoTotalScore: "Total Score",
+                    geoOutOf: "out of 10,000",
+                    geoKm: "km away",
+                    geoNoPin: "No pin placed",
+                    geoPerfect: "Spot on!",
                     gameWrong: "✗ Wrong",
                     gameCapital: "Which country is this the capital of?",
                     gameWhichCapital: "What is the capital of…",
@@ -2889,6 +2999,17 @@ createApp({
                     gameOutOf10: "de 10",
                     gamePerfect: "Pontuação Perfeita!",
                     gameCorrect: "✓ Correto!",
+                    geoClickMap: "Clique no mapa para colocar seu pino",
+                    geoTimesUp: "Tempo esgotado!",
+                    geoYourPin: "Seu palpite",
+                    geoCorrectPin: "Local correto",
+                    geoDistance: "Distância",
+                    geoPoints: "Pontos desta rodada",
+                    geoTotalScore: "Pontuação Total",
+                    geoOutOf: "de 10.000",
+                    geoKm: "km de distância",
+                    geoNoPin: "Nenhum pino colocado",
+                    geoPerfect: "Perfeito!",
                     gameWrong: "✗ Errado",
                     gameCapital: "De qual país é esta capital?",
                     gameWhichCapital: "Qual é a capital de…",
@@ -2984,6 +3105,17 @@ createApp({
                     gameOutOf10: "de 10",
                     gamePerfect: "¡Puntuación Perfecta!",
                     gameCorrect: "✓ ¡Correcto!",
+                    geoClickMap: "Haz clic en el mapa para colocar tu pino",
+                    geoTimesUp: "¡Tiempo agotado!",
+                    geoYourPin: "Tu ubicación",
+                    geoCorrectPin: "Ubicación correcta",
+                    geoDistance: "Distancia",
+                    geoPoints: "Puntos esta ronda",
+                    geoTotalScore: "Puntuación Total",
+                    geoOutOf: "de 10.000",
+                    geoKm: "km de distancia",
+                    geoNoPin: "Sin pino colocado",
+                    geoPerfect: "¡Perfecto!",
                     gameWrong: "✗ Incorrecto",
                     gameCapital: "¿De qué país es esta capital?",
                     gameWhichCapital: "¿Cuál es la capital de…",
@@ -3169,7 +3301,29 @@ createApp({
                 '1,153 cities and places are used.',
                 'You have 10 seconds per question.'
             ];
-            const GAME_NAMES = {
+            const rules_geoguesser = l==='pt' ? [
+                'O nome e foto de uma Maravilha são exibidos.',
+                'Clique no mapa para apontar onde ela fica.',
+                'Você pode aproximar uma vez (1 nível extra) para explorar.',
+                'Você tem 30 segundos por pergunta.',
+                'Pontuação baseada na distância ao local real.',
+                'Máximo 1000 pontos por pergunta (10 000 total).'
+            ] : l==='es' ? [
+                'Se muestran el nombre y la foto de una Maravilla.',
+                'Haz clic en el mapa para indicar su ubicación.',
+                'Puedes acercar una vez (1 nivel extra) para explorar.',
+                'Tienes 30 segundos por pregunta.',
+                'La puntuación se basa en la distancia al lugar real.',
+                'Máximo 1000 puntos por pregunta (10 000 en total).'
+            ] : [
+                'A Wonder name and hero photo are shown.',
+                'Click the map to pin where you think it is.',
+                'You can zoom in once (1 extra level) to explore.',
+                'You have 30 seconds per question.',
+                'Score is based on distance to the real location.',
+                'Max 1,000 points per question (10,000 total).'
+            ];
+                        const GAME_NAMES = {
                 flags1:    l==='pt'?'Bandeiras 1':   l==='es'?'Banderas 1':    'Flags 1',
                 flags2:    l==='pt'?'Bandeiras 2':   l==='es'?'Banderas 2':    'Flags 2',
                 shapes1:   l==='pt'?'Formas 1':      l==='es'?'Formas 1':      'Shapes 1',
@@ -3195,7 +3349,7 @@ createApp({
                 photocountry1: l==='pt'?'Ver foto → escolher país': l==='es'?'Ver foto → elegir país': 'See photo → pick country',
                 photocountry2: l==='pt'?'Ver país → escolher foto': l==='es'?'Ver país → elegir foto': 'See country → pick photo',
                 cities:    l==='pt'?'Ver cidade → escolher país': l==='es'?'Ver ciudad → elegir país': 'See city → pick country',
-                geoguesser: l==='pt'?'Em breve!': l==='es'?'¡Próximamente!': 'Coming soon!',
+                geoguesser: l==='pt'?'Ver Maravilha → adivinhar no mapa': l==='es'?'Ver Maravilla → adivinar en mapa': 'See Wonder → guess on map',
             };
             return [
                 {id:'flags1',    icon:'🚩', name:GAME_NAMES.flags1,    desc:DESCS.flags1,    rules:rules_flags1,    disabled:false},
@@ -3209,7 +3363,7 @@ createApp({
                 {id:'photocountry1',icon:'📸', name:GAME_NAMES.photocountry1,desc:DESCS.photocountry1,rules:rules_pc1, disabled:false},
                 {id:'photocountry2',icon:'🌐', name:GAME_NAMES.photocountry2,desc:DESCS.photocountry2,rules:rules_pc2, disabled:false},
                 {id:'cities',    icon:'🏙', name:GAME_NAMES.cities,    desc:DESCS.cities,    rules:rules_cities,    disabled:false},
-                {id:'geoguesser',icon:'📍', name:GAME_NAMES.geoguesser,desc:DESCS.geoguesser,rules:[],              disabled:true},
+                {id:'geoguesser',icon:'📍', name:GAME_NAMES.geoguesser,desc:DESCS.geoguesser,rules:rules_geoguesser,disabled:false},
             ];
         },
         totalTripStops() {
@@ -3989,6 +4143,10 @@ createApp({
         gameHighScore(id) {
             return this.gameStats[id] ? this.gameStats[id].best : 0;
         },
+        gameHighScoreDisplay(id) {
+            const s = this.gameStats[id] ? this.gameStats[id].best : 0;
+            return s ? (id === 'geoguesser' ? s + '/10000' : s + '/10') : null;
+        },
         gameNameById(id) {
             const g = this.gamesList.find(x => x.id === id);
             return g ? g.name : id;
@@ -4003,11 +4161,14 @@ createApp({
         },
         exitGame() {
             this._stopGameTimer();
+            this._destroyGeoMap();
             this.gameActive = false;
             this.gameShowScore = false;
             this.currentGameInfo = null;
             this.gameActiveInfo = null;
             this.gamePlayAgainCount = 0;
+            this.geoShowResult = false;
+            this.geoPlayerLatLng = null;
         },
         playAgain() {
             if (this.gamePlayAgainCount >= 3) return;
@@ -4025,19 +4186,31 @@ createApp({
             this.gameShowScore = false;
             this.gameScore = 0;
             this.gameQuestionNum = 0;
-            this._gameUsedKeys = new Set();   // tracks used correct-answer keys per round
+            this.geoTotalScore = 0;
+            this.geoRoundScores = [];
+            this.geoShowResult = false;
+            this.geoPlayerLatLng = null;
+            this._gameUsedKeys = new Set();
             this._nextGameQuestion(game);
         },
         _nextGameQuestion(game) {
             this.gameAnswered = false;
             this.gameSelectedAnswer = null;
             this.gameLastCorrect = false;
+            this.geoShowResult = false;
+            this.geoPlayerLatLng = null;
+            this.geoRoundPoints = 0;
+            this.geoRoundDist = 0;
             if (this.gameQuestionNum >= 10) {
                 this._showGameScore();
                 return;
             }
             this.gameQuestionNum++;
             this.gameCurrentQ = this._buildQuestion(game);
+            if (game.id === 'geoguesser') {
+                this.$nextTick(() => this._initGeoMap(game));
+                return;
+            }
             // For photo games: preload all images before starting timer
             const photoGames = ['photowonder1','photowonder2','photocountry1','photocountry2'];
             if (photoGames.includes(game.id)) {
@@ -4187,6 +4360,16 @@ createApp({
                 const options = pick4(vc, item.country, x => x.name);
                 return { cityName: item.cityName, correctCountry: item.country, options };
             }
+            if (game.id === 'geoguesser') {
+                // Pick random wonder, use first image as hero photo
+                const used = this._gameUsedKeys || new Set();
+                const avail = this.wonders.filter(w => w.images && w.images.length && !used.has(w.id));
+                const pool = avail.length > 0 ? avail : this.wonders.filter(w => w.images && w.images.length);
+                const wonder = (arr => arr[Math.floor(Math.random() * arr.length)])(pool);
+                used.add(wonder.id);
+                this._gameUsedKeys = used;
+                return { wonder, heroPhoto: wonder.images[0], lat: wonder.lat, lng: wonder.lng };
+            }
             return {};
         },
         _countriesWithCapitals() {
@@ -4259,7 +4442,7 @@ createApp({
         _startGameTimer(game) {
             this._stopGameTimer();
             this.gameTimerPct = 100;
-            const DURATION = 10000;
+            const DURATION = (game && game.id === 'geoguesser') ? 30000 : 10000;
             const start = performance.now();
             const tick = (now) => {
                 const elapsed = now - start;
@@ -4267,7 +4450,12 @@ createApp({
                 if (this.gameTimerPct > 0 && !this.gameAnswered) {
                     this._gameTimerRAF = requestAnimationFrame(tick);
                 } else if (this.gameTimerPct <= 0 && !this.gameAnswered) {
-                    this.answerGame(null); // time's up
+                    if (this.gameActiveInfo && this.gameActiveInfo.id === 'geoguesser') {
+                        this.gameAnswered = true;
+                        this._resolveGeoAnswer(null, this.gameActiveInfo);
+                    } else {
+                        this.answerGame(null); // time's up
+                    }
                 }
             };
             this._gameTimerRAF = requestAnimationFrame(tick);
@@ -4304,13 +4492,14 @@ createApp({
         },
         _showGameScore() {
             this._stopGameTimer();
+            this._destroyGeoMap();
             this.gameShowScore = true;
-            // Save high score
             const id = this.gameActiveInfo.id;
+            const scoreToSave = (id === 'geoguesser') ? this.geoTotalScore : this.gameScore;
             const prev = this.gameStats[id] ? this.gameStats[id].best : 0;
-            if (this.gameScore > prev) {
+            if (scoreToSave > prev) {
                 const stats = { ...this.gameStats };
-                stats[id] = { best: this.gameScore };
+                stats[id] = { best: scoreToSave };
                 this.gameStats = stats;
                 localStorage.setItem('wonders_game_stats', JSON.stringify(stats));
             }
@@ -4476,6 +4665,117 @@ createApp({
                 ctx.clearRect(0, 0, W, H);
                 drawRings(usePolys, allPts);
             } catch(e) { console.warn('shape draw error', country.name, e); }
+        },
+
+
+        // ═══════════════════════════════════════════════════════════
+        // GEOGUESSER MAP ENGINE
+        // ═══════════════════════════════════════════════════════════
+
+        _initGeoMap(game) {
+            this._destroyGeoMap();
+            const el = document.getElementById('geo-leaflet-map');
+            if (!el || !window.L) { setTimeout(() => this._initGeoMap(game), 100); return; }
+            const map = L.map('geo-leaflet-map', {
+                center: [20, 10], zoom: 2, minZoom: 1, maxZoom: 3,
+                zoomControl: true, attributionControl: false,
+                maxBounds: [[-90, -180], [90, 180]], maxBoundsViscosity: 1.0
+            });
+            L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_nolabels/{z}/{x}/{y}{r}.png', {
+                attribution: '', noWrap: true, subdomains: 'abcd', maxZoom: 19
+            }).addTo(map);
+            this.geoMap = map;
+            this.geoMapReady = true;
+            // Click to place pin
+            map.on('click', (e) => {
+                if (this.geoShowResult || this.gameShowScore) return;
+                const latlng = e.latlng;
+                this._placeGeoPin(latlng, game);
+            });
+            // Preload hero photo then start timer
+            const q = this.gameCurrentQ;
+            if (q && q.heroPhoto) {
+                const img = new Image();
+                img.onload = img.onerror = () => { if (this.gameActive) this._startGameTimer(game); };
+                img.src = this.mediaBase + 'Gallery/' + q.heroPhoto;
+                setTimeout(() => { if (this.gameActive && !this.gameAnswered) this._startGameTimer(game); }, 3000);
+            } else {
+                this._startGameTimer(game);
+            }
+        },
+
+        _placeGeoPin(latlng, game) {
+            if (this.geoShowResult) return;
+            // Remove existing player marker
+            if (this.geoPlayerMarker) { this.geoMap.removeLayer(this.geoPlayerMarker); }
+            // Gold pin icon
+            const goldIcon = L.divIcon({
+                className: '',
+                html: '<div style="width:18px;height:18px;border-radius:50% 50% 50% 0;background:#c8a84b;border:2px solid #fff;transform:rotate(-45deg);box-shadow:0 2px 8px rgba(0,0,0,0.6);"></div>',
+                iconSize: [18, 18], iconAnchor: [9, 18]
+            });
+            this.geoPlayerMarker = L.marker(latlng, { icon: goldIcon }).addTo(this.geoMap);
+            this.geoPlayerLatLng = latlng;
+            // Lock answer immediately on first click
+            this._stopGameTimer();
+            this.gameAnswered = true;
+            this._resolveGeoAnswer(latlng, game);
+        },
+
+        _resolveGeoAnswer(playerLatLng, game) {
+            const q = this.gameCurrentQ;
+            const correctLatLng = L.latLng(q.lat, q.lng);
+            const distM = playerLatLng ? playerLatLng.distanceTo(correctLatLng) : Infinity;
+            const distKm = Math.round(distM / 1000);
+            // Scoring: 1000 pts for 0km, 0 pts for >= 5000km, linear in between
+            const MAX_DIST = 5000;
+            const pts = playerLatLng
+                ? Math.max(0, Math.round(1000 * (1 - Math.min(distKm, MAX_DIST) / MAX_DIST)))
+                : 0;
+            this.geoRoundDist = distKm;
+            this.geoRoundPoints = pts;
+            this.geoTotalScore += pts;
+            this.geoRoundScores.push(pts);
+            // Show correct location marker
+            const correctIcon = L.divIcon({
+                className: '',
+                html: '<div style="width:14px;height:14px;border-radius:50%;background:#4caf50;border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.6);"></div>',
+                iconSize: [14, 14], iconAnchor: [7, 7]
+            });
+            if (this.geoCorrectMarker) this.geoMap.removeLayer(this.geoCorrectMarker);
+            this.geoCorrectMarker = L.marker([q.lat, q.lng], { icon: correctIcon }).addTo(this.geoMap);
+            // Draw line between player pin and correct location
+            if (playerLatLng && this.geoLine) this.geoMap.removeLayer(this.geoLine);
+            if (playerLatLng) {
+                this.geoLine = L.polyline([playerLatLng, [q.lat, q.lng]], {
+                    color: '#c8a84b', weight: 2, dashArray: '6 4', opacity: 0.8
+                }).addTo(this.geoMap);
+                // Fit both pins in view
+                this.geoMap.fitBounds(L.latLngBounds([playerLatLng, [q.lat, q.lng]]).pad(0.3), { maxZoom: 3 });
+            } else {
+                // No pin placed — fly to correct location
+                this.geoMap.setView([q.lat, q.lng], 3);
+            }
+            this.geoShowResult = true;
+        },
+
+        geoNextQuestion() {
+            // Clean up map markers/line for next question
+            if (this.geoPlayerMarker) { this.geoMap.removeLayer(this.geoPlayerMarker); this.geoPlayerMarker = null; }
+            if (this.geoCorrectMarker) { this.geoMap.removeLayer(this.geoCorrectMarker); this.geoCorrectMarker = null; }
+            if (this.geoLine) { this.geoMap.removeLayer(this.geoLine); this.geoLine = null; }
+            this.geoMap.setView([20, 10], 2);
+            this._nextGameQuestion(this.gameActiveInfo);
+        },
+
+        _destroyGeoMap() {
+            if (this.geoMap) {
+                try { this.geoMap.remove(); } catch(e) {}
+                this.geoMap = null;
+                this.geoPlayerMarker = null;
+                this.geoCorrectMarker = null;
+                this.geoLine = null;
+            }
         },
 
         countByRegion(r) { return this.wonders.filter(w => w.region === r).length; },
