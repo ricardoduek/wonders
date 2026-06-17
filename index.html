@@ -2562,7 +2562,7 @@
             <!-- Result bar (shown after answer) -->
             <div v-if="geoShowResult" class="geo-result-bar">
                 <div class="geo-result-item">
-                    <span class="geo-result-val">{{ geoPlayerLatLng ? geoRoundDist + ' km' : '—' }}</span>
+                    <span class="geo-result-val">{{ geoPlayerLatLng && geoRoundDist !== null ? geoRoundDist + ' km' : '—' }}</span>
                     <span class="geo-result-label">{{ content[lang].geoDistance }}</span>
                 </div>
                 <div class="geo-result-item">
@@ -3316,7 +3316,7 @@ createApp({
                 'La puntuación se basa en la distancia al lugar real.',
                 'Máximo 1000 puntos por pregunta (10 000 en total).'
             ] : [
-                'A Wonder name and hero photo are shown.',
+                'A Wonder name and its photo are shown.',
                 'Click the map to pin where you think it is.',
                 'You can zoom in once (1 extra level) to explore.',
                 'You have 30 seconds per question.',
@@ -4725,14 +4725,25 @@ createApp({
         _resolveGeoAnswer(playerLatLng, game) {
             const q = this.gameCurrentQ;
             const correctLatLng = L.latLng(q.lat, q.lng);
-            const distM = playerLatLng ? playerLatLng.distanceTo(correctLatLng) : Infinity;
-            const distKm = Math.round(distM / 1000);
-            // Scoring: 1000 pts for 0km, 0 pts for >= 5000km, linear in between
-            const MAX_DIST = 5000;
-            const pts = playerLatLng
-                ? Math.max(0, Math.round(1000 * (1 - Math.min(distKm, MAX_DIST) / MAX_DIST)))
+            // Haversine distance (great-circle)
+            function haversineKm(lat1, lon1, lat2, lon2) {
+                const R = 6371;
+                const p1 = lat1 * Math.PI / 180, p2 = lat2 * Math.PI / 180;
+                const dp = (lat2 - lat1) * Math.PI / 180;
+                const dl = (lon2 - lon1) * Math.PI / 180;
+                const a = Math.sin(dp/2)**2 + Math.cos(p1) * Math.cos(p2) * Math.sin(dl/2)**2;
+                return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+            }
+            // D = diagonal of bounding box of all wonder locations (km)
+            const D = 11908;
+            const distKm = playerLatLng
+                ? Math.round(haversineKm(playerLatLng.lat, playerLatLng.lng, q.lat, q.lng))
+                : null;
+            // GeoGuessr formula: S = 1000 × exp(−10 × d / D)
+            const pts = distKm !== null
+                ? Math.round(1000 * Math.exp(-10 * distKm / D))
                 : 0;
-            this.geoRoundDist = distKm;
+            this.geoRoundDist = distKm !== null ? distKm : null;
             this.geoRoundPoints = pts;
             this.geoTotalScore += pts;
             this.geoRoundScores.push(pts);
