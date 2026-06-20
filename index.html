@@ -226,13 +226,20 @@
         .cw-box { position: relative; width: 82%; max-width: 1100px; max-height: 88vh; overflow-y: auto; background: #050505; border: 1px solid var(--gold); box-shadow: 0 0 80px rgba(197,160,89,0.15); padding: 50px 55px 50px; box-sizing: border-box; }
         .cw-close { position: absolute; top: 18px; right: 22px; background: none; border: none; color: var(--grey); font-size: 2.2rem; cursor: pointer; line-height: 1; padding: 0; transition: color 0.2s; z-index: 2; }
         .cw-close:hover { color: #fff; }
-        .cw-header { display: flex; align-items: flex-start; justify-content: space-between; gap: 30px; margin-bottom: 0; padding-right: 40px; }
-        .cw-flag-name { display: flex; align-items: center; gap: 22px; flex: 1; min-width: 0; }
-        .cw-flag { font-size: 3.5rem; flex-shrink: 0; line-height: 1; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); }
+        .cw-header { display: flex; align-items: stretch; justify-content: space-between; gap: 30px; margin-bottom: 0; padding-right: 40px; }
+        .cw-flag-name { display: flex; align-items: flex-start; gap: 22px; flex: 1; min-width: 0; }
+        .cw-flag { font-size: 3.5rem; flex-shrink: 0; line-height: 1; box-shadow: 0 0 0 1px rgba(255,255,255,0.2); margin-top: 4px; }
+        .cw-text-col { display: flex; flex-direction: column; min-width: 0; }
         .cw-country-name { font-family: 'Cormorant Garamond', serif; font-size: 3.6rem; color: var(--gold); font-weight: 300; margin: 0; line-height: 1; }
-        .cw-wonder-count-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; margin: 6px 0 0; font-weight: 500; }
-        .cw-map-wrap { flex-shrink: 0; display: flex; align-items: center; justify-content: center; opacity: 0.75; }
-        .cw-map-canvas { display: block; }
+        .cw-wonder-count-badge { font-family: 'Inter', sans-serif; font-size: 0.95rem; font-weight: 600; color: var(--gold); background: rgba(200,168,75,0.12); border: 1px solid rgba(200,168,75,0.4); border-radius: 20px; padding: 4px 14px; margin-left: 16px; vertical-align: middle; white-space: nowrap; text-transform: uppercase; letter-spacing: 1px; }
+        .cw-stats-row { display: flex; gap: 30px; margin-top: 10px; flex-wrap: wrap; }
+        .cw-stat { display: flex; flex-direction: column; gap: 2px; }
+        .cw-stat-label { font-family: 'Inter', sans-serif; font-size: 10px; letter-spacing: 2px; color: var(--grey); text-transform: uppercase; font-weight: 500; }
+        .cw-stat-value { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: #e8e3d8; font-weight: 400; }
+        .cw-stat-order { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--grey); }
+        .cw-no-wonders { font-style: italic; }
+        .cw-map-wrap { flex-shrink: 0; display: flex; align-items: center; justify-content: center; opacity: 0.75; height: 100%; min-height: 140px; }
+        .cw-map-canvas { display: block; height: 100%; width: auto; max-width: 260px; }
         .cw-divider { border: none; border-top: 1px solid var(--gold); margin: 22px 0 14px; }
         .cw-hint { font-size: 11px; letter-spacing: 2px; color: var(--grey); text-transform: uppercase; margin: 0 0 22px; font-family: 'Inter', sans-serif; }
         .cw-wonders-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
@@ -761,6 +768,14 @@
         .geo-map-area { flex: 1; position: relative; min-height: 0; }
         #geo-leaflet-map { width: 100%; height: 100%; min-height: 320px; cursor: crosshair; }
         #geo-leaflet-map .leaflet-tile-pane { filter: grayscale(1) invert(1) brightness(0.6) contrast(1.2); }
+        /* ── MapClick ── */
+        #mc-leaflet-map { width: 100%; height: 100%; min-height: 320px; cursor: crosshair; }
+        .mc-prompt-box { position:absolute; top:12px; left:50%; transform:translateX(-50%); z-index:1000; background:rgba(20,20,20,0.92); border:1px solid #c8a84b; border-radius:10px; padding:10px 24px; text-align:center; pointer-events:none; }
+        .mc-prompt-label { font-size:11px; color:#c8a84b; text-transform:uppercase; letter-spacing:1px; margin-bottom:4px; }
+        .mc-prompt-country { font-size:22px; font-weight:700; color:#fff; letter-spacing:0.5px; }
+        .mc-result-banner { position:absolute; bottom:0; left:0; right:0; z-index:1001; padding:14px 20px; display:flex; align-items:center; justify-content:center; font-size:16px; font-weight:600; gap:8px; }
+        .mc-result-banner.mc-correct { background:rgba(40,160,80,0.93); color:#fff; }
+        .mc-result-banner.mc-wrong { background:rgba(180,40,40,0.93); color:#fff; }
         .geo-photo-thumb { position: absolute; top: 12px; left: 12px; z-index: 1000; width: 200px; border: 2px solid #c8a84b; box-shadow: 0 4px 20px rgba(0,0,0,0.7); background: #000; }
         .geo-photo-thumb img { display: block; width: 100%; height: 130px; object-fit: cover; }
         .geo-photo-thumb-label { padding: 6px 8px; background: rgba(0,0,0,0.9); }
@@ -1314,7 +1329,9 @@
             .cw-map-wrap { width: 100%; justify-content: flex-start; }
             .cw-map-canvas { width: 160px; height: 100px; }
             .cw-country-name { font-size: 2.8rem; }
-            .cw-wonder-count-label { font-size: 10px; letter-spacing: 2px; }
+            .cw-wonder-count-badge { font-size: 0.95rem; padding: 3px 12px; margin-left: 10px; }
+            .cw-stats-row { gap: 24px; margin-top: 14px; }
+            .cw-stat-value { font-size: 1.25rem; }
             .cw-flag { font-size: 2.8rem; }
             .cw-wonders-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
             .slideshow-progress-bar { bottom: 74px; }
@@ -1382,7 +1399,10 @@
             .rv-wonder-name { font-size: 1.5rem; }
                         .cw-box { padding: 28px 16px 28px; }
             .cw-country-name { font-size: 2.2rem; }
-            .cw-wonder-count-label { font-size: 9px; letter-spacing: 2px; }
+            .cw-wonder-count-badge { font-size: 0.85rem; padding: 3px 10px; margin-left: 8px; display: inline-block; margin-top: 6px; }
+            .cw-stats-row { gap: 18px; margin-top: 12px; }
+            .cw-stat-value { font-size: 1.1rem; }
+            .cw-stat-label { font-size: 9px; letter-spacing: 1.5px; }
             .cw-flag { font-size: 2.2rem; }
             .cw-wonder-thumb-wrap { height: 110px; }
             .cw-wonders-grid { gap: 8px; }
@@ -1454,7 +1474,9 @@
             .rs-title { font-size: 1.3rem; }
                         .cw-box { width: 98%; padding: 16px 12px 20px; }
             .cw-country-name { font-size: 1.9rem; }
-            .cw-wonder-count-label { font-size: 9px; letter-spacing: 1.5px; margin-top: 3px; }
+            .cw-wonder-count-badge { font-size: 0.8rem; padding: 2px 9px; margin-left: 0; display: block; width: max-content; margin-top: 6px; }
+            .cw-stats-row { gap: 14px; margin-top: 10px; flex-wrap: wrap; }
+            .cw-stat-value { font-size: 1rem; }
             .cw-flag { font-size: 2rem; }
             .cw-flag-name { gap: 14px; }
             .cw-wonders-grid { grid-template-columns: 1fr 1fr; gap: 6px; }
@@ -1541,7 +1563,7 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 17 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 20 Jun 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
                 <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
                 <div class="next-trip-dest">
@@ -1570,7 +1592,7 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 17 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 20 Jun 2026</span>
         <div class="next-trip-card">
             <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
             <div class="next-trip-dest">
@@ -1695,8 +1717,8 @@
             </h2>
             <div class="countries-grid">
                 <div v-for="c in sortedVisitedCountries" :key="c.name"
-                    :class="['country-item', wondersPerCountry[c.name] ? 'country-item-clickable' : '']"
-                    @click="wondersPerCountry[c.name] ? openCountryWonders(c) : null">
+                    class="country-item country-item-clickable"
+                    @click="openCountryWonders(c)">
                     <span :class="['fi', 'fi-' + c.code, 'country-flag']"></span>
                     <span class="country-name">{{ lang === 'pt' ? c.name_pt : lang === 'es' ? c.name_es : c.name }}</span>
                     <span v-if="wondersPerCountry[c.name]" class="country-wonder-count">{{ wondersPerCountry[c.name] }} ✦</span>
@@ -1712,9 +1734,24 @@
             <div class="cw-header">
                 <div class="cw-flag-name">
                     <span :class="['fi', 'fi-' + selectedWonderCountry.code, 'cw-flag']"></span>
-                    <div>
-                        <h2 class="cw-country-name">{{ lang === 'pt' ? selectedWonderCountry.name_pt : lang === 'es' ? selectedWonderCountry.name_es : selectedWonderCountry.name }}</h2>
-                        <p class="cw-wonder-count-label">{{ wondersForCountry(selectedWonderCountry.name).length }} {{ (wondersForCountry(selectedWonderCountry.name).length === 1 ? content[lang].countryWondersTitleSingle : content[lang].countryWondersTitle).toUpperCase() }}</p>
+                    <div class="cw-text-col">
+                        <h2 class="cw-country-name">
+                            {{ lang === 'pt' ? selectedWonderCountry.name_pt : lang === 'es' ? selectedWonderCountry.name_es : selectedWonderCountry.name }}
+                            <span v-if="wondersForCountry(selectedWonderCountry.name).length" class="cw-wonder-count-badge">
+                                {{ wondersForCountry(selectedWonderCountry.name).length }} ✦
+                                {{ (wondersForCountry(selectedWonderCountry.name).length === 1 ? content[lang].countryWondersTitleSingle : content[lang].countryWondersTitle) }}
+                            </span>
+                        </h2>
+                        <div v-if="countryStats[selectedWonderCountry.name]" class="cw-stats-row">
+                            <div class="cw-stat">
+                                <span class="cw-stat-label">{{ content[lang].countryPopulation }}</span>
+                                <span class="cw-stat-value">{{ formatStatNumber(countryStats[selectedWonderCountry.name].p) }} <span class="cw-stat-order">({{ formatStatOrder(countryStats[selectedWonderCountry.name].po, countryStats[selectedWonderCountry.name].pos) }})</span></span>
+                            </div>
+                            <div class="cw-stat">
+                                <span class="cw-stat-label">{{ content[lang].countryArea }}</span>
+                                <span class="cw-stat-value">{{ formatStatNumber(countryStats[selectedWonderCountry.name].a) }} km² <span class="cw-stat-order">({{ formatStatOrder(countryStats[selectedWonderCountry.name].ao, countryStats[selectedWonderCountry.name].aos) }})</span></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="cw-map-wrap">
@@ -1722,7 +1759,8 @@
                 </div>
             </div>
             <div class="cw-divider"></div>
-            <p class="cw-hint">{{ content[lang].countryWondersHint }}</p>
+            <p v-if="wondersForCountry(selectedWonderCountry.name).length" class="cw-hint">{{ content[lang].countryWondersHint }}</p>
+            <p v-else class="cw-hint cw-no-wonders">{{ content[lang].countryNoWonders }}</p>
             <div class="cw-wonders-grid">
                 <div v-for="w in wondersForCountry(selectedWonderCountry.name)" :key="w.id"
                     class="cw-wonder-card"
@@ -2239,7 +2277,7 @@
                         <div class="game-box-desc">{{ game.desc }}</div>
                         <span v-if="game.disabled" class="game-box-badge">{{ content[lang].gameSoon }}</span>
                         <span v-if="gameHighScore(game.id)" class="game-box-badge" style="color:#e8d08a;border-color:#c8a84b;">
-                            {{ content[lang].gameBest }}: {{ game.id === 'geoguesser' ? gameHighScore(game.id) : gameHighScore(game.id) + '/10' }}
+                            {{ content[lang].gameBest }}: {{ game.id === 'geoguesser' ? gameHighScore(game.id) : game.id === 'mapclick' ? gameHighScore(game.id) + '/10' : gameHighScore(game.id) + '/10' }}
                         </span>
                     </div>
                 </div>
@@ -2295,7 +2333,7 @@
                     <span class="game-info-meta-label">{{ content[lang].gameQuestions }}</span>
                 </div>
                 <div class="game-info-meta-item">
-                    <span class="game-info-meta-num">{{ currentGameInfo && currentGameInfo.id === 'geoguesser' ? (lang === 'en' ? '30sec' : '30seg') : (lang === 'en' ? '10sec' : '10seg') }}</span>
+                    <span class="game-info-meta-num">{{ currentGameInfo && currentGameInfo.id === 'geoguesser' ? (lang === 'en' ? '30sec' : '30seg') : currentGameInfo && currentGameInfo.id === 'mapclick' ? (lang === 'en' ? '20sec' : '20seg') : (lang === 'en' ? '10sec' : '10seg') }}</span>
                     <span class="game-info-meta-label">{{ content[lang].gameTimeEach }}</span>
                 </div>
                 <div class="game-info-meta-item">
@@ -2507,8 +2545,38 @@
                 </div>
             </template>
 
+            <!-- POPULATIONS: show country name, choose population from 4 options -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'populations' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhatPopulation }}</div>
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt === gameCurrentQ.correctValue ? 'correct' : '',
+                            gameAnswered && opt === gameSelectedAnswer && opt !== gameCurrentQ.correctValue ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt)">
+                        {{ formatStatNumber(opt) }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- AREAS: show country name, choose land area from 4 options -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'areas' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhatArea }}</div>
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt === gameCurrentQ.correctValue ? 'correct' : '',
+                            gameAnswered && opt === gameSelectedAnswer && opt !== gameCurrentQ.correctValue ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt)">
+                        {{ formatStatNumber(opt) }} km²
+                    </div>
+                </div>
+            </template>
+
             <!-- Feedback -->
-            <div v-if="gameAnswered && !gameShowScore && gameActiveInfo && gameActiveInfo.id !== 'geoguesser'" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
+            <div v-if="gameAnswered && !gameShowScore && gameActiveInfo && gameActiveInfo.id !== 'geoguesser' && gameActiveInfo.id !== 'mapclick'" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
                 {{ gameLastCorrect ? content[lang].gameCorrect : content[lang].gameWrong }}
             </div>
         </div>
@@ -2577,6 +2645,60 @@
                 <button class="geo-result-next" @click="geoNextQuestion">
                     {{ gameQuestionNum >= 10 ? (lang==='pt' ? 'Ver Pontuação Final' : lang==='es' ? 'Ver Puntuación Final' : 'See Final Score') : '▶ ' + (lang==='pt' ? 'Próxima' : lang==='es' ? 'Siguiente' : 'Next') }}
                 </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- ── MapClick full-screen overlay ── -->
+    <div v-if="gameActive && gameActiveInfo && gameActiveInfo.id === 'mapclick'" class="game-play-overlay" style="display:flex;flex-direction:column;">
+        <!-- Header -->
+        <div class="game-play-header">
+            <span class="game-play-title">Seterra</span>
+            <span class="game-play-progress-text">{{ gameQuestionNum }}/10</span>
+            <span class="game-play-score-display">{{ lang==='pt'?'Pontos':lang==='es'?'Puntos':'Score' }}: {{ gameScore }}/{{ gameQuestionNum }}</span>
+            <button class="game-play-exit" @click="exitGame">{{ content[lang].gameExit }}</button>
+        </div>
+        <!-- Timer bar -->
+        <div class="game-timer-bar-wrap">
+            <div class="game-timer-bar" :class="{ urgent: gameTimerPct < 30 }" :style="{ width: gameTimerPct + '%' }"></div>
+        </div>
+
+        <!-- FINAL SCORE SCREEN -->
+        <div v-if="gameShowScore" class="game-play-body">
+            <div class="game-score-screen">
+                <div class="game-score-label">{{ lang==='pt'?'Pontuação Final':lang==='es'?'Puntuación Final':'Final Score' }}</div>
+                <div class="geo-final-score">{{ gameScore }}/10</div>
+                <div v-if="gameScore === 10" class="game-score-perfect">🌟 {{ lang==='pt'?'Perfeito!':lang==='es'?'¡Perfecto!':'Perfect!' }}</div>
+                <div class="game-score-btns" style="margin-top:16px;">
+                    <button class="game-score-btn secondary" @click="exitGame">{{ content[lang].gameExitMenu }}</button>
+                    <button v-if="gamePlayAgainCount < 3" class="game-score-btn primary" @click="playAgain">{{ content[lang].gamePlayAgain }}</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- QUESTION + MAP -->
+        <div v-else class="geo-play-wrap">
+            <div class="geo-map-area">
+                <div id="mc-leaflet-map"></div>
+                <!-- Country prompt -->
+                <div v-if="gameCurrentQ" class="mc-prompt-box">
+                    <div class="mc-prompt-label">{{ lang==='pt'?'Clique em:':lang==='es'?'Haz clic en:':'Click on:' }}</div>
+                    <div class="mc-prompt-country">{{ lang==='pt' ? gameCurrentQ.country.name_pt : lang==='es' ? gameCurrentQ.country.name_es : gameCurrentQ.country.name }}</div>
+                </div>
+                <!-- Result overlay -->
+                <div v-if="mcShowResult" class="mc-result-banner" :class="mcLastCorrect ? 'mc-correct' : 'mc-wrong'">
+                    <span v-if="mcLastCorrect">✔ {{ lang==='pt'?'Correto!':lang==='es'?'¡Correcto!':'Correct!' }}</span>
+                    <span v-else-if="mcTimedOut">✘ {{ lang==='pt'?'Nenhum clique detectado':lang==='es'?'No se detectó ningún clic':'No click detected' }}</span>
+                    <span v-else>✘ {{ lang==='pt'?'Errado':lang==='es'?'Incorrecto':'Wrong' }}
+                        <span v-if="mcClickedCountry"> — {{ lang==='pt'?'você clicou em':lang==='es'?'hiciste clic en':'you clicked' }} {{ mcClickedCountry }}</span>
+                        <span v-else> — {{ lang==='pt'?'fora do território':lang==='es'?'fuera del territorio':'outside any territory' }}</span>
+                    </span>
+                    <button class="geo-result-next" style="margin-left:16px;" @click="mcNextQuestion">
+                        {{ gameQuestionNum >= 10 ? (lang==='pt'?'Ver Pontuação Final':lang==='es'?'Ver Puntuación Final':'See Final Score') : '▶ '+(lang==='pt'?'Próxima':lang==='es'?'Siguiente':'Next') }}
+                    </button>
+                </div>
+                <!-- Hint -->
+                <div v-if="!mcShowResult" class="geo-hint">{{ lang==='pt'?'Clique no país no mapa':lang==='es'?'Haz clic en el país en el mapa':'Click on the country on the map' }}</div>
             </div>
         </div>
     </div>
@@ -2774,6 +2896,9 @@ createApp({
             geoPlayerLatLng: null, geoRoundPoints: 0, geoRoundDist: 0,
             geoTotalScore: 0, geoRoundScores: [], geoShowResult: false,
             geoMapReady: false,
+            // MapClick-specific state
+            mcMap: null, mcClickMarker: null, mcHighlightLayer: null,
+            mcShowResult: false, mcLastCorrect: false, mcClickedCountry: null, mcTimedOut: false,
             gameQuestionNum: 0, gameScore: 0, gameCurrentQ: null, gameAnswered: false,
             gameSelectedAnswer: null, gameLastCorrect: false, gameTimerPct: 100,
             _gameTimerRAF: null, _gameTimerStart: null, gameShowScore: false,
@@ -2799,6 +2924,114 @@ createApp({
             visitedCountries: [
                 {"name": "Albania", "name_pt": "Albânia", "name_es": "Albania", "code": "al"}, {"name": "Andorra", "name_pt": "Andorra", "name_es": "Andorra", "code": "ad"}, {"name": "Antigua And Barbuda", "name_pt": "Antígua e Barbuda", "name_es": "Antigua y Barbuda", "code": "ag"}, {"name": "Argentina", "name_pt": "Argentina", "name_es": "Argentina", "code": "ar"}, {"name": "Aruba", "name_pt": "Aruba", "name_es": "Aruba", "code": "aw"}, {"name": "Australia", "name_pt": "Austrália", "name_es": "Australia", "code": "au"}, {"name": "Austria", "name_pt": "Áustria", "name_es": "Austria", "code": "at"}, {"name": "Barbados", "name_pt": "Barbados", "name_es": "Barbados", "code": "bb"}, {"name": "Belarus", "name_pt": "Bielorrússia", "name_es": "Bielorrusia", "code": "by"}, {"name": "Belgium", "name_pt": "Bélgica", "name_es": "Bélgica", "code": "be"}, {"name": "Belize", "name_pt": "Belize", "name_es": "Belice", "code": "bz"}, {"name": "Bosnia And Herzegovina", "name_pt": "Bósnia e Herzegovina", "name_es": "Bosnia y Herzegovina", "code": "ba"}, {"name": "Brazil", "name_pt": "Brasil", "name_es": "Brasil", "code": "br"}, {"name": "Bulgaria", "name_pt": "Bulgária", "name_es": "Bulgaria", "code": "bg"}, {"name": "Cambodia", "name_pt": "Camboja", "name_es": "Camboya", "code": "kh"}, {"name": "Chile", "name_pt": "Chile", "name_es": "Chile", "code": "cl"}, {"name": "China", "name_pt": "China", "name_es": "China", "code": "cn"}, {"name": "Colombia", "name_pt": "Colômbia", "name_es": "Colombia", "code": "co"}, {"name": "Costa Rica", "name_pt": "Costa Rica", "name_es": "Costa Rica", "code": "cr"}, {"name": "Croatia", "name_pt": "Croácia", "name_es": "Croacia", "code": "hr"}, {"name": "Cuba", "name_pt": "Cuba", "name_es": "Cuba", "code": "cu"}, {"name": "Curaçao", "name_pt": "Curaçao", "name_es": "Curazao", "code": "cw"}, {"name": "Czech Republic", "name_pt": "República Tcheca", "name_es": "República Checa", "code": "cz"}, {"name": "Denmark", "name_pt": "Dinamarca", "name_es": "Dinamarca", "code": "dk"}, {"name": "Dominican Republic", "name_pt": "República Dominicana", "name_es": "República Dominicana", "code": "do"}, {"name": "Ecuador", "name_pt": "Equador", "name_es": "Ecuador", "code": "ec"}, {"name": "Egypt", "name_pt": "Egito", "name_es": "Egipto", "code": "eg"}, {"name": "El Salvador", "name_pt": "El Salvador", "name_es": "El Salvador", "code": "sv"}, {"name": "England", "name_pt": "Inglaterra", "name_es": "Inglaterra", "code": "gb-eng"}, {"name": "Eswatini", "name_pt": "Eswatini", "name_es": "Esuatini", "code": "sz"}, {"name": "Estonia", "name_pt": "Estônia", "name_es": "Estonia", "code": "ee"}, {"name": "Finland", "name_pt": "Finlândia", "name_es": "Finlandia", "code": "fi"}, {"name": "France", "name_pt": "França", "name_es": "Francia", "code": "fr"}, {"name": "Germany", "name_pt": "Alemanha", "name_es": "Alemania", "code": "de"}, {"name": "Gibraltar", "name_pt": "Gibraltar", "name_es": "Gibraltar", "code": "gi"}, {"name": "Greece", "name_pt": "Grécia", "name_es": "Grecia", "code": "gr"}, {"name": "Guadeloupe", "name_pt": "Guadalupe", "name_es": "Guadalupe", "code": "gp"}, {"name": "Guatemala", "name_pt": "Guatemala", "name_es": "Guatemala", "code": "gt"}, {"name": "Honduras", "name_pt": "Honduras", "name_es": "Honduras", "code": "hn"}, {"name": "Hong Kong", "name_pt": "Hong Kong", "name_es": "Hong Kong", "code": "hk"}, {"name": "Hungary", "name_pt": "Hungria", "name_es": "Hungría", "code": "hu"}, {"name": "Iceland", "name_pt": "Islândia", "name_es": "Islandia", "code": "is"}, {"name": "India", "name_pt": "Índia", "name_es": "India", "code": "in"}, {"name": "Indonesia", "name_pt": "Indonésia", "name_es": "Indonesia", "code": "id"}, {"name": "Ireland", "name_pt": "Irlanda", "name_es": "Irlanda", "code": "ie"}, {"name": "Israel", "name_pt": "Israel", "name_es": "Israel", "code": "il"}, {"name": "Italy", "name_pt": "Itália", "name_es": "Italia", "code": "it"}, {"name": "Jordan", "name_pt": "Jordânia", "name_es": "Jordania", "code": "jo"}, {"name": "Kenya", "name_pt": "Quênia", "name_es": "Kenia", "code": "ke"}, {"name": "Latvia", "name_pt": "Letônia", "name_es": "Letonia", "code": "lv"}, {"name": "Liechtenstein", "name_pt": "Liechtenstein", "name_es": "Liechtenstein", "code": "li"}, {"name": "Lithuania", "name_pt": "Lituânia", "name_es": "Lituania", "code": "lt"}, {"name": "Luxembourg", "name_pt": "Luxemburgo", "name_es": "Luxemburgo", "code": "lu"}, {"name": "Macau", "name_pt": "Macau", "name_es": "Macao", "code": "mo"}, {"name": "Malaysia", "name_pt": "Malásia", "name_es": "Malasia", "code": "my"}, {"name": "Malta", "name_pt": "Malta", "name_es": "Malta", "code": "mt"}, {"name": "Martinique", "name_pt": "Martinica", "name_es": "Martinica", "code": "mq"}, {"name": "Mexico", "name_pt": "México", "name_es": "México", "code": "mx"}, {"name": "Monaco", "name_pt": "Mônaco", "name_es": "Mónaco", "code": "mc"}, {"name": "Montenegro", "name_pt": "Montenegro", "name_es": "Montenegro", "code": "me"}, {"name": "Morocco", "name_pt": "Marrocos", "name_es": "Marruecos", "code": "ma"}, {"name": "Netherlands", "name_pt": "Países Baixos", "name_es": "Países Bajos", "code": "nl"}, {"name": "New Zealand", "name_pt": "Nova Zelândia", "name_es": "Nueva Zelanda", "code": "nz"}, {"name": "Nicaragua", "name_pt": "Nicarágua", "name_es": "Nicaragua", "code": "ni"}, {"name": "Northern Ireland", "name_pt": "Irlanda do Norte", "name_es": "Irlanda del Norte", "code": "gb-nir"}, {"name": "North Macedonia", "name_pt": "Macedônia do Norte", "name_es": "Macedonia del Norte", "code": "mk"}, {"name": "Norway", "name_pt": "Noruega", "name_es": "Noruega", "code": "no"}, {"name": "Palestine", "name_pt": "Palestina", "name_es": "Palestina", "code": "ps"}, {"name": "Panama", "name_pt": "Panamá", "name_es": "Panamá", "code": "pa"}, {"name": "Paraguay", "name_pt": "Paraguai", "name_es": "Paraguay", "code": "py"}, {"name": "Peru", "name_pt": "Peru", "name_es": "Perú", "code": "pe"}, {"name": "Poland", "name_pt": "Polônia", "name_es": "Polonia", "code": "pl"}, {"name": "Portugal", "name_pt": "Portugal", "name_es": "Portugal", "code": "pt"}, {"name": "Puerto Rico", "name_pt": "Porto Rico", "name_es": "Puerto Rico", "code": "pr"}, {"name": "Qatar", "name_pt": "Catar", "name_es": "Catar", "code": "qa"}, {"name": "Romania", "name_pt": "Romênia", "name_es": "Rumania", "code": "ro"}, {"name": "Russia", "name_pt": "Rússia", "name_es": "Rusia", "code": "ru"}, {"name": "Saint Kitts And Nevis", "name_pt": "São Cristóvão e Névis", "name_es": "San Cristóbal y Nieves", "code": "kn"}, {"name": "Scotland", "name_pt": "Escócia", "name_es": "Escocia", "code": "gb-sct"}, {"name": "Serbia", "name_pt": "Sérvia", "name_es": "Serbia", "code": "rs"}, {"name": "Singapore", "name_pt": "Singapura", "name_es": "Singapur", "code": "sg"}, {"name": "Sint Maarten", "name_pt": "Sint Maarten", "name_es": "Sint Maarten", "code": "sx"}, {"name": "Slovakia", "name_pt": "Eslováquia", "name_es": "Eslovaquia", "code": "sk"}, {"name": "Slovenia", "name_pt": "Eslovênia", "name_es": "Eslovenia", "code": "si"}, {"name": "South Africa", "name_pt": "África do Sul", "name_es": "Sudáfrica", "code": "za"}, {"name": "Spain", "name_pt": "Espanha", "name_es": "España", "code": "es"}, {"name": "Sweden", "name_pt": "Suécia", "name_es": "Suecia", "code": "se"}, {"name": "Switzerland", "name_pt": "Suíça", "name_es": "Suiza", "code": "ch"}, {"name": "Tanzania", "name_pt": "Tanzânia", "name_es": "Tanzania", "code": "tz"}, {"name": "Thailand", "name_pt": "Tailândia", "name_es": "Tailandia", "code": "th"}, {"name": "Trinidad And Tobago", "name_pt": "Trinidad e Tobago", "name_es": "Trinidad y Tobago", "code": "tt"}, {"name": "Turkey", "name_pt": "Turquia", "name_es": "Turquía", "code": "tr"}, {"name": "United Arab Emirates", "name_pt": "Emirados Árabes Unidos", "name_es": "Emiratos Árabes Unidos", "code": "ae"}, {"name": "United States", "name_pt": "Estados Unidos", "name_es": "Estados Unidos", "code": "us"}, {"name": "Uruguay", "name_pt": "Uruguai", "name_es": "Uruguay", "code": "uy"}, {"name": "Vatican City", "name_pt": "Cidade do Vaticano", "name_es": "Ciudad del Vaticano", "code": "va"}, {"name": "Venezuela", "name_pt": "Venezuela", "name_es": "Venezuela", "code": "ve"}, {"name": "Vietnam", "name_pt": "Vietnã", "name_es": "Vietnam", "code": "vn"}, {"name": "Wales", "name_pt": "Gales", "name_es": "Gales", "code": "gb-wls"}, {"name": "Zambia", "name_pt": "Zâmbia", "name_es": "Zambia", "code": "zm"}, {"name": "Zimbabwe", "name_pt": "Zimbábue", "name_es": "Zimbabue", "code": "zw"}
             ],
+            // Population & land-area stats for all 101 visited countries.
+            // Source: visited_cities.json (population, population order, area, area order).
+            // Keyed by the same display name used in visitedCountries[].name.
+            // p=population, po=population order number, pos=ordinal suffix (en),
+            // a=area (km2), ao=area order number, aos=ordinal suffix (en).
+            countryStats: {
+                'Albania':{p:2832000,po:135,pos:'th',a:29000,ao:145,aos:'th'},
+                'Andorra':{p:80000,po:186,pos:'th',a:468,ao:180,aos:'th'},
+                'Antigua And Barbuda':{p:94000,po:185,pos:'th',a:440,ao:183,aos:'rd'},
+                'Argentina':{p:45774000,po:33,pos:'rd',a:2780000,ao:8,aos:'th'},
+                'Aruba':{p:106000,po:189,pos:'th',a:180,ao:186,aos:'th'},
+                'Australia':{p:26439000,po:52,pos:'nd',a:7692000,ao:6,aos:'th'},
+                'Austria':{p:8959000,po:98,pos:'th',a:84000,ao:112,aos:'th'},
+                'Barbados':{p:282000,po:180,pos:'th',a:430,ao:182,aos:'nd'},
+                'Belarus':{p:9498000,po:95,pos:'th',a:208000,ao:84,aos:'th'},
+                'Belgium':{p:11686000,po:81,pos:'st',a:31000,ao:138,aos:'th'},
+                'Belize':{p:405000,po:172,pos:'nd',a:23000,ao:150,aos:'th'},
+                'Bosnia And Herzegovina':{p:3211000,po:136,pos:'th',a:51000,ao:126,aos:'th'},
+                'Brazil':{p:216422000,po:7,pos:'th',a:8516000,ao:5,aos:'th'},
+                'Bulgaria':{p:6688000,po:109,pos:'th',a:111000,ao:103,aos:'rd'},
+                'Cambodia':{p:16945000,po:70,pos:'th',a:181000,ao:88,aos:'th'},
+                'Chile':{p:19630000,po:64,pos:'th',a:756000,ao:38,aos:'th'},
+                'China':{p:1425671000,po:2,pos:'nd',a:9597000,ao:3,aos:'rd'},
+                'Colombia':{p:52085000,po:28,pos:'th',a:1142000,ao:26,aos:'th'},
+                'Costa Rica':{p:5212000,po:122,pos:'nd',a:51000,ao:127,aos:'th'},
+                'Croatia':{p:4009000,po:130,pos:'th',a:57000,ao:125,aos:'th'},
+                'Cuba':{p:11194000,po:82,pos:'nd',a:110000,ao:106,aos:'th'},
+                'Curaçao':{p:192000,po:174,pos:'th',a:444,ao:185,aos:'th'},
+                'Czech Republic':{p:10494000,po:87,pos:'th',a:79000,ao:115,aos:'th'},
+                'Denmark':{p:5882000,po:114,pos:'th',a:43000,ao:130,aos:'th'},
+                'Dominican Republic':{p:11333000,po:84,pos:'th',a:49000,ao:131,aos:'st'},
+                'Ecuador':{p:18190000,po:67,pos:'th',a:284000,ao:73,aos:'rd'},
+                'Egypt':{p:112717000,po:14,pos:'th',a:1002000,ao:29,aos:'th'},
+                'El Salvador':{p:6336000,po:107,pos:'th',a:21000,ao:153,aos:'rd'},
+                'England':{p:58620000,po:26,pos:'th',a:130000,ao:80,aos:'th'},
+                'Estonia':{p:1323000,po:149,pos:'th',a:45000,ao:132,aos:'nd'},
+                'Eswatini':{p:1211000,po:155,pos:'th',a:17000,ao:155,aos:'th'},
+                'Finland':{p:5545000,po:118,pos:'th',a:338000,ao:65,aos:'th'},
+                'France':{p:68000000,po:22,pos:'nd',a:644000,ao:42,aos:'nd'},
+                'Germany':{p:83292000,po:19,pos:'th',a:357000,ao:63,aos:'rd'},
+                'Gibraltar':{p:33000,po:210,pos:'th',a:7,ao:220,aos:'th'},
+                'Greece':{p:10341000,po:88,pos:'th',a:132000,ao:97,aos:'th'},
+                'Guadeloupe':{p:396000,po:165,pos:'th',a:1628,ao:184,aos:'th'},
+                'Guatemala':{p:18092000,po:66,pos:'th',a:109000,ao:102,aos:'nd'},
+                'Honduras':{p:10594000,po:96,pos:'th',a:112000,ao:101,aos:'st'},
+                'Hong Kong':{p:7492000,po:104,pos:'th',a:1104,ao:181,aos:'st'},
+                'Hungary':{p:10156000,po:93,pos:'rd',a:93000,ao:108,aos:'th'},
+                'Iceland':{p:375000,po:178,pos:'th',a:103000,ao:107,aos:'th'},
+                'India':{p:1428628000,po:1,pos:'st',a:3287000,ao:7,aos:'th'},
+                'Indonesia':{p:277534000,po:4,pos:'th',a:1905000,ao:15,aos:'th'},
+                'Ireland':{p:5057000,po:119,pos:'th',a:70000,ao:118,aos:'th'},
+                'Israel':{p:9175000,po:97,pos:'th',a:22000,ao:148,aos:'th'},
+                'Italy':{p:58871000,po:23,pos:'rd',a:301000,ao:72,aos:'nd'},
+                'Jordan':{p:11337000,po:105,pos:'th',a:89000,ao:111,aos:'th'},
+                'Kenya':{p:55101000,po:27,pos:'th',a:580000,ao:47,aos:'th'},
+                'Latvia':{p:1830000,po:151,pos:'st',a:65000,ao:123,aos:'rd'},
+                'Liechtenstein':{p:40000,po:212,pos:'th',a:160,ao:215,aos:'th'},
+                'Lithuania':{p:2718000,po:140,pos:'th',a:65000,ao:119,aos:'th'},
+                'Luxembourg':{p:655000,po:170,pos:'th',a:2586,ao:171,aos:'st'},
+                'Macau':{p:704000,po:166,pos:'th',a:33,ao:224,aos:'th'},
+                'Malaysia':{p:34309000,po:43,pos:'rd',a:331000,ao:66,aos:'th'},
+                'Malta':{p:535000,po:173,pos:'rd',a:316,ao:202,aos:'nd'},
+                'Martinique':{p:367000,po:171,pos:'st',a:1128,ao:200,aos:'th'},
+                'Mexico':{p:128456000,po:10,pos:'th',a:1964000,ao:14,aos:'th'},
+                'Monaco':{p:36000,po:213,pos:'th',a:2,ao:230,aos:'th'},
+                'Montenegro':{p:626000,po:167,pos:'th',a:14000,ao:161,aos:'st'},
+                'Morocco':{p:37840000,po:39,pos:'th',a:447000,ao:58,aos:'th'},
+                'Netherlands':{p:17618000,po:69,pos:'th',a:42000,ao:133,aos:'rd'},
+                'New Zealand':{p:5228000,po:123,pos:'rd',a:268000,ao:75,aos:'th'},
+                'Nicaragua':{p:7046000,po:110,pos:'th',a:130000,ao:96,aos:'th'},
+                'North Macedonia':{p:2086000,po:147,pos:'th',a:26000,ao:147,aos:'th'},
+                'Northern Ireland':{p:1928000,po:148,pos:'th',a:14000,ao:160,aos:'th'},
+                'Norway':{p:5474000,po:120,pos:'th',a:385000,ao:67,aos:'th'},
+                'Palestine':{p:5371000,po:124,pos:'th',a:6020,ao:164,aos:'th'},
+                'Panama':{p:4468000,po:133,pos:'rd',a:75000,ao:116,aos:'th'},
+                'Paraguay':{p:6862000,po:106,pos:'th',a:407000,ao:60,aos:'th'},
+                'Peru':{p:34353000,po:42,pos:'nd',a:1285000,ao:20,aos:'th'},
+                'Poland':{p:41026000,po:38,pos:'th',a:313000,ao:70,aos:'th'},
+                'Portugal':{p:10248000,po:90,pos:'th',a:92000,ao:109,aos:'th'},
+                'Puerto Rico':{p:3260000,po:134,pos:'th',a:9104,ao:167,aos:'th'},
+                'Qatar':{p:2716000,po:138,pos:'th',a:12000,ao:166,aos:'th'},
+                'Romania':{p:19893000,po:61,pos:'st',a:238000,ao:82,aos:'nd'},
+                'Russia':{p:144444000,po:9,pos:'th',a:17098000,ao:1,aos:'st'},
+                'Saint Kitts And Nevis':{p:47755,po:201,pos:'st',a:261,ao:211,aos:'th'},
+                'Scotland':{p:5547000,po:116,pos:'th',a:78000,ao:114,aos:'th'},
+                'Serbia':{p:7149000,po:102,pos:'nd',a:88000,ao:112,aos:'th'},
+                'Singapore':{p:6015000,po:112,pos:'th',a:728,ao:190,aos:'th'},
+                'Sint Maarten':{p:44000,po:203,pos:'rd',a:34,ao:214,aos:'th'},
+                'Slovakia':{p:5795000,po:115,pos:'th',a:49000,ao:134,aos:'th'},
+                'Slovenia':{p:2120000,po:145,pos:'th',a:20000,ao:150,aos:'th'},
+                'South Africa':{p:60414000,po:25,pos:'th',a:1221000,ao:25,aos:'th'},
+                'Spain':{p:47520000,po:30,pos:'th',a:506000,ao:51,aos:'st'},
+                'Sweden':{p:10612000,po:86,pos:'th',a:450000,ao:56,aos:'th'},
+                'Switzerland':{p:8797000,po:100,pos:'th',a:41000,ao:135,aos:'th'},
+                'Tanzania':{p:67438000,po:24,pos:'th',a:947000,ao:31,aos:'st'},
+                'Thailand':{p:71801000,po:20,pos:'th',a:513000,ao:50,aos:'th'},
+                'Trinidad And Tobago':{p:1535000,po:150,pos:'th',a:5130,ao:163,aos:'rd'},
+                'Turkey':{p:85816000,po:18,pos:'th',a:784000,ao:37,aos:'th'},
+                'United Arab Emirates':{p:9517000,po:94,pos:'th',a:84000,ao:117,aos:'th'},
+                'United States':{p:340000000,po:3,pos:'rd',a:9834000,ao:4,aos:'th'},
+                'Uruguay':{p:3423000,po:131,pos:'st',a:176000,ao:89,aos:'th'},
+                'Vatican City':{p:764,po:195,pos:'th',a:0.44,ao:195,aos:'th'},
+                'Venezuela':{p:28838000,po:54,pos:'th',a:916000,ao:33,aos:'rd'},
+                'Vietnam':{p:98859000,po:16,pos:'th',a:331000,ao:68,aos:'th'},
+                'Wales':{p:3187000,po:141,pos:'st',a:21000,ao:154,aos:'th'},
+                'Zambia':{p:20570000,po:66,pos:'th',a:753000,ao:39,aos:'th'},
+                'Zimbabwe':{p:16665000,po:73,pos:'rd',a:391000,ao:59,aos:'th'}
+            },
             content: {
                 en: {
                     title: "My Wonders of the World", subtitle: "A collection of extraordinary places worth visiting across all five continents,\nphotographed, filmed, described, set to music, and enjoyed in person.",
@@ -2806,6 +3039,7 @@ createApp({
                     copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
                     countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersLabel: "Wonders in", countryWondersHint: "Click a wonder to open it", countryWondersBack: "← Back to Countries",
+                    countryPopulation: "Population", countryArea: "Area", countryNoWonders: "No wonders posted yet",
                     statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsVideos: "Videos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToVideo: "→ Go to a random video", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
@@ -2908,6 +3142,7 @@ createApp({
                     gameCapital: "Which country is this the capital of?",
                     gameWhichCapital: "What is the capital of…",
                     gameWhichCountry: "In which country is this city?",
+                    gameWhatPopulation: "What is the population of this country?", gameWhatArea: "What is the land area of this country?",
                 },
                 pt: {
                     title: "Minhas Maravilhas do Mundo", subtitle: "Uma coleção de lugares extraordinários que valem a pena visitar em todos os cinco continentes,\nfotografados, filmados, descritos, musicalizados e desfrutados pessoalmente.",
@@ -2915,6 +3150,7 @@ createApp({
                     copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersLabel: "Maravilhas em", countryWondersHint: "Clique em uma maravilha para abri-la", countryWondersBack: "← Voltar aos Países",
+                    countryPopulation: "População", countryArea: "Área", countryNoWonders: "Nenhuma maravilha postada ainda",
                     statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Vídeos Publicados", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToVideo: "→ Ir para um vídeo aleatório", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
@@ -3014,6 +3250,7 @@ createApp({
                     gameCapital: "De qual país é esta capital?",
                     gameWhichCapital: "Qual é a capital de…",
                     gameWhichCountry: "Em qual país fica esta cidade?",
+                    gameWhatPopulation: "Qual é a população deste país?", gameWhatArea: "Qual é a área territorial deste país?",
                 },
                 es: {
                     title: "Mis Maravillas del Mundo", subtitle: "Una colección de lugares extraordinarios que vale la pena visitar en los cinco continentes,\nfotografiados, filmados, descritos, musicalizados y disfrutados en persona.",
@@ -3021,6 +3258,7 @@ createApp({
                     copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersLabel: "Maravillas en", countryWondersHint: "Haz clic en una maravilla para abrirla", countryWondersBack: "← Volver a Países",
+                    countryPopulation: "Población", countryArea: "Superficie", countryNoWonders: "Aún no hay maravillas publicadas",
                     statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Videos Publicados", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToVideo: "→ Ir a un video aleatorio", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
@@ -3120,6 +3358,7 @@ createApp({
                     gameCapital: "¿De qué país es esta capital?",
                     gameWhichCapital: "¿Cuál es la capital de…",
                     gameWhichCountry: "¿En qué país se encuentra esta ciudad?",
+                    gameWhatPopulation: "¿Cuál es la población de este país?", gameWhatArea: "¿Cuál es la superficie de este país?",
                 }
             }
         }
@@ -3301,6 +3540,39 @@ createApp({
                 '1,153 cities and places are used.',
                 'You have 10 seconds per question.'
             ];
+            const rules_populations = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha a população correta entre 4 opções.',
+                'As opções mudam de posição a cada pergunta.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige la población correcta entre 4 opciones.',
+                'Las opciones cambian de posición en cada pregunta.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited country name is shown.',
+                'Choose the correct population from 4 options.',
+                'Options change position every question.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_areas = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha a área territorial correta entre 4 opções.',
+                'As opções mudam de posição a cada pergunta.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige la superficie correcta entre 4 opciones.',
+                'Las opciones cambian de posición en cada pregunta.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited country name is shown.',
+                'Choose the correct land area from 4 options.',
+                'Options change position every question.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_mapclick = l==='pt' ? ['O nome de um país visitado é exibido.','Clique no mapa onde esse país está.','Você tem 20 segundos para clicar.','Acertar dentro do território = 1 ponto.','Países pequenos aparecem com um marcador maior.'] : l==='es' ? ['Se muestra el nombre de un país visitado.','Haz clic en el mapa donde está ese país.','Tienes 20 segundos para hacer clic.','Acertar dentro del territorio = 1 punto.','Los países pequeños aparecen con un marcador más grande.'] : ['A visited country name is shown.','Click on the map where that country is.','You have 20 seconds to click.','Clicking inside the territory = 1 point.','Small countries show a larger clickable marker.'];
             const rules_geoguesser = l==='pt' ? [
                 'O nome e foto de uma Maravilha são exibidos.',
                 'Clique no mapa para apontar onde ela fica.',
@@ -3335,7 +3607,10 @@ createApp({
                 photocountry1: l==='pt'?'Fotos Países 1': l==='es'?'Fotos Países 1': 'Country Photos 1',
                 photocountry2: l==='pt'?'Fotos Países 2': l==='es'?'Fotos Países 2': 'Country Photos 2',
                 cities:    l==='pt'?'Cidades e Lugares': l==='es'?'Ciudades y Lugares': 'Cities & Places',
+                populations: l==='pt'?'Populações': l==='es'?'Poblaciones': 'Populations',
+                areas:     l==='pt'?'Áreas':       l==='es'?'Superficies':  'Areas',
                 geoguesser: 'GeoGuesser',
+                mapclick: 'Seterra',
             };
             const DESCS = {
                 flags1:    l==='pt'?'Ver bandeira → escolher país': l==='es'?'Ver bandera → elegir país': 'See flag → pick country',
@@ -3349,7 +3624,10 @@ createApp({
                 photocountry1: l==='pt'?'Ver foto → escolher país': l==='es'?'Ver foto → elegir país': 'See photo → pick country',
                 photocountry2: l==='pt'?'Ver país → escolher foto': l==='es'?'Ver país → elegir foto': 'See country → pick photo',
                 cities:    l==='pt'?'Ver cidade → escolher país': l==='es'?'Ver ciudad → elegir país': 'See city → pick country',
+                populations: l==='pt'?'Ver país → escolher população': l==='es'?'Ver país → elegir población': 'See country → pick population',
+                areas:     l==='pt'?'Ver país → escolher área': l==='es'?'Ver país → elegir superficie': 'See country → pick area',
                 geoguesser: l==='pt'?'Ver Maravilha → adivinhar no mapa': l==='es'?'Ver Maravilla → adivinar en mapa': 'See Wonder → guess on map',
+                mapclick: l==='pt'?'Ver país → clicar no mapa': l==='es'?'Ver país → clicar en el mapa': 'See country → click on map',
             };
             return [
                 {id:'flags1',    icon:'🚩', name:GAME_NAMES.flags1,    desc:DESCS.flags1,    rules:rules_flags1,    disabled:false},
@@ -3363,7 +3641,10 @@ createApp({
                 {id:'photocountry1',icon:'📸', name:GAME_NAMES.photocountry1,desc:DESCS.photocountry1,rules:rules_pc1, disabled:false},
                 {id:'photocountry2',icon:'🌐', name:GAME_NAMES.photocountry2,desc:DESCS.photocountry2,rules:rules_pc2, disabled:false},
                 {id:'cities',    icon:'🏙', name:GAME_NAMES.cities,    desc:DESCS.cities,    rules:rules_cities,    disabled:false},
+                {id:'populations',icon:'👥', name:GAME_NAMES.populations,desc:DESCS.populations,rules:rules_populations,disabled:false},
+                {id:'areas',     icon:'📐', name:GAME_NAMES.areas,     desc:DESCS.areas,     rules:rules_areas,     disabled:false},
                 {id:'geoguesser',icon:'📍', name:GAME_NAMES.geoguesser,desc:DESCS.geoguesser,rules:rules_geoguesser,disabled:false},
+                {id:'mapclick',  icon:'🗾', name:GAME_NAMES.mapclick,  desc:DESCS.mapclick,  rules:rules_mapclick,  disabled:false},
             ];
         },
         totalTripStops() {
@@ -4162,6 +4443,7 @@ createApp({
         exitGame() {
             this._stopGameTimer();
             this._destroyGeoMap();
+            this._destroyMcMap();
             this.gameActive = false;
             this.gameShowScore = false;
             this.currentGameInfo = null;
@@ -4190,6 +4472,10 @@ createApp({
             this.geoRoundScores = [];
             this.geoShowResult = false;
             this.geoPlayerLatLng = null;
+            this.mcShowResult = false;
+            this.mcLastCorrect = false;
+            this.mcClickedCountry = null;
+            this.mcTimedOut = false;
             this._gameUsedKeys = new Set();
             this._nextGameQuestion(game);
         },
@@ -4201,6 +4487,10 @@ createApp({
             this.geoPlayerLatLng = null;
             this.geoRoundPoints = 0;
             this.geoRoundDist = 0;
+            this.mcShowResult = false;
+            this.mcLastCorrect = false;
+            this.mcClickedCountry = null;
+            this.mcTimedOut = false;
             if (this.gameQuestionNum >= 10) {
                 this._showGameScore();
                 return;
@@ -4209,6 +4499,10 @@ createApp({
             this.gameCurrentQ = this._buildQuestion(game);
             if (game.id === 'geoguesser') {
                 this.$nextTick(() => this._initGeoMap(game));
+                return;
+            }
+            if (game.id === 'mapclick') {
+                this.$nextTick(() => this._initMcMap(game));
                 return;
             }
             // For photo games: preload all images before starting timer
@@ -4370,6 +4664,29 @@ createApp({
                 this._gameUsedKeys = used;
                 return { wonder, heroPhoto: wonder.images[0], lat: wonder.lat, lng: wonder.lng };
             }
+            if (game.id === 'mapclick') {
+                const used = this._gameUsedKeys || new Set();
+                const avail = this.visitedCountries.filter(c => !used.has(c.name));
+                const pool = avail.length > 0 ? avail : this.visitedCountries;
+                const country = pool[Math.floor(Math.random() * pool.length)];
+                used.add(country.name);
+                this._gameUsedKeys = used;
+                return { country };
+            }
+            if (game.id === 'populations') {
+                const eligible = vc.filter(c => this.countryStats[c.name]);
+                const correct = pickUnused(eligible, x => x.name);
+                const trueValue = this.countryStats[correct.name].p;
+                const { options, correctValue } = this._genStatOptions(trueValue);
+                return { correctCountry: correct, options, correctValue };
+            }
+            if (game.id === 'areas') {
+                const eligible = vc.filter(c => this.countryStats[c.name]);
+                const correct = pickUnused(eligible, x => x.name);
+                const trueValue = this.countryStats[correct.name].a;
+                const { options, correctValue } = this._genStatOptions(trueValue);
+                return { correctCountry: correct, options, correctValue };
+            }
             return {};
         },
         _countriesWithCapitals() {
@@ -4442,7 +4759,7 @@ createApp({
         _startGameTimer(game) {
             this._stopGameTimer();
             this.gameTimerPct = 100;
-            const DURATION = (game && game.id === 'geoguesser') ? 30000 : 10000;
+            const DURATION = (game && game.id === 'geoguesser') ? 30000 : (game && game.id === 'mapclick') ? 20000 : 10000;
             const start = performance.now();
             const tick = (now) => {
                 const elapsed = now - start;
@@ -4453,6 +4770,9 @@ createApp({
                     if (this.gameActiveInfo && this.gameActiveInfo.id === 'geoguesser') {
                         this.gameAnswered = true;
                         this._resolveGeoAnswer(null, this.gameActiveInfo);
+                    } else if (this.gameActiveInfo && this.gameActiveInfo.id === 'mapclick') {
+                        this.gameAnswered = true;
+                        this._resolveMcClick(null);
                     } else {
                         this.answerGame(null); // time's up
                     }
@@ -4482,6 +4802,8 @@ createApp({
             else if (game.id === 'photocountry1') correct = selected === q.correctCountry;
             else if (game.id === 'photocountry2') correct = selected === q.correctPhoto;
             else if (game.id === 'cities') correct = selected === q.correctCountry.name;
+            else if (game.id === 'populations') correct = selected === q.correctValue;
+            else if (game.id === 'areas') correct = selected === q.correctValue;
             this.gameLastCorrect = correct;
             if (correct) this.gameScore++;
             // Advance after 2 seconds
@@ -4493,6 +4815,7 @@ createApp({
         _showGameScore() {
             this._stopGameTimer();
             this._destroyGeoMap();
+            this._destroyMcMap();
             this.gameShowScore = true;
             const id = this.gameActiveInfo.id;
             const scoreToSave = (id === 'geoguesser') ? this.geoTotalScore : this.gameScore;
@@ -4577,6 +4900,18 @@ createApp({
             const NEED_50M = ['Hong Kong','Monaco','Singapore','Andorra','Liechtenstein','Malta','Luxembourg','Puerto Rico','Eswatini','Barbados','Trinidad And Tobago','Saint Kitts And Nevis','Antigua And Barbuda','Belize','El Salvador','Costa Rica','Panama','Dominican Republic'];
             const NEED_10M = [];
 
+            const splitRingAtAntimeridian = (ring) => {
+                const segs = []; let seg = [];
+                for (let i = 0; i < ring.length; i++) {
+                    if (i > 0 && Math.abs(ring[i][0] - ring[i-1][0]) > 180) {
+                        if (seg.length > 1) segs.push(seg);
+                        seg = [];
+                    }
+                    seg.push(ring[i]);
+                }
+                if (seg.length > 1) segs.push(seg);
+                return segs;
+            };
             const drawRings = (polygons, allPts) => {
                 const lngs = allPts.map(p=>p[0]), lats = allPts.map(p=>p[1]);
                 const minLng=Math.min(...lngs),maxLng=Math.max(...lngs),minLat=Math.min(...lats),maxLat=Math.max(...lats);
@@ -4589,8 +4924,15 @@ createApp({
                 polygons.forEach(rings=>{
                     ctx.beginPath();
                     rings.forEach(ring=>{
-                        ring.forEach((p,i)=>{ const x=tx(p[0]),y=ty(p[1]); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
-                        ctx.closePath();
+                        // Split at antimeridian crossings so a dateline-wrapping
+                        // ring (e.g. Russia) draws as separate clean sub-paths
+                        // instead of one continuous shape stretched across the
+                        // whole canvas — same approach as the Country Wonders
+                        // modal's drawCountryMap/_drawPolygons.
+                        splitRingAtAntimeridian(ring).forEach(seg=>{
+                            seg.forEach((p,i)=>{ const x=tx(p[0]),y=ty(p[1]); i===0?ctx.moveTo(x,y):ctx.lineTo(x,y); });
+                            ctx.closePath();
+                        });
                     });
                     ctx.fill('evenodd'); ctx.stroke();
                 });
@@ -4656,14 +4998,18 @@ createApp({
                         return cLng>-6&&cLng<11&&cLat>41&&cLat<52;
                     });
                 }
-                // filter antimeridian-crossing
+                // Separate antimeridian-crossing polygons from clean ones — bounds
+                // are computed from clean polygons only (so a dateline-wrapping
+                // sliver doesn't blow out the auto-fit scale), but ALL polygons are
+                // still drawn (now safe, since drawRings splits wrap-rings into
+                // separate sub-paths instead of one continuous shape).
                 const clean = polygons.filter(p=>{ const ls=[]; p.forEach(r=>r.forEach(pt=>ls.push(pt[0]))); return Math.max(...ls)-Math.min(...ls)<=180; });
-                const usePolys = clean.length ? clean : polygons;
-                const allPts = usePolys.reduce((a,p)=>{p.forEach(r=>r.forEach(pt=>a.push(pt)));return a;},[]);
+                const boundsPolys = clean.length ? clean : polygons;
+                const allPts = boundsPolys.reduce((a,p)=>{p.forEach(r=>r.forEach(pt=>a.push(pt)));return a;},[]);
                 // Re-check canvas is still in DOM after async fetch
                 if (!canvas.isConnected) return;
                 ctx.clearRect(0, 0, W, H);
-                drawRings(usePolys, allPts);
+                drawRings(polygons, allPts);
             } catch(e) { console.warn('shape draw error', country.name, e); }
         },
 
@@ -4776,6 +5122,370 @@ createApp({
             if (this.geoCorrectMarker) { this.geoMap.removeLayer(this.geoCorrectMarker); this.geoCorrectMarker = null; }
             if (this.geoLine) { this.geoMap.removeLayer(this.geoLine); this.geoLine = null; }
             this.geoMap.setView([20, 10], 2);
+            this._nextGameQuestion(this.gameActiveInfo);
+        },
+
+        // ── Seterra (MapClick) methods ───────────────────────────────
+        _destroyMcMap() {
+            if (this.mcMap) {
+                try { this.mcMap.remove(); } catch(e) {}
+                this.mcMap = null;
+                this.mcClickMarker = null;
+                this.mcHighlightLayer = null;
+                this._mcSmallMarkers = null;
+            }
+        },
+
+        // Centroids for small/micro countries — rendered as generous clickable dots
+        // so the player isn't forced to pixel-hunt a sliver of territory.
+        _mcSmallCountryData() {
+            return {
+                'Monaco':            { lat: 43.7384, lng: 7.4246 },
+                'Vatican City':      { lat: 41.9029, lng: 12.4534 },
+                'Andorra':           { lat: 42.5462, lng: 1.6016 },
+                'Liechtenstein':     { lat: 47.1660, lng: 9.5554 },
+                'Malta':             { lat: 35.9375, lng: 14.3754 },
+                'Gibraltar':         { lat: 36.1408, lng: -5.3536 },
+                'Singapore':         { lat: 1.3521,  lng: 103.8198 },
+                'Hong Kong':         { lat: 22.3193, lng: 114.1694 },
+                'Macau':             { lat: 22.1987, lng: 113.5439 },
+                'Aruba':             { lat: 12.5211, lng: -69.9683 },
+                'Curaçao':           { lat: 12.1696, lng: -68.9900 },
+                'Sint Maarten':      { lat: 18.0425, lng: -63.0548 },
+                'Guadeloupe':        { lat: 16.2650, lng: -61.5510 },
+                'Martinique':        { lat: 14.6415, lng: -61.0242 },
+                'Barbados':          { lat: 13.1939, lng: -59.5432 },
+                'Saint Kitts And Nevis': { lat: 17.3578, lng: -62.7830 },
+                'Antigua And Barbuda':  { lat: 17.0608, lng: -61.7964 },
+                'Trinidad And Tobago':  { lat: 10.6918, lng: -61.2225 },
+                'Puerto Rico':       { lat: 18.2208, lng: -66.5901 },
+                'Luxembourg':        { lat: 49.8153, lng: 6.1296 },
+                'Eswatini':          { lat: -26.5225, lng: 31.4659 },
+                'Palestine':         { lat: 31.9522, lng: 35.2332 },
+            };
+        },
+
+        async _initMcMap(game) {
+            this._destroyMcMap();
+            const el = document.getElementById('mc-leaflet-map');
+            if (!el || !window.L) { setTimeout(() => this._initMcMap(game), 100); return; }
+
+            // Load TopoJSON if not already loaded
+            if (!window.topojson) {
+                await new Promise(res => {
+                    const s = document.createElement('script');
+                    s.src = 'https://unpkg.com/topojson-client@3/dist/topojson-client.min.js';
+                    s.onload = res; s.onerror = res;
+                    document.head.appendChild(s);
+                });
+            }
+
+            // Load world 110m TopoJSON
+            if (!window._mcWorldTopo) {
+                try {
+                    const r = await fetch('https://cdn.jsdelivr.net/npm/world-atlas@2/countries-110m.json');
+                    window._mcWorldTopo = await r.json();
+                } catch(e) { console.warn('Seterra: topo load error', e); }
+            }
+
+            const map = L.map('mc-leaflet-map', {
+                center: [20, 10], zoom: 2, minZoom: 1, maxZoom: 6,
+                zoomControl: true, attributionControl: false,
+                maxBounds: [[-89.9, -180], [89.9, 180]], maxBoundsViscosity: 1.0,
+                worldCopyJump: false
+            });
+            // No raster tiles — avoids tile-seam artifacts. Plain ocean background
+            // + our own GeoJSON country fills/borders give a clean Seterra-style map.
+            map.getContainer().style.background = '#aab6bf';
+
+            // Draw GeoJSON of ALL world countries
+            if (window._mcWorldTopo && window.topojson) {
+                const allFeatures = window.topojson.feature(window._mcWorldTopo, window._mcWorldTopo.objects.countries);
+                // Split antimeridian-crossing rings (Russia, Fiji) into separate
+                // clean pieces — otherwise they draw as a thin seam spanning the
+                // entire map width and tear the landmass apart.
+                allFeatures.features.forEach(f => this._mcFixAntimeridian(f));
+                this._mcAllGeoJSON = allFeatures;
+                L.geoJSON(allFeatures, {
+                    style: { color: '#6b6f73', weight: 0.8, fillColor: '#e9e9e4', fillOpacity: 1 },
+                    smoothFactor: 1
+                }).addTo(map);
+            }
+
+            // Inject UK home-nation polygons (England/Scotland/Wales/N.Ireland) on top,
+            // reusing the same boundary data as the Shapes game / Country Wonders modal.
+            this._mcUkFeatures = this._mcBuildUkFeatures();
+            if (this._mcUkFeatures.length) {
+                L.geoJSON({ type: 'FeatureCollection', features: this._mcUkFeatures }, {
+                    style: { color: '#6b6f73', weight: 0.8, fillColor: '#e9e9e4', fillOpacity: 1, lineJoin: 'round', lineCap: 'round' },
+                    smoothFactor: 2
+                }).addTo(map);
+            }
+
+            // Small-country markers (generous click target, drawn small but tappable)
+            this._mcSmallMarkers = [];
+            const smallData = this._mcSmallCountryData();
+            Object.keys(smallData).forEach(name => {
+                const d = smallData[name];
+                const marker = L.circleMarker([d.lat, d.lng], {
+                    radius: 5, color: '#6b6f73', weight: 1, fillColor: '#d8d4c0', fillOpacity: 1,
+                    interactive: false // visual only; click hit-test handled in _resolveMcClick for forgiveness radius
+                }).addTo(map);
+                this._mcSmallMarkers.push({ name, marker, lat: d.lat, lng: d.lng });
+            });
+
+            this.mcMap = map;
+
+            // Click handler
+            map.on('click', (e) => {
+                if (this.mcShowResult || this.gameShowScore || this.gameAnswered) return;
+                this._stopGameTimer();
+                this.gameAnswered = true;
+                this._resolveMcClick(e.latlng);
+            });
+
+            this._startGameTimer(game);
+        },
+
+        // Builds GeoJSON Feature objects for England/Scotland/Wales/Northern Ireland
+        // from the same CUSTOM_SHAPES ring data used by the Shapes game.
+        _mcBuildUkFeatures() {
+            const CUSTOM_SHAPES = {
+                'England': [[[-2.666,51.617],[-2.86,51.546],[-2.975,51.563],[-3.173,51.453],[-3.184,51.398],[-3.289,51.384],[-3.559,51.406],[-3.739,51.49],[-3.843,51.622],[-3.991,51.607],[-3.976,51.563],[-4.027,51.554],[-4.289,51.556],[-4.289,51.617],[-4.07,51.676],[-4.315,51.678],[-4.379,51.727],[-4.311,51.733],[-4.365,51.789],[-4.462,51.735],[-4.646,51.732],[-4.711,51.651],[-4.941,51.597],[-5.121,51.678],[-4.844,51.713],[-4.88,51.762],[-4.826,51.796],[-4.934,51.776],[-4.894,51.728],[-4.988,51.706],[-5.182,51.69],[-5.251,51.733],[-5.125,51.769],[-5.114,51.828],[-5.139,51.864],[-5.312,51.864],[-5.29,51.918],[-5.121,51.96],[-5.071,52.026],[-4.84,52.016],[-4.721,52.113],[-4.315,52.216],[-4.138,52.33],[-4.055,52.529],[-3.947,52.549],[-4.052,52.542],[-4.124,52.603],[-3.987,52.735],[-4.048,52.721],[-4.145,52.802],[-4.077,52.927],[-4.426,52.887],[-4.516,52.789],[-4.761,52.789],[-4.595,52.929],[-4.358,53.029],[-4.34,53.113],[-4.178,53.218],[-3.832,53.289],[-3.879,53.338],[-3.602,53.289],[-3.371,53.351],[-3.087,53.235],[-3.188,53.393],[-3.058,53.436],[-2.882,53.289],[-2.698,53.351],[-2.925,53.349],[-3.101,53.559],[-2.9,53.736],[-3.047,53.77],[-3.058,53.907],[-2.857,53.968],[-2.831,54.017],[-2.918,54.035],[-2.795,54.124],[-2.853,54.194],[-2.795,54.249],[-2.939,54.155],[-3.047,54.222],[-3.145,54.064],[-3.242,54.113],[-3.206,54.263],[-3.231,54.202],[-3.307,54.192],[-3.407,54.278],[-3.415,54.346],[-3.634,54.513],[-3.389,54.883],[-3.256,54.9],[-3.317,54.92],[-3.278,54.944],[-3.022,54.976],[-0.563,54.477],[-0.369,54.248],[-0.074,54.113],[0.135,53.643],[0.139,53.577],[-0.113,53.638],[-0.261,53.736],[0.247,53.392],[0.344,53.226],[0.337,53.093],[0.009,52.887],[0.247,52.796],[0.52,52.956],[0.967,52.975],[1.395,52.892],[1.697,52.731],[1.769,52.487],[1.629,52.27],[1.582,52.081],[1.334,51.94],[1.157,52.029],[1.064,51.776],[0.981,51.843],[0.873,51.747],[0.7,51.72],[0.761,51.693],[0.455,51.505],[0.383,51.453],[0.697,51.477],[0.556,51.413],[0.765,51.364],[0.977,51.349],[1.449,51.382],[1.377,51.327],[1.413,51.222],[1.384,51.151],[1.067,51.065],[0.967,50.982],[0.625,50.859],[0.365,50.818],[0.272,50.747],[-0.268,50.832],[-0.758,50.778],[-1.082,50.781],[-1.467,50.918],[-1.316,50.8],[-1.561,50.719],[-1.694,50.741],[-1.939,50.692],[-2.039,50.741],[-2.083,50.698],[-2.399,50.646],[-2.453,50.528],[-2.864,50.734],[-3.26,50.675],[-3.368,50.617],[-3.465,50.678],[-3.433,50.611],[-3.505,50.521],[-3.487,50.459],[-3.555,50.432],[-3.487,50.405],[-3.631,50.312],[-3.659,50.221],[-3.789,50.212],[-3.962,50.322],[-4.055,50.3],[-4.106,50.371],[-4.167,50.376],[-4.16,50.459],[-4.199,50.459],[-4.228,50.398],[-4.289,50.398],[-4.192,50.378],[-4.228,50.371],[-4.192,50.322],[-4.336,50.371],[-4.667,50.315],[-4.693,50.344],[-4.765,50.322],[-4.79,50.236],[-5.002,50.145],[-5.053,50.195],[-5.042,50.145],[-5.125,50.096],[-5.056,50.06],[-5.189,49.959],[-5.305,50.08],[-5.474,50.131],[-5.668,50.043],[-5.715,50.082],[-5.686,50.161],[-5.316,50.254],[-5.15,50.351],[-5.154,50.4],[-5.049,50.428],[-4.995,50.548],[-4.844,50.514],[-4.919,50.589],[-4.793,50.595],[-4.577,50.774],[-4.527,51.014],[-4.318,51.001],[-4.207,51.077],[-4.257,51.151],[-4.214,51.151],[-4.228,51.193],[-3.785,51.247],[-3.386,51.186],[-3.022,51.193],[-3.022,51.323],[-2.975,51.384],[-2.716,51.499],[-2.558,51.659],[-2.389,51.75],[-2.399,51.782],[-2.601,51.666],[-2.666,51.617]]],
+                'Scotland': [[[-5.049,55.05],[-5.01,55.141],[-4.865,55.225],[-4.833,55.332],[-4.617,55.496],[-4.693,55.605],[-4.919,55.708],[-4.862,55.757],[-4.887,55.919],[-4.801,55.958],[-4.48,55.928],[-3.569,54.996],[-3.58,54.884],[-3.821,54.856],[-3.818,54.886],[-3.832,54.82],[-4.012,54.768],[-4.063,54.832],[-4.124,54.773],[-4.21,54.827],[-4.199,54.866],[-4.271,54.839],[-4.405,54.908],[-4.405,54.825],[-4.343,54.795],[-4.383,54.68],[-4.858,54.866],[-4.955,54.81],[-4.955,54.66],[-4.955,54.729],[-5.157,54.879],[-5.171,55.009],[-5.114,55.031],[-5.013,54.91],[-5.049,54.935],[-1.443,55.05],[-1.276,54.748],[-1.172,54.702],[-1.201,54.621],[-1.139,54.646],[-0.563,54.477],[-2.795,54.249],[-2.939,54.155],[-3.047,54.222],[-3.145,54.064],[-3.242,54.113],[-3.206,54.263],[-3.231,54.202],[-3.307,54.192],[-3.407,54.278],[-3.415,54.346],[-3.634,54.513],[-3.389,54.883],[-3.256,54.9],[-3.317,54.92],[-3.278,54.944],[-3.022,54.976],[-1.823,55.636],[-1.633,55.585],[-1.571,55.286],[-1.443,55.05],[-5.049,55.05]]],
+                'Wales': [[[-2.666,51.617],[-2.601,51.666],[-2.399,51.782],[-2.389,51.75],[-2.558,51.659],[-2.716,51.499],[-2.975,51.384],[-3.022,51.323],[-3.022,51.193],[-3.386,51.186],[-3.785,51.247],[-4.228,51.193],[-4.214,51.151],[-4.257,51.151],[-4.207,51.077],[-4.318,51.001],[-4.527,51.014],[-4.577,50.774],[-4.34,53.113],[-4.358,53.029],[-4.595,52.929],[-4.761,52.789],[-4.516,52.789],[-4.426,52.887],[-4.077,52.927],[-4.145,52.802],[-4.048,52.721],[-3.987,52.735],[-4.124,52.603],[-4.052,52.542],[-3.947,52.549],[-4.055,52.529],[-4.138,52.33],[-4.315,52.216],[-4.721,52.113],[-4.84,52.016],[-5.071,52.026],[-5.121,51.96],[-5.29,51.918],[-5.312,51.864],[-5.139,51.864],[-5.114,51.828],[-5.125,51.769],[-5.251,51.733],[-5.182,51.69],[-4.988,51.706],[-4.894,51.728],[-4.934,51.776],[-4.826,51.796],[-4.88,51.762],[-4.844,51.713],[-5.121,51.678],[-4.941,51.597],[-4.711,51.651],[-4.646,51.732],[-4.462,51.735],[-4.365,51.789],[-4.311,51.733],[-4.379,51.727],[-4.315,51.678],[-4.07,51.676],[-4.289,51.617],[-4.289,51.556],[-4.027,51.554],[-3.976,51.563],[-3.991,51.607],[-3.843,51.622],[-3.739,51.49],[-3.559,51.406],[-3.289,51.384],[-3.184,51.398],[-3.173,51.453],[-2.975,51.563],[-2.86,51.546],[-2.666,51.617]]],
+                'Northern Ireland': [[[-7.586,55.057],[-7.4,55.247],[-7.155,55.166],[-6.733,55.181],[-6.236,55.181],[-5.661,54.518],[-5.45,54.353],[-5.55,54.21],[-5.95,54.27],[-6.092,54.087],[-6.453,54.097],[-6.65,54.038],[-6.952,54.073],[-7.273,54.062],[-7.594,54.452],[-7.86,54.515],[-8.018,54.65],[-7.836,54.741],[-7.586,55.057]]],
+            };
+            const features = [];
+            ['England','Scotland','Wales','Northern Ireland'].forEach(name => {
+                const rings = CUSTOM_SHAPES[name];
+                if (!rings) return;
+                features.push({
+                    type: 'Feature',
+                    properties: { name },
+                    geometry: { type: 'Polygon', coordinates: rings }
+                });
+            });
+            return features;
+        },
+
+        _resolveMcClick(latlng) {
+            const q = this.gameCurrentQ;
+            if (!q) return;
+            const targetName = q.country.name;
+            const smallData = this._mcSmallCountryData();
+            const isSmallTarget = !!smallData[targetName];
+
+            // Mapping from visitedCountries display name → TopoJSON/Natural Earth name.
+            // Verified directly against the actual published countries-110m.json —
+            // not assumed. Tanzania and Eswatini match directly and need no entry.
+            const MC_NAME_MAP = {
+                'Czech Republic': 'Czechia',
+                'United States': 'United States of America',
+                'Bosnia And Herzegovina': 'Bosnia and Herz.',
+                'North Macedonia': 'Macedonia',
+                'Dominican Republic': 'Dominican Rep.',
+            };
+            // Reverse map: TopoJSON name → visitedCountries display name, so any
+            // country we report back to the player (clickedName) always uses our
+            // own naming — avoids messages like "you clicked on United States of
+            // America" when the target itself is displayed as "United States".
+            const MC_NAME_MAP_REV = {};
+            Object.keys(MC_NAME_MAP).forEach(k => { MC_NAME_MAP_REV[MC_NAME_MAP[k]] = k; });
+
+            let clickedName = null;
+            let correct = false;
+
+            // 1) Small-country check first — generous on-screen radius, not raw polygon area
+            if (latlng && this.mcMap) {
+                const clickPt = this.mcMap.latLngToContainerPoint(latlng);
+                const SMALL_HIT_RADIUS_PX = 22;
+                let nearestSmall = null, nearestDist = Infinity;
+                (this._mcSmallMarkers || []).forEach(m => {
+                    const mPt = this.mcMap.latLngToContainerPoint([m.lat, m.lng]);
+                    const dist = clickPt.distanceTo(mPt);
+                    if (dist < nearestDist) { nearestDist = dist; nearestSmall = m; }
+                });
+                if (nearestSmall && nearestDist <= SMALL_HIT_RADIUS_PX) {
+                    clickedName = nearestSmall.name;
+                    if (nearestSmall.name === targetName) correct = true;
+                }
+            }
+
+            // 2) Polygon check (UK nations + regular countries) if not already resolved by a small-country hit
+            if (latlng && !clickedName && this._mcAllGeoJSON && window.topojson) {
+                const pt = [latlng.lng, latlng.lat];
+                // Check UK nations first (they sit inside the larger "United Kingdom" feature)
+                for (const feat of (this._mcUkFeatures || [])) {
+                    if (this._mcPointInFeature(pt, feat)) { clickedName = feat.properties.name; break; }
+                }
+                // Fall back to world countries — always translate the raw TopoJSON
+                // name back to our own display name via the reverse map.
+                if (!clickedName) {
+                    for (const feat of this._mcAllGeoJSON.features) {
+                        const props = feat.properties;
+                        const fname = props.name || props.NAME || props.ADMIN || '';
+                        // Skip "United Kingdom" blob — handled by UK nation features above
+                        if (fname === 'United Kingdom') continue;
+                        if (this._mcPointInFeature(pt, feat)) {
+                            clickedName = MC_NAME_MAP_REV[fname] || fname;
+                            break;
+                        }
+                    }
+                }
+                if (clickedName === targetName) correct = true;
+            }
+
+            // Highlight the TARGET country/nation (green if correct, red/gold otherwise)
+            const highlightColor = latlng ? (correct ? '#2ecc71' : '#e74c3c') : '#e8c840';
+            if (this.mcHighlightLayer) { this.mcMap.removeLayer(this.mcHighlightLayer); this.mcHighlightLayer = null; }
+
+            if (isSmallTarget) {
+                const d = smallData[targetName];
+                this.mcHighlightLayer = L.circleMarker([d.lat, d.lng], {
+                    radius: 9, color: highlightColor, weight: 2.5, fillColor: highlightColor, fillOpacity: 0.85
+                }).addTo(this.mcMap);
+                this.mcMap.setView([d.lat, d.lng], Math.max(this.mcMap.getZoom(), 5), { animate: true });
+            } else {
+                const ukFeat = (this._mcUkFeatures || []).find(f => f.properties.name === targetName);
+                const mappedTarget = MC_NAME_MAP[targetName] || targetName;
+                const worldFeat = !ukFeat && this._mcAllGeoJSON
+                    ? this._mcAllGeoJSON.features.find(f => {
+                        const fname = (f.properties.name || f.properties.NAME || f.properties.ADMIN || '');
+                        return fname === mappedTarget || fname === targetName;
+                      })
+                    : null;
+                const feat = ukFeat || worldFeat;
+                if (feat) {
+                    this.mcHighlightLayer = L.geoJSON(feat, {
+                        style: { color: highlightColor, weight: 2.5, fillColor: highlightColor, fillOpacity: 0.45 }
+                    }).addTo(this.mcMap);
+                    try {
+                        const bounds = L.geoJSON(feat).getBounds();
+                        this.mcMap.fitBounds(bounds.pad(0.4), { maxZoom: 6 });
+                    } catch(e) {}
+                }
+            }
+
+            // Click marker (only if the player actually clicked)
+            if (latlng) {
+                if (this.mcClickMarker) this.mcMap.removeLayer(this.mcClickMarker);
+                const clickIcon = L.divIcon({
+                    className: '',
+                    html: `<div style="width:14px;height:14px;border-radius:50%;background:${correct?'#2ecc71':'#e74c3c'};border:2px solid #fff;box-shadow:0 2px 8px rgba(0,0,0,0.5);"></div>`,
+                    iconSize: [14, 14], iconAnchor: [7, 7]
+                });
+                this.mcClickMarker = L.marker(latlng, { icon: clickIcon }).addTo(this.mcMap);
+            }
+
+            this.mcLastCorrect = correct;
+            this.mcClickedCountry = clickedName;
+            this.mcTimedOut = !latlng;
+            this.mcShowResult = true;
+            if (correct) this.gameScore++;
+        },
+
+        // Splits rings that cross the antimeridian (±180°) into separate clean
+        // pieces, instead of dropping them. A handful of countries (Russia, Fiji)
+        // have rings that legitimately wrap past the dateline; rendered as raw
+        // lat/lng without splitting, these draw as a sliver spanning the full map
+        // width and tear the landmass apart. This walks each ring, and wherever
+        // consecutive points jump by more than 180° in longitude, inserts the
+        // ±180° crossing point and starts a new piece — standard antimeridian
+        // cutting. Mutates feat.geometry in place.
+        _mcSplitAntimeridianRing(ring) {
+            let minLng = Infinity, maxLng = -Infinity;
+            ring.forEach(p => { if (p[0] < minLng) minLng = p[0]; if (p[0] > maxLng) maxLng = p[0]; });
+            if (maxLng - minLng <= 180) return [ring]; // no crossing, nothing to do
+
+            const pieces = [];
+            let current = [ring[0]];
+            for (let i = 1; i < ring.length; i++) {
+                const prev = ring[i - 1];
+                const pt = ring[i];
+                const dLng = pt[0] - prev[0];
+                if (Math.abs(dLng) > 180) {
+                    const unwrappedLng2 = pt[0] + (dLng > 0 ? -360 : 360);
+                    const totalDelta = unwrappedLng2 - prev[0];
+                    const edgeLng = prev[0] < 0 ? -180 : 180;
+                    const t = totalDelta !== 0 ? (edgeLng - prev[0]) / totalDelta : 0;
+                    const crossLat = prev[1] + t * (pt[1] - prev[1]);
+                    current.push([edgeLng, crossLat]);
+                    pieces.push(current);
+                    current = [[-edgeLng, crossLat], pt];
+                } else {
+                    current.push(pt);
+                }
+            }
+            pieces.push(current);
+            return pieces.filter(p => p.length >= 3);
+        },
+
+        _mcFixAntimeridian(feat) {
+            const geom = feat.geometry;
+            if (!geom) return;
+            if (geom.type === 'Polygon') {
+                const newPolys = []; // a Polygon may need to become a MultiPolygon if its outer ring splits
+                let anySplit = false;
+                geom.coordinates.forEach((ring, idx) => {
+                    const pieces = this._mcSplitAntimeridianRing(ring);
+                    if (pieces.length > 1) anySplit = true;
+                    if (idx === 0) {
+                        pieces.forEach(p => newPolys.push([p]));
+                    } else if (newPolys.length) {
+                        // hole ring — attach to first piece (rare edge case for our use)
+                        newPolys[0].push(pieces[0]);
+                    }
+                });
+                if (anySplit) {
+                    geom.type = 'MultiPolygon';
+                    geom.coordinates = newPolys;
+                }
+            } else if (geom.type === 'MultiPolygon') {
+                const newPolys = [];
+                geom.coordinates.forEach(poly => {
+                    let anySplit = false;
+                    const splitOuter = this._mcSplitAntimeridianRing(poly[0]);
+                    if (splitOuter.length > 1) anySplit = true;
+                    if (!anySplit) {
+                        newPolys.push(poly);
+                    } else {
+                        splitOuter.forEach(p => newPolys.push([p]));
+                    }
+                });
+                geom.coordinates = newPolys;
+            }
+        },
+
+        _mcPointInFeature(pt, feat) {
+            const geom = feat.geometry;
+            if (!geom) return false;
+            if (geom.type === 'Polygon') {
+                return this._mcPointInPolygon(pt, geom.coordinates);
+            } else if (geom.type === 'MultiPolygon') {
+                return geom.coordinates.some(poly => this._mcPointInPolygon(pt, poly));
+            }
+            return false;
+        },
+
+        _mcPointInPolygon(pt, rings) {
+            // Ray-casting — only use outer ring (rings[0])
+            const ring = rings[0];
+            let inside = false;
+            const x = pt[0], y = pt[1];
+            for (let i = 0, j = ring.length - 1; i < ring.length; j = i++) {
+                const xi = ring[i][0], yi = ring[i][1];
+                const xj = ring[j][0], yj = ring[j][1];
+                const intersect = ((yi > y) !== (yj > y)) && (x < (xj - xi) * (y - yi) / (yj - yi) + xi);
+                if (intersect) inside = !inside;
+            }
+            return inside;
+        },
+
+        mcNextQuestion() {
+            if (this.mcHighlightLayer) { this.mcMap.removeLayer(this.mcHighlightLayer); this.mcHighlightLayer = null; }
+            if (this.mcClickMarker) { this.mcMap.removeLayer(this.mcClickMarker); this.mcClickMarker = null; }
+            this.mcMap.setView([20, 10], 2);
             this._nextGameQuestion(this.gameActiveInfo);
         },
 
@@ -5157,6 +5867,78 @@ createApp({
                 return this.splitCountries(w.country_en).some(c => this.resolveAlias(c) === countryName);
             });
         },
+        // Abbreviates a raw number to one decimal place with M/K suffix.
+        // Numbers under 1,000 (tiny territories' land area, e.g. Vatican City's
+        // 0.44 km², Gibraltar's 7 km², Monaco's 2 km²) are shown as-is, unrounded.
+        formatStatNumber(n) {
+            if (n == null) return '';
+            if (n >= 1000000) return (n / 1000000).toFixed(1).replace(/\.0$/, '') + 'M';
+            if (n >= 1000) return (n / 1000).toFixed(1).replace(/\.0$/, '') + 'K';
+            return (n % 1 === 0) ? String(n) : String(n);
+        },
+        // Builds the "(135th)" / "(135º)" ranking suffix for the current language.
+        formatStatOrder(num, suffixEn) {
+            if (this.lang === 'pt' || this.lang === 'es') return num + 'º';
+            return num + suffixEn;
+        },
+        // Rounds to ~3 significant figures, scaled to the value's own magnitude
+        // (e.g. nearest 1M for a 349M population, nearest 10K for a 2.8M one,
+        // nearest 0.01 for a 0.44 km² area) — same precision for the correct
+        // answer and all distractors, so rounding granularity alone can't give
+        // away which option is correct.
+        _statRoundStep(value) {
+            const abs = Math.abs(value);
+            if (abs === 0) return 0.01;
+            const magnitude = Math.pow(10, Math.floor(Math.log10(abs)));
+            let step = magnitude / 100;
+            const niceSteps = [1, 2, 5, 10];
+            const exponent = Math.floor(Math.log10(step));
+            const base = step / Math.pow(10, exponent);
+            const nice = niceSteps.reduce((best, n) => Math.abs(n - base) < Math.abs(best - base) ? n : best, niceSteps[0]);
+            step = nice * Math.pow(10, exponent);
+            return Math.max(step, 0.01);
+        },
+        // Generates 4 multiple-choice options (1 correct + 3 distractors) for the
+        // Populations/Areas games, per the "unpredictable distractor" strategy:
+        // each question randomly picks one of 3 modes so the correct answer isn't
+        // always the highest, lowest, or always in the same relative position.
+        //   Mode A: distractors all below true value -> correct is the HIGHEST.
+        //   Mode B: distractors all above true value -> correct is the LOWEST.
+        //   Mode C: distractors straddle the true value -> correct lands in the MIDDLE.
+        _genStatOptions(trueValue) {
+            const step = this._statRoundStep(trueValue);
+            const round = (n) => {
+                const r = Math.round(n / step) * step;
+                const result = r <= 0 ? step : r;
+                return Math.round(result * 100) / 100;
+            };
+            const modes = ['A', 'B', 'C'];
+            const mode = modes[Math.floor(Math.random() * 3)];
+            let mults;
+            if (mode === 'A') mults = [0.50, 0.65, 0.80];
+            else if (mode === 'B') mults = [1.50, 2.00, 2.50];
+            else mults = [0.55, 1.35, 1.70];
+
+            const correct = round(trueValue);
+            let values = [correct, ...mults.map(m => round(trueValue * (m + (Math.random() * 0.1 - 0.05))))];
+
+            // Ensure uniqueness: pad collisions with a safe random multiplier
+            let tries = 0;
+            while (new Set(values).size < 4 && tries < 50) {
+                const seen = new Set();
+                let dupIdx = -1;
+                for (let i = 0; i < values.length; i++) {
+                    if (seen.has(values[i])) { dupIdx = i; break; }
+                    seen.add(values[i]);
+                }
+                if (dupIdx === -1) break;
+                values[dupIdx] = round(trueValue * (0.3 + Math.random() * 2.2));
+                tries++;
+            }
+            // Randomize position of the correct answer every time
+            const shuffled = values.map(v => ({ v, k: Math.random() })).sort((a, b) => a.k - b.k).map(x => x.v);
+            return { options: shuffled, correctValue: correct };
+        },
         openCountryWonders(country) {
             this.selectedWonderCountry = country;
             this.$nextTick(() => this.drawCountryMap(country));
@@ -5171,8 +5953,17 @@ createApp({
         async drawCountryMap(country) {
             const canvas = this.$refs.cwCanvas;
             if (!canvas) return;
+            // Size the canvas's internal pixel buffer to match its actual
+            // rendered (CSS) box — the map now stretches to fill the available
+            // height beside the flag/name/stats column, so its on-screen aspect
+            // ratio varies per country and can no longer be hardcoded.
+            const rect = canvas.getBoundingClientRect();
+            const dpr = window.devicePixelRatio || 1;
+            const W = Math.max(1, Math.round((rect.width || 220) * dpr));
+            const H = Math.max(1, Math.round((rect.height || 140) * dpr));
+            canvas.width = W;
+            canvas.height = H;
             const ctx = canvas.getContext('2d');
-            const W = canvas.width, H = canvas.height;
             ctx.clearRect(0, 0, W, H);
 
             // ── Custom inline shapes (countries not in Natural Earth, or needing special treatment) ──
