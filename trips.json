@@ -1,6 +1,248 @@
 [
   {
     "id": 1,
+    "name_en": "Bolivia 2026",
+    "name_pt": "Bolívia 2026",
+    "name_es": "Bolivia 2026",
+    "year": 2026,
+    "color": "#585858",
+    "region": "Americas",
+    "stops": [
+      {
+        "name": "Santa Cruz de la Sierra, Bolivia",
+        "country": "Bolivia",
+        "lat": -17.78449,
+        "lng": -63.18082,
+        "date": "24Jul2026"
+      },
+      {
+        "name": "Sucre, Bolivia",
+        "country": "Bolivia",
+        "lat": -19.04773,
+        "lng": -65.25943,
+        "date": "26Jul2026"
+      },
+      {
+        "name": "Tarabuco, Bolivia",
+        "country": "Bolivia",
+        "lat": -19.1824,
+        "lng": -64.91499,
+        "date": "26Jul2026"
+      },
+      {
+        "name": "Sucre, Bolivia",
+        "country": "Bolivia",
+        "lat": -19.04773,
+        "lng": -65.25943,
+        "date": "27Jul2026"
+      },
+      {
+        "name": "Potosí, Bolivia",
+        "country": "Bolivia",
+        "lat": -19.58929,
+        "lng": -65.75347,
+        "date": "28Jul2026"
+      },
+      {
+        "name": "Uyuni, Bolivia",
+        "country": "Bolivia",
+        "lat": -20.46284,
+        "lng": -66.82391,
+        "date": "29Jul2026"
+      },
+      {
+        "name": "Colchani, Bolivia",
+        "country": "Bolivia",
+        "lat": -20.30061,
+        "lng": -66.93782,
+        "date": "29Jul2026"
+      },
+      {
+        "name": "Isla Incahuasi, Bolivia",
+        "country": "Bolivia",
+        "lat": -20.24579,
+        "lng": -67.62449,
+        "date": "29Jul2026"
+      },
+      {
+        "name": "Colcha K, Bolivia",
+        "country": "Bolivia",
+        "lat": -20.74035,
+        "lng": -67.66059,
+        "date": "30Jul2026"
+      },
+      {
+        "name": "Julaca, Bolivia",
+        "country": "Bolivia",
+        "lat": -20.91127,
+        "lng": -67.56732,
+        "date": "30Jul2026"
+      },
+      {
+        "name": "Laguna Cachi, Bolivia",
+        "country": "Bolivia",
+        "lat": -21.74638,
+        "lng": -67.95295,
+        "date": "30Jul2026"
+      },
+      {
+        "name": "Laguna Colorada, Bolivia",
+        "country": "Bolivia",
+        "lat": -22.17414,
+        "lng": -67.81899,
+        "date": "30Jul2026"
+      },
+      {
+        "name": "Termas de Polques, Bolivia",
+        "country": "Bolivia",
+        "lat": -22.5357,
+        "lng": -67.64963,
+        "date": "31Jul2026"
+      },
+      {
+        "name": "Laguna Verde, Bolivia",
+        "country": "Bolivia",
+        "lat": -22.79291,
+        "lng": -67.83589,
+        "date": "31Jul2026"
+      },
+      {
+        "name": "Edificio Puesto Fronterizo Hito Cajones, Bolivia",
+        "country": "Bolivia",
+        "lat": -22.8803,
+        "lng": -67.79818,
+        "date": "31Jul2026"
+      },
+      {
+        "name": "San Cristóbal, Bolivia",
+        "country": "Bolivia",
+        "lat": -21.15396,
+        "lng": -67.1662,
+        "date": "31Jul2026"
+      },
+      {
+        "name": "Uyuni, Bolivia",
+        "country": "Bolivia",
+        "lat": -20.46284,
+        "lng": -66.82391,
+        "date": "01Aug2026"
+      },
+      {
+        "name": "La Paz, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.49555,
+        "lng": -68.13362,
+        "date": "02Aug2026"
+      },
+      {
+        "name": "Tiahuanacu, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.55356,
+        "lng": -68.66962,
+        "date": "02Aug2026"
+      },
+      {
+        "name": "Puma Punku, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.56197,
+        "lng": -68.67914,
+        "date": "02Aug2026"
+      },
+      {
+        "name": "La Paz, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.49555,
+        "lng": -68.13362,
+        "date": "03Aug2026"
+      },
+      {
+        "name": "Valle de la Luna, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.56434,
+        "lng": -68.09487,
+        "date": "03Aug2026"
+      },
+      {
+        "name": "Valle de las ánimas, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.53809,
+        "lng": -68.01933,
+        "date": "03Aug2026"
+      },
+      {
+        "name": "La Paz, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.49555,
+        "lng": -68.13362,
+        "date": "04Aug2026"
+      },
+      {
+        "name": "Copacabana, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.16573,
+        "lng": -69.08544,
+        "date": "05Aug2026"
+      },
+      {
+        "name": "Isla del Sol, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.01667,
+        "lng": -69.15,
+        "date": "05Aug2026"
+      },
+      {
+        "name": "Copacabana, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.16573,
+        "lng": -69.08544,
+        "date": "05Aug2026"
+      },
+      {
+        "name": "La Paz, Bolivia",
+        "country": "Bolivia",
+        "lat": -16.49555,
+        "lng": -68.13362,
+        "date": "06Aug2026"
+      },
+      {
+        "name": "Santa Cruz de la Sierra, Bolivia",
+        "country": "Bolivia",
+        "lat": -17.78342,
+        "lng": -63.18209,
+        "date": "07Aug2026"
+      },
+      {
+        "name": "Samaipata, Bolivia",
+        "country": "Bolivia",
+        "lat": -18.17966,
+        "lng": -63.87583,
+        "date": "08Aug2026"
+      },
+      {
+        "name": "Parque Nacional Amboró, Bolivia",
+        "country": "Bolivia",
+        "lat": -18.09437,
+        "lng": -63.91494,
+        "date": "08Aug2026"
+      },
+      {
+        "name": "Samaipata, Bolivia",
+        "country": "Bolivia",
+        "lat": -18.17966,
+        "lng": -63.87583,
+        "date": "08Aug2026"
+      },
+      {
+        "name": "Santa Cruz de la Sierra, Bolivia",
+        "country": "Bolivia",
+        "lat": -17.78342,
+        "lng": -63.18209,
+        "date": "09Aug2026"
+      }
+    ]
+  },
+  {
+    "id": 2,
     "name_en": "Morocco - Canary Islands 2025",
     "name_pt": "Marrocos - Ilhas Canárias 2025",
     "name_es": "Marruecos - Islas Canarias 2025",
@@ -386,16 +628,13 @@
         "lng": -3.67824,
         "date": "02Mar2026"
       }
-    ],
-    "date_from": "03 Dec 2025",
-    "date_to": "03 Mar 2026",
-    "days": 91
+    ]
   },
   {
-    "id": 2,
+    "id": 3,
     "name_en": "Central America 2025",
-    "name_pt": "Centroamérica 2025",
-    "name_es": "Centroamérica 2025",
+    "name_pt": "Central America 2025",
+    "name_es": "Central America 2025",
     "year": 2025,
     "color": "#585858",
     "region": "Americas",
@@ -820,16 +1059,13 @@
         "lng": -84.08333,
         "date": "05Aug2025"
       }
-    ],
-    "date_from": "28 Jun 2025",
-    "date_to": "06 Aug 2025",
-    "days": 40
+    ]
   },
   {
-    "id": 3,
+    "id": 4,
     "name_en": "Rest of Europe 2024",
-    "name_pt": "Resto de Europa 2024",
-    "name_es": "Resto de Europa 2024",
+    "name_pt": "Rest of Europa 2024",
+    "name_es": "Rest of Europa 2024",
     "year": 2024,
     "color": "#d99f13",
     "region": "Europe",
@@ -1968,13 +2204,10 @@
         "lng": 8.5714,
         "date": "22Aug2024"
       }
-    ],
-    "date_from": "16 Jun 2024",
-    "date_to": "24 Aug 2024",
-    "days": 70
+    ]
   },
   {
-    "id": 4,
+    "id": 5,
     "name_en": "Africa 2023",
     "name_pt": "África 2023",
     "name_es": "África 2023",
@@ -2220,13 +2453,10 @@
         "lng": 28.04363,
         "date": "29Dec2023"
       }
-    ],
-    "date_from": "04 Dec 2023",
-    "date_to": "29 Dec 2023",
-    "days": 26
+    ]
   },
   {
-    "id": 5,
+    "id": 6,
     "name_en": "New Zealand - Australia 2019",
     "name_pt": "Nova Zelândia - Austrália 2019",
     "name_es": "Nueva Zelanda - Australia 2019",
@@ -2339,13 +2569,10 @@
         "lng": 174.7635,
         "date": "15Jan2020"
       }
-    ],
-    "date_from": "16 Dec 2019",
-    "date_to": "16 Jan 2020",
-    "days": 32
+    ]
   },
   {
-    "id": 6,
+    "id": 7,
     "name_en": "China 2019",
     "name_pt": "China 2019",
     "name_es": "China 2019",
@@ -2444,16 +2671,13 @@
         "lng": 121.47592,
         "date": "01Oct2019"
       }
-    ],
-    "date_from": "02 Sep 2019",
-    "date_to": "02 Oct 2019",
-    "days": 31
+    ]
   },
   {
-    "id": 7,
+    "id": 8,
     "name_en": "Great Britain 2019",
-    "name_pt": "Grã Bretanha 2019",
-    "name_es": "Gran Bretaña 2019",
+    "name_pt": "Grã Britain 2019",
+    "name_es": "Gran Britain 2019",
     "year": 2019,
     "color": "#77118f",
     "region": "Europe",
@@ -2528,13 +2752,10 @@
         "lng": -0.12624,
         "date": "19Jun2019"
       }
-    ],
-    "date_from": "08 Jun 2019",
-    "date_to": "20 Jun 2019",
-    "days": 13
+    ]
   },
   {
-    "id": 8,
+    "id": 9,
     "name_en": "Caribbean 2019",
     "name_pt": "Caribe 2019",
     "name_es": "Caribe 2019",
@@ -2605,13 +2826,10 @@
         "lng": -68.40431,
         "date": "04Feb2019"
       }
-    ],
-    "date_from": "22 Jan 2019",
-    "date_to": "05 Feb 2019",
-    "days": 15
+    ]
   },
   {
-    "id": 9,
+    "id": 10,
     "name_en": "France 2018",
     "name_pt": "França 2018",
     "name_es": "Francia 2018",
@@ -2857,13 +3075,10 @@
         "lng": 2.35204,
         "date": "26Oct2018"
       }
-    ],
-    "date_from": "11 Oct 2018",
-    "date_to": "26 Oct 2018",
-    "days": 16
+    ]
   },
   {
-    "id": 10,
+    "id": 11,
     "name_en": "Barcelona - Andorra - Morocco 2018",
     "name_pt": "Barcelona - Andorra - Marrocos 2018",
     "name_es": "Barcelona - Andorra - Marruecos 2018",
@@ -2997,16 +3212,13 @@
         "lng": -7.61138,
         "date": "03Feb2018"
       }
-    ],
-    "date_from": "17 Jan 2018",
-    "date_to": "04 Feb 2018",
-    "days": 19
+    ]
   },
   {
-    "id": 11,
+    "id": 12,
     "name_en": "Eastern Europe 2017",
-    "name_pt": "Europa do Leste 2017",
-    "name_es": "Europa Oriental 2017",
+    "name_pt": "Europa do Leste Europa 2017",
+    "name_es": "Europa del Este Europa 2017",
     "year": 2017,
     "color": "#4224dc",
     "region": "Europe",
@@ -3095,16 +3307,13 @@
         "lng": 55.30927,
         "date": "26Jul2017"
       }
-    ],
-    "date_from": "09 Jul 2017",
-    "date_to": "26 Jul 2017",
-    "days": 18
+    ]
   },
   {
-    "id": 12,
+    "id": 13,
     "name_en": "Southeast Asia 2016",
-    "name_pt": "Sudeste da Ásia 2016",
-    "name_es": "Sudeste Asiático 2016",
+    "name_pt": "Sudeste Ásia 2016",
+    "name_es": "Sudeste Asia 2016",
     "year": 2016,
     "color": "#539eff",
     "region": "Asia",
@@ -3277,13 +3486,10 @@
         "lng": 51.53096,
         "date": "16Jan2017"
       }
-    ],
-    "date_from": "06 Dec 2016",
-    "date_to": "16 Jan 2017",
-    "days": 42
+    ]
   },
   {
-    "id": 13,
+    "id": 14,
     "name_en": "Mediterranean 2015",
     "name_pt": "Mediterrâneo 2015",
     "name_es": "Mediterráneo 2015",
@@ -3879,13 +4085,10 @@
         "lng": -3.70256,
         "date": "23Jan2016"
       }
-    ],
-    "date_from": "06 Dec 2015",
-    "date_to": "24 Jan 2016",
-    "days": 50
+    ]
   },
   {
-    "id": 14,
+    "id": 15,
     "name_en": "Rivieras 2016",
     "name_pt": "Rivieras 2016",
     "name_es": "Rivieras 2016",
@@ -4215,13 +4418,10 @@
         "lng": 12.47687,
         "date": "27Jul2016"
       }
-    ],
-    "date_from": "14 Jul 2016",
-    "date_to": "28 Jul 2016",
-    "days": 15
+    ]
   },
   {
-    "id": 15,
+    "id": 16,
     "name_en": "India 2014",
     "name_pt": "Índia 2014",
     "name_es": "India 2014",
@@ -4390,16 +4590,13 @@
         "lng": 54.37051,
         "date": "01Jun2014"
       }
-    ],
-    "date_from": "02 May 2014",
-    "date_to": "01 Jun 2014",
-    "days": 31
+    ]
   },
   {
-    "id": 16,
+    "id": 17,
     "name_en": "Royal Caribbean 2013",
-    "name_pt": "Royal Caribbean 2013",
-    "name_es": "Royal Caribbean 2013",
+    "name_pt": "Royal Caribe 2013",
+    "name_es": "Royal Caribe 2013",
     "year": 2013,
     "color": "#0e8d54",
     "region": "Americas",
@@ -4446,13 +4643,10 @@
         "lng": -48.59863,
         "date": ""
       }
-    ],
-    "date_from": "12 Dec 2013",
-    "date_to": "22 Dec 2013",
-    "days": 11
+    ]
   },
   {
-    "id": 17,
+    "id": 18,
     "name_en": "Minas Gerais 2011",
     "name_pt": "Minas Gerais 2011",
     "name_es": "Minas Gerais 2011",
@@ -4558,13 +4752,10 @@
         "lng": -43.93778,
         "date": "17Feb2011"
       }
-    ],
-    "date_from": "08 Feb 2011",
-    "date_to": "17 Feb 2011",
-    "days": 10
+    ]
   },
   {
-    "id": 18,
+    "id": 19,
     "name_en": "Porto Alegre - Gramado 2009",
     "name_pt": "Porto Alegre - Gramado 2009",
     "name_es": "Porto Alegre - Gramado 2009",
@@ -4584,35 +4775,21 @@
         "country": "Brazil",
         "lat": -28.20759,
         "lng": -48.67855,
-        "date": "27Oct2009"
+        "date": "29Oct2009"
       },
       {
         "name": "Porto Alegre, Brazil",
         "country": "Brazil",
         "lat": -30.09911,
         "lng": -51.17951,
-        "date": "29Oct2009"
+        "date": "31Oct2009"
       },
       {
         "name": "Nova Petrópolis, Brazil",
         "country": "Brazil",
         "lat": -29.36533,
         "lng": -51.09484,
-        "date": "29Oct2009"
-      },
-      {
-        "name": "Gramado, Brazil",
-        "country": "Brazil",
-        "lat": -29.37616,
-        "lng": -50.87814,
-        "date": "29Oct2009"
-      },
-      {
-        "name": "Canela, Brazil",
-        "country": "Brazil",
-        "lat": -29.36374,
-        "lng": -50.80943,
-        "date": "29Oct2009"
+        "date": "31Oct2009"
       },
       {
         "name": "Gramado, Brazil",
@@ -4622,25 +4799,39 @@
         "date": "31Oct2009"
       },
       {
+        "name": "Canela, Brazil",
+        "country": "Brazil",
+        "lat": -29.36374,
+        "lng": -50.80943,
+        "date": "31Oct2009"
+      },
+      {
+        "name": "Gramado, Brazil",
+        "country": "Brazil",
+        "lat": -29.37616,
+        "lng": -50.87814,
+        "date": "01Nov2009"
+      },
+      {
         "name": "Porto Alegre, Brazil",
         "country": "Brazil",
         "lat": -30.09911,
         "lng": -51.17951,
-        "date": "02Nov2009"
+        "date": "03Nov2009"
       },
       {
         "name": "Capão da Canoa, Brazil",
         "country": "Brazil",
         "lat": -29.74345,
         "lng": -50.01625,
-        "date": "02Nov2009"
+        "date": "03Nov2009"
       },
       {
         "name": "Tôrres, Brazil",
         "country": "Brazil",
         "lat": -29.33528,
         "lng": -49.72694,
-        "date": "02Nov2009"
+        "date": "03Nov2009"
       },
       {
         "name": "Balneário Camboriú, Brazil",
@@ -4649,13 +4840,10 @@
         "lng": -48.59863,
         "date": ""
       }
-    ],
-    "date_from": "29 Oct 2009",
-    "date_to": "02 Nov 2009",
-    "days": 5
+    ]
   },
   {
-    "id": 19,
+    "id": 20,
     "name_en": "São Francisco do Sul 2009",
     "name_pt": "São Francisco do Sul 2009",
     "name_es": "São Francisco do Sul 2009",
@@ -4691,13 +4879,10 @@
         "lng": -48.59863,
         "date": ""
       }
-    ],
-    "date_from": "17 Oct 2009",
-    "date_to": "18 Oct 2009",
-    "days": 2
+    ]
   },
   {
-    "id": 20,
+    "id": 21,
     "name_en": "Garopaba 2008",
     "name_pt": "Garopaba 2008",
     "name_es": "Garopaba 2008",
@@ -4747,13 +4932,10 @@
         "lng": -48.59863,
         "date": ""
       }
-    ],
-    "date_from": "13 Nov 2008",
-    "date_to": "16 Nov 2008",
-    "days": 4
+    ]
   },
   {
-    "id": 21,
+    "id": 22,
     "name_en": "Ilha de Mel 2008",
     "name_pt": "Ilha de Mel 2008",
     "name_es": "Ilha de Mel 2008",
@@ -4824,16 +5006,13 @@
         "lng": -48.59863,
         "date": ""
       }
-    ],
-    "date_from": "19 Apr 2008",
-    "date_to": "22 Apr 2008",
-    "days": 4
+    ]
   },
   {
-    "id": 22,
+    "id": 23,
     "name_en": "Istanbul 2007",
-    "name_pt": "Istambul 2007",
-    "name_es": "Estambul 2007",
+    "name_pt": "Istanbul 2007",
+    "name_es": "Istanbul 2007",
     "year": 2007,
     "color": "#2ad9dc",
     "region": "Europe",
@@ -4878,18 +5057,15 @@
         "country": "Germany",
         "lat": 48.15213,
         "lng": 11.54447,
-        "date": "23Feb2007"
+        "date": ""
       }
-    ],
-    "date_from": "18 Feb 2007",
-    "date_to": "23 Feb 2007",
-    "days": 6
+    ]
   },
   {
-    "id": 23,
+    "id": 24,
     "name_en": "Balcans 2007",
-    "name_pt": "Bálcãs 2007",
-    "name_es": "Balcanes 2007",
+    "name_pt": "Balcans 2007",
+    "name_es": "Balcans 2007",
     "year": 2007,
     "color": "#ff1d1d",
     "region": "Europe",
@@ -4899,7 +5075,7 @@
         "country": "Germany",
         "lat": 48.13743,
         "lng": 11.57549,
-        "date": "31Jan2007"
+        "date": ""
       },
       {
         "name": "Zagreb, Croatia",
@@ -5006,16 +5182,13 @@
         "lng": 11.57549,
         "date": "09Feb2007"
       }
-    ],
-    "date_from": "31 Jan 2007",
-    "date_to": "09 Feb 2007",
-    "days": 10
+    ]
   },
   {
-    "id": 24,
+    "id": 25,
     "name_en": "Munich 2007",
-    "name_pt": "Munique 2007",
-    "name_es": "Múnich 2007",
+    "name_pt": "Munich 2007",
+    "name_es": "Munich 2007",
     "year": 2007,
     "color": "#c7cb0f",
     "region": "Europe",
@@ -5025,7 +5198,7 @@
         "country": "Germany",
         "lat": 48.15213,
         "lng": 11.54447,
-        "date": "10Jan2007"
+        "date": ""
       },
       {
         "name": "Tegernsee, Germany",
@@ -5321,16 +5494,13 @@
         "lng": 11.54447,
         "date": "31Jan2007"
       }
-    ],
-    "date_from": "05 Dec 2006",
-    "date_to": "04 Mar 2007",
-    "days": 90
+    ]
   },
   {
-    "id": 25,
+    "id": 26,
     "name_en": "Tuscany 2007",
-    "name_pt": "Toscana 2007",
-    "name_es": "Toscana 2007",
+    "name_pt": "Tuscany 2007",
+    "name_es": "Tuscany 2007",
     "year": 2007,
     "color": "#d41fff",
     "region": "Europe",
@@ -5340,7 +5510,7 @@
         "country": "Germany",
         "lat": 48.15213,
         "lng": 11.54447,
-        "date": "23Dec2006"
+        "date": ""
       },
       {
         "name": "Erlangen, Germany",
@@ -5427,22 +5597,26 @@
         "date": "04Jan2007"
       },
       {
+        "name": "Firenze, Italy",
+        "country": "Italy",
+        "lat": 43.77918,
+        "lng": 11.24946,
+        "date": "05Jan2007"
+      },
+      {
         "name": "München, Germany",
         "country": "Germany",
         "lat": 48.15213,
         "lng": 11.54447,
         "date": ""
       }
-    ],
-    "date_from": "23 Dec 2006",
-    "date_to": "05 Jan 2007",
-    "days": 14
+    ]
   },
   {
-    "id": 26,
+    "id": 27,
     "name_en": "Argentina Northwest 2006",
-    "name_pt": "Nordeste Argentino 2006",
-    "name_es": "Noroeste Argentino 2006",
+    "name_pt": "Argentina Nortewest 2006",
+    "name_es": "Argentina Nortewest 2006",
     "year": 2006,
     "color": "#4078c1",
     "region": "Americas",
@@ -5699,13 +5873,10 @@
         "lng": -68.82717,
         "date": "23Jul2006"
       }
-    ],
-    "date_from": "13 Jul 2006",
-    "date_to": "23 Jul 2006",
-    "days": 11
+    ]
   },
   {
-    "id": 27,
+    "id": 28,
     "name_en": "Brazil 2005",
     "name_pt": "Brasil 2005",
     "name_es": "Brasil 2005",
@@ -6168,13 +6339,10 @@
         "lng": -48.65356,
         "date": "06Mar2006"
       }
-    ],
-    "date_from": "27 Oct 2005",
-    "date_to": "06 Mar 2006",
-    "days": 131
+    ]
   },
   {
-    "id": 28,
+    "id": 29,
     "name_en": "Puerto Madryn 2005",
     "name_pt": "Puerto Madryn 2005",
     "name_es": "Puerto Madryn 2005",
@@ -6231,13 +6399,10 @@
         "lng": -68.84095,
         "date": ""
       }
-    ],
-    "date_from": "03 Aug 2005",
-    "date_to": "06 Aug 2005",
-    "days": 4
+    ]
   },
   {
-    "id": 29,
+    "id": 30,
     "name_en": "Brazil - Uruguay 2005",
     "name_pt": "Brasil - Uruguay 2005",
     "name_es": "Brasil - Uruguay 2005",
@@ -6357,16 +6522,13 @@
         "lng": -68.84095,
         "date": ""
       }
-    ],
-    "date_from": "07 Feb 2005",
-    "date_to": "10 Mar 2005",
-    "days": 32
+    ]
   },
   {
-    "id": 30,
+    "id": 31,
     "name_en": "Rome 2005",
-    "name_pt": "Roma 2005",
-    "name_es": "Roma 2005",
+    "name_pt": "Rome 2005",
+    "name_es": "Rome 2005",
     "year": 2005,
     "color": "#6f0a0a",
     "region": "Europe",
@@ -6406,13 +6568,10 @@
         "lng": 12.52809,
         "date": "23Jan2005"
       }
-    ],
-    "date_from": "18 Jan 2005",
-    "date_to": "23 Jan 2005",
-    "days": 6
+    ]
   },
   {
-    "id": 31,
+    "id": 32,
     "name_en": "Poland 2005",
     "name_pt": "Polônia 2005",
     "name_es": "Polonia 2005",
@@ -6518,16 +6677,13 @@
         "lng": 10.89684,
         "date": ""
       }
-    ],
-    "date_from": "04 Dec 2004",
-    "date_to": "23 Jan 2005",
-    "days": 51
+    ]
   },
   {
-    "id": 32,
+    "id": 33,
     "name_en": "Cape Town 2004",
-    "name_pt": "Cidade do Cabo 2004",
-    "name_es": "Ciudad del Cabo 2004",
+    "name_pt": "Cape Town 2004",
+    "name_es": "Cape Town 2004",
     "year": 2004,
     "color": "#ff1d1d",
     "region": "Africa",
@@ -6672,16 +6828,13 @@
         "lng": 18.4222,
         "date": "24Nov2004"
       }
-    ],
-    "date_from": "18 Nov 2004",
-    "date_to": "25 Nov 2004",
-    "days": 8
+    ]
   },
   {
-    "id": 33,
+    "id": 34,
     "name_en": "Augsburg 2004",
-    "name_pt": "Augsburgo 2004",
-    "name_es": "Augsburgo 2004",
+    "name_pt": "Augsburg 2004",
+    "name_es": "Augsburg 2004",
     "year": 2004,
     "color": "#d41fff",
     "region": "Europe",
@@ -7113,13 +7266,10 @@
         "lng": 10.89684,
         "date": "06Aug2004"
       }
-    ],
-    "date_from": "18 May 2004",
-    "date_to": "15 Aug 2004",
-    "days": 90
+    ]
   },
   {
-    "id": 34,
+    "id": 35,
     "name_en": "Italy 2004",
     "name_pt": "Itália 2004",
     "name_es": "Italia 2004",
@@ -7267,13 +7417,10 @@
         "lng": 10.89684,
         "date": ""
       }
-    ],
-    "date_from": "26 Jun 2004",
-    "date_to": "01 Jul 2004",
-    "days": 6
+    ]
   },
   {
-    "id": 35,
+    "id": 36,
     "name_en": "Denmark - Sweden 2004",
     "name_pt": "Dinamarca - Suécia 2004",
     "name_es": "Dinamarca - Suecia 2004",
@@ -7442,16 +7589,101 @@
         "lng": 11.22822,
         "date": "18Jun2004"
       }
-    ],
-    "date_from": "18 May 2004",
-    "date_to": "15 Aug 2004",
-    "days": 90
+    ]
   },
   {
-    "id": 36,
+    "id": 37,
+    "name_en": "Switzerland 2003",
+    "name_pt": "Suíça 2003",
+    "name_es": "Suiza 2003",
+    "year": 2003,
+    "color": "#539eff",
+    "region": "Europe",
+    "stops": [
+      {
+        "name": "Zürich, Switzerland",
+        "country": "Switzerland",
+        "lat": 47.37375,
+        "lng": 8.53709,
+        "date": "26Jun2003"
+      },
+      {
+        "name": "Luzern, Switzerland",
+        "country": "Switzerland",
+        "lat": 47.04791,
+        "lng": 8.30393,
+        "date": "26Jun2003"
+      },
+      {
+        "name": "Interlaken, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.68186,
+        "lng": 7.85684,
+        "date": "27Jun2003"
+      },
+      {
+        "name": "Gstaad, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.47215,
+        "lng": 7.28685,
+        "date": "27Jun2003"
+      },
+      {
+        "name": "Montreux, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.45441,
+        "lng": 6.94941,
+        "date": "27Jun2003"
+      },
+      {
+        "name": "Château de Chillon, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.41425,
+        "lng": 6.92761,
+        "date": "27Jun2003"
+      },
+      {
+        "name": "Lausanne, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.52038,
+        "lng": 6.63141,
+        "date": "27Jun2003"
+      },
+      {
+        "name": "Genève, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.20151,
+        "lng": 6.14389,
+        "date": "29Jun2003"
+      },
+      {
+        "name": "Neuchâtel, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.99105,
+        "lng": 6.93165,
+        "date": "29Jun2003"
+      },
+      {
+        "name": "Bern, Switzerland",
+        "country": "Switzerland",
+        "lat": 46.94731,
+        "lng": 7.44461,
+        "date": "01Jul2003"
+      },
+      {
+        "name": "Zürich, Switzerland",
+        "country": "Switzerland",
+        "lat": 47.37375,
+        "lng": 8.53709,
+        "date": "01Jul2003"
+      }
+    ]
+  },
+  {
+    "id": 38,
     "name_en": "Great European Tour 2003",
-    "name_pt": "Grã Tour Europeio 2003",
-    "name_es": "Gran Tour Europeo 2003",
+    "name_pt": "Grã Europaan Tour 2003",
+    "name_es": "Gran Europaan Tour 2003",
     "year": 2003,
     "color": "#585858",
     "region": "Europe",
@@ -7708,107 +7940,13 @@
         "lng": 8.04735,
         "date": "29Jun2003"
       }
-    ],
-    "date_from": "01 Jul 2003",
-    "date_to": "14 Aug 2003",
-    "days": 45
+    ]
   },
   {
-    "id": 37,
-    "name_en": "Switzerland 2003",
-    "name_pt": "Suíça 2003",
-    "name_es": "Suiza 2003",
-    "year": 2003,
-    "color": "#539eff",
-    "region": "Europe",
-    "stops": [
-      {
-        "name": "Zürich, Switzerland",
-        "country": "Switzerland",
-        "lat": 47.37375,
-        "lng": 8.53709,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Luzern, Switzerland",
-        "country": "Switzerland",
-        "lat": 47.04791,
-        "lng": 8.30393,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Interlaken, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.68186,
-        "lng": 7.85684,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Gstaad, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.47215,
-        "lng": 7.28685,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Montreux, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.45441,
-        "lng": 6.94941,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Château de Chillon, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.41425,
-        "lng": 6.92761,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Lausanne, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.52038,
-        "lng": 6.63141,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Genève, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.20151,
-        "lng": 6.14389,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Neuchâtel, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.99105,
-        "lng": 6.93165,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Bern, Switzerland",
-        "country": "Switzerland",
-        "lat": 46.94731,
-        "lng": 7.44461,
-        "date": "26Jun2003"
-      },
-      {
-        "name": "Zürich, Switzerland",
-        "country": "Switzerland",
-        "lat": 47.37375,
-        "lng": 8.53709,
-        "date": "26Jun2003"
-      }
-    ],
-    "date_from": "26 Jun 2003",
-    "date_to": "01 Jul 2003",
-    "days": 6
-  },
-  {
-    "id": 38,
+    "id": 39,
     "name_en": "Panama - Cuba 2003",
-    "name_pt": "Panamá - Cuba 2003",
-    "name_es": "Panamá - Cuba 2003",
+    "name_pt": "Panama - Cuba 2003",
+    "name_es": "Panama - Cuba 2003",
     "year": 2003,
     "color": "#c31976",
     "region": "Americas",
@@ -7911,13 +8049,10 @@
         "lng": -79.53652,
         "date": "20Apr2003"
       }
-    ],
-    "date_from": "08 Apr 2003",
-    "date_to": "20 Apr 2003",
-    "days": 13
+    ]
   },
   {
-    "id": 39,
+    "id": 40,
     "name_en": "Germany 2002",
     "name_pt": "Alemanha 2002",
     "name_es": "Alemania 2002",
@@ -8086,13 +8221,10 @@
         "lng": 8.58476,
         "date": "10Jan2003"
       }
-    ],
-    "date_from": "11 Dec 2002",
-    "date_to": "10 Jan 2003",
-    "days": 31
+    ]
   },
   {
-    "id": 40,
+    "id": 41,
     "name_en": "Chile 2002",
     "name_pt": "Chile 2002",
     "name_es": "Chile 2002",
@@ -8163,15 +8295,12 @@
         "lng": -70.65367,
         "date": "23Aug2002"
       }
-    ],
-    "date_from": "16 Aug 2002",
-    "date_to": "23 Aug 2002",
-    "days": 8
+    ]
   },
   {
-    "id": 41,
+    "id": 42,
     "name_en": "Peru 2002",
-    "name_pt": "Perú 2002",
+    "name_pt": "Peru 2002",
     "name_es": "Perú 2002",
     "year": 2002,
     "color": "#2ed51d",
@@ -8359,13 +8488,10 @@
         "lng": -77.03276,
         "date": "02Feb2002"
       }
-    ],
-    "date_from": "02 Feb 2002",
-    "date_to": "06 Mar 2002",
-    "days": 33
+    ]
   },
   {
-    "id": 42,
+    "id": 43,
     "name_en": "Europe 2000",
     "name_pt": "Europa 2000",
     "name_es": "Europa 2000",
@@ -8828,13 +8954,10 @@
         "lng": -3.67824,
         "date": ""
       }
-    ],
-    "date_from": "12 Dec 2000",
-    "date_to": "20 Jan 2001",
-    "days": 40
+    ]
   },
   {
-    "id": 43,
+    "id": 44,
     "name_en": "United States - México 1998",
     "name_pt": "Estados Unidos - México 1998",
     "name_es": "Estados Unidos - México 1998",
@@ -9031,13 +9154,10 @@
         "lng": -99.14253,
         "date": "27Sep1998"
       }
-    ],
-    "date_from": "14 Sep 1998",
-    "date_to": "27 Sep 1998",
-    "days": 14
+    ]
   },
   {
-    "id": 44,
+    "id": 45,
     "name_en": "Brazil 1986",
     "name_pt": "Brasil 1986",
     "name_es": "Brasil 1986",
@@ -9178,13 +9298,10 @@
         "lng": -68.84095,
         "date": ""
       }
-    ],
-    "date_from": "01 Aug 1986",
-    "date_to": "15 Sep 1986",
-    "days": 46
+    ]
   },
   {
-    "id": 45,
+    "id": 46,
     "name_en": "Algarrobo 1986",
     "name_pt": "Algarrobo 1986",
     "name_es": "Algarrobo 1986",
@@ -9269,13 +9386,10 @@
         "lng": -68.84095,
         "date": ""
       }
-    ],
-    "date_from": "06 Jan 1986",
-    "date_to": "31 Jan 1986",
-    "days": 26
+    ]
   },
   {
-    "id": 46,
+    "id": 47,
     "name_en": "Mar del Plata 1983",
     "name_pt": "Mar del Plata 1983",
     "name_es": "Mar del Plata 1983",
@@ -9304,13 +9418,10 @@
         "lng": -68.84095,
         "date": ""
       }
-    ],
-    "date_from": "23 Nov 1983",
-    "date_to": "30 Nov 1983",
-    "days": 8
+    ]
   },
   {
-    "id": 47,
+    "id": 48,
     "name_en": "Bariloche 1983",
     "name_pt": "Bariloche 1983",
     "name_es": "Bariloche 1983",
@@ -9326,10 +9437,10 @@
         "date": ""
       },
       {
-        "name": "Provincia de Neuquén, Argentina",
+        "name": "Neuquén, Argentina",
         "country": "Argentina",
-        "lat": -38.39134,
-        "lng": -69.65521,
+        "lat": -38.97967,
+        "lng": -68.054,
         "date": "08Jan1983"
       },
       {
@@ -9353,16 +9464,13 @@
         "lng": -68.84095,
         "date": ""
       }
-    ],
-    "date_from": "08 Jan 1983",
-    "date_to": "25 Jan 1983",
-    "days": 18
+    ]
   },
   {
-    "id": 48,
+    "id": 49,
     "name_en": "South of Chile 1984",
-    "name_pt": "Sul de Chile 1984",
-    "name_es": "Sur de Chile 1984",
+    "name_pt": "Sul of Chile 1984",
+    "name_es": "Sur of Chile 1984",
     "year": 1984,
     "color": "#209814",
     "region": "Americas",
@@ -9465,15 +9573,12 @@
         "lng": -70.65367,
         "date": ""
       }
-    ],
-    "date_from": "01 Feb 1984",
-    "date_to": "28 Feb 1984",
-    "days": 28
+    ]
   },
   {
-    "id": 49,
+    "id": 50,
     "name_en": "Florida 1980",
-    "name_pt": "Flórida 1980",
+    "name_pt": "Florida 1980",
     "name_es": "Florida 1980",
     "year": 1980,
     "color": "#000000",
@@ -9605,13 +9710,10 @@
         "lng": -80.21027,
         "date": ""
       }
-    ],
-    "date_from": "02 Dec 1979",
-    "date_to": "12 Mar 1980",
-    "days": 102
+    ]
   },
   {
-    "id": 50,
+    "id": 51,
     "name_en": "Caribbean 1979",
     "name_pt": "Caribe 1979",
     "name_es": "Caribe 1979",
@@ -9682,13 +9784,10 @@
         "lng": -80.12299,
         "date": "10Mar1979"
       }
-    ],
-    "date_from": "09 Feb 1979",
-    "date_to": "10 Mar 1979",
-    "days": 30
+    ]
   },
   {
-    "id": 51,
+    "id": 52,
     "name_en": "United States 1978",
     "name_pt": "Estados Unidos 1978",
     "name_es": "Estados Unidos 1978",
@@ -9780,13 +9879,10 @@
         "lng": -80.19026,
         "date": "04Feb1978"
       }
-    ],
-    "date_from": "03 Jan 1978",
-    "date_to": "02 Feb 1978",
-    "days": 31
+    ]
   },
   {
-    "id": 52,
+    "id": 53,
     "name_en": "United States 1976",
     "name_pt": "Estados Unidos 1976",
     "name_es": "Estados Unidos 1976",
@@ -9843,9 +9939,6 @@
         "lng": -80.21027,
         "date": "19Apr1976"
       }
-    ],
-    "date_from": "02 Apr 1976",
-    "date_to": "19 Apr 1976",
-    "days": 18
+    ]
   }
 ]
