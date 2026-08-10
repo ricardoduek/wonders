@@ -1563,14 +1563,14 @@
                 <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
                 <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
             </div>
-            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 22 Jun 2026</span>
+            <span class="last-update-tag" style="margin-top: 16px;">{{ content[lang].lastUpdate }}: 10 Aug 2026</span>
             <div class="next-trip-card" style="margin-top: 14px;">
-                <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
+                <span class="next-trip-label">{{ content[lang].lastTripLabel }}</span>
                 <div class="next-trip-dest">
                     <span class="fi fi-bo next-trip-flag"></span>
                     <span class="next-trip-country">Bolivia 2026</span>
                 </div>
-                <span class="next-trip-dates">{{ content[lang].nextTripDates }}</span>
+                <span class="next-trip-dates">{{ content[lang].lastTripDates }}</span>
             </div>
         </div>
     </div>
@@ -1592,14 +1592,14 @@
             <a href="https://facebook.com/ricardo.duek" target="_blank" title="Facebook"><i class="fa-brands fa-facebook"></i></a>
             <a href="/cdn-cgi/l/email-protection#99ebf0faf8ebfdf6b7fdecfcf2d9fef4f8f0f5b7faf6f4" title="Email"><i class="fa-solid fa-envelope"></i></a>
         </div>
-        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 22 Jun 2026</span>
+        <span class="last-update-tag">{{ content[lang].lastUpdate }}: 10 Aug 2026</span>
         <div class="next-trip-card">
-            <span class="next-trip-label">{{ content[lang].nextTripLabel }}</span>
+            <span class="next-trip-label">{{ content[lang].lastTripLabel }}</span>
             <div class="next-trip-dest">
                 <span class="fi fi-bo next-trip-flag"></span>
                 <span class="next-trip-country">Bolivia 2026</span>
             </div>
-            <span class="next-trip-dates">{{ content[lang].nextTripDates }}</span>
+            <span class="next-trip-dates">{{ content[lang].lastTripDates }}</span>
         </div>
     </div>
 
@@ -1713,7 +1713,7 @@
         <div class="modal-content-box">
             <span class="close-modal-btn" @click="showCountriesList = false">&times;</span>
             <h2 style="font-family: 'Cormorant Garamond'; font-size: 3rem; color: var(--gold); border-bottom: 1px solid var(--gold); padding-bottom: 10px; margin-top: 0; font-weight:300;">
-                {{ content[lang].visitedCountriesTitle }} (101)
+                {{ content[lang].visitedCountriesTitle }} ({{ visitedCountries.length }})
             </h2>
             <div class="countries-grid">
                 <div v-for="c in sortedVisitedCountries" :key="c.name"
@@ -2922,7 +2922,7 @@ createApp({
                 "Default": { center: [20, 10], zoom: 2 }
             },
             visitedCountries: [
-                {"name": "Albania", "name_pt": "Albânia", "name_es": "Albania", "code": "al"}, {"name": "Andorra", "name_pt": "Andorra", "name_es": "Andorra", "code": "ad"}, {"name": "Antigua And Barbuda", "name_pt": "Antígua e Barbuda", "name_es": "Antigua y Barbuda", "code": "ag"}, {"name": "Argentina", "name_pt": "Argentina", "name_es": "Argentina", "code": "ar"}, {"name": "Aruba", "name_pt": "Aruba", "name_es": "Aruba", "code": "aw"}, {"name": "Australia", "name_pt": "Austrália", "name_es": "Australia", "code": "au"}, {"name": "Austria", "name_pt": "Áustria", "name_es": "Austria", "code": "at"}, {"name": "Barbados", "name_pt": "Barbados", "name_es": "Barbados", "code": "bb"}, {"name": "Belarus", "name_pt": "Bielorrússia", "name_es": "Bielorrusia", "code": "by"}, {"name": "Belgium", "name_pt": "Bélgica", "name_es": "Bélgica", "code": "be"}, {"name": "Belize", "name_pt": "Belize", "name_es": "Belice", "code": "bz"}, {"name": "Bosnia And Herzegovina", "name_pt": "Bósnia e Herzegovina", "name_es": "Bosnia y Herzegovina", "code": "ba"}, {"name": "Brazil", "name_pt": "Brasil", "name_es": "Brasil", "code": "br"}, {"name": "Bulgaria", "name_pt": "Bulgária", "name_es": "Bulgaria", "code": "bg"}, {"name": "Cambodia", "name_pt": "Camboja", "name_es": "Camboya", "code": "kh"}, {"name": "Chile", "name_pt": "Chile", "name_es": "Chile", "code": "cl"}, {"name": "China", "name_pt": "China", "name_es": "China", "code": "cn"}, {"name": "Colombia", "name_pt": "Colômbia", "name_es": "Colombia", "code": "co"}, {"name": "Costa Rica", "name_pt": "Costa Rica", "name_es": "Costa Rica", "code": "cr"}, {"name": "Croatia", "name_pt": "Croácia", "name_es": "Croacia", "code": "hr"}, {"name": "Cuba", "name_pt": "Cuba", "name_es": "Cuba", "code": "cu"}, {"name": "Curaçao", "name_pt": "Curaçao", "name_es": "Curazao", "code": "cw"}, {"name": "Czech Republic", "name_pt": "República Tcheca", "name_es": "República Checa", "code": "cz"}, {"name": "Denmark", "name_pt": "Dinamarca", "name_es": "Dinamarca", "code": "dk"}, {"name": "Dominican Republic", "name_pt": "República Dominicana", "name_es": "República Dominicana", "code": "do"}, {"name": "Ecuador", "name_pt": "Equador", "name_es": "Ecuador", "code": "ec"}, {"name": "Egypt", "name_pt": "Egito", "name_es": "Egipto", "code": "eg"}, {"name": "El Salvador", "name_pt": "El Salvador", "name_es": "El Salvador", "code": "sv"}, {"name": "England", "name_pt": "Inglaterra", "name_es": "Inglaterra", "code": "gb-eng"}, {"name": "Eswatini", "name_pt": "Eswatini", "name_es": "Esuatini", "code": "sz"}, {"name": "Estonia", "name_pt": "Estônia", "name_es": "Estonia", "code": "ee"}, {"name": "Finland", "name_pt": "Finlândia", "name_es": "Finlandia", "code": "fi"}, {"name": "France", "name_pt": "França", "name_es": "Francia", "code": "fr"}, {"name": "Germany", "name_pt": "Alemanha", "name_es": "Alemania", "code": "de"}, {"name": "Gibraltar", "name_pt": "Gibraltar", "name_es": "Gibraltar", "code": "gi"}, {"name": "Greece", "name_pt": "Grécia", "name_es": "Grecia", "code": "gr"}, {"name": "Guadeloupe", "name_pt": "Guadalupe", "name_es": "Guadalupe", "code": "gp"}, {"name": "Guatemala", "name_pt": "Guatemala", "name_es": "Guatemala", "code": "gt"}, {"name": "Honduras", "name_pt": "Honduras", "name_es": "Honduras", "code": "hn"}, {"name": "Hong Kong", "name_pt": "Hong Kong", "name_es": "Hong Kong", "code": "hk"}, {"name": "Hungary", "name_pt": "Hungria", "name_es": "Hungría", "code": "hu"}, {"name": "Iceland", "name_pt": "Islândia", "name_es": "Islandia", "code": "is"}, {"name": "India", "name_pt": "Índia", "name_es": "India", "code": "in"}, {"name": "Indonesia", "name_pt": "Indonésia", "name_es": "Indonesia", "code": "id"}, {"name": "Ireland", "name_pt": "Irlanda", "name_es": "Irlanda", "code": "ie"}, {"name": "Israel", "name_pt": "Israel", "name_es": "Israel", "code": "il"}, {"name": "Italy", "name_pt": "Itália", "name_es": "Italia", "code": "it"}, {"name": "Jordan", "name_pt": "Jordânia", "name_es": "Jordania", "code": "jo"}, {"name": "Kenya", "name_pt": "Quênia", "name_es": "Kenia", "code": "ke"}, {"name": "Latvia", "name_pt": "Letônia", "name_es": "Letonia", "code": "lv"}, {"name": "Liechtenstein", "name_pt": "Liechtenstein", "name_es": "Liechtenstein", "code": "li"}, {"name": "Lithuania", "name_pt": "Lituânia", "name_es": "Lituania", "code": "lt"}, {"name": "Luxembourg", "name_pt": "Luxemburgo", "name_es": "Luxemburgo", "code": "lu"}, {"name": "Macau", "name_pt": "Macau", "name_es": "Macao", "code": "mo"}, {"name": "Malaysia", "name_pt": "Malásia", "name_es": "Malasia", "code": "my"}, {"name": "Malta", "name_pt": "Malta", "name_es": "Malta", "code": "mt"}, {"name": "Martinique", "name_pt": "Martinica", "name_es": "Martinica", "code": "mq"}, {"name": "Mexico", "name_pt": "México", "name_es": "México", "code": "mx"}, {"name": "Monaco", "name_pt": "Mônaco", "name_es": "Mónaco", "code": "mc"}, {"name": "Montenegro", "name_pt": "Montenegro", "name_es": "Montenegro", "code": "me"}, {"name": "Morocco", "name_pt": "Marrocos", "name_es": "Marruecos", "code": "ma"}, {"name": "Netherlands", "name_pt": "Países Baixos", "name_es": "Países Bajos", "code": "nl"}, {"name": "New Zealand", "name_pt": "Nova Zelândia", "name_es": "Nueva Zelanda", "code": "nz"}, {"name": "Nicaragua", "name_pt": "Nicarágua", "name_es": "Nicaragua", "code": "ni"}, {"name": "Northern Ireland", "name_pt": "Irlanda do Norte", "name_es": "Irlanda del Norte", "code": "gb-nir"}, {"name": "North Macedonia", "name_pt": "Macedônia do Norte", "name_es": "Macedonia del Norte", "code": "mk"}, {"name": "Norway", "name_pt": "Noruega", "name_es": "Noruega", "code": "no"}, {"name": "Palestine", "name_pt": "Palestina", "name_es": "Palestina", "code": "ps"}, {"name": "Panama", "name_pt": "Panamá", "name_es": "Panamá", "code": "pa"}, {"name": "Paraguay", "name_pt": "Paraguai", "name_es": "Paraguay", "code": "py"}, {"name": "Peru", "name_pt": "Peru", "name_es": "Perú", "code": "pe"}, {"name": "Poland", "name_pt": "Polônia", "name_es": "Polonia", "code": "pl"}, {"name": "Portugal", "name_pt": "Portugal", "name_es": "Portugal", "code": "pt"}, {"name": "Puerto Rico", "name_pt": "Porto Rico", "name_es": "Puerto Rico", "code": "pr"}, {"name": "Qatar", "name_pt": "Catar", "name_es": "Catar", "code": "qa"}, {"name": "Romania", "name_pt": "Romênia", "name_es": "Rumania", "code": "ro"}, {"name": "Russia", "name_pt": "Rússia", "name_es": "Rusia", "code": "ru"}, {"name": "Saint Kitts And Nevis", "name_pt": "São Cristóvão e Névis", "name_es": "San Cristóbal y Nieves", "code": "kn"}, {"name": "Scotland", "name_pt": "Escócia", "name_es": "Escocia", "code": "gb-sct"}, {"name": "Serbia", "name_pt": "Sérvia", "name_es": "Serbia", "code": "rs"}, {"name": "Singapore", "name_pt": "Singapura", "name_es": "Singapur", "code": "sg"}, {"name": "Sint Maarten", "name_pt": "Sint Maarten", "name_es": "Sint Maarten", "code": "sx"}, {"name": "Slovakia", "name_pt": "Eslováquia", "name_es": "Eslovaquia", "code": "sk"}, {"name": "Slovenia", "name_pt": "Eslovênia", "name_es": "Eslovenia", "code": "si"}, {"name": "South Africa", "name_pt": "África do Sul", "name_es": "Sudáfrica", "code": "za"}, {"name": "Spain", "name_pt": "Espanha", "name_es": "España", "code": "es"}, {"name": "Sweden", "name_pt": "Suécia", "name_es": "Suecia", "code": "se"}, {"name": "Switzerland", "name_pt": "Suíça", "name_es": "Suiza", "code": "ch"}, {"name": "Tanzania", "name_pt": "Tanzânia", "name_es": "Tanzania", "code": "tz"}, {"name": "Thailand", "name_pt": "Tailândia", "name_es": "Tailandia", "code": "th"}, {"name": "Trinidad And Tobago", "name_pt": "Trinidad e Tobago", "name_es": "Trinidad y Tobago", "code": "tt"}, {"name": "Turkey", "name_pt": "Turquia", "name_es": "Turquía", "code": "tr"}, {"name": "United Arab Emirates", "name_pt": "Emirados Árabes Unidos", "name_es": "Emiratos Árabes Unidos", "code": "ae"}, {"name": "United States", "name_pt": "Estados Unidos", "name_es": "Estados Unidos", "code": "us"}, {"name": "Uruguay", "name_pt": "Uruguai", "name_es": "Uruguay", "code": "uy"}, {"name": "Vatican City", "name_pt": "Cidade do Vaticano", "name_es": "Ciudad del Vaticano", "code": "va"}, {"name": "Venezuela", "name_pt": "Venezuela", "name_es": "Venezuela", "code": "ve"}, {"name": "Vietnam", "name_pt": "Vietnã", "name_es": "Vietnam", "code": "vn"}, {"name": "Wales", "name_pt": "Gales", "name_es": "Gales", "code": "gb-wls"}, {"name": "Zambia", "name_pt": "Zâmbia", "name_es": "Zambia", "code": "zm"}, {"name": "Zimbabwe", "name_pt": "Zimbábue", "name_es": "Zimbabue", "code": "zw"}
+                {"name": "Albania", "name_pt": "Albânia", "name_es": "Albania", "code": "al"}, {"name": "Andorra", "name_pt": "Andorra", "name_es": "Andorra", "code": "ad"}, {"name": "Antigua And Barbuda", "name_pt": "Antígua e Barbuda", "name_es": "Antigua y Barbuda", "code": "ag"}, {"name": "Argentina", "name_pt": "Argentina", "name_es": "Argentina", "code": "ar"}, {"name": "Aruba", "name_pt": "Aruba", "name_es": "Aruba", "code": "aw"}, {"name": "Australia", "name_pt": "Austrália", "name_es": "Australia", "code": "au"}, {"name": "Austria", "name_pt": "Áustria", "name_es": "Austria", "code": "at"}, {"name": "Barbados", "name_pt": "Barbados", "name_es": "Barbados", "code": "bb"}, {"name": "Belarus", "name_pt": "Bielorrússia", "name_es": "Bielorrusia", "code": "by"}, {"name": "Belgium", "name_pt": "Bélgica", "name_es": "Bélgica", "code": "be"}, {"name": "Belize", "name_pt": "Belize", "name_es": "Belice", "code": "bz"}, {"name": "Bolivia", "name_pt": "Bolívia", "name_es": "Bolivia", "code": "bo"}, {"name": "Bosnia And Herzegovina", "name_pt": "Bósnia e Herzegovina", "name_es": "Bosnia y Herzegovina", "code": "ba"}, {"name": "Brazil", "name_pt": "Brasil", "name_es": "Brasil", "code": "br"}, {"name": "Bulgaria", "name_pt": "Bulgária", "name_es": "Bulgaria", "code": "bg"}, {"name": "Cambodia", "name_pt": "Camboja", "name_es": "Camboya", "code": "kh"}, {"name": "Chile", "name_pt": "Chile", "name_es": "Chile", "code": "cl"}, {"name": "China", "name_pt": "China", "name_es": "China", "code": "cn"}, {"name": "Colombia", "name_pt": "Colômbia", "name_es": "Colombia", "code": "co"}, {"name": "Costa Rica", "name_pt": "Costa Rica", "name_es": "Costa Rica", "code": "cr"}, {"name": "Croatia", "name_pt": "Croácia", "name_es": "Croacia", "code": "hr"}, {"name": "Cuba", "name_pt": "Cuba", "name_es": "Cuba", "code": "cu"}, {"name": "Curaçao", "name_pt": "Curaçao", "name_es": "Curazao", "code": "cw"}, {"name": "Czech Republic", "name_pt": "República Tcheca", "name_es": "República Checa", "code": "cz"}, {"name": "Denmark", "name_pt": "Dinamarca", "name_es": "Dinamarca", "code": "dk"}, {"name": "Dominican Republic", "name_pt": "República Dominicana", "name_es": "República Dominicana", "code": "do"}, {"name": "Ecuador", "name_pt": "Equador", "name_es": "Ecuador", "code": "ec"}, {"name": "Egypt", "name_pt": "Egito", "name_es": "Egipto", "code": "eg"}, {"name": "El Salvador", "name_pt": "El Salvador", "name_es": "El Salvador", "code": "sv"}, {"name": "England", "name_pt": "Inglaterra", "name_es": "Inglaterra", "code": "gb-eng"}, {"name": "Eswatini", "name_pt": "Eswatini", "name_es": "Esuatini", "code": "sz"}, {"name": "Estonia", "name_pt": "Estônia", "name_es": "Estonia", "code": "ee"}, {"name": "Finland", "name_pt": "Finlândia", "name_es": "Finlandia", "code": "fi"}, {"name": "France", "name_pt": "França", "name_es": "Francia", "code": "fr"}, {"name": "Germany", "name_pt": "Alemanha", "name_es": "Alemania", "code": "de"}, {"name": "Gibraltar", "name_pt": "Gibraltar", "name_es": "Gibraltar", "code": "gi"}, {"name": "Greece", "name_pt": "Grécia", "name_es": "Grecia", "code": "gr"}, {"name": "Guadeloupe", "name_pt": "Guadalupe", "name_es": "Guadalupe", "code": "gp"}, {"name": "Guatemala", "name_pt": "Guatemala", "name_es": "Guatemala", "code": "gt"}, {"name": "Honduras", "name_pt": "Honduras", "name_es": "Honduras", "code": "hn"}, {"name": "Hong Kong", "name_pt": "Hong Kong", "name_es": "Hong Kong", "code": "hk"}, {"name": "Hungary", "name_pt": "Hungria", "name_es": "Hungría", "code": "hu"}, {"name": "Iceland", "name_pt": "Islândia", "name_es": "Islandia", "code": "is"}, {"name": "India", "name_pt": "Índia", "name_es": "India", "code": "in"}, {"name": "Indonesia", "name_pt": "Indonésia", "name_es": "Indonesia", "code": "id"}, {"name": "Ireland", "name_pt": "Irlanda", "name_es": "Irlanda", "code": "ie"}, {"name": "Israel", "name_pt": "Israel", "name_es": "Israel", "code": "il"}, {"name": "Italy", "name_pt": "Itália", "name_es": "Italia", "code": "it"}, {"name": "Jordan", "name_pt": "Jordânia", "name_es": "Jordania", "code": "jo"}, {"name": "Kenya", "name_pt": "Quênia", "name_es": "Kenia", "code": "ke"}, {"name": "Latvia", "name_pt": "Letônia", "name_es": "Letonia", "code": "lv"}, {"name": "Liechtenstein", "name_pt": "Liechtenstein", "name_es": "Liechtenstein", "code": "li"}, {"name": "Lithuania", "name_pt": "Lituânia", "name_es": "Lituania", "code": "lt"}, {"name": "Luxembourg", "name_pt": "Luxemburgo", "name_es": "Luxemburgo", "code": "lu"}, {"name": "Macau", "name_pt": "Macau", "name_es": "Macao", "code": "mo"}, {"name": "Malaysia", "name_pt": "Malásia", "name_es": "Malasia", "code": "my"}, {"name": "Malta", "name_pt": "Malta", "name_es": "Malta", "code": "mt"}, {"name": "Martinique", "name_pt": "Martinica", "name_es": "Martinica", "code": "mq"}, {"name": "Mexico", "name_pt": "México", "name_es": "México", "code": "mx"}, {"name": "Monaco", "name_pt": "Mônaco", "name_es": "Mónaco", "code": "mc"}, {"name": "Montenegro", "name_pt": "Montenegro", "name_es": "Montenegro", "code": "me"}, {"name": "Morocco", "name_pt": "Marrocos", "name_es": "Marruecos", "code": "ma"}, {"name": "Netherlands", "name_pt": "Países Baixos", "name_es": "Países Bajos", "code": "nl"}, {"name": "New Zealand", "name_pt": "Nova Zelândia", "name_es": "Nueva Zelanda", "code": "nz"}, {"name": "Nicaragua", "name_pt": "Nicarágua", "name_es": "Nicaragua", "code": "ni"}, {"name": "Northern Ireland", "name_pt": "Irlanda do Norte", "name_es": "Irlanda del Norte", "code": "gb-nir"}, {"name": "North Macedonia", "name_pt": "Macedônia do Norte", "name_es": "Macedonia del Norte", "code": "mk"}, {"name": "Norway", "name_pt": "Noruega", "name_es": "Noruega", "code": "no"}, {"name": "Palestine", "name_pt": "Palestina", "name_es": "Palestina", "code": "ps"}, {"name": "Panama", "name_pt": "Panamá", "name_es": "Panamá", "code": "pa"}, {"name": "Paraguay", "name_pt": "Paraguai", "name_es": "Paraguay", "code": "py"}, {"name": "Peru", "name_pt": "Peru", "name_es": "Perú", "code": "pe"}, {"name": "Poland", "name_pt": "Polônia", "name_es": "Polonia", "code": "pl"}, {"name": "Portugal", "name_pt": "Portugal", "name_es": "Portugal", "code": "pt"}, {"name": "Puerto Rico", "name_pt": "Porto Rico", "name_es": "Puerto Rico", "code": "pr"}, {"name": "Qatar", "name_pt": "Catar", "name_es": "Catar", "code": "qa"}, {"name": "Romania", "name_pt": "Romênia", "name_es": "Rumania", "code": "ro"}, {"name": "Russia", "name_pt": "Rússia", "name_es": "Rusia", "code": "ru"}, {"name": "Saint Kitts And Nevis", "name_pt": "São Cristóvão e Névis", "name_es": "San Cristóbal y Nieves", "code": "kn"}, {"name": "Scotland", "name_pt": "Escócia", "name_es": "Escocia", "code": "gb-sct"}, {"name": "Serbia", "name_pt": "Sérvia", "name_es": "Serbia", "code": "rs"}, {"name": "Singapore", "name_pt": "Singapura", "name_es": "Singapur", "code": "sg"}, {"name": "Sint Maarten", "name_pt": "Sint Maarten", "name_es": "Sint Maarten", "code": "sx"}, {"name": "Slovakia", "name_pt": "Eslováquia", "name_es": "Eslovaquia", "code": "sk"}, {"name": "Slovenia", "name_pt": "Eslovênia", "name_es": "Eslovenia", "code": "si"}, {"name": "South Africa", "name_pt": "África do Sul", "name_es": "Sudáfrica", "code": "za"}, {"name": "Spain", "name_pt": "Espanha", "name_es": "España", "code": "es"}, {"name": "Sweden", "name_pt": "Suécia", "name_es": "Suecia", "code": "se"}, {"name": "Switzerland", "name_pt": "Suíça", "name_es": "Suiza", "code": "ch"}, {"name": "Tanzania", "name_pt": "Tanzânia", "name_es": "Tanzania", "code": "tz"}, {"name": "Thailand", "name_pt": "Tailândia", "name_es": "Tailandia", "code": "th"}, {"name": "Trinidad And Tobago", "name_pt": "Trinidad e Tobago", "name_es": "Trinidad y Tobago", "code": "tt"}, {"name": "Turkey", "name_pt": "Turquia", "name_es": "Turquía", "code": "tr"}, {"name": "United Arab Emirates", "name_pt": "Emirados Árabes Unidos", "name_es": "Emiratos Árabes Unidos", "code": "ae"}, {"name": "United States", "name_pt": "Estados Unidos", "name_es": "Estados Unidos", "code": "us"}, {"name": "Uruguay", "name_pt": "Uruguai", "name_es": "Uruguay", "code": "uy"}, {"name": "Vatican City", "name_pt": "Cidade do Vaticano", "name_es": "Ciudad del Vaticano", "code": "va"}, {"name": "Venezuela", "name_pt": "Venezuela", "name_es": "Venezuela", "code": "ve"}, {"name": "Vietnam", "name_pt": "Vietnã", "name_es": "Vietnam", "code": "vn"}, {"name": "Wales", "name_pt": "Gales", "name_es": "Gales", "code": "gb-wls"}, {"name": "Zambia", "name_pt": "Zâmbia", "name_es": "Zambia", "code": "zm"}, {"name": "Zimbabwe", "name_pt": "Zimbábue", "name_es": "Zimbabue", "code": "zw"}
             ],
             // Population & land-area stats for all 101 visited countries.
             // Source: visited_cities.json (population, population order, area, area order).
@@ -2941,6 +2941,7 @@ createApp({
                 'Belarus':{p:9498000,po:95,pos:'th',a:208000,ao:84,aos:'th'},
                 'Belgium':{p:11686000,po:81,pos:'st',a:31000,ao:138,aos:'th'},
                 'Belize':{p:405000,po:172,pos:'nd',a:23000,ao:150,aos:'th'},
+                'Bolivia':{p:12749291,po:79,pos:'th',a:1098581,ao:28,aos:'th'},
                 'Bosnia And Herzegovina':{p:3211000,po:136,pos:'th',a:51000,ao:126,aos:'th'},
                 'Brazil':{p:216422000,po:7,pos:'th',a:8516000,ao:5,aos:'th'},
                 'Bulgaria':{p:6688000,po:109,pos:'th',a:111000,ao:103,aos:'rd'},
@@ -2994,7 +2995,7 @@ createApp({
                 'Netherlands':{p:17618000,po:69,pos:'th',a:42000,ao:133,aos:'rd'},
                 'New Zealand':{p:5228000,po:123,pos:'rd',a:268000,ao:75,aos:'th'},
                 'Nicaragua':{p:7046000,po:110,pos:'th',a:130000,ao:96,aos:'th'},
-                'North Macedonia':{p:2086000,po:147,pos:'th',a:26000,ao:147,aos:'th'},
+                'North Macedonia':{p:1804063,po:156,pos:'th',a:25713,ao:153,aos:'rd'},
                 'Northern Ireland':{p:1928000,po:148,pos:'th',a:14000,ao:160,aos:'th'},
                 'Norway':{p:5474000,po:120,pos:'th',a:385000,ao:67,aos:'th'},
                 'Palestine':{p:5371000,po:124,pos:'th',a:6020,ao:164,aos:'th'},
@@ -3004,7 +3005,7 @@ createApp({
                 'Poland':{p:41026000,po:38,pos:'th',a:313000,ao:70,aos:'th'},
                 'Portugal':{p:10248000,po:90,pos:'th',a:92000,ao:109,aos:'th'},
                 'Puerto Rico':{p:3260000,po:134,pos:'th',a:9104,ao:167,aos:'th'},
-                'Qatar':{p:2716000,po:138,pos:'th',a:12000,ao:166,aos:'th'},
+                'Qatar':{p:3173559,po:138,pos:'th',a:11586,ao:170,aos:'th'},
                 'Romania':{p:19893000,po:61,pos:'st',a:238000,ao:82,aos:'nd'},
                 'Russia':{p:144444000,po:9,pos:'th',a:17098000,ao:1,aos:'st'},
                 'Saint Kitts And Nevis':{p:47755,po:201,pos:'st',a:261,ao:211,aos:'th'},
@@ -3022,7 +3023,7 @@ createApp({
                 'Thailand':{p:71801000,po:20,pos:'th',a:513000,ao:50,aos:'th'},
                 'Trinidad And Tobago':{p:1535000,po:150,pos:'th',a:5130,ao:163,aos:'rd'},
                 'Turkey':{p:85816000,po:18,pos:'th',a:784000,ao:37,aos:'th'},
-                'United Arab Emirates':{p:9517000,po:94,pos:'th',a:84000,ao:117,aos:'th'},
+                'United Arab Emirates':{p:11574682,po:87,pos:'th',a:83600,ao:119,aos:'th'},
                 'United States':{p:340000000,po:3,pos:'rd',a:9834000,ao:4,aos:'th'},
                 'Uruguay':{p:3423000,po:131,pos:'st',a:176000,ao:89,aos:'th'},
                 'Vatican City':{p:764,po:195,pos:'th',a:0.44,ao:195,aos:'th'},
@@ -3050,7 +3051,7 @@ createApp({
                     musicTitle: "The Music List", musicCount: "songs", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
                     musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
                     musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
-                    lastUpdate: "Last update", nextTripLabel: "My Next Trip", nextTripDates: "Jul 23 – Aug 9, 2026",
+                    lastUpdate: "Last update", lastTripLabel: "My Last Trip", lastTripDates: "Jul 23 – Aug 9, 2026",
                     seeTripsTimeline: "See my trips timeline",
                     tripsTimelineTitle: "My Trips Timeline",
                     seeNextWondersList: "See my next wonders list", seeNextWondersMap: "See my next wonders map",
@@ -3161,7 +3162,7 @@ createApp({
                     musicTitle: "A Lista de Músicas", musicCount: "músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
                     musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
-                    lastUpdate: "Última atualização", nextTripLabel: "Minha Próxima Viagem", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
+                    lastUpdate: "Última atualização", lastTripLabel: "Minha Última Viagem", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
                     tripsTimelineTitle: "Linha do Tempo das Viagens",
                     seeNextWondersList: "Ver lista de próximas maravilhas", seeNextWondersMap: "Ver mapa de próximas maravilhas",
                     nextWondersTitle: "Lista de Próximas Maravilhas", nextWondersMapTitle: "Mapa de Próximas Maravilhas", nextWondersCount: "maravilhas",
@@ -3269,7 +3270,7 @@ createApp({
                     musicTitle: "La Lista de Música", musicCount: "canciones", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
                     musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
-                    lastUpdate: "Última actualización", nextTripLabel: "Mi Próximo Viaje", nextTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
+                    lastUpdate: "Última actualización", lastTripLabel: "Mi Último Viaje", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
                     tripsTimelineTitle: "Línea de Tiempo de Viajes",
                     seeNextWondersList: "Ver lista de próximas maravillas", seeNextWondersMap: "Ver mapa de próximas maravillas",
                     nextWondersTitle: "Lista de Próximas Maravillas", nextWondersMapTitle: "Mapa de Próximas Maravillas", nextWondersCount: "maravillas",
@@ -3690,7 +3691,7 @@ createApp({
         },
         isMobile() { return window.innerWidth <= 768; },
         visitedCitiesCount() {
-            return Object.values(this.visitedCities).reduce((sum, cities) => sum + cities.length, 0);
+            return Object.values(this.visitedCities).reduce((sum, c) => sum + (c.cities ? c.cities.length : 0), 0);
         },
         totalPhotos() {
             return this.wonders.reduce((sum, w) => sum + (w.images ? w.images.length : 0), 0);
@@ -4169,13 +4170,13 @@ createApp({
             const key = Object.keys(this.visitedCities).find(k =>
                 k.toLowerCase() === countryName.toLowerCase()
             );
-            return key ? this.visitedCities[key].length : 0;
+            return key ? this.visitedCities[key].cities.length : 0;
         },
         getCities(countryName) {
             const key = Object.keys(this.visitedCities).find(k =>
                 k.toLowerCase() === countryName.toLowerCase()
             );
-            return key ? this.visitedCities[key] : [];
+            return key ? this.visitedCities[key].cities : [];
         },
         openCityDetail(country) {
             this.selectedCityCountry = country;
@@ -4321,6 +4322,7 @@ createApp({
                 'Belarus': ['Minsk'],
                 'Belgium': ['Brussels'],
                 'Belize': ['Belmopan'],
+                'Bolivia': ['Sucre', 'La Paz'],
                 'Bosnia And Herzegovina': ['Sarajevo'],
                 'Brazil': ['Brasília', 'Brasilia'],
                 'Bulgaria': ['Sofia'],
@@ -4642,10 +4644,10 @@ createApp({
             }
             if (game.id === 'cities') {
                 const pool = [];
-                Object.entries(this.visitedCities).forEach(([cKey, cities]) => {
+                Object.entries(this.visitedCities).forEach(([cKey, cEntry]) => {
                     const vcEntry = vc.find(c => c.name.toUpperCase() === cKey.toUpperCase());
                     if (!vcEntry) return;
-                    cities.forEach(city => pool.push({cityName: city, country: vcEntry}));
+                    (cEntry.cities || []).forEach(city => pool.push({cityName: city, country: vcEntry}));
                 });
                 const avail = pool.filter(x => !used.has(x.cityName));
                 const item = rand(avail.length > 0 ? avail : pool);
@@ -4695,7 +4697,7 @@ createApp({
                 'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
                 'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
                 'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
-                'Belgium':'Brussels','Belize':'Belmopan','Bosnia And Herzegovina':'Sarajevo',
+                'Belgium':'Brussels','Belize':'Belmopan','Bolivia':['Sucre','La Paz'],'Bosnia And Herzegovina':'Sarajevo',
                 'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
                 'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
                 'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
@@ -4721,9 +4723,10 @@ createApp({
             return this.visitedCountries.filter(c => {
                 const cap = CAPITALS[c.name];
                 if (!cap) return false;
+                const caps = Array.isArray(cap) ? cap : [cap];
                 const key = Object.keys(this.visitedCities).find(k => k.toUpperCase() === c.name.toUpperCase());
                 if (!key) return false;
-                return this.visitedCities[key].some(city => city.toLowerCase().includes(cap.toLowerCase()) || cap.toLowerCase().includes(city.toLowerCase()));
+                return this.visitedCities[key].cities.some(city => caps.some(cp => city.toLowerCase().includes(cp.toLowerCase()) || cp.toLowerCase().includes(city.toLowerCase())));
             });
         },
         _getCapital(countryName) {
@@ -4731,7 +4734,7 @@ createApp({
                 'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
                 'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
                 'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
-                'Belgium':'Brussels','Belize':'Belmopan','Bosnia And Herzegovina':'Sarajevo',
+                'Belgium':'Brussels','Belize':'Belmopan','Bolivia':['Sucre','La Paz'],'Bosnia And Herzegovina':'Sarajevo',
                 'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
                 'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
                 'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
@@ -4754,7 +4757,9 @@ createApp({
                 'Uruguay':'Montevideo','Vatican City':'Vatican City','Venezuela':'Caracas',
                 'Vietnam':'Hanoi','Wales':'Cardiff','Zambia':'Lusaka','Zimbabwe':'Harare'
             };
-            return CAPITALS[countryName] || null;
+            const cap = CAPITALS[countryName];
+            if (!cap) return null;
+            return Array.isArray(cap) ? cap[Math.floor(Math.random() * cap.length)] : cap;
         },
         _startGameTimer(game) {
             this._stopGameTimer();
@@ -4875,7 +4880,7 @@ createApp({
             const nameToISO = {
                 'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32',
                 'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
-                'Belize':'84','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
+                'Belize':'84','Bolivia':'68','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
                 'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
                 'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
                 'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
@@ -6035,7 +6040,7 @@ createApp({
             const nameToISO = {
                 'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32','Aruba':'533',
                 'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
-                'Belize':'84','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
+                'Belize':'84','Bolivia':'68','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
                 'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
                 'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
                 'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
