@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.css" />
     <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.5.3/dist/MarkerCluster.Default.css" />
     <script src="https://unpkg.com/leaflet.markercluster@1.5.3/dist/leaflet.markercluster.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jsmediatags/3.9.5/jsmediatags.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&family=Inter:wght@200;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/lipis/flag-icons@7.0.0/css/flag-icons.min.css"/>
@@ -310,6 +311,10 @@
         .rs-song-info { display: flex; flex-direction: column; gap: 6px; }
         .rs-title { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: #fff; font-weight: 400; line-height: 1.2; }
         .rs-author { font-size: 11px; letter-spacing: 1.5px; color: rgba(197,160,89,0.9); text-transform: uppercase; }
+        .rp-nowplaying, .rv-nowplaying { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(197,160,89,0.9); margin-top: 6px; }
+        .rp-nowplaying i, .rv-nowplaying i { font-size: 11px; opacity: 0.85; }
+        .rp-nowplaying-title, .rv-nowplaying-title { color: #fff; font-weight: 500; }
+        .rp-nowplaying-artist, .rv-nowplaying-artist { text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85; }
         .rs-divider { height: 1px; background: rgba(197,160,89,0.18); }
         /* Progress slider (large) */
         .rs-progress-row { display: flex; align-items: center; gap: 10px; }
@@ -1807,6 +1812,10 @@
             </div>
             <div class="rp-footer">
                 <button class="stats-last-btn rp-next-btn" @click="openRandomPhoto()">{{ content[lang].randomPhotoNext }}</button>
+                <div v-if="randomBgPlaying && randomBgTitle" class="rp-nowplaying">
+                    <i class="fa-solid fa-music"></i>
+                    <span>{{ content[lang].nowPlaying }}: <span class="rp-nowplaying-title">{{ randomBgTitle }}</span><template v-if="randomBgArtist"> — <span class="rp-nowplaying-artist">{{ randomBgArtist }}</span></template></span>
+                </div>
             </div>
         </div>
     </div>
@@ -1831,6 +1840,10 @@
             </div>
             <div class="rv-footer">
                 <button class="stats-last-btn rv-next-btn" @click="openRandomVideo()">{{ content[lang].randomVideoNext }}</button>
+                <div v-if="randomBgPlaying && randomBgTitle" class="rv-nowplaying">
+                    <i class="fa-solid fa-music"></i>
+                    <span>{{ content[lang].nowPlaying }}: <span class="rv-nowplaying-title">{{ randomBgTitle }}</span><template v-if="randomBgArtist"> — <span class="rv-nowplaying-artist">{{ randomBgArtist }}</span></template></span>
+                </div>
             </div>
         </div>
     </div>
@@ -2941,6 +2954,9 @@ createApp({
             editingPlayerName: false, playerNameDraft: '',
             _gameUsedIndices: [],
             showRandomPhoto: false, randomPhoto: null, showRandomVideo: false, randomVideo: null, showRandomSong: false, randomSong: null, randomSongPlaying: false, randomSongContinuous: false, randomSongVolume: 0.7, randomSongMuted: false, _randomSongAudio: null, randomSongProgress: 0, randomSongDuration: 0, randomSongCurrentTime: '0:00', randomSongDurationStr: '0:00', _randomSongRAF: null,
+            // Background music for Random Photo/Video (separate pool, separate audio element —
+            // never mixed with Wonder songs or the Random Song feature above).
+            randomBgSongFiles: [], randomBgPlaying: false, randomBgTitle: '', randomBgArtist: '', _randomBgAudio: null,
             slideshowPaused: false, _slideshowRaf: null, _slideshowStart: null, _slideshowElapsed: 0,
             selectedCityCountry: null, shareStatus: null,
             trips: [], selectedTrip: null, openYearGroups: new Set(),
@@ -3243,7 +3259,7 @@ createApp({
                     citiesTitle: "Cities & Places Visited", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
                     seeAboutMe: "About me",
                     seeMusic: "See the music list",
-                    musicTitle: "The Music List", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
+                    musicTitle: "The Music List", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", nowPlaying: "Now Playing", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
                     musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
                     musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
                     lastUpdate: "Last update", lastTripLabel: "My Last Trip", lastTripDates: "Jul 23 – Aug 9, 2026",
@@ -3348,7 +3364,7 @@ createApp({
                     citiesTitle: "Cidades e Lugares Visitados", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
                     seeAboutMe: "Ver meu perfil",
                     seeMusic: "Ver a lista de músicas",
-                    musicTitle: "A Lista de Músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
+                    musicTitle: "A Lista de Músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", nowPlaying: "Tocando Agora", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
                     musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
                     lastUpdate: "Última atualização", lastTripLabel: "Minha Última Viagem", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
@@ -3450,7 +3466,7 @@ createApp({
                     citiesTitle: "Ciudades y Lugares Visitados", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
                     seeAboutMe: "Ver mi perfil",
                     seeMusic: "Ver la lista de música",
-                    musicTitle: "La Lista de Música", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
+                    musicTitle: "La Lista de Música", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", nowPlaying: "Reproduciendo Ahora", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
                     musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
                     lastUpdate: "Última actualización", lastTripLabel: "Mi Último Viaje", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
@@ -4183,6 +4199,10 @@ createApp({
             const cityRes = await fetch('visited_cities.json');
             this.visitedCities = await cityRes.json();
         } catch(e) {}
+        try {
+            const rbRes = await fetch('random_songs.json');
+            this.randomBgSongFiles = await rbRes.json();
+        } catch(e) {}
         this.initMap();
         const urlParams = new URLSearchParams(window.location.search);
         const sharedId = urlParams.get('id');
@@ -4248,6 +4268,7 @@ createApp({
         if (this._onKey) window.removeEventListener('keydown', this._onKey);
         if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
         if (this._slideshowRaf) cancelAnimationFrame(this._slideshowRaf);
+        if (this._randomBgAudio) this._randomBgAudio.pause();
     },
     methods: {
         // ── Trips Map ─────────────────────────────────────────────
@@ -5692,6 +5713,7 @@ createApp({
             if (!pool.length) return;
             this.randomPhoto = pool[Math.floor(Math.random() * pool.length)];
             this.showRandomPhoto = true;
+            this._ensureRandomBgSong();
         },
 
         // ── Random Video ──
@@ -5703,6 +5725,71 @@ createApp({
             if (!pool.length) return;
             this.randomVideo = pool[Math.floor(Math.random() * pool.length)];
             this.showRandomVideo = true;
+            this._ensureRandomBgSong();
+        },
+
+        // ── Background music for Random Photo/Video ──
+        // Picks and plays a random song from the Random/ folder, reading its real ID3 tags
+        // for title/artist. Only starts a new song if one isn't already playing, so
+        // "Next Photo"/"Next Video" keeps the same song going (per design).
+        _ensureRandomBgSong() {
+            if (this.randomBgPlaying) return;
+            if (!this.randomBgSongFiles || !this.randomBgSongFiles.length) return;
+            const file = this.randomBgSongFiles[Math.floor(Math.random() * this.randomBgSongFiles.length)];
+            const url = this.mediaBase + 'Music/Random/' + encodeURIComponent(file);
+            const audio = new Audio(url);
+            audio.loop = false;
+            audio.volume = 0.7;
+            this._randomBgAudio = audio;
+            this.randomBgPlaying = true;
+            this.randomBgTitle = '';
+            this.randomBgArtist = '';
+            const self = this;
+            audio.onended = function() {
+                // Song finished naturally — pick another one, still within the same session.
+                self._randomBgAudio = null;
+                self.randomBgPlaying = false;
+                if (self.showRandomPhoto || self.showRandomVideo) self._ensureRandomBgSong();
+            };
+            audio.play().catch(function() {});
+            if (window.jsmediatags) {
+                window.jsmediatags.read(url, {
+                    onSuccess: function(tag) {
+                        if (self._randomBgAudio !== audio) return; // a newer song started meanwhile
+                        self.randomBgTitle = (tag.tags && tag.tags.title) || file.replace(/\.mp3$/i, '');
+                        self.randomBgArtist = (tag.tags && tag.tags.artist) || '';
+                    },
+                    onError: function() {
+                        if (self._randomBgAudio !== audio) return;
+                        self.randomBgTitle = file.replace(/\.mp3$/i, '');
+                        self.randomBgArtist = '';
+                    }
+                });
+            } else {
+                this.randomBgTitle = file.replace(/\.mp3$/i, '');
+            }
+        },
+        _stopRandomBg() {
+            this.randomBgPlaying = false;
+            this.randomBgTitle = '';
+            this.randomBgArtist = '';
+            if (this._randomBgAudio) {
+                const audio = this._randomBgAudio;
+                this._randomBgAudio = null;
+                audio.onended = null;
+                const startVol = audio.volume;
+                const steps = 20;
+                const stepTime = 600 / steps;
+                let step = 0;
+                const fade = setInterval(function() {
+                    step++;
+                    audio.volume = Math.max(0, startVol * (1 - step / steps));
+                    if (step >= steps) {
+                        clearInterval(fade);
+                        audio.pause();
+                    }
+                }, stepTime);
+            }
         },
 
 
@@ -6581,6 +6668,8 @@ createApp({
        },
         search() { this.visibleCount = 40; },
         filteredWonders() { this.visibleCount = 40; },
+        showRandomPhoto(val) { if (!val && !this.showRandomVideo) this._stopRandomBg(); },
+        showRandomVideo(val) { if (!val && !this.showRandomPhoto) this._stopRandomBg(); },
         expandedMedia(val) {
             const url = new URL(window.location);
             if (val) {
