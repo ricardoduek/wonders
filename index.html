@@ -1869,7 +1869,7 @@
                 </div>
                 <!-- Volume row (compact) -->
                 <div class="rs-volume-row">
-                    <button class="rs-icon-btn" @click="toggleRandomSongMute()">
+                    <button class="rs-icon-btn" @click="toggleRandomSongMute()" :title="randomSongMuted ? content[lang].randomSongUnmute : content[lang].randomSongMute">
                         <i :class="randomSongMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
                     </button>
                     <span class="rs-vol-label">Vol</span>
@@ -2579,6 +2579,36 @@
                 </div>
             </template>
 
+            <!-- CURRENCIES 1: show country name, choose currency from 4 options -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'currencies1' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhatCurrency }}</div>
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt === gameCurrentQ.correctValue ? 'correct' : '',
+                            gameAnswered && opt === gameSelectedAnswer && opt !== gameCurrentQ.correctValue ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt)">
+                        {{ opt }}
+                    </div>
+                </div>
+            </template>
+
+            <!-- CURRENCIES 2: show currency symbol, choose country -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'currencies2' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhichCountryCurrency }}</div>
+                <div class="game-q-text">{{ gameCurrentQ.currencySymbol }} ({{ gameCurrentQ.currencyGenericName }})</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt.name"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt.name === gameCurrentQ.correctCountry.name ? 'correct' : '',
+                            gameAnswered && opt.name === gameSelectedAnswer && opt.name !== gameCurrentQ.correctCountry.name ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt.name)">
+                        {{ lang === 'pt' ? opt.name_pt : lang === 'es' ? opt.name_es : opt.name }}
+                    </div>
+                </div>
+            </template>
+
             <!-- Feedback -->
             <div v-if="gameAnswered && !gameShowScore && gameActiveInfo && gameActiveInfo.id !== 'geoguesser' && gameActiveInfo.id !== 'mapclick'" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
                 {{ gameLastCorrect ? content[lang].gameCorrect : content[lang].gameWrong }}
@@ -3038,125 +3068,182 @@ createApp({
                 'Zimbabwe':{p:16665000,po:73,pos:'rd',a:391000,ao:59,aos:'th'}
             },
             countryCurrency: {
-                'Albania':{code:'ALL',name_en:"Albanian Lek",name_pt:"Lek Albanês",name_es:"Lek Albanés"},
-                'Andorra':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Antigua And Barbuda':{code:'XCD',name_en:"East Caribbean Dollar",name_pt:"Dólar do Caribe Oriental",name_es:"Dólar del Caribe Oriental"},
-                'Argentina':{code:'ARS',name_en:"Argentine Peso",name_pt:"Peso Argentino",name_es:"Peso Argentino"},
-                'Aruba':{code:'AWG',name_en:"Aruban Florin",name_pt:"Florim Arubano",name_es:"Florín Arubeño"},
-                'Australia':{code:'AUD',name_en:"Australian Dollar",name_pt:"Dólar Australiano",name_es:"Dólar Australiano"},
-                'Austria':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Barbados':{code:'BBD',name_en:"Barbadian Dollar",name_pt:"Dólar de Barbados",name_es:"Dólar de Barbados"},
-                'Belarus':{code:'BYN',name_en:"Belarusian Ruble",name_pt:"Rublo Bielorrusso",name_es:"Rublo Bielorruso"},
-                'Belgium':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Belize':{code:'BZD',name_en:"Belize Dollar",name_pt:"Dólar de Belize",name_es:"Dólar de Belice"},
-                'Bolivia':{code:'BOB',name_en:"Boliviano",name_pt:"Boliviano",name_es:"Boliviano"},
-                'Bosnia And Herzegovina':{code:'BAM',name_en:"Convertible Mark",name_pt:"Marco Conversível",name_es:"Marco Convertible"},
-                'Brazil':{code:'BRL',name_en:"Brazilian Real",name_pt:"Real Brasileiro",name_es:"Real Brasileño"},
-                'Bulgaria':{code:'BGN',name_en:"Bulgarian Lev",name_pt:"Lev Búlgaro",name_es:"Lev Búlgaro"},
-                'Cambodia':{code:'KHR',name_en:"Cambodian Riel",name_pt:"Riel Cambojano",name_es:"Riel Camboyano"},
-                'Chile':{code:'CLP',name_en:"Chilean Peso",name_pt:"Peso Chileno",name_es:"Peso Chileno"},
-                'China':{code:'CNY',name_en:"Chinese Yuan",name_pt:"Yuan Chinês",name_es:"Yuan Chino"},
-                'Colombia':{code:'COP',name_en:"Colombian Peso",name_pt:"Peso Colombiano",name_es:"Peso Colombiano"},
-                'Costa Rica':{code:'CRC',name_en:"Costa Rican Colón",name_pt:"Colón Costarriquenho",name_es:"Colón Costarricense"},
-                'Croatia':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Cuba':{code:'CUP',name_en:"Cuban Peso",name_pt:"Peso Cubano",name_es:"Peso Cubano"},
-                'Curaçao':{code:'ANG',name_en:"Netherlands Antillean Guilder",name_pt:"Florim das Antilhas Neerlandesas",name_es:"Florín Antillano Neerlandés"},
-                'Czech Republic':{code:'CZK',name_en:"Czech Koruna",name_pt:"Coroa Checa",name_es:"Corona Checa"},
-                'Denmark':{code:'DKK',name_en:"Danish Krone",name_pt:"Coroa Dinamarquesa",name_es:"Corona Danesa"},
-                'Dominican Republic':{code:'DOP',name_en:"Dominican Peso",name_pt:"Peso Dominicano",name_es:"Peso Dominicano"},
-                'Ecuador':{code:'USD',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense"},
-                'Egypt':{code:'EGP',name_en:"Egyptian Pound",name_pt:"Libra Egípcia",name_es:"Libra Egipcia"},
-                'El Salvador':{code:'USD',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense"},
-                'England':{code:'GBP',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina"},
-                'Eswatini':{code:'SZL',name_en:"Swazi Lilangeni",name_pt:"Lilangeni Suázi",name_es:"Lilangeni Suazi"},
-                'Estonia':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Finland':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'France':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Germany':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Gibraltar':{code:'GIP',name_en:"Gibraltar Pound",name_pt:"Libra de Gibraltar",name_es:"Libra de Gibraltar"},
-                'Greece':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Guadeloupe':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Guatemala':{code:'GTQ',name_en:"Guatemalan Quetzal",name_pt:"Quetzal Guatemalteco",name_es:"Quetzal Guatemalteco"},
-                'Honduras':{code:'HNL',name_en:"Honduran Lempira",name_pt:"Lempira Hondurenha",name_es:"Lempira Hondureña"},
-                'Hong Kong':{code:'HKD',name_en:"Hong Kong Dollar",name_pt:"Dólar de Hong Kong",name_es:"Dólar de Hong Kong"},
-                'Hungary':{code:'HUF',name_en:"Hungarian Forint",name_pt:"Forint Húngaro",name_es:"Forinto Húngaro"},
-                'Iceland':{code:'ISK',name_en:"Icelandic Króna",name_pt:"Coroa Islandesa",name_es:"Corona Islandesa"},
-                'India':{code:'INR',name_en:"Indian Rupee",name_pt:"Rupia Indiana",name_es:"Rupia India"},
-                'Indonesia':{code:'IDR',name_en:"Indonesian Rupiah",name_pt:"Rupia Indonésia",name_es:"Rupia Indonesia"},
-                'Ireland':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Israel':{code:'ILS',name_en:"Israeli New Shekel",name_pt:"Novo Shekel Israelense",name_es:"Nuevo Séquel Israelí"},
-                'Italy':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Jordan':{code:'JOD',name_en:"Jordanian Dinar",name_pt:"Dinar Jordaniano",name_es:"Dinar Jordano"},
-                'Kenya':{code:'KES',name_en:"Kenyan Shilling",name_pt:"Xelim Queniano",name_es:"Chelín Keniano"},
-                'Latvia':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Liechtenstein':{code:'CHF',name_en:"Swiss Franc",name_pt:"Franco Suíço",name_es:"Franco Suizo"},
-                'Lithuania':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Luxembourg':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Macau':{code:'MOP',name_en:"Macanese Pataca",name_pt:"Pataca de Macau",name_es:"Pataca de Macao"},
-                'Malaysia':{code:'MYR',name_en:"Malaysian Ringgit",name_pt:"Ringgit Malaio",name_es:"Ringgit Malayo"},
-                'Malta':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Martinique':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Mexico':{code:'MXN',name_en:"Mexican Peso",name_pt:"Peso Mexicano",name_es:"Peso Mexicano"},
-                'Monaco':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Montenegro':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Morocco':{code:'MAD',name_en:"Moroccan Dirham",name_pt:"Dirham Marroquino",name_es:"Dirham Marroquí"},
-                'Netherlands':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'New Zealand':{code:'NZD',name_en:"New Zealand Dollar",name_pt:"Dólar Neozelandês",name_es:"Dólar Neozelandés"},
-                'Nicaragua':{code:'NIO',name_en:"Nicaraguan Córdoba",name_pt:"Córdoba Nicaraguense",name_es:"Córdoba Nicaragüense"},
-                'Northern Ireland':{code:'GBP',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina"},
-                'North Macedonia':{code:'MKD',name_en:"Macedonian Denar",name_pt:"Dinar Macedônio",name_es:"Denar Macedonio"},
-                'Norway':{code:'NOK',name_en:"Norwegian Krone",name_pt:"Coroa Norueguesa",name_es:"Corona Noruega"},
-                'Palestine':{code:'ILS',name_en:"Israeli New Shekel",name_pt:"Novo Shekel Israelense",name_es:"Nuevo Séquel Israelí"},
-                'Panama':{code:'PAB',name_en:"Panamanian Balboa",name_pt:"Balboa Panamenho",name_es:"Balboa Panameño"},
-                'Paraguay':{code:'PYG',name_en:"Paraguayan Guaraní",name_pt:"Guarani Paraguaio",name_es:"Guaraní Paraguayo"},
-                'Peru':{code:'PEN',name_en:"Peruvian Sol",name_pt:"Sol Peruano",name_es:"Sol Peruano"},
-                'Poland':{code:'PLN',name_en:"Polish Złoty",name_pt:"Zloty Polonês",name_es:"Zloty Polaco"},
-                'Portugal':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Puerto Rico':{code:'USD',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense"},
-                'Qatar':{code:'QAR',name_en:"Qatari Riyal",name_pt:"Rial Catariano",name_es:"Riyal Catarí"},
-                'Romania':{code:'RON',name_en:"Romanian Leu",name_pt:"Leu Romeno",name_es:"Leu Rumano"},
-                'Russia':{code:'RUB',name_en:"Russian Ruble",name_pt:"Rublo Russo",name_es:"Rublo Ruso"},
-                'Saint Kitts And Nevis':{code:'XCD',name_en:"East Caribbean Dollar",name_pt:"Dólar do Caribe Oriental",name_es:"Dólar del Caribe Oriental"},
-                'Scotland':{code:'GBP',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina"},
-                'Serbia':{code:'RSD',name_en:"Serbian Dinar",name_pt:"Dinar Sérvio",name_es:"Dinar Serbio"},
-                'Singapore':{code:'SGD',name_en:"Singapore Dollar",name_pt:"Dólar de Singapura",name_es:"Dólar de Singapur"},
-                'Sint Maarten':{code:'ANG',name_en:"Netherlands Antillean Guilder",name_pt:"Florim das Antilhas Neerlandesas",name_es:"Florín Antillano Neerlandés"},
-                'Slovakia':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Slovenia':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'South Africa':{code:'ZAR',name_en:"South African Rand",name_pt:"Rand Sul-Africano",name_es:"Rand Sudafricano"},
-                'Spain':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Sweden':{code:'SEK',name_en:"Swedish Krona",name_pt:"Coroa Sueca",name_es:"Corona Sueca"},
-                'Switzerland':{code:'CHF',name_en:"Swiss Franc",name_pt:"Franco Suíço",name_es:"Franco Suizo"},
-                'Tanzania':{code:'TZS',name_en:"Tanzanian Shilling",name_pt:"Xelim Tanzaniano",name_es:"Chelín Tanzano"},
-                'Thailand':{code:'THB',name_en:"Thai Baht",name_pt:"Baht Tailandês",name_es:"Baht Tailandés"},
-                'Trinidad And Tobago':{code:'TTD',name_en:"Trinidad and Tobago Dollar",name_pt:"Dólar de Trinidad e Tobago",name_es:"Dólar de Trinidad y Tobago"},
-                'Turkey':{code:'TRY',name_en:"Turkish Lira",name_pt:"Lira Turca",name_es:"Lira Turca"},
-                'United Arab Emirates':{code:'AED',name_en:"UAE Dirham",name_pt:"Dirham dos Emirados Árabes",name_es:"Dirham de los Emiratos Árabes"},
-                'United States':{code:'USD',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense"},
-                'Uruguay':{code:'UYU',name_en:"Uruguayan Peso",name_pt:"Peso Uruguaio",name_es:"Peso Uruguayo"},
-                'Vatican City':{code:'EUR',name_en:"Euro",name_pt:"Euro",name_es:"Euro"},
-                'Venezuela':{code:'VES',name_en:"Venezuelan Bolívar",name_pt:"Bolívar Venezuelano",name_es:"Bolívar Venezolano"},
-                'Vietnam':{code:'VND',name_en:"Vietnamese Dong",name_pt:"Dong Vietnamita",name_es:"Dong Vietnamita"},
-                'Wales':{code:'GBP',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina"},
-                'Zambia':{code:'ZMW',name_en:"Zambian Kwacha",name_pt:"Kwacha Zambiano",name_es:"Kwacha Zambiano"},
-                'Zimbabwe':{code:'ZWG',name_en:"Zimbabwe Gold",name_pt:"Ouro do Zimbábue",name_es:"Oro de Zimbabue"}
+                'Albania':{code:'ALL',symbol:'Lek',name_en:"Albanian Lek",name_pt:"Lek Albanês",name_es:"Lek Albanés",generic_en:"Lek",generic_pt:"Lek",generic_es:"Lek"},
+                'Andorra':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Antigua And Barbuda':{code:'XCD',symbol:'$',name_en:"East Caribbean Dollar",name_pt:"Dólar do Caribe Oriental",name_es:"Dólar del Caribe Oriental",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Argentina':{code:'ARS',symbol:'$',name_en:"Argentine Peso",name_pt:"Peso Argentino",name_es:"Peso Argentino",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'Aruba':{code:'AWG',symbol:'ƒ',name_en:"Aruban Florin",name_pt:"Florim Arubano",name_es:"Florín Arubeño",generic_en:"Florin",generic_pt:"Florim",generic_es:"Florín"},
+                'Australia':{code:'AUD',symbol:'$',name_en:"Australian Dollar",name_pt:"Dólar Australiano",name_es:"Dólar Australiano",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Austria':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Barbados':{code:'BBD',symbol:'$',name_en:"Barbadian Dollar",name_pt:"Dólar de Barbados",name_es:"Dólar de Barbados",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Belarus':{code:'BYN',symbol:'Br',name_en:"Belarusian Ruble",name_pt:"Rublo Bielorrusso",name_es:"Rublo Bielorruso",generic_en:"Ruble",generic_pt:"Rublo",generic_es:"Rublo"},
+                'Belgium':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Belize':{code:'BZD',symbol:'$',name_en:"Belize Dollar",name_pt:"Dólar de Belize",name_es:"Dólar de Belice",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Bolivia':{code:'BOB',symbol:'Bs.',name_en:"Boliviano",name_pt:"Boliviano",name_es:"Boliviano",generic_en:"Boliviano",generic_pt:"Boliviano",generic_es:"Boliviano"},
+                'Bosnia And Herzegovina':{code:'BAM',symbol:'KM',name_en:"Convertible Mark",name_pt:"Marco Conversível",name_es:"Marco Convertible",generic_en:"Convertible Mark",generic_pt:"Marco Conversível",generic_es:"Marco Convertible"},
+                'Brazil':{code:'BRL',symbol:'R$',name_en:"Brazilian Real",name_pt:"Real Brasileiro",name_es:"Real Brasileño",generic_en:"Real",generic_pt:"Real",generic_es:"Real"},
+                'Bulgaria':{code:'BGN',symbol:'лв',name_en:"Bulgarian Lev",name_pt:"Lev Búlgaro",name_es:"Lev Búlgaro",generic_en:"Lev",generic_pt:"Lev",generic_es:"Lev"},
+                'Cambodia':{code:'KHR',symbol:'៛',name_en:"Cambodian Riel",name_pt:"Riel Cambojano",name_es:"Riel Camboyano",generic_en:"Riel",generic_pt:"Riel",generic_es:"Riel"},
+                'Chile':{code:'CLP',symbol:'$',name_en:"Chilean Peso",name_pt:"Peso Chileno",name_es:"Peso Chileno",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'China':{code:'CNY',symbol:'¥',name_en:"Chinese Yuan",name_pt:"Yuan Chinês",name_es:"Yuan Chino",generic_en:"Yuan",generic_pt:"Yuan",generic_es:"Yuan"},
+                'Colombia':{code:'COP',symbol:'$',name_en:"Colombian Peso",name_pt:"Peso Colombiano",name_es:"Peso Colombiano",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'Costa Rica':{code:'CRC',symbol:'₡',name_en:"Costa Rican Colón",name_pt:"Colón Costarriquenho",name_es:"Colón Costarricense",generic_en:"Colón",generic_pt:"Colón",generic_es:"Colón"},
+                'Croatia':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Cuba':{code:'CUP',symbol:'$',name_en:"Cuban Peso",name_pt:"Peso Cubano",name_es:"Peso Cubano",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'Curaçao':{code:'ANG',symbol:'ƒ',name_en:"Netherlands Antillean Guilder",name_pt:"Florim das Antilhas Neerlandesas",name_es:"Florín Antillano Neerlandés",generic_en:"Guilder",generic_pt:"Florim",generic_es:"Florín"},
+                'Czech Republic':{code:'CZK',symbol:'Kč',name_en:"Czech Koruna",name_pt:"Coroa Checa",name_es:"Corona Checa",generic_en:"Koruna",generic_pt:"Coroa",generic_es:"Corona"},
+                'Denmark':{code:'DKK',symbol:'kr',name_en:"Danish Krone",name_pt:"Coroa Dinamarquesa",name_es:"Corona Danesa",generic_en:"Krone",generic_pt:"Coroa",generic_es:"Corona"},
+                'Dominican Republic':{code:'DOP',symbol:'RD$',name_en:"Dominican Peso",name_pt:"Peso Dominicano",name_es:"Peso Dominicano",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'Ecuador':{code:'USD',symbol:'$',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Egypt':{code:'EGP',symbol:'£',name_en:"Egyptian Pound",name_pt:"Libra Egípcia",name_es:"Libra Egipcia",generic_en:"Pound",generic_pt:"Libra",generic_es:"Libra"},
+                'El Salvador':{code:'USD',symbol:'$',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'England':{code:'GBP',symbol:'£',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina",generic_en:"Pound",generic_pt:"Libra",generic_es:"Libra"},
+                'Eswatini':{code:'SZL',symbol:'L',name_en:"Swazi Lilangeni",name_pt:"Lilangeni Suázi",name_es:"Lilangeni Suazi",generic_en:"Lilangeni",generic_pt:"Lilangeni",generic_es:"Lilangeni"},
+                'Estonia':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Finland':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'France':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Germany':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Gibraltar':{code:'GIP',symbol:'£',name_en:"Gibraltar Pound",name_pt:"Libra de Gibraltar",name_es:"Libra de Gibraltar",generic_en:"Pound",generic_pt:"Libra",generic_es:"Libra"},
+                'Greece':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Guadeloupe':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Guatemala':{code:'GTQ',symbol:'Q',name_en:"Guatemalan Quetzal",name_pt:"Quetzal Guatemalteco",name_es:"Quetzal Guatemalteco",generic_en:"Quetzal",generic_pt:"Quetzal",generic_es:"Quetzal"},
+                'Honduras':{code:'HNL',symbol:'L',name_en:"Honduran Lempira",name_pt:"Lempira Hondurenha",name_es:"Lempira Hondureña",generic_en:"Lempira",generic_pt:"Lempira",generic_es:"Lempira"},
+                'Hong Kong':{code:'HKD',symbol:'HK$',name_en:"Hong Kong Dollar",name_pt:"Dólar de Hong Kong",name_es:"Dólar de Hong Kong",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Hungary':{code:'HUF',symbol:'Ft',name_en:"Hungarian Forint",name_pt:"Forint Húngaro",name_es:"Forinto Húngaro",generic_en:"Forint",generic_pt:"Forint",generic_es:"Forinto"},
+                'Iceland':{code:'ISK',symbol:'kr',name_en:"Icelandic Króna",name_pt:"Coroa Islandesa",name_es:"Corona Islandesa",generic_en:"Króna",generic_pt:"Coroa",generic_es:"Corona"},
+                'India':{code:'INR',symbol:'₹',name_en:"Indian Rupee",name_pt:"Rupia Indiana",name_es:"Rupia India",generic_en:"Rupee",generic_pt:"Rupia",generic_es:"Rupia"},
+                'Indonesia':{code:'IDR',symbol:'Rp',name_en:"Indonesian Rupiah",name_pt:"Rupia Indonésia",name_es:"Rupia Indonesia",generic_en:"Rupiah",generic_pt:"Rupia",generic_es:"Rupia"},
+                'Ireland':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Israel':{code:'ILS',symbol:'₪',name_en:"Israeli New Shekel",name_pt:"Novo Shekel Israelense",name_es:"Nuevo Séquel Israelí",generic_en:"New Shekel",generic_pt:"Novo Shekel",generic_es:"Nuevo Séquel"},
+                'Italy':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Jordan':{code:'JOD',symbol:'JD',name_en:"Jordanian Dinar",name_pt:"Dinar Jordaniano",name_es:"Dinar Jordano",generic_en:"Dinar",generic_pt:"Dinar",generic_es:"Dinar"},
+                'Kenya':{code:'KES',symbol:'KSh',name_en:"Kenyan Shilling",name_pt:"Xelim Queniano",name_es:"Chelín Keniano",generic_en:"Shilling",generic_pt:"Xelim",generic_es:"Chelín"},
+                'Latvia':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Liechtenstein':{code:'CHF',symbol:'CHF',name_en:"Swiss Franc",name_pt:"Franco Suíço",name_es:"Franco Suizo",generic_en:"Franc",generic_pt:"Franco",generic_es:"Franco"},
+                'Lithuania':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Luxembourg':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Macau':{code:'MOP',symbol:'MOP$',name_en:"Macanese Pataca",name_pt:"Pataca de Macau",name_es:"Pataca de Macao",generic_en:"Pataca",generic_pt:"Pataca",generic_es:"Pataca"},
+                'Malaysia':{code:'MYR',symbol:'RM',name_en:"Malaysian Ringgit",name_pt:"Ringgit Malaio",name_es:"Ringgit Malayo",generic_en:"Ringgit",generic_pt:"Ringgit",generic_es:"Ringgit"},
+                'Malta':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Martinique':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Mexico':{code:'MXN',symbol:'$',name_en:"Mexican Peso",name_pt:"Peso Mexicano",name_es:"Peso Mexicano",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'Monaco':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Montenegro':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Morocco':{code:'MAD',symbol:'DH',name_en:"Moroccan Dirham",name_pt:"Dirham Marroquino",name_es:"Dirham Marroquí",generic_en:"Dirham",generic_pt:"Dirham",generic_es:"Dirham"},
+                'Netherlands':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'New Zealand':{code:'NZD',symbol:'$',name_en:"New Zealand Dollar",name_pt:"Dólar Neozelandês",name_es:"Dólar Neozelandés",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Nicaragua':{code:'NIO',symbol:'C$',name_en:"Nicaraguan Córdoba",name_pt:"Córdoba Nicaraguense",name_es:"Córdoba Nicaragüense",generic_en:"Córdoba",generic_pt:"Córdoba",generic_es:"Córdoba"},
+                'Northern Ireland':{code:'GBP',symbol:'£',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina",generic_en:"Pound",generic_pt:"Libra",generic_es:"Libra"},
+                'North Macedonia':{code:'MKD',symbol:'ден',name_en:"Macedonian Denar",name_pt:"Dinar Macedônio",name_es:"Denar Macedonio",generic_en:"Denar",generic_pt:"Dinar",generic_es:"Denar"},
+                'Norway':{code:'NOK',symbol:'kr',name_en:"Norwegian Krone",name_pt:"Coroa Norueguesa",name_es:"Corona Noruega",generic_en:"Krone",generic_pt:"Coroa",generic_es:"Corona"},
+                'Palestine':{code:'ILS',symbol:'₪',name_en:"Israeli New Shekel",name_pt:"Novo Shekel Israelense",name_es:"Nuevo Séquel Israelí",generic_en:"New Shekel",generic_pt:"Novo Shekel",generic_es:"Nuevo Séquel"},
+                'Panama':{code:'PAB',symbol:'B/.',name_en:"Panamanian Balboa",name_pt:"Balboa Panamenho",name_es:"Balboa Panameño",generic_en:"Balboa",generic_pt:"Balboa",generic_es:"Balboa"},
+                'Paraguay':{code:'PYG',symbol:'₲',name_en:"Paraguayan Guaraní",name_pt:"Guarani Paraguaio",name_es:"Guaraní Paraguayo",generic_en:"Guaraní",generic_pt:"Guarani",generic_es:"Guaraní"},
+                'Peru':{code:'PEN',symbol:'S/',name_en:"Peruvian Sol",name_pt:"Sol Peruano",name_es:"Sol Peruano",generic_en:"Sol",generic_pt:"Sol",generic_es:"Sol"},
+                'Poland':{code:'PLN',symbol:'zł',name_en:"Polish Złoty",name_pt:"Zloty Polonês",name_es:"Zloty Polaco",generic_en:"Złoty",generic_pt:"Zloty",generic_es:"Zloty"},
+                'Portugal':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Puerto Rico':{code:'USD',symbol:'$',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Qatar':{code:'QAR',symbol:'QR',name_en:"Qatari Riyal",name_pt:"Rial Catariano",name_es:"Riyal Catarí",generic_en:"Riyal",generic_pt:"Rial",generic_es:"Riyal"},
+                'Romania':{code:'RON',symbol:'lei',name_en:"Romanian Leu",name_pt:"Leu Romeno",name_es:"Leu Rumano",generic_en:"Leu",generic_pt:"Leu",generic_es:"Leu"},
+                'Russia':{code:'RUB',symbol:'₽',name_en:"Russian Ruble",name_pt:"Rublo Russo",name_es:"Rublo Ruso",generic_en:"Ruble",generic_pt:"Rublo",generic_es:"Rublo"},
+                'Saint Kitts And Nevis':{code:'XCD',symbol:'$',name_en:"East Caribbean Dollar",name_pt:"Dólar do Caribe Oriental",name_es:"Dólar del Caribe Oriental",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Scotland':{code:'GBP',symbol:'£',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina",generic_en:"Pound",generic_pt:"Libra",generic_es:"Libra"},
+                'Serbia':{code:'RSD',symbol:'дин.',name_en:"Serbian Dinar",name_pt:"Dinar Sérvio",name_es:"Dinar Serbio",generic_en:"Dinar",generic_pt:"Dinar",generic_es:"Dinar"},
+                'Singapore':{code:'SGD',symbol:'S$',name_en:"Singapore Dollar",name_pt:"Dólar de Singapura",name_es:"Dólar de Singapur",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Sint Maarten':{code:'ANG',symbol:'ƒ',name_en:"Netherlands Antillean Guilder",name_pt:"Florim das Antilhas Neerlandesas",name_es:"Florín Antillano Neerlandés",generic_en:"Guilder",generic_pt:"Florim",generic_es:"Florín"},
+                'Slovakia':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Slovenia':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'South Africa':{code:'ZAR',symbol:'R',name_en:"South African Rand",name_pt:"Rand Sul-Africano",name_es:"Rand Sudafricano",generic_en:"Rand",generic_pt:"Rand",generic_es:"Rand"},
+                'Spain':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Sweden':{code:'SEK',symbol:'kr',name_en:"Swedish Krona",name_pt:"Coroa Sueca",name_es:"Corona Sueca",generic_en:"Krona",generic_pt:"Coroa",generic_es:"Corona"},
+                'Switzerland':{code:'CHF',symbol:'CHF',name_en:"Swiss Franc",name_pt:"Franco Suíço",name_es:"Franco Suizo",generic_en:"Franc",generic_pt:"Franco",generic_es:"Franco"},
+                'Tanzania':{code:'TZS',symbol:'TSh',name_en:"Tanzanian Shilling",name_pt:"Xelim Tanzaniano",name_es:"Chelín Tanzano",generic_en:"Shilling",generic_pt:"Xelim",generic_es:"Chelín"},
+                'Thailand':{code:'THB',symbol:'฿',name_en:"Thai Baht",name_pt:"Baht Tailandês",name_es:"Baht Tailandés",generic_en:"Baht",generic_pt:"Baht",generic_es:"Baht"},
+                'Trinidad And Tobago':{code:'TTD',symbol:'$',name_en:"Trinidad and Tobago Dollar",name_pt:"Dólar de Trinidad e Tobago",name_es:"Dólar de Trinidad y Tobago",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Turkey':{code:'TRY',symbol:'₺',name_en:"Turkish Lira",name_pt:"Lira Turca",name_es:"Lira Turca",generic_en:"Lira",generic_pt:"Lira",generic_es:"Lira"},
+                'United Arab Emirates':{code:'AED',symbol:'AED',name_en:"UAE Dirham",name_pt:"Dirham dos Emirados Árabes",name_es:"Dirham de los Emiratos Árabes",generic_en:"Dirham",generic_pt:"Dirham",generic_es:"Dirham"},
+                'United States':{code:'USD',symbol:'$',name_en:"US Dollar",name_pt:"Dólar Americano",name_es:"Dólar Estadounidense",generic_en:"Dollar",generic_pt:"Dólar",generic_es:"Dólar"},
+                'Uruguay':{code:'UYU',symbol:'$U',name_en:"Uruguayan Peso",name_pt:"Peso Uruguaio",name_es:"Peso Uruguayo",generic_en:"Peso",generic_pt:"Peso",generic_es:"Peso"},
+                'Vatican City':{code:'EUR',symbol:'€',name_en:"Euro",name_pt:"Euro",name_es:"Euro",generic_en:"Euro",generic_pt:"Euro",generic_es:"Euro"},
+                'Venezuela':{code:'VES',symbol:'Bs.S',name_en:"Venezuelan Bolívar",name_pt:"Bolívar Venezuelano",name_es:"Bolívar Venezolano",generic_en:"Bolívar",generic_pt:"Bolívar",generic_es:"Bolívar"},
+                'Vietnam':{code:'VND',symbol:'₫',name_en:"Vietnamese Dong",name_pt:"Dong Vietnamita",name_es:"Dong Vietnamita",generic_en:"Dong",generic_pt:"Dong",generic_es:"Dong"},
+                'Wales':{code:'GBP',symbol:'£',name_en:"British Pound",name_pt:"Libra Esterlina",name_es:"Libra Esterlina",generic_en:"Pound",generic_pt:"Libra",generic_es:"Libra"},
+                'Zambia':{code:'ZMW',symbol:'ZK',name_en:"Zambian Kwacha",name_pt:"Kwacha Zambiano",name_es:"Kwacha Zambiano",generic_en:"Kwacha",generic_pt:"Kwacha",generic_es:"Kwacha"},
+                'Zimbabwe':{code:'ZWG',symbol:'ZiG',name_en:"Zimbabwe Gold",name_pt:"Ouro do Zimbábue",name_es:"Oro de Zimbabue",generic_en:"Gold",generic_pt:"Ouro",generic_es:"Oro"}
+            },
+            // Shared capitals lookup — used by both _countriesWithCapitals() and _getCapital()
+            // so the two never drift out of sync with each other.
+            capitalsMap: {
+                'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
+                'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
+                'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
+                'Belgium':'Brussels','Belize':'Belmopan','Bolivia':['Sucre','La Paz'],'Bosnia And Herzegovina':'Sarajevo',
+                'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
+                'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
+                'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
+                'Egypt':'Cairo','El Salvador':'San Salvador','England':'London','Estonia':'Tallinn',
+                'Finland':'Helsinki','France':'Paris','Germany':'Berlin','Greece':'Athens',
+                'Guatemala':'Guatemala City','Honduras':'Tegucigalpa','Hungary':'Budapest',
+                'Iceland':'Reykjavik','India':'New Delhi','Indonesia':'Jakarta','Ireland':'Dublin',
+                'Israel':'Tel Aviv','Italy':'Rome','Jordan':'Amman','Kenya':'Nairobi',
+                'Latvia':'Riga','Lithuania':'Vilnius','Luxembourg':'Luxembourg',
+                'Malaysia':'Kuala Lumpur','Malta':'Valletta','Mexico':'Mexico City',
+                'Monaco':'Monaco','Montenegro':'Podgorica','Morocco':'Rabat',
+                'Netherlands':'Amsterdam','New Zealand':'Wellington','Nicaragua':'Managua',
+                'Norway':'Oslo','Panama':'Panama City','Paraguay':'Asunción','Peru':'Lima',
+                'Poland':'Warsaw','Portugal':'Lisbon','Qatar':'Doha','Romania':'Bucharest',
+                'Russia':'Moscow','Scotland':'Edinburgh','Serbia':'Belgrade','Singapore':'Singapore',
+                'Slovakia':'Bratislava','Slovenia':'Ljubljana','South Africa':'Cape Town',
+                'Spain':'Madrid','Sweden':'Stockholm','Switzerland':'Bern','Tanzania':'Dodoma',
+                'Thailand':'Bangkok','Trinidad And Tobago':'Port of Spain','Turkey':'Ankara',
+                'United Arab Emirates':'Abu Dhabi','United States':'Washington D.C.',
+                'Uruguay':'Montevideo','Vatican City':'Vatican City','Venezuela':'Caracas',
+                'Vietnam':'Hanoi','Wales':'Cardiff','Zambia':'Lusaka','Zimbabwe':'Harare'
+            },
+            // Shared ISO 3166-1 numeric codes (for TopoJSON country lookups) — used by both
+            // the Shapes game canvas and the Country Wonders modal's shape renderer.
+            nameToISO: {
+                'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32','Aruba':'533',
+                'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
+                'Belize':'84','Bolivia':'68','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
+                'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
+                'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
+                'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
+                'Estonia':'233','Finland':'246','France':'250','Germany':'276',
+                'Greece':'300','Guatemala':'320','Honduras':'340','Hungary':'348','Iceland':'352',
+                'India':'356','Indonesia':'360','Ireland':'372','Israel':'376','Italy':'380',
+                'Jordan':'400','Kenya':'404','Latvia':'428','Liechtenstein':'438','Lithuania':'440',
+                'Luxembourg':'442','Malaysia':'458','Malta':'470','Mexico':'484','Monaco':'492',
+                'Montenegro':'499','Morocco':'504','Netherlands':'528','New Zealand':'554',
+                'Nicaragua':'558','North Macedonia':'807','Norway':'578','Palestine':'275',
+                'Panama':'591','Paraguay':'600','Peru':'604','Poland':'616','Portugal':'620',
+                'Qatar':'634','Romania':'642','Russia':'643','Serbia':'688',
+                'Singapore':'702','Slovakia':'703','Slovenia':'705','South Africa':'710',
+                'Spain':'724','Sweden':'752','Switzerland':'756','Tanzania':'834',
+                'Thailand':'764','Trinidad And Tobago':'780','Turkey':'792',
+                'United Arab Emirates':'784','United States':'840','Uruguay':'858',
+                'Venezuela':'862','Vietnam':'704',
+                'Zambia':'894','Zimbabwe':'716',
+                'Hong Kong':'344',
+                'Puerto Rico':'630','Eswatini':'748',
+                'Saint Kitts And Nevis':'659'
             },
             content: {
                 en: {
                     title: "My Wonders of the World", subtitle: "A collection of extraordinary places worth visiting across all five continents,\nphotographed, filmed, described, set to music, and enjoyed in person.",
                     exploreByRegion: "Explore by Region", searchCaption: "Search wonders, countries, cities...", searchPlaceholder: "Search...", close: "Close", next: "Next", prev: "Previous", backToGallery: "Back to Gallery", slideshowBtn: "Slideshow",
-                    copy1: "© Ricardo Duek · A lifetime of travelling across 101 countries and counting...", copy2: "Photos © Ricardo Duek unless otherwise noted",
+                    copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
-                    countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersLabel: "Wonders in", countryWondersHint: "Click a wonder to open it", countryWondersBack: "← Back to Countries",
+                    countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersHint: "Click a wonder to open it",
                     countryPopulation: "Population", countryArea: "Area", countryCurrency: "Currency", countryNoWonders: "No wonders posted yet",
                     statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsVideos: "Videos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToVideo: "→ Go to a random video", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
                     seeTimeline: "See my wonders timeline", timelineTitle: "My Wonders Timeline", timelineUndated: "Date Unknown",
-                    citiesTitle: "Cities & Places Visited", citiesSubtitle: "cities & places across 101 countries", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
+                    citiesTitle: "Cities & Places Visited", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
                     seeAboutMe: "About me",
                     seeMusic: "See the music list",
-                    musicTitle: "The Music List", musicCount: "songs", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
+                    musicTitle: "The Music List", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
                     musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
                     musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
                     lastUpdate: "Last update", lastTripLabel: "My Last Trip", lastTripDates: "Jul 23 – Aug 9, 2026",
@@ -3167,15 +3254,13 @@ createApp({
                     nextWondersSubtitle: "Already visited, soon to be part of the Collection.",
                     nextWondersSortWonder: "By Wonder", nextWondersSortCountry: "By Country",
                     nextWondersColWonder: "Wonder", nextWondersColCountry: "Country",
-                    tripsDaysLabel: "days",
                     tripsSingular: "trip", tripsPlural: "trips",
                     seeTrips: "See my trips map",
                     tripsTitle: "My Trips Map",
                     tripsStatTrips: "Trips", tripsStatStops: "Stops", tripsStatDays: "Days Travelled",
                     tripsShowAll: "Show all trips", tripsUnknownYear: "Unknown Year",
                     regions: { "Europe": "Europe", "Asia": "Asia", "Africa": "Africa", "Americas": "Americas", "Oceania": "Oceania" },
-                    aboutOrigin: "Born in Mendoza, Argentina · Living in Balneário Camboriú, Brazil",
-                    aboutBorn: "Born in Mendoza, Argentina", aboutLiving: "Living in Balneário Camboriú, Brazil",
+                                        aboutBorn: "Born in Mendoza, Argentina", aboutLiving: "Living in Balneário Camboriú, Brazil",
                     aboutStatCountries: "Countries Visited", aboutStatCities: "Cities & Places", aboutStatWonders: "Wonders",
                     aboutRolesLabel: "What I Do",
                     aboutRoles: [
@@ -3238,36 +3323,32 @@ createApp({
                     gameCorrect: "✓ Correct!",
                     geoClickMap: "Click on the map to place your pin",
                     geoTimesUp: "Time's up!",
-                    geoYourPin: "Your guess",
-                    geoCorrectPin: "Correct location",
                     geoDistance: "Distance",
                     geoPoints: "Points this round",
                     geoTotalScore: "Total Score",
                     geoOutOf: "out of 10,000",
-                    geoKm: "km away",
-                    geoNoPin: "No pin placed",
                     geoPerfect: "Spot on!",
                     gameWrong: "✗ Wrong",
                     gameCapital: "Which country is this the capital of?",
                     gameWhichCapital: "What is the capital of…",
                     gameWhichCountry: "In which country is this city?",
-                    gameWhatPopulation: "What is the population of this country?", gameWhatArea: "What is the land area of this country?",
+                    gameWhatPopulation: "What is the population of this country?", gameWhatArea: "What is the land area of this country?", gameWhatCurrency: "What is the currency of this country?", gameWhichCountryCurrency: "Which country uses this currency?",
                 },
                 pt: {
                     title: "Minhas Maravilhas do Mundo", subtitle: "Uma coleção de lugares extraordinários que valem a pena visitar em todos os cinco continentes,\nfotografados, filmados, descritos, musicalizados e desfrutados pessoalmente.",
                     exploreByRegion: "Explorar por Região", searchCaption: "Pesquisar Maravilhas, países, cidades...", searchPlaceholder: "Pesquisar...", close: "Fechar", next: "Próxima", prev: "Anterior", backToGallery: "Voltar para a Galeria", slideshowBtn: "Apresentação",
-                    copy1: "© Ricardo Duek · Uma vida viajando por 101 países e contando...", copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
+                    copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
-                    countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersLabel: "Maravilhas em", countryWondersHint: "Clique em uma maravilha para abri-la", countryWondersBack: "← Voltar aos Países",
+                    countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersHint: "Clique em uma maravilha para abri-la",
                     countryPopulation: "População", countryArea: "Área", countryCurrency: "Moeda", countryNoWonders: "Nenhuma maravilha postada ainda",
                     statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Vídeos Publicados", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToVideo: "→ Ir para um vídeo aleatório", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
                     seeTimeline: "Ver linha do tempo das maravilhas", timelineTitle: "Linha do Tempo das Maravilhas", timelineUndated: "Data Desconhecida",
-                    citiesTitle: "Cidades e Lugares Visitados", citiesSubtitle: "cidades e lugares em 101 países", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
+                    citiesTitle: "Cidades e Lugares Visitados", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
                     seeAboutMe: "Ver meu perfil",
                     seeMusic: "Ver a lista de músicas",
-                    musicTitle: "A Lista de Músicas", musicCount: "músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
+                    musicTitle: "A Lista de Músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
                     musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
                     lastUpdate: "Última atualização", lastTripLabel: "Minha Última Viagem", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
@@ -3277,13 +3358,11 @@ createApp({
                     nextWondersSubtitle: "Já visitadas, farão parte da Coleção em breve.",
                     nextWondersSortWonder: "Por Maravilha", nextWondersSortCountry: "Por País",
                     nextWondersColWonder: "Maravilha", nextWondersColCountry: "País",
-                    tripsDaysLabel: "dias",
                     tripsSingular: "viagem", tripsPlural: "viagens",                    seeTrips: "Ver meu mapa de viagens",
                     tripsTitle: "Meu Mapa de Viagens",
                     tripsStatTrips: "Viagens", tripsStatStops: "Paradas", tripsStatDays: "Dias Viajados",
                     tripsShowAll: "Ver todas as viagens", tripsUnknownYear: "Ano Desconhecido",                    regions: { "Europe": "Europa", "Asia": "Ásia", "Africa": "África", "Americas": "Américas", "Oceania": "Oceania" },
-                    aboutOrigin: "Nascido em Mendoza, Argentina · Morando em Balneário Camboriú, Brasil",
-                    aboutBorn: "Nascido em Mendoza, Argentina", aboutLiving: "Morando em Balneário Camboriú, Brasil",
+                                        aboutBorn: "Nascido em Mendoza, Argentina", aboutLiving: "Morando em Balneário Camboriú, Brasil",
                     aboutStatCountries: "Países Visitados", aboutStatCities: "Cidades e Lugares", aboutStatWonders: "Maravilhas",
                     aboutRolesLabel: "O Que Faço",
                     aboutRoles: [
@@ -3346,36 +3425,32 @@ createApp({
                     gameCorrect: "✓ Correto!",
                     geoClickMap: "Clique no mapa para colocar seu pino",
                     geoTimesUp: "Tempo esgotado!",
-                    geoYourPin: "Seu palpite",
-                    geoCorrectPin: "Local correto",
                     geoDistance: "Distância",
                     geoPoints: "Pontos desta rodada",
                     geoTotalScore: "Pontuação Total",
                     geoOutOf: "de 10.000",
-                    geoKm: "km de distância",
-                    geoNoPin: "Nenhum pino colocado",
                     geoPerfect: "Perfeito!",
                     gameWrong: "✗ Errado",
                     gameCapital: "De qual país é esta capital?",
                     gameWhichCapital: "Qual é a capital de…",
                     gameWhichCountry: "Em qual país fica esta cidade?",
-                    gameWhatPopulation: "Qual é a população deste país?", gameWhatArea: "Qual é a área territorial deste país?",
+                    gameWhatPopulation: "Qual é a população deste país?", gameWhatArea: "Qual é a área territorial deste país?", gameWhatCurrency: "Qual é a moeda deste país?", gameWhichCountryCurrency: "Qual país usa esta moeda?",
                 },
                 es: {
                     title: "Mis Maravillas del Mundo", subtitle: "Una colección de lugares extraordinarios que vale la pena visitar en los cinco continentes,\nfotografiados, filmados, descritos, musicalizados y disfrutados en persona.",
                     exploreByRegion: "Explorar por Región", searchCaption: "Buscar Maravillas, países, ciudades...", searchPlaceholder: "Buscar...", close: "Cerrar", next: "Siguiente", prev: "Anterior", backToGallery: "Volver a la Galería", slideshowBtn: "Presentación",
-                    copy1: "© Ricardo Duek · Toda una vida viajando por 101 países y contando...", copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
+                    copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
-                    countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersLabel: "Maravillas en", countryWondersHint: "Haz clic en una maravilla para abrirla", countryWondersBack: "← Volver a Países",
+                    countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersHint: "Haz clic en una maravilla para abrirla",
                     countryPopulation: "Población", countryArea: "Superficie", countryCurrency: "Moneda", countryNoWonders: "Aún no hay maravillas publicadas",
                     statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Videos Publicados", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToVideo: "→ Ir a un video aleatorio", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
                     seeTimeline: "Ver línea de tiempo de maravillas", timelineTitle: "Línea de Tiempo de Maravillas", timelineUndated: "Fecha Desconocida",
-                    citiesTitle: "Ciudades y Lugares Visitados", citiesSubtitle: "ciudades y lugares en 101 países", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
+                    citiesTitle: "Ciudades y Lugares Visitados", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
                     seeAboutMe: "Ver mi perfil",
                     seeMusic: "Ver la lista de música",
-                    musicTitle: "La Lista de Música", musicCount: "canciones", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
+                    musicTitle: "La Lista de Música", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
                     musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
                     lastUpdate: "Última actualización", lastTripLabel: "Mi Último Viaje", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
@@ -3385,13 +3460,11 @@ createApp({
                     nextWondersSubtitle: "Ya visitadas, formarán parte de la Colección pronto.",
                     nextWondersSortWonder: "Por Maravilla", nextWondersSortCountry: "Por País",
                     nextWondersColWonder: "Maravilla", nextWondersColCountry: "País",
-                    tripsDaysLabel: "días",
                     tripsSingular: "viaje", tripsPlural: "viajes",                    seeTrips: "Ver mi mapa de viajes",
                     tripsTitle: "Mi Mapa de Viajes",
                     tripsStatTrips: "Viajes", tripsStatStops: "Paradas", tripsStatDays: "Días Viajados",
                     tripsShowAll: "Ver todos los viajes", tripsUnknownYear: "Año Desconocido",                    regions: { "Europe": "Europa", "Asia": "Asia", "Africa": "África", "Americas": "Américas", "Oceania": "Oceanía" },
-                    aboutOrigin: "Nacido en Mendoza, Argentina · Viviendo en Balneário Camboriú, Brasil",
-                    aboutBorn: "Nacido en Mendoza, Argentina", aboutLiving: "Viviendo en Balneário Camboriú, Brasil",
+                                        aboutBorn: "Nacido en Mendoza, Argentina", aboutLiving: "Viviendo en Balneário Camboriú, Brasil",
                     aboutStatCountries: "Países Visitados", aboutStatCities: "Ciudades y Lugares", aboutStatWonders: "Maravillas",
                     aboutRolesLabel: "Lo Que Hago",
                     aboutRoles: [
@@ -3454,20 +3527,16 @@ createApp({
                     gameCorrect: "✓ ¡Correcto!",
                     geoClickMap: "Haz clic en el mapa para colocar tu pino",
                     geoTimesUp: "¡Tiempo agotado!",
-                    geoYourPin: "Tu ubicación",
-                    geoCorrectPin: "Ubicación correcta",
                     geoDistance: "Distancia",
                     geoPoints: "Puntos esta ronda",
                     geoTotalScore: "Puntuación Total",
                     geoOutOf: "de 10.000",
-                    geoKm: "km de distancia",
-                    geoNoPin: "Sin pino colocado",
                     geoPerfect: "¡Perfecto!",
                     gameWrong: "✗ Incorrecto",
                     gameCapital: "¿De qué país es esta capital?",
                     gameWhichCapital: "¿Cuál es la capital de…",
                     gameWhichCountry: "¿En qué país se encuentra esta ciudad?",
-                    gameWhatPopulation: "¿Cuál es la población de este país?", gameWhatArea: "¿Cuál es la superficie de este país?",
+                    gameWhatPopulation: "¿Cuál es la población de este país?", gameWhatArea: "¿Cuál es la superficie de este país?", gameWhatCurrency: "¿Cuál es la moneda de este país?", gameWhichCountryCurrency: "¿Qué país usa esta moneda?",
                 }
             }
         }
@@ -3681,6 +3750,38 @@ createApp({
                 'Options change position every question.',
                 'You have 10 seconds per question.'
             ];
+            const rules_currencies1 = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha a moeda correta entre 4 opções.',
+                'As opções mudam de posição a cada pergunta.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige la moneda correcta entre 4 opciones.',
+                'Las opciones cambian de posición en cada pregunta.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited country name is shown.',
+                'Choose the correct currency from 4 options.',
+                'Options change position every question.',
+                'You have 10 seconds per question.'
+            ];
+            const rules_currencies2 = l==='pt' ? [
+                'O símbolo de uma moeda é exibido.',
+                'Escolha o país correto entre 4 opções.',
+                'As opções mudam de posição a cada pergunta.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el símbolo de una moneda.',
+                'Elige el país correcto entre 4 opciones.',
+                'Las opciones cambian de posición en cada pregunta.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A currency symbol is shown.',
+                'Choose the correct country from 4 options.',
+                'Options change position every question.',
+                'You have 10 seconds per question.'
+            ];
             const rules_mapclick = l==='pt' ? ['O nome de um país visitado é exibido.','Clique no mapa onde esse país está.','Você tem 20 segundos para clicar.','Acertar dentro do território = 1 ponto.','Países pequenos aparecem com um marcador maior.'] : l==='es' ? ['Se muestra el nombre de un país visitado.','Haz clic en el mapa donde está ese país.','Tienes 20 segundos para hacer clic.','Acertar dentro del territorio = 1 punto.','Los países pequeños aparecen con un marcador más grande.'] : ['A visited country name is shown.','Click on the map where that country is.','You have 20 seconds to click.','Clicking inside the territory = 1 point.','Small countries show a larger clickable marker.'];
             const rules_geoguesser = l==='pt' ? [
                 'O nome e foto de uma Maravilha são exibidos.',
@@ -3718,6 +3819,8 @@ createApp({
                 cities:    l==='pt'?'Cidades e Lugares': l==='es'?'Ciudades y Lugares': 'Cities & Places',
                 populations: l==='pt'?'Populações': l==='es'?'Poblaciones': 'Populations',
                 areas:     l==='pt'?'Áreas':       l==='es'?'Superficies':  'Areas',
+                currencies1: l==='pt'?'Moedas 1': l==='es'?'Monedas 1': 'Currencies 1',
+                currencies2: l==='pt'?'Moedas 2': l==='es'?'Monedas 2': 'Currencies 2',
                 geoguesser: 'GeoGuesser',
                 mapclick: 'Seterra',
             };
@@ -3735,6 +3838,8 @@ createApp({
                 cities:    l==='pt'?'Ver cidade → escolher país': l==='es'?'Ver ciudad → elegir país': 'See city → pick country',
                 populations: l==='pt'?'Ver país → escolher população': l==='es'?'Ver país → elegir población': 'See country → pick population',
                 areas:     l==='pt'?'Ver país → escolher área': l==='es'?'Ver país → elegir superficie': 'See country → pick area',
+                currencies1: l==='pt'?'Ver país → escolher moeda': l==='es'?'Ver país → elegir moneda': 'See country → pick currency',
+                currencies2: l==='pt'?'Ver símbolo → escolher país': l==='es'?'Ver símbolo → elegir país': 'See symbol → pick country',
                 geoguesser: l==='pt'?'Ver Maravilha → adivinhar no mapa': l==='es'?'Ver Maravilla → adivinar en mapa': 'See Wonder → guess on map',
                 mapclick: l==='pt'?'Ver país → clicar no mapa': l==='es'?'Ver país → clicar en el mapa': 'See country → click on map',
             };
@@ -3752,6 +3857,8 @@ createApp({
                 {id:'cities',    icon:'🏙', name:GAME_NAMES.cities,    desc:DESCS.cities,    rules:rules_cities,    disabled:false},
                 {id:'populations',icon:'👥', name:GAME_NAMES.populations,desc:DESCS.populations,rules:rules_populations,disabled:false},
                 {id:'areas',     icon:'📐', name:GAME_NAMES.areas,     desc:DESCS.areas,     rules:rules_areas,     disabled:false},
+                {id:'currencies1',icon:'💱', name:GAME_NAMES.currencies1,desc:DESCS.currencies1,rules:rules_currencies1,disabled:false},
+                {id:'currencies2',icon:'💵', name:GAME_NAMES.currencies2,desc:DESCS.currencies2,rules:rules_currencies2,disabled:false},
                 {id:'geoguesser',icon:'📍', name:GAME_NAMES.geoguesser,desc:DESCS.geoguesser,rules:rules_geoguesser,disabled:false},
                 {id:'mapclick',  icon:'🗾', name:GAME_NAMES.mapclick,  desc:DESCS.mapclick,  rules:rules_mapclick,  disabled:false},
             ];
@@ -4803,39 +4910,41 @@ createApp({
                 const { options, correctValue } = this._genStatOptions(trueValue);
                 return { correctCountry: correct, options, correctValue };
             }
+            if (game.id === 'currencies1') {
+                const eligible = vc.filter(c => this.countryCurrency[c.name]);
+                const correct = pickUnused(eligible, x => x.name);
+                const curr = this.countryCurrency[correct.name];
+                const currName = curr['generic_' + this.lang] || curr.generic_en;
+                const correctValue = currName + ' (' + curr.code + ')';
+                // Dedupe distractor pool by currency code first (several countries can share
+                // a currency, e.g. Eurozone) so no two options ever show the same currency.
+                const byCode = {};
+                eligible.forEach(c => {
+                    const code = this.countryCurrency[c.name].code;
+                    if (code !== curr.code && !byCode[code]) byCode[code] = c;
+                });
+                const others = shuffle(Object.values(byCode)).slice(0, 3);
+                const options = shuffle([correct, ...others]).map(c => {
+                    const cc = this.countryCurrency[c.name];
+                    return (cc['generic_' + this.lang] || cc.generic_en) + ' (' + cc.code + ')';
+                });
+                return { correctCountry: correct, options, correctValue };
+            }
+            if (game.id === 'currencies2') {
+                const eligible = vc.filter(c => this.countryCurrency[c.name]);
+                const correct = pickUnused(eligible, x => x.name);
+                const curr = this.countryCurrency[correct.name];
+                const currencySymbol = curr.symbol;
+                const currencyGenericName = curr['generic_' + this.lang] || curr.generic_en;
+                const options = pick4(eligible, correct, x => this.countryCurrency[x.name].symbol);
+                return { correctCountry: correct, currencySymbol, currencyGenericName, options };
+            }
             return {};
         },
         _countriesWithCapitals() {
             // Returns visitedCountries entries that have a known capital in visitedCities
-            const CAPITALS = {
-                'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
-                'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
-                'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
-                'Belgium':'Brussels','Belize':'Belmopan','Bolivia':['Sucre','La Paz'],'Bosnia And Herzegovina':'Sarajevo',
-                'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
-                'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
-                'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
-                'Egypt':'Cairo','El Salvador':'San Salvador','England':'London','Estonia':'Tallinn',
-                'Finland':'Helsinki','France':'Paris','Germany':'Berlin','Greece':'Athens',
-                'Guatemala':'Guatemala City','Honduras':'Tegucigalpa','Hungary':'Budapest',
-                'Iceland':'Reykjavik','India':'New Delhi','Indonesia':'Jakarta','Ireland':'Dublin',
-                'Israel':'Tel Aviv','Italy':'Rome','Jordan':'Amman','Kenya':'Nairobi',
-                'Latvia':'Riga','Lithuania':'Vilnius','Luxembourg':'Luxembourg',
-                'Malaysia':'Kuala Lumpur','Malta':'Valletta','Mexico':'Mexico City',
-                'Monaco':'Monaco','Montenegro':'Podgorica','Morocco':'Rabat',
-                'Netherlands':'Amsterdam','New Zealand':'Wellington','Nicaragua':'Managua',
-                'Norway':'Oslo','Panama':'Panama City','Paraguay':'Asunción','Peru':'Lima',
-                'Poland':'Warsaw','Portugal':'Lisbon','Qatar':'Doha','Romania':'Bucharest',
-                'Russia':'Moscow','Scotland':'Edinburgh','Serbia':'Belgrade','Singapore':'Singapore',
-                'Slovakia':'Bratislava','Slovenia':'Ljubljana','South Africa':'Cape Town',
-                'Spain':'Madrid','Sweden':'Stockholm','Switzerland':'Bern','Tanzania':'Dodoma',
-                'Thailand':'Bangkok','Trinidad And Tobago':'Port of Spain','Turkey':'Ankara',
-                'United Arab Emirates':'Abu Dhabi','United States':'Washington D.C.',
-                'Uruguay':'Montevideo','Vatican City':'Vatican City','Venezuela':'Caracas',
-                'Vietnam':'Hanoi','Wales':'Cardiff','Zambia':'Lusaka','Zimbabwe':'Harare'
-            };
             return this.visitedCountries.filter(c => {
-                const cap = CAPITALS[c.name];
+                const cap = this.capitalsMap[c.name];
                 if (!cap) return false;
                 const caps = Array.isArray(cap) ? cap : [cap];
                 const key = Object.keys(this.visitedCities).find(k => k.toUpperCase() === c.name.toUpperCase());
@@ -4844,34 +4953,7 @@ createApp({
             });
         },
         _getCapital(countryName) {
-            const CAPITALS = {
-                'Albania':'Tirana','Andorra':'Andorra la Vella','Antigua And Barbuda':"St. John's",
-                'Argentina':'Buenos Aires','Aruba':'Oranjestad','Australia':'Canberra',
-                'Austria':'Vienna','Barbados':'Bridgetown','Belarus':'Minsk',
-                'Belgium':'Brussels','Belize':'Belmopan','Bolivia':['Sucre','La Paz'],'Bosnia And Herzegovina':'Sarajevo',
-                'Brazil':'Brasília','Bulgaria':'Sofia','Cambodia':'Phnom Penh','Chile':'Santiago',
-                'China':'Beijing','Colombia':'Bogotá','Costa Rica':'San José','Croatia':'Zagreb',
-                'Cuba':'Havana','Czech Republic':'Prague','Denmark':'Copenhagen','Ecuador':'Quito',
-                'Egypt':'Cairo','El Salvador':'San Salvador','England':'London','Estonia':'Tallinn',
-                'Finland':'Helsinki','France':'Paris','Germany':'Berlin','Greece':'Athens',
-                'Guatemala':'Guatemala City','Honduras':'Tegucigalpa','Hungary':'Budapest',
-                'Iceland':'Reykjavik','India':'New Delhi','Indonesia':'Jakarta','Ireland':'Dublin',
-                'Israel':'Tel Aviv','Italy':'Rome','Jordan':'Amman','Kenya':'Nairobi',
-                'Latvia':'Riga','Lithuania':'Vilnius','Luxembourg':'Luxembourg',
-                'Malaysia':'Kuala Lumpur','Malta':'Valletta','Mexico':'Mexico City',
-                'Monaco':'Monaco','Montenegro':'Podgorica','Morocco':'Rabat',
-                'Netherlands':'Amsterdam','New Zealand':'Wellington','Nicaragua':'Managua',
-                'Norway':'Oslo','Panama':'Panama City','Paraguay':'Asunción','Peru':'Lima',
-                'Poland':'Warsaw','Portugal':'Lisbon','Qatar':'Doha','Romania':'Bucharest',
-                'Russia':'Moscow','Scotland':'Edinburgh','Serbia':'Belgrade','Singapore':'Singapore',
-                'Slovakia':'Bratislava','Slovenia':'Ljubljana','South Africa':'Cape Town',
-                'Spain':'Madrid','Sweden':'Stockholm','Switzerland':'Bern','Tanzania':'Dodoma',
-                'Thailand':'Bangkok','Trinidad And Tobago':'Port of Spain','Turkey':'Ankara',
-                'United Arab Emirates':'Abu Dhabi','United States':'Washington D.C.',
-                'Uruguay':'Montevideo','Vatican City':'Vatican City','Venezuela':'Caracas',
-                'Vietnam':'Hanoi','Wales':'Cardiff','Zambia':'Lusaka','Zimbabwe':'Harare'
-            };
-            const cap = CAPITALS[countryName];
+            const cap = this.capitalsMap[countryName];
             if (!cap) return null;
             return Array.isArray(cap) ? cap[Math.floor(Math.random() * cap.length)] : cap;
         },
@@ -4923,6 +5005,8 @@ createApp({
             else if (game.id === 'cities') correct = selected === q.correctCountry.name;
             else if (game.id === 'populations') correct = selected === q.correctValue;
             else if (game.id === 'areas') correct = selected === q.correctValue;
+            else if (game.id === 'currencies1') correct = selected === q.correctValue;
+            else if (game.id === 'currencies2') correct = selected === q.correctCountry.name;
             this.gameLastCorrect = correct;
             if (correct) this.gameScore++;
             // Advance after 2 seconds
@@ -4991,30 +5075,7 @@ createApp({
                 'Gibraltar': [[[-5.368,36.155],[-5.34,36.18],[-5.338,36.132],[-5.368,36.115],[-5.374,36.135],[-5.368,36.155]]],
                 'Macau': [[[113.528,22.21],[113.543,22.197],[113.568,22.202],[113.576,22.218],[113.563,22.226],[113.528,22.21]]]
             };
-            const nameToISO = {
-                'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32',
-                'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
-                'Belize':'84','Bolivia':'68','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
-                'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
-                'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
-                'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
-                'Estonia':'233','Finland':'246','France':'250','Germany':'276',
-                'Greece':'300','Guatemala':'320','Honduras':'340','Hungary':'348','Iceland':'352',
-                'India':'356','Indonesia':'360','Ireland':'372','Israel':'376','Italy':'380',
-                'Jordan':'400','Kenya':'404','Latvia':'428','Liechtenstein':'438','Lithuania':'440',
-                'Luxembourg':'442','Malaysia':'458','Malta':'470','Mexico':'484','Monaco':'492',
-                'Montenegro':'499','Morocco':'504','Netherlands':'528','New Zealand':'554',
-                'Nicaragua':'558','North Macedonia':'807','Norway':'578','Palestine':'275',
-                'Panama':'591','Paraguay':'600','Peru':'604','Poland':'616','Portugal':'620',
-                'Qatar':'634','Romania':'642','Russia':'643','Serbia':'688','Singapore':'702',
-                'Slovakia':'703','Slovenia':'705','South Africa':'710','Spain':'724',
-                'Sweden':'752','Switzerland':'756','Tanzania':'834','Thailand':'764',
-                'Trinidad And Tobago':'780','Turkey':'792','United Arab Emirates':'784',
-                'United States':'840','Uruguay':'858','Venezuela':'862',
-                'Vietnam':'704','Zambia':'894','Zimbabwe':'716',
-                'Hong Kong':'344','Puerto Rico':'630','Eswatini':'748',
-                'Saint Kitts And Nevis':'659'
-            };
+            const nameToISO = this.nameToISO;
             const FRANCE_CONTINENTAL = country.name === 'France';
             const NEED_50M = ['Hong Kong','Monaco','Singapore','Andorra','Liechtenstein','Malta','Luxembourg','Puerto Rico','Eswatini','Barbados','Trinidad And Tobago','Saint Kitts And Nevis','Antigua And Barbuda','Belize','El Salvador','Costa Rica','Panama','Dominican Republic'];
             const NEED_10M = [];
@@ -6157,32 +6218,7 @@ createApp({
             if (!window.topojson) return;
 
             // ISO codes (Natural Earth numeric)
-            const nameToISO = {
-                'Albania':'8','Andorra':'20','Antigua And Barbuda':'28','Argentina':'32','Aruba':'533',
-                'Australia':'36','Austria':'40','Barbados':'52','Belarus':'112','Belgium':'56',
-                'Belize':'84','Bolivia':'68','Bosnia And Herzegovina':'70','Brazil':'76','Bulgaria':'100',
-                'Cambodia':'116','Chile':'152','China':'156','Colombia':'170','Costa Rica':'188',
-                'Croatia':'191','Cuba':'192','Czech Republic':'203','Denmark':'208',
-                'Dominican Republic':'214','Ecuador':'218','Egypt':'818','El Salvador':'222',
-                'Estonia':'233','Finland':'246','France':'250','Germany':'276',
-                'Greece':'300','Guatemala':'320','Honduras':'340','Hungary':'348','Iceland':'352',
-                'India':'356','Indonesia':'360','Ireland':'372','Israel':'376','Italy':'380',
-                'Jordan':'400','Kenya':'404','Latvia':'428','Liechtenstein':'438','Lithuania':'440',
-                'Luxembourg':'442','Malaysia':'458','Malta':'470','Mexico':'484','Monaco':'492',
-                'Montenegro':'499','Morocco':'504','Netherlands':'528','New Zealand':'554',
-                'Nicaragua':'558','North Macedonia':'807','Norway':'578','Palestine':'275',
-                'Panama':'591','Paraguay':'600','Peru':'604','Poland':'616','Portugal':'620',
-                'Qatar':'634','Romania':'642','Russia':'643','Serbia':'688',
-                'Singapore':'702','Slovakia':'703','Slovenia':'705','South Africa':'710',
-                'Spain':'724','Sweden':'752','Switzerland':'756','Tanzania':'834',
-                'Thailand':'764','Trinidad And Tobago':'780','Turkey':'792',
-                'United Arab Emirates':'784','United States':'840','Uruguay':'858',
-                'Venezuela':'862','Vietnam':'704',
-                'Zambia':'894','Zimbabwe':'716',
-                'Hong Kong':'344',
-                'Puerto Rico':'630','Eswatini':'748',
-                'Saint Kitts And Nevis':'659','Barbados':'52','Trinidad And Tobago':'780','Antigua And Barbuda':'28',
-            };
+            const nameToISO = this.nameToISO;
             const iso = nameToISO[country.name];
             if (!iso) return;
 
