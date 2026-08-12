@@ -286,8 +286,15 @@
         .rp-img-wrap { flex: 1 1 auto; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 0; background: #000; }
         .rp-img { display: block; max-width: 100%; max-height: calc(70vh - 80px); width: auto; height: auto; object-fit: contain; }
         .rp-caption { padding: 10px 16px; font-family: 'Cormorant Garamond', serif; font-size: 1.25rem; color: var(--grey); line-height: 1.5; border-top: 1px solid #1a1a1a; flex-shrink: 0; max-height: 95px; overflow-y: auto; }
-        .rp-footer { padding: 10px 16px; display: flex; justify-content: center; border-top: 1px solid #1a1a1a; flex-shrink: 0; }
-        .rp-next-btn { margin: 0; width: auto; padding: 7px 28px; }
+        .rp-footer { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid #1a1a1a; flex-shrink: 0; flex-wrap: wrap; }
+        .rp-next-btn { margin: 0; width: auto; padding: 7px 28px; flex-shrink: 0; }
+        .rp-nowplaying { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(197,160,89,0.9); min-width: 0; flex: 1 1 auto; }
+        .rp-nowplaying i.fa-music { font-size: 11px; opacity: 0.85; flex-shrink: 0; }
+        .rp-nowplaying-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .rp-nowplaying-title { color: #fff; font-weight: 500; }
+        .rp-nowplaying-artist { text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85; }
+        .rp-vol-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .rp-vol-slider { width: 70px; accent-color: var(--gold); }
 
         /* ── Random Song modal ── */
         .rs-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.88); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px; box-sizing: border-box; }
@@ -311,10 +318,6 @@
         .rs-song-info { display: flex; flex-direction: column; gap: 6px; }
         .rs-title { font-family: 'Cormorant Garamond', serif; font-size: 1.75rem; color: #fff; font-weight: 400; line-height: 1.2; }
         .rs-author { font-size: 11px; letter-spacing: 1.5px; color: rgba(197,160,89,0.9); text-transform: uppercase; }
-        .rp-nowplaying, .rv-nowplaying { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(197,160,89,0.9); margin-top: 6px; }
-        .rp-nowplaying i, .rv-nowplaying i { font-size: 11px; opacity: 0.85; }
-        .rp-nowplaying-title, .rv-nowplaying-title { color: #fff; font-weight: 500; }
-        .rp-nowplaying-artist, .rv-nowplaying-artist { text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85; }
         .rs-divider { height: 1px; background: rgba(197,160,89,0.18); }
         /* Progress slider (large) */
         .rs-progress-row { display: flex; align-items: center; gap: 10px; }
@@ -352,8 +355,15 @@
         .rv-country { font-size: 18px; color: var(--light-grey); letter-spacing: 0.5px; }
         .rv-video-wrap { flex: 1 1 auto; overflow: hidden; display: flex; align-items: center; justify-content: center; min-height: 0; background: #000; }
         .rv-video { display: block; max-width: 100%; max-height: calc(92vh - 120px); width: auto; height: auto; object-fit: contain; }
-        .rv-footer { padding: 10px 16px; display: flex; justify-content: center; border-top: 1px solid #1a1a1a; flex-shrink: 0; }
-        .rv-next-btn { margin: 0; width: auto; padding: 7px 28px; }
+        .rv-footer { padding: 10px 16px; display: flex; align-items: center; justify-content: space-between; gap: 16px; border-top: 1px solid #1a1a1a; flex-shrink: 0; flex-wrap: wrap; }
+        .rv-next-btn { margin: 0; width: auto; padding: 7px 28px; flex-shrink: 0; }
+        .rv-nowplaying { display: flex; align-items: center; gap: 8px; font-size: 12px; color: rgba(197,160,89,0.9); min-width: 0; flex: 1 1 auto; }
+        .rv-nowplaying i.fa-music { font-size: 11px; opacity: 0.85; flex-shrink: 0; }
+        .rv-nowplaying-text { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .rv-nowplaying-title { color: #fff; font-weight: 500; }
+        .rv-nowplaying-artist { text-transform: uppercase; letter-spacing: 0.5px; opacity: 0.85; }
+        .rv-vol-controls { display: flex; align-items: center; gap: 6px; flex-shrink: 0; }
+        .rv-vol-slider { width: 70px; accent-color: var(--gold); }
 
         .leaflet-tooltip-pane .leaflet-tooltip { background: rgba(0, 0, 0, 0.95) !important; border: 1px solid var(--gold) !important; color: var(--text) !important; padding: 0 !important; box-shadow: 0 4px 20px rgba(0,0,0,0.8) !important; border-radius: 0 !important; }
         .leaflet-tooltip-top:before { border-top-color: var(--gold) !important; }
@@ -1811,11 +1821,18 @@
                 {{ getCaption(randomPhoto.wonder, randomPhoto.img) }}
             </div>
             <div class="rp-footer">
-                <button class="stats-last-btn rp-next-btn" @click="openRandomPhoto()">{{ content[lang].randomPhotoNext }}</button>
                 <div v-if="randomBgPlaying && randomBgTitle" class="rp-nowplaying">
                     <i class="fa-solid fa-music"></i>
-                    <span>{{ content[lang].nowPlaying }}: <span class="rp-nowplaying-title">{{ randomBgTitle }}</span><template v-if="randomBgArtist"> — <span class="rp-nowplaying-artist">{{ randomBgArtist }}</span></template></span>
+                    <span class="rp-nowplaying-text"><span class="rp-nowplaying-title">{{ randomBgTitle }}</span><template v-if="randomBgArtist"> — <span class="rp-nowplaying-artist">{{ randomBgArtist }}</span></template></span>
+                    <div class="rp-vol-controls">
+                        <button class="rs-icon-btn" @click="toggleRandomBgMute()" :title="randomBgMuted ? content[lang].randomSongUnmute : content[lang].randomSongMute">
+                            <i :class="randomBgMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
+                        </button>
+                        <input type="range" class="rp-vol-slider" min="0" max="1" step="0.01"
+                            v-model="randomBgVolume" @input="setRandomBgVolume()" />
+                    </div>
                 </div>
+                <button class="stats-last-btn rp-next-btn" @click="openRandomPhoto()">{{ content[lang].randomPhotoNext }}</button>
             </div>
         </div>
     </div>
@@ -1839,11 +1856,18 @@
                     class="rv-video" autoplay controls playsinline loop></video>
             </div>
             <div class="rv-footer">
-                <button class="stats-last-btn rv-next-btn" @click="openRandomVideo()">{{ content[lang].randomVideoNext }}</button>
                 <div v-if="randomBgPlaying && randomBgTitle" class="rv-nowplaying">
                     <i class="fa-solid fa-music"></i>
-                    <span>{{ content[lang].nowPlaying }}: <span class="rv-nowplaying-title">{{ randomBgTitle }}</span><template v-if="randomBgArtist"> — <span class="rv-nowplaying-artist">{{ randomBgArtist }}</span></template></span>
+                    <span class="rv-nowplaying-text"><span class="rv-nowplaying-title">{{ randomBgTitle }}</span><template v-if="randomBgArtist"> — <span class="rv-nowplaying-artist">{{ randomBgArtist }}</span></template></span>
+                    <div class="rv-vol-controls">
+                        <button class="rs-icon-btn" @click="toggleRandomBgMute()" :title="randomBgMuted ? content[lang].randomSongUnmute : content[lang].randomSongMute">
+                            <i :class="randomBgMuted ? 'fa-solid fa-volume-xmark' : 'fa-solid fa-volume-high'"></i>
+                        </button>
+                        <input type="range" class="rv-vol-slider" min="0" max="1" step="0.01"
+                            v-model="randomBgVolume" @input="setRandomBgVolume()" />
+                    </div>
                 </div>
+                <button class="stats-last-btn rv-next-btn" @click="openRandomVideo()">{{ content[lang].randomVideoNext }}</button>
             </div>
         </div>
     </div>
@@ -2956,7 +2980,7 @@ createApp({
             showRandomPhoto: false, randomPhoto: null, showRandomVideo: false, randomVideo: null, showRandomSong: false, randomSong: null, randomSongPlaying: false, randomSongContinuous: false, randomSongVolume: 0.7, randomSongMuted: false, _randomSongAudio: null, randomSongProgress: 0, randomSongDuration: 0, randomSongCurrentTime: '0:00', randomSongDurationStr: '0:00', _randomSongRAF: null,
             // Background music for Random Photo/Video (separate pool, separate audio element —
             // never mixed with Wonder songs or the Random Song feature above).
-            randomBgSongFiles: [], randomBgPlaying: false, randomBgTitle: '', randomBgArtist: '', _randomBgAudio: null,
+            randomBgSongFiles: [], randomBgPlaying: false, randomBgTitle: '', randomBgArtist: '', _randomBgAudio: null, randomBgVolume: 0.7, randomBgMuted: false,
             slideshowPaused: false, _slideshowRaf: null, _slideshowStart: null, _slideshowElapsed: 0,
             selectedCityCountry: null, shareStatus: null,
             trips: [], selectedTrip: null, openYearGroups: new Set(),
@@ -3259,7 +3283,7 @@ createApp({
                     citiesTitle: "Cities & Places Visited", citiesHint: "Click on a country to see all cities & places visited", citiesLabel: "cities & places",
                     seeAboutMe: "About me",
                     seeMusic: "See the music list",
-                    musicTitle: "The Music List", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", nowPlaying: "Now Playing", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
+                    musicTitle: "The Music List", randomPhotoNext: "Next Photo", randomVideoNext: "Next Video", randomSongNext: "Next Song", randomSongPlay: "Continuous Play", randomSongStop: "Stop", randomSongMute: "Mute", randomSongUnmute: "Unmute", randomSongSeeWonder: "See Wonder",
                     musicSortWonder: "By Wonder", musicSortTitle: "By Title", musicSortAuthor: "By Author",
                     musicColWonder: "Wonder", musicColTitle: "Song Title", musicColAuthor: "Artist",
                     lastUpdate: "Last update", lastTripLabel: "My Last Trip", lastTripDates: "Jul 23 – Aug 9, 2026",
@@ -3364,7 +3388,7 @@ createApp({
                     citiesTitle: "Cidades e Lugares Visitados", citiesHint: "Clique num país para ver todas as cidades e lugares visitados", citiesLabel: "cidades e lugares",
                     seeAboutMe: "Ver meu perfil",
                     seeMusic: "Ver a lista de músicas",
-                    musicTitle: "A Lista de Músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", nowPlaying: "Tocando Agora", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
+                    musicTitle: "A Lista de Músicas", randomPhotoNext: "Próxima Foto", randomVideoNext: "Próximo Vídeo", randomSongNext: "Próxima Música", randomSongPlay: "Tocar Contínuo", randomSongStop: "Parar", randomSongMute: "Mudo", randomSongUnmute: "Ativar Som", randomSongSeeWonder: "Ver Maravilha",
                     musicSortWonder: "Por Maravilha", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilha", musicColTitle: "Título da Música", musicColAuthor: "Artista",
                     lastUpdate: "Última atualização", lastTripLabel: "Minha Última Viagem", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver linha do tempo das viagens",
@@ -3466,7 +3490,7 @@ createApp({
                     citiesTitle: "Ciudades y Lugares Visitados", citiesHint: "Haz clic en un país para ver todas las ciudades y lugares visitados", citiesLabel: "ciudades y lugares",
                     seeAboutMe: "Ver mi perfil",
                     seeMusic: "Ver la lista de música",
-                    musicTitle: "La Lista de Música", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", nowPlaying: "Reproduciendo Ahora", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
+                    musicTitle: "La Lista de Música", randomPhotoNext: "Siguiente Foto", randomVideoNext: "Siguiente Video", randomSongNext: "Siguiente Canción", randomSongPlay: "Reproducción Continua", randomSongStop: "Detener", randomSongMute: "Silenciar", randomSongUnmute: "Activar Sonido", randomSongSeeWonder: "Ver Maravilla",
                     musicSortWonder: "Por Maravilla", musicSortTitle: "Por Título", musicSortAuthor: "Por Artista",
                     musicColWonder: "Maravilla", musicColTitle: "Título de la Canción", musicColAuthor: "Artista",
                     lastUpdate: "Última actualización", lastTripLabel: "Mi Último Viaje", lastTripDates: "23 Jul – 9 Ago, 2026",                    seeTripsTimeline: "Ver línea de tiempo de viajes",
@@ -5739,7 +5763,7 @@ createApp({
             const url = this.mediaBase + 'Music/Random/' + encodeURIComponent(file);
             const audio = new Audio(url);
             audio.loop = false;
-            audio.volume = 0.7;
+            audio.volume = this.randomBgMuted ? 0 : this.randomBgVolume;
             this._randomBgAudio = audio;
             this.randomBgPlaying = true;
             this.randomBgTitle = '';
@@ -5790,6 +5814,15 @@ createApp({
                     }
                 }, stepTime);
             }
+        },
+        toggleRandomBgMute() {
+            this.randomBgMuted = !this.randomBgMuted;
+            if (this._randomBgAudio) this._randomBgAudio.volume = this.randomBgMuted ? 0 : this.randomBgVolume;
+        },
+        setRandomBgVolume() {
+            this.randomBgVolume = parseFloat(this.randomBgVolume);
+            if (this.randomBgMuted) this.randomBgMuted = false;
+            if (this._randomBgAudio) this._randomBgAudio.volume = this.randomBgVolume;
         },
 
 
