@@ -1770,6 +1770,10 @@
                                 <span class="cw-stat-label">{{ content[lang].countryCurrency }}</span>
                                 <span class="cw-stat-value">{{ lang === 'pt' ? countryCurrency[selectedWonderCountry.name].name_pt : lang === 'es' ? countryCurrency[selectedWonderCountry.name].name_es : countryCurrency[selectedWonderCountry.name].name_en }} <span class="cw-stat-order">({{ countryCurrency[selectedWonderCountry.name].code }})</span></span>
                             </div>
+                            <div class="cw-stat" v-if="countryLanguages[selectedWonderCountry.name]">
+                                <span class="cw-stat-label">{{ content[lang].countryLanguages }}</span>
+                                <span class="cw-stat-value">{{ getCountryLanguages(selectedWonderCountry.name) }}</span>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -3211,6 +3215,110 @@ createApp({
                 'Zambia':{code:'ZMW',symbol:'ZK',name_en:"Zambian Kwacha",name_pt:"Kwacha Zambiano",name_es:"Kwacha Zambiano",generic_en:"Kwacha",generic_pt:"Kwacha",generic_es:"Kwacha"},
                 'Zimbabwe':{code:'ZWG',symbol:'ZiG',name_en:"Zimbabwe Gold",name_pt:"Ouro do Zimbábue",name_es:"Oro de Zimbabue",generic_en:"Gold",generic_pt:"Ouro",generic_es:"Oro"}
             },
+            countryLanguages: {
+                'Albania':{en:["Albanian"],pt:["Albanês"],es:["Albanés"]},
+                'Andorra':{en:["Catalan","Spanish","French","Portuguese"],pt:["Catalão","Espanhol","Francês","Português"],es:["Catalán","Español","Francés","Portugués"]},
+                'Antigua And Barbuda':{en:["English","Antiguan Creole"],pt:["Inglês","Crioulo de Antígua"],es:["Inglés","Criollo de Antigua"]},
+                'Argentina':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Aruba':{en:["Papiamento","Dutch","English","Spanish"],pt:["Papiamento","Holandês","Inglês","Espanhol"],es:["Papiamento","Neerlandés","Inglés","Español"]},
+                'Australia':{en:["English"],pt:["Inglês"],es:["Inglés"]},
+                'Austria':{en:["German"],pt:["Alemão"],es:["Alemán"]},
+                'Barbados':{en:["English","Bajan Creole"],pt:["Inglês","Crioulo de Barbados"],es:["Inglés","Criollo de Barbados"]},
+                'Belarus':{en:["Belarusian","Russian"],pt:["Bielorrusso","Russo"],es:["Bielorruso","Ruso"]},
+                'Belgium':{en:["Dutch","French","German"],pt:["Holandês","Francês","Alemão"],es:["Neerlandés","Francés","Alemán"]},
+                'Belize':{en:["English","Spanish","Belizean Kriol"],pt:["Inglês","Espanhol","Crioulo de Belize"],es:["Inglés","Español","Criollo de Belice"]},
+                'Bolivia':{en:["Spanish","Quechua","Aymara","Guaraní"],pt:["Espanhol","Quíchua","Aimará","Guarani"],es:["Español","Quechua","Aimara","Guaraní"],more:33},
+                'Bosnia And Herzegovina':{en:["Bosnian","Croatian","Serbian"],pt:["Bósnio","Croata","Sérvio"],es:["Bosnio","Croata","Serbio"]},
+                'Brazil':{en:["Portuguese"],pt:["Português"],es:["Portugués"]},
+                'Bulgaria':{en:["Bulgarian"],pt:["Búlgaro"],es:["Búlgaro"]},
+                'Cambodia':{en:["Khmer"],pt:["Khmer"],es:["Jemer"]},
+                'Chile':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'China':{en:["Mandarin Chinese","Cantonese"],pt:["Chinês Mandarim","Cantonês"],es:["Chino Mandarín","Cantonés"]},
+                'Colombia':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Costa Rica':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Croatia':{en:["Croatian"],pt:["Croata"],es:["Croata"]},
+                'Cuba':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Curaçao':{en:["Papiamento","Dutch","English"],pt:["Papiamento","Holandês","Inglês"],es:["Papiamento","Neerlandés","Inglés"]},
+                'Czech Republic':{en:["Czech"],pt:["Tcheco"],es:["Checo"]},
+                'Denmark':{en:["Danish"],pt:["Dinamarquês"],es:["Danés"]},
+                'Dominican Republic':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Ecuador':{en:["Spanish","Quechua"],pt:["Espanhol","Quíchua"],es:["Español","Quechua"]},
+                'Egypt':{en:["Arabic"],pt:["Árabe"],es:["Árabe"]},
+                'El Salvador':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'England':{en:["English"],pt:["Inglês"],es:["Inglés"]},
+                'Estonia':{en:["Estonian"],pt:["Estoniano"],es:["Estonio"]},
+                'Eswatini':{en:["siSwati","English"],pt:["Suázi","Inglês"],es:["Suazi","Inglés"]},
+                'Finland':{en:["Finnish","Swedish"],pt:["Finlandês","Sueco"],es:["Finlandés","Sueco"]},
+                'France':{en:["French"],pt:["Francês"],es:["Francés"]},
+                'Germany':{en:["German"],pt:["Alemão"],es:["Alemán"]},
+                'Gibraltar':{en:["English","Spanish"],pt:["Inglês","Espanhol"],es:["Inglés","Español"]},
+                'Greece':{en:["Greek"],pt:["Grego"],es:["Griego"]},
+                'Guadeloupe':{en:["French","Antillean Creole"],pt:["Francês","Crioulo Antilhano"],es:["Francés","Criollo Antillano"]},
+                'Guatemala':{en:["Spanish","K'iche'","Q'eqchi'","Kaqchikel"],pt:["Espanhol","K'iche'","Q'eqchi'","Kaqchikel"],es:["Español","K'iche'","Q'eqchi'","Kaqchikel"],more:21},
+                'Honduras':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Hong Kong':{en:["Cantonese","English","Mandarin Chinese"],pt:["Cantonês","Inglês","Chinês Mandarim"],es:["Cantonés","Inglés","Chino Mandarín"]},
+                'Hungary':{en:["Hungarian"],pt:["Húngaro"],es:["Húngaro"]},
+                'Iceland':{en:["Icelandic"],pt:["Islandês"],es:["Islandés"]},
+                'India':{en:["Hindi","Bengali","Marathi","Telugu"],pt:["Hindi","Bengali","Marata","Télugo"],es:["Hindi","Bengalí","Maratí","Telugu"],more:19},
+                'Indonesia':{en:["Indonesian","Javanese","Sundanese","Malay"],pt:["Indonésio","Javanês","Sundanês","Malaio"],es:["Indonesio","Javanés","Sundanés","Malayo"]},
+                'Ireland':{en:["Irish","English"],pt:["Irlandês","Inglês"],es:["Irlandés","Inglés"]},
+                'Israel':{en:["Hebrew","Arabic"],pt:["Hebraico","Árabe"],es:["Hebreo","Árabe"]},
+                'Italy':{en:["Italian"],pt:["Italiano"],es:["Italiano"]},
+                'Jordan':{en:["Arabic"],pt:["Árabe"],es:["Árabe"]},
+                'Kenya':{en:["Swahili","English"],pt:["Suaíli","Inglês"],es:["Suajili","Inglés"]},
+                'Latvia':{en:["Latvian"],pt:["Letão"],es:["Letón"]},
+                'Liechtenstein':{en:["German"],pt:["Alemão"],es:["Alemán"]},
+                'Lithuania':{en:["Lithuanian"],pt:["Lituano"],es:["Lituano"]},
+                'Luxembourg':{en:["Luxembourgish","French","German"],pt:["Luxemburguês","Francês","Alemão"],es:["Luxemburgués","Francés","Alemán"]},
+                'Macau':{en:["Cantonese","Portuguese","Mandarin Chinese"],pt:["Cantonês","Português","Chinês Mandarim"],es:["Cantonés","Portugués","Chino Mandarín"]},
+                'Malaysia':{en:["Malay","English","Mandarin Chinese","Tamil"],pt:["Malaio","Inglês","Chinês Mandarim","Tâmil"],es:["Malayo","Inglés","Chino Mandarín","Tamil"]},
+                'Malta':{en:["Maltese","English"],pt:["Maltês","Inglês"],es:["Maltés","Inglés"]},
+                'Martinique':{en:["French","Martinican Creole"],pt:["Francês","Crioulo Martinicano"],es:["Francés","Criollo Martiniqués"]},
+                'Mexico':{en:["Spanish","Nahuatl","Yucatec Maya","Mixtec"],pt:["Espanhol","Náuatle","Maia Iucateco","Misteco"],es:["Español","Náhuatl","Maya Yucateco","Mixteco"],more:65},
+                'Monaco':{en:["French","Italian","English"],pt:["Francês","Italiano","Inglês"],es:["Francés","Italiano","Inglés"]},
+                'Montenegro':{en:["Montenegrin","Serbian","Bosnian","Albanian"],pt:["Montenegrino","Sérvio","Bósnio","Albanês"],es:["Montenegrino","Serbio","Bosnio","Albanés"],more:1},
+                'Morocco':{en:["Arabic","Berber","French"],pt:["Árabe","Berbere","Francês"],es:["Árabe","Bereber","Francés"]},
+                'Netherlands':{en:["Dutch","Frisian"],pt:["Holandês","Frísio"],es:["Neerlandés","Frisio"]},
+                'New Zealand':{en:["English","Māori","NZ Sign Language"],pt:["Inglês","Maori","Língua de Sinais da Nova Zelândia"],es:["Inglés","Maorí","Lengua de Señas de Nueva Zelanda"]},
+                'Nicaragua':{en:["Spanish","English Creole","Miskito"],pt:["Espanhol","Crioulo Inglês","Miskito"],es:["Español","Criollo Inglés","Miskito"]},
+                'North Macedonia':{en:["Macedonian","Albanian"],pt:["Macedônio","Albanês"],es:["Macedonio","Albanés"]},
+                'Northern Ireland':{en:["English","Irish","Ulster Scots"],pt:["Inglês","Irlandês","Escocês do Ulster"],es:["Inglés","Irlandés","Escocés del Úlster"]},
+                'Norway':{en:["Norwegian","Sami"],pt:["Norueguês","Sami"],es:["Noruego","Sami"]},
+                'Palestine':{en:["Arabic"],pt:["Árabe"],es:["Árabe"]},
+                'Panama':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Paraguay':{en:["Spanish","Guaraní"],pt:["Espanhol","Guarani"],es:["Español","Guaraní"]},
+                'Peru':{en:["Spanish","Quechua","Aymara"],pt:["Espanhol","Quíchua","Aimará"],es:["Español","Quechua","Aimara"],more:44},
+                'Poland':{en:["Polish"],pt:["Polonês"],es:["Polaco"]},
+                'Portugal':{en:["Portuguese"],pt:["Português"],es:["Portugués"]},
+                'Puerto Rico':{en:["Spanish","English"],pt:["Espanhol","Inglês"],es:["Español","Inglés"]},
+                'Qatar':{en:["Arabic"],pt:["Árabe"],es:["Árabe"]},
+                'Romania':{en:["Romanian"],pt:["Romeno"],es:["Rumano"]},
+                'Russia':{en:["Russian"],pt:["Russo"],es:["Ruso"]},
+                'Saint Kitts And Nevis':{en:["English"],pt:["Inglês"],es:["Inglés"]},
+                'Scotland':{en:["English","Scottish Gaelic","Scots"],pt:["Inglês","Gaélico Escocês","Escocês"],es:["Inglés","Gaélico Escocés","Escocés"]},
+                'Serbia':{en:["Serbian"],pt:["Sérvio"],es:["Serbio"]},
+                'Singapore':{en:["English","Malay","Mandarin Chinese","Tamil"],pt:["Inglês","Malaio","Chinês Mandarim","Tâmil"],es:["Inglés","Malayo","Chino Mandarín","Tamil"]},
+                'Sint Maarten':{en:["Dutch","English"],pt:["Holandês","Inglês"],es:["Neerlandés","Inglés"]},
+                'Slovakia':{en:["Slovak"],pt:["Eslovaco"],es:["Eslovaco"]},
+                'Slovenia':{en:["Slovenian"],pt:["Esloveno"],es:["Esloveno"]},
+                'South Africa':{en:["Zulu","Xhosa","Afrikaans","Sepedi"],pt:["Zulu","Xhosa","Afrikaans","Sepedi"],es:["Zulú","Xhosa","Afrikáans","Sepedi"],more:7},
+                'Spain':{en:["Spanish","Catalan","Basque","Galician"],pt:["Espanhol","Catalão","Basco","Galego"],es:["Español","Catalán","Vasco","Gallego"]},
+                'Sweden':{en:["Swedish","Finnish","Sami","Meänkieli"],pt:["Sueco","Finlandês","Sami","Meänkieli"],es:["Sueco","Finlandés","Sami","Meänkieli"],more:2},
+                'Switzerland':{en:["German","French","Italian","Romansh"],pt:["Alemão","Francês","Italiano","Romanche"],es:["Alemán","Francés","Italiano","Romanche"]},
+                'Tanzania':{en:["Swahili","English"],pt:["Suaíli","Inglês"],es:["Suajili","Inglés"]},
+                'Thailand':{en:["Thai"],pt:["Tailandês"],es:["Tailandés"]},
+                'Trinidad And Tobago':{en:["English","Trinidadian Creole"],pt:["Inglês","Crioulo de Trinidad"],es:["Inglés","Criollo de Trinidad"]},
+                'Turkey':{en:["Turkish"],pt:["Turco"],es:["Turco"]},
+                'United Arab Emirates':{en:["Arabic","English"],pt:["Árabe","Inglês"],es:["Árabe","Inglés"]},
+                'United States':{en:["English","Spanish"],pt:["Inglês","Espanhol"],es:["Inglés","Español"]},
+                'Uruguay':{en:["Spanish"],pt:["Espanhol"],es:["Español"]},
+                'Vatican City':{en:["Latin","Italian"],pt:["Latim","Italiano"],es:["Latín","Italiano"]},
+                'Venezuela':{en:["Spanish","Wayuu","Warao","Pemón"],pt:["Espanhol","Wayuu","Warao","Pemón"],es:["Español","Wayuu","Warao","Pemón"],more:37},
+                'Vietnam':{en:["Vietnamese"],pt:["Vietnamita"],es:["Vietnamita"]},
+                'Wales':{en:["English","Welsh"],pt:["Inglês","Galês"],es:["Inglés","Galés"]},
+                'Zambia':{en:["English","Bemba","Nyanja","Tonga"],pt:["Inglês","Bemba","Nianja","Tonga"],es:["Inglés","Bemba","Nyanja","Tonga"],more:4},
+                'Zimbabwe':{en:["Shona","Ndebele","English","Ndau"],pt:["Shona","Ndebele","Inglês","Ndau"],es:["Shona","Ndebele","Inglés","Ndau"],more:12}
+            },
             // Shared capitals lookup — used by both _countriesWithCapitals() and _getCapital()
             // so the two never drift out of sync with each other.
             capitalsMap: {
@@ -3275,7 +3383,7 @@ createApp({
                     copy2: "Photos © Ricardo Duek unless otherwise noted",
                     shareLink: "Copy Link", copied: "Link Copied!", seeMap: "See visited countries map", seeList: "See visited countries list", seeCities: "See visited cities", visitedCountriesTitle: "Countries Visited",
                     countryWondersTitle: "Wonders", countryWondersTitleSingle: "Wonder", countryWondersHint: "Click a wonder to open it",
-                    countryPopulation: "Population", countryArea: "Area", countryCurrency: "Currency", countryNoWonders: "No wonders posted yet",
+                    countryPopulation: "Population", countryArea: "Area", countryCurrency: "Currency", countryLanguages: "Languages", countryLanguagesMore: "more", countryNoWonders: "No wonders posted yet",
                     statsWonders: "Wonders", statsCountriesVisited: "Countries Visited", statsCountriesWithWonders: "Countries with Wonders", statsCities: "Cities & Places Visited", statsPhotos: "Photos Posted", statsVideos: "Videos Posted", statsGoToRandom: "→ Go to a random wonder", statsGoToPhoto: "→ Go to a random photo", statsGoToVideo: "→ Go to a random video", statsGoToSong: "→ Go to a random song", statsGoToLast: "→ Go to latest wonder",
                     statsVisitedByYou: "visited by you",
                     beenThereBtn: "Been there", beenThereDone: "✓ Been there", beenThereConfirmMsg: "Remove from your visited list?", beenThereYes: "Yes, remove", beenThereNo: "Keep it",
@@ -3380,7 +3488,7 @@ createApp({
                     copy2: "Fotos © Ricardo Duek, salvo indicação em contrário",
                     shareLink: "Copiar Link", copied: "Link Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver cidades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravilhas", countryWondersTitleSingle: "Maravilha", countryWondersHint: "Clique em uma maravilha para abri-la",
-                    countryPopulation: "População", countryArea: "Área", countryCurrency: "Moeda", countryNoWonders: "Nenhuma maravilha postada ainda",
+                    countryPopulation: "População", countryArea: "Área", countryCurrency: "Moeda", countryLanguages: "Idiomas", countryLanguagesMore: "mais", countryNoWonders: "Nenhuma maravilha postada ainda",
                     statsWonders: "Maravilhas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países com Maravilhas", statsCities: "Cidades e Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Vídeos Publicados", statsGoToRandom: "→ Ir para uma maravilha aleatória", statsGoToPhoto: "→ Ir para uma foto aleatória", statsGoToVideo: "→ Ir para um vídeo aleatório", statsGoToSong: "→ Ir para uma música aleatória", statsGoToLast: "→ Ir para a última maravilha",
                     statsVisitedByYou: "visitadas por você",
                     beenThereBtn: "Já estive aqui", beenThereDone: "✓ Já estive aqui", beenThereConfirmMsg: "Remover da sua lista de visitas?", beenThereYes: "Sim, remover", beenThereNo: "Manter",
@@ -3482,7 +3590,7 @@ createApp({
                     copy2: "Fotos © Ricardo Duek a menos que se indique lo contrario",
                     shareLink: "Copiar Enlace", copied: "¡Enlace Copiado!", seeMap: "Ver mapa de países visitados", seeList: "Ver lista de países visitados", seeCities: "Ver ciudades visitadas", visitedCountriesTitle: "Países Visitados",
                     countryWondersTitle: "Maravillas", countryWondersTitleSingle: "Maravilla", countryWondersHint: "Haz clic en una maravilla para abrirla",
-                    countryPopulation: "Población", countryArea: "Superficie", countryCurrency: "Moneda", countryNoWonders: "Aún no hay maravillas publicadas",
+                    countryPopulation: "Población", countryArea: "Superficie", countryCurrency: "Moneda", countryLanguages: "Idiomas", countryLanguagesMore: "más", countryNoWonders: "Aún no hay maravillas publicadas",
                     statsWonders: "Maravillas", statsCountriesVisited: "Países Visitados", statsCountriesWithWonders: "Países con Maravillas", statsCities: "Ciudades y Lugares Visitados", statsPhotos: "Fotos Publicadas", statsVideos: "Videos Publicados", statsGoToRandom: "→ Ir a una maravilla aleatoria", statsGoToPhoto: "→ Ir a una foto aleatoria", statsGoToVideo: "→ Ir a un video aleatorio", statsGoToSong: "→ Ir a una canción aleatoria", statsGoToLast: "→ Ir a la última maravilla",
                     statsVisitedByYou: "visitadas por ti",
                     beenThereBtn: "Ya estuve aquí", beenThereDone: "✓ Ya estuve aquí", beenThereConfirmMsg: "¿Quitar de tu lista de visitas?", beenThereYes: "Sí, quitar", beenThereNo: "Conservar",
@@ -6186,6 +6294,14 @@ createApp({
         formatStatOrder(num, suffixEn) {
             if (this.lang === 'pt' || this.lang === 'es') return num + 'º';
             return num + suffixEn;
+        },
+        getCountryLanguages(countryName) {
+            const entry = this.countryLanguages[countryName];
+            if (!entry) return '';
+            const list = entry[this.lang] || entry.en;
+            let text = list.join(', ');
+            if (entry.more) text += ' +' + entry.more + ' ' + this.content[this.lang].countryLanguagesMore;
+            return text;
         },
         // Rounds to ~3 significant figures, scaled to the value's own magnitude
         // (e.g. nearest 1M for a 349M population, nearest 10K for a 2.8M one,
