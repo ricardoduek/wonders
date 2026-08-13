@@ -2650,6 +2650,21 @@
                 </div>
             </template>
 
+            <!-- LANGUAGES: show country name, choose a language spoken there from 4 options -->
+            <template v-if="gameActiveInfo && gameActiveInfo.id === 'languages' && gameCurrentQ">
+                <div class="game-question-label" style="margin-bottom:4px;">{{ content[lang].gameWhatLanguage }}</div>
+                <div class="game-q-text">{{ lang === 'pt' ? gameCurrentQ.correctCountry.name_pt : lang === 'es' ? gameCurrentQ.correctCountry.name_es : gameCurrentQ.correctCountry.name }}</div>
+                <div class="game-choices">
+                    <div v-for="opt in gameCurrentQ.options" :key="opt"
+                        :class="['game-choice', gameAnswered ? 'disabled' : '',
+                            gameAnswered && opt === gameCurrentQ.correctValue ? 'correct' : '',
+                            gameAnswered && opt === gameSelectedAnswer && opt !== gameCurrentQ.correctValue ? 'wrong' : '']"
+                        @click="!gameAnswered && answerGame(opt)">
+                        {{ opt }}
+                    </div>
+                </div>
+            </template>
+
             <!-- Feedback -->
             <div v-if="gameAnswered && !gameShowScore && gameActiveInfo && gameActiveInfo.id !== 'geoguesser' && gameActiveInfo.id !== 'mapclick'" :class="['game-feedback', gameLastCorrect ? 'correct' : 'wrong']">
                 {{ gameLastCorrect ? content[lang].gameCorrect : content[lang].gameWrong }}
@@ -3480,7 +3495,7 @@ createApp({
                     gameCapital: "Which country is this the capital of?",
                     gameWhichCapital: "What is the capital of…",
                     gameWhichCountry: "In which country is this city?",
-                    gameWhatPopulation: "What is the population of this country?", gameWhatArea: "What is the land area of this country?", gameWhatCurrency: "What is the currency of this country?", gameWhichCountryCurrency: "Which country uses this currency?",
+                    gameWhatPopulation: "What is the population of this country?", gameWhatArea: "What is the land area of this country?", gameWhatCurrency: "What is the currency of this country?", gameWhichCountryCurrency: "Which country uses this currency?", gameWhatLanguage: "Which language is spoken in this country?",
                 },
                 pt: {
                     title: "Minhas Maravilhas do Mundo", subtitle: "Uma coleção de lugares extraordinários que valem a pena visitar em todos os cinco continentes,\nfotografados, filmados, descritos, musicalizados e desfrutados pessoalmente.",
@@ -3582,7 +3597,7 @@ createApp({
                     gameCapital: "De qual país é esta capital?",
                     gameWhichCapital: "Qual é a capital de…",
                     gameWhichCountry: "Em qual país fica esta cidade?",
-                    gameWhatPopulation: "Qual é a população deste país?", gameWhatArea: "Qual é a área territorial deste país?", gameWhatCurrency: "Qual é a moeda deste país?", gameWhichCountryCurrency: "Qual país usa esta moeda?",
+                    gameWhatPopulation: "Qual é a população deste país?", gameWhatArea: "Qual é a área territorial deste país?", gameWhatCurrency: "Qual é a moeda deste país?", gameWhichCountryCurrency: "Qual país usa esta moeda?", gameWhatLanguage: "Que idioma é falado neste país?",
                 },
                 es: {
                     title: "Mis Maravillas del Mundo", subtitle: "Una colección de lugares extraordinarios que vale la pena visitar en los cinco continentes,\nfotografiados, filmados, descritos, musicalizados y disfrutados en persona.",
@@ -3684,7 +3699,7 @@ createApp({
                     gameCapital: "¿De qué país es esta capital?",
                     gameWhichCapital: "¿Cuál es la capital de…",
                     gameWhichCountry: "¿En qué país se encuentra esta ciudad?",
-                    gameWhatPopulation: "¿Cuál es la población de este país?", gameWhatArea: "¿Cuál es la superficie de este país?", gameWhatCurrency: "¿Cuál es la moneda de este país?", gameWhichCountryCurrency: "¿Qué país usa esta moneda?",
+                    gameWhatPopulation: "¿Cuál es la población de este país?", gameWhatArea: "¿Cuál es la superficie de este país?", gameWhatCurrency: "¿Cuál es la moneda de este país?", gameWhichCountryCurrency: "¿Qué país usa esta moneda?", gameWhatLanguage: "¿Qué idioma se habla en este país?",
                 }
             }
         }
@@ -3930,6 +3945,22 @@ createApp({
                 'Options change position every question.',
                 'You have 10 seconds per question.'
             ];
+            const rules_languages = l==='pt' ? [
+                'O nome de um país visitado é exibido.',
+                'Escolha um idioma falado nesse país entre 4 opções.',
+                'As opções mudam de posição a cada pergunta.',
+                'Você tem 10 segundos por pergunta.'
+            ] : l==='es' ? [
+                'Se muestra el nombre de un país visitado.',
+                'Elige un idioma que se hable en ese país entre 4 opciones.',
+                'Las opciones cambian de posición en cada pregunta.',
+                'Tienes 10 segundos por pregunta.'
+            ] : [
+                'A visited country name is shown.',
+                'Choose a language spoken in that country from 4 options.',
+                'Options change position every question.',
+                'You have 10 seconds per question.'
+            ];
             const rules_mapclick = l==='pt' ? ['O nome de um país visitado é exibido.','Clique no mapa onde esse país está.','Você tem 20 segundos para clicar.','Acertar dentro do território = 1 ponto.','Países pequenos aparecem com um marcador maior.'] : l==='es' ? ['Se muestra el nombre de un país visitado.','Haz clic en el mapa donde está ese país.','Tienes 20 segundos para hacer clic.','Acertar dentro del territorio = 1 punto.','Los países pequeños aparecen con un marcador más grande.'] : ['A visited country name is shown.','Click on the map where that country is.','You have 20 seconds to click.','Clicking inside the territory = 1 point.','Small countries show a larger clickable marker.'];
             const rules_geoguesser = l==='pt' ? [
                 'O nome e foto de uma Maravilha são exibidos.',
@@ -3969,6 +4000,7 @@ createApp({
                 areas:     l==='pt'?'Áreas':       l==='es'?'Superficies':  'Areas',
                 currencies1: l==='pt'?'Moedas 1': l==='es'?'Monedas 1': 'Currencies 1',
                 currencies2: l==='pt'?'Moedas 2': l==='es'?'Monedas 2': 'Currencies 2',
+                languages: l==='pt'?'Idiomas': l==='es'?'Idiomas': 'Languages',
                 geoguesser: 'GeoGuesser',
                 mapclick: 'Seterra',
             };
@@ -3988,6 +4020,7 @@ createApp({
                 areas:     l==='pt'?'Ver país → escolher área': l==='es'?'Ver país → elegir superficie': 'See country → pick area',
                 currencies1: l==='pt'?'Ver país → escolher moeda': l==='es'?'Ver país → elegir moneda': 'See country → pick currency',
                 currencies2: l==='pt'?'Ver símbolo → escolher país': l==='es'?'Ver símbolo → elegir país': 'See symbol → pick country',
+                languages: l==='pt'?'Ver país → escolher idioma': l==='es'?'Ver país → elegir idioma': 'See country → pick language',
                 geoguesser: l==='pt'?'Ver Maravilha → adivinhar no mapa': l==='es'?'Ver Maravilla → adivinar en mapa': 'See Wonder → guess on map',
                 mapclick: l==='pt'?'Ver país → clicar no mapa': l==='es'?'Ver país → clicar en el mapa': 'See country → click on map',
             };
@@ -4007,6 +4040,7 @@ createApp({
                 {id:'areas',     icon:'📐', name:GAME_NAMES.areas,     desc:DESCS.areas,     rules:rules_areas,     disabled:false},
                 {id:'currencies1',icon:'💱', name:GAME_NAMES.currencies1,desc:DESCS.currencies1,rules:rules_currencies1,disabled:false},
                 {id:'currencies2',icon:'💵', name:GAME_NAMES.currencies2,desc:DESCS.currencies2,rules:rules_currencies2,disabled:false},
+                {id:'languages',  icon:'🗣️', name:GAME_NAMES.languages,  desc:DESCS.languages,  rules:rules_languages,  disabled:false},
                 {id:'geoguesser',icon:'📍', name:GAME_NAMES.geoguesser,desc:DESCS.geoguesser,rules:rules_geoguesser,disabled:false},
                 {id:'mapclick',  icon:'🗾', name:GAME_NAMES.mapclick,  desc:DESCS.mapclick,  rules:rules_mapclick,  disabled:false},
             ];
@@ -5092,6 +5126,28 @@ createApp({
                 const options = pick4(eligible, correct, x => this.countryCurrency[x.name].symbol);
                 return { correctCountry: correct, currencySymbol, currencyGenericName, options };
             }
+            if (game.id === 'languages') {
+                const eligible = vc.filter(c => this.countryLanguages[c.name]);
+                const correct = pickUnused(eligible, x => x.name);
+                const correctLangs = this.countryLanguages[correct.name][this.lang] || this.countryLanguages[correct.name].en;
+                const correctValue = correctLangs[Math.floor(Math.random() * correctLangs.length)];
+                // Build distractors from OTHER countries' languages, excluding any language also
+                // spoken in the correct country (so a technically-also-true answer never appears
+                // as a "wrong" option — same principle as the two-capital handling for Bolivia).
+                const usedLangs = new Set();
+                const distractorPool = [];
+                eligible.forEach(c => {
+                    if (c.name === correct.name) return;
+                    const langs = this.countryLanguages[c.name][this.lang] || this.countryLanguages[c.name].en;
+                    const pick = langs[Math.floor(Math.random() * langs.length)];
+                    if (correctLangs.includes(pick) || usedLangs.has(pick)) return;
+                    usedLangs.add(pick);
+                    distractorPool.push(pick);
+                });
+                const others = shuffle(distractorPool).slice(0, 3);
+                const options = shuffle([correctValue, ...others]);
+                return { correctCountry: correct, options, correctValue };
+            }
             return {};
         },
         _countriesWithCapitals() {
@@ -5160,6 +5216,7 @@ createApp({
             else if (game.id === 'areas') correct = selected === q.correctValue;
             else if (game.id === 'currencies1') correct = selected === q.correctValue;
             else if (game.id === 'currencies2') correct = selected === q.correctCountry.name;
+            else if (game.id === 'languages') correct = selected === q.correctValue;
             this.gameLastCorrect = correct;
             if (correct) this.gameScore++;
             // Advance after 2 seconds
