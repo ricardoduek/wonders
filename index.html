@@ -376,12 +376,12 @@
         .leaflet-tooltip-left:before { border-left-color: var(--gold) !important; }
         .leaflet-tooltip-right:before { border-right-color: var(--gold) !important; }
         .tooltip-card-container { display: flex; flex-direction: row; gap: 1px; background: #333; }
-        .mini-card { background: #000; min-width: 200px; max-width: 230px; }
-        .mini-card-thumb { width: 100%; height: 95px; object-fit: cover; display: block; border-bottom: 1px solid #1a1a1a; filter: brightness(0.85); }
+        .mini-card { background: #000; width: max-content; min-width: 200px; max-width: 300px; }
+        .mini-card-thumb { width: 0; min-width: 100%; height: 95px; object-fit: cover; display: block; border-bottom: 1px solid #1a1a1a; filter: brightness(0.85); }
         .mini-card-body { padding: 9px 13px 11px; }
         .mini-card .card-number { color: var(--gold); font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; font-weight: 600; display: block; margin-bottom: 6px; line-height: 1; }
         .mini-card .card-name { font-weight: 600; font-size: 0.88rem; display: block; margin-bottom: 5px; color: #fff; line-height: 1.3; white-space: normal; word-wrap: break-word; }
-        .mini-card .card-location { color: var(--grey); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 400; }
+        .mini-card .card-location { color: var(--grey); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 1px; font-weight: 400; white-space: normal; overflow-wrap: break-word; }
 
         .timeline-year-nav { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 35px; padding-bottom: 20px; border-bottom: 1px solid #1a1a1a; }
         .timeline-year-pill { background: none; border: 1px solid #333; color: var(--grey); padding: 5px 14px; cursor: pointer; font-size: 11px; letter-spacing: 1px; transition: 0.3s; font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; }
@@ -5067,8 +5067,19 @@ createApp({
                 });
                 tooltipHtml += '</div>';
 
-                const CARD_W = 232, CARD_H = 198;
-                const totalW = CARD_W * wondersAtLoc.length + (wondersAtLoc.length - 1);
+                // Cards size themselves to their text now, so the real tooltip size is measured on hover
+                // (the numbers below are only the starting estimate).
+                let CARD_H = 198;
+                let totalW = 232 * wondersAtLoc.length + (wondersAtLoc.length - 1);
+                const measureTooltip = () => {
+                    const probe = document.createElement('div');
+                    probe.style.cssText = 'position:absolute;left:-9999px;top:0;visibility:hidden;white-space:nowrap;';
+                    probe.innerHTML = tooltipHtml.replace(/<img[^>]*>/g, '<img class="mini-card-thumb" alt="">');
+                    this.map.getContainer().appendChild(probe);
+                    totalW = probe.offsetWidth + 2;
+                    CARD_H = probe.offsetHeight + 2;
+                    probe.remove();
+                };
                 const getDirAndOffset = () => {
                     const pt   = this.map.latLngToContainerPoint([first.lat, first.lng]);
                     const size = this.map.getSize();
@@ -5097,6 +5108,7 @@ createApp({
 
                 marker.bindTooltip(tooltipHtml, { direction: 'top', offset: [0, -10], sticky: false, opacity: 1 });
                 marker.on('mouseover', () => {
+                    measureTooltip();
                     const { dir, offset } = getDirAndOffset();
                     marker.unbindTooltip();
                     marker.bindTooltip(tooltipHtml, { direction: dir, offset: offset, sticky: false, opacity: 1 });
