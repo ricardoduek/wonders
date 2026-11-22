@@ -14460,5 +14460,142 @@
         "videos_audio": [
             "201_01.webm"
         ]
+    },
+    {
+        "id": "202",
+        "name_en": "Giant's Causeway",
+        "name_pt": "Calçada dos Gigantes",
+        "name_es": "Calzada del Gigante",
+        "city_en": "",
+        "city_pt": "",
+        "city_es": "",
+        "country_en": "Northern Ireland",
+        "country_pt": "Irlanda do Norte",
+        "country_es": "Irlanda del Norte",
+        "desc_en": "The spectacular Giant’s Causeway is an iconic site in County Antrim, Northern Ireland, renowned for its scenic beauty and legendary history. Its thousands of hexagonal basalt columns create an almost surreal landscape where the land meets the Atlantic Ocean. For us tourists, walking across these ancient geological formations—while feeling the raw power of nature in every crashing wave—is a truly unique experience. According to legend, the causeway was built by the Irish giant Fionn mac Cumhaill (or Finn McCool) to confront the Scottish giant Benandonner. Fionn constructed a stone causeway across the North Channel so that the two giants could face each other in battle. However, upon seeing the immense size and strength of his opponent, Fionn decided to return to Ireland undetected. His wife, Sadhbh, disguised him as a baby and placed him in a cradle. When Benandonner saw the size of this \"baby,\" he concluded that its father, Fionn, must be a giant among giants. Frightened, he fled back to Scotland, destroying the causeway behind him to prevent Fionn from giving chase. It is worth noting that on the other side of the sea, in Scotland, there are identical basalt columns.",
+        "desc_pt": "A espetacular Calçada dos Gigantes é um local icônico no condado de Antrim, na Irlanda do Norte, famoso por sua beleza cênica e sua história lendária. Suas milhares de colunas hexagonais de basalto criam uma paisagem quase surrealista, onde a terra encontra o Oceano Atlântico. Para nós, turistas, é uma experiência única caminhar sobre essas formações geológicas milenares e sentir a força da natureza em cada onda. Segundo a lenda, a calçada foi construída pelo gigante irlandês Fionn mac Cumhaill (ou Finn McCool) para enfrentar o gigante escocês Benandonner. Fionn construiu uma passagem de pedra que atravessava o Canal do Norte, permitindo que os dois gigantes lutassem entre si. No entanto, ao ver o tamanho e a força de seu oponente, Fionn decidiu retornar à Irlanda sem ser notado. A esposa de Fionn, Sadhbh, disfarçou-o de bebê e o colocou em um berço. Ao ver o tamanho do \"bebê\", Benandonner concluiu que o pai dele, Fionn, deveria ser um gigante entre os gigantes. Ele fugiu assustado de volta para a Escócia, destruindo a calçada atrás de si para impedir que Fionn o perseguisse. Vale acrescentar que, do outro lado do mar, na Escócia, existem colunas de basalto idênticas.",
+        "desc_es": "La espectacular Calzada del Gigante es un lugar icónico en el condado de Antrim, en Irlanda del Norte, famoso por su belleza escénica y su historia legendaria. Sus miles de columnas de basalto hexagonales crean un paisaje casi surrealista donde la tierra se encuentra con el océano Atlántico. Para nosotros los turistas, es una experiencia única caminar sobre estas formaciones geológicas milenarias y sentir la fuerza de la naturaleza en cada ola. Según la leyenda, la calzada fue construida por el gigante irlandés Fionn mac Cumhaill (o Finn McCool) para enfrentarse al gigante escocés Benandonner. Fionn construyó una calzada de piedra que cruzaba el Canal del Norte para que los dos gigantes pudieran luchar entre sí. Sin embargo, cuando Fionn vio el tamaño y la fuerza de su oponente, decidió regresar a Irlanda sin ser visto. La esposa de Fionn, Sadhbh, lo disfrazó de bebé y lo metió en una cuna. Cuando Benandonner vio el tamaño del \"bebé\", pensó que su padre, Fionn, debía ser un gigante entre los gigantes. Huyó asustado de vuelta a Escocia, destruyendo la calzada detrás de él para que Fionn no pudiera perseguirlo. Cabe agregar que al otro lado del mar, en Escocia, hay columnas de basalto idénticas.",
+        "lat": 55.2408,
+        "lng": -6.5116,
+        "images": [
+            "202_01.webp",
+            "202_02.webp",
+            "202_03.webp",
+            "202_04.webp",
+            "202_05.webp",
+            "202_06.webp",
+            "202_07.webp",
+            "202_08.webp",
+            "202_09.webp",
+            "202_10.webp",
+            "202_11.webp",
+            "202_12.webp",
+            "202_13.webp",
+            "202_14.webp",
+            "202_15.webp",
+            "202_16.webp",
+            "202_17.webp",
+            "202_18.webp",
+            "202_19.webp",
+            "202_20.webp",
+            "202_21.webp",
+            "202_22.webp",
+            "202_23.webp",
+            "202_24.webp",
+            "202_25.webp",
+            "202_26.webp",
+            "202_27.webp",
+            "202_28.webp",
+            "202_29.webp",
+            "202_30.webp",
+            "202_31.webp",
+            "202_32.webp",
+            "202_33.webp",
+            "202_34.webp",
+            "202_35.webp",
+            "202_36.webp",
+            "202_37.webp",
+            "202_38.webp",
+            "202_39.webp",
+            "202_40.webp",
+            "202_41.webp",
+            "202_42.webp",
+            "202_43.webp",
+            "202_44.webp",
+            "202_45.webp"
+        ],
+        "videos": [],
+        "song_name": "Toss the feathers — The Corrs",
+        "region": "Europe",
+        "visited_en": "June 2024",
+        "visited_es": "Junio 2024",
+        "visited_pt": "Junho 2024",
+        "wiki_en": "https://en.wikipedia.org/wiki/Giant%27s_Causeway",
+        "wiki_pt": "https://pt.wikipedia.org/wiki/Cal%C3%A7ada_dos_Gigantes",
+        "wiki_es": "https://es.wikipedia.org/wiki/Calzada_del_Gigante",
+        "is_unesco": "yes",
+        "unesco_url": "https://whc.unesco.org/en/list/369",
+        "captions": {
+            "202_01.webp": {
+                "es": "Según la leyenda, las columnas son los restos de una calzada construida por un gigante. Las vistas son extraordinarias y te sentís pequeñito frente a la magnífica escala del lugar.",
+                "en": "According to legend, the columns are the remains of a causeway built by a giant. The views are extraordinary and you feel tiny in front of the magnificent scale of the place.",
+                "pt": "Segundo a lenda, as colunas são os restos de uma calçada construída por um gigante. As vistas são extraordinárias e você se sente pequenininho diante da magnífica escala do lugar."
+            },
+            "202_02.webp": {
+                "es": "La Calzada del Gigante es una excepcional belleza natural y el único Patrimonio Mundial de la Unesco en Irlanda del Norte. Pude contar a ojo unas 40.000 alucinantes columnas de basalto hexagonales provenientes del enfriamiento rápido de la lava en un cráter de hace unos 60 millones de años.",
+                "en": "The Giant's Causeway is an exceptional natural beauty and the only UNESCO World Heritage Site in Northern Ireland. I could count by eye about 40,000 mind-blowing hexagonal basalt columns resulting from the rapid cooling of lava in a crater some 60 million years ago.",
+                "pt": "A Calçada dos Gigantes é uma beleza natural excepcional e o único Patrimônio Mundial da Unesco na Irlanda do Norte. Consegui contar a olho nu cerca de 40.000 alucinantes colunas de basalto hexagonais provenientes do resfriamento rápido da lava em uma cratera de cerca de 60 milhões de anos atrás."
+            },
+            "202_06.webp": {
+                "es": "Hermoso entorno de la Calzada del Gigante en Irlanda del Norte.",
+                "en": "Beautiful Giant's Causeway surroundings in Northern Ireland.",
+                "pt": "Belos arredores da Calçada dos Gigantes, na Irlanda do Norte."
+            },
+            "202_12.webp": {
+                "es": "La Calzada del Gigante: Una Maravilla Geológica Imperdible",
+                "en": "The Giant's Causeway: An Unmissable Geological Wonder",
+                "pt": "A Calçada dos Gigantes: Uma Maravilha Geológica Imperdível"
+            },
+            "202_16.webp": {
+                "es": "Formación conocida como el órgano.",
+                "en": "Formation known as the organ.",
+                "pt": "Formação conhecida como o órgão."
+            },
+            "202_21.webp": {
+                "es": "Las columnas más altas tienen unos 12m de altura, y la lava solidificada de los acantilados tiene 28m de espesor en algunos lugares.",
+                "en": "The tallest columns are about 12m high, and the solidified lava of the cliffs is 28m thick in some places.",
+                "pt": "As colunas mais altas têm cerca de 12m de altura, e a lava solidificada dos penhascos tem 28m de espessura em alguns lugares."
+            },
+            "202_24.webp": {
+                "es": "Es un destino imperdible para los amantes de la fotografía, la geología y la aventura. Ya sea que vayas por la leyenda del gigante Finn MacCool o por la ciencia detrás de su formación, el impacto visual es espectacular. ¡Totalmente recomendado para cualquier viajero que busque paisajes únicos en el mundo!",
+                "en": "It's an unmissable destination for lovers of photography, geology, and adventure. Whether you go for the legend of the giant Finn MacCool or for the science behind its formation, the visual impact is spectacular. Totally recommended for any traveler looking for unique landscapes in the world!",
+                "pt": "É um destino imperdível para os amantes da fotografia, da geologia e da aventura. Seja pela lenda do gigante Finn MacCool ou pela ciência por trás de sua formação, o impacto visual é espetacular. Totalmente recomendado para qualquer viajante que busque paisagens únicas no mundo!"
+            },
+            "202_30.webp": {
+                "es": "Por suerte, todavía se puede caminar sobre las columnas de basalto que están al borde del mar, a 800 metros de la entrada del sitio.",
+                "en": "Luckily, you can still walk on the basalt columns that are at the edge of the sea, 800 meters from the entrance to the site.",
+                "pt": "Felizmente, ainda é possível caminhar sobre as colunas de basalto que ficam à beira-mar, a 800 metros da entrada do local."
+            },
+            "202_32.webp": {
+                "es": "La parte superior de las columnas forma escalones que salen del pie del acantilado y desaparecen bajo el mar. La mayoría de las columnas son hexagonales, aunque también hay algunas con cuatro, cinco, siete u ocho lados.",
+                "en": "The top of the columns forms steps that emerge from the foot of the cliff and disappear beneath the sea. Most of the columns are hexagonal, although there are also some with four, five, seven, or eight sides.",
+                "pt": "A parte superior das colunas forma degraus que saem do sopé do penhasco e desaparecem sob o mar. A maioria das colunas é hexagonal, embora também existam algumas com quatro, cinco, sete ou oito lados."
+            },
+            "202_43.webp": {
+                "es": "El Castillo de Dunluce, a pocos km de la Calzada del Gigante,  es uno de los destinos más espectaculares y dramáticos que puedes encontrar en tu viaje. Perchado sobre los acantilados de la costa de Antrim, con el rugido del océano Atlántico a sus pies, este castillo en ruinas ofrece una experiencia visual e histórica inolvidable.",
+                "en": "Dunluce Castle, just a few km from the Giant's Causeway, is one of the most spectacular and dramatic destinations you can find on your trip. Perched on the cliffs of the Antrim coast, with the roar of the Atlantic Ocean at its feet, this ruined castle offers an unforgettable visual and historical experience.",
+                "pt": "O Castelo de Dunluce, a poucos km da Calçada dos Gigantes, é um dos destinos mais espetaculares e dramáticos que você pode encontrar em sua viagem. Empoleirado sobre os penhascos da costa de Antrim, com o rugido do oceano Atlântico a seus pés, este castelo em ruínas oferece uma experiência visual e histórica inesquecível."
+            },
+            "202_44.webp": {
+                "es": "El Castillo de Dunluce: Una Joya Histórica sobre el Abismo.",
+                "en": "Dunluce Castle: A Historic Jewel Above the Abyss.",
+                "pt": "Castelo de Dunluce: Uma Joia Histórica sobre o Abismo."
+            },
+            "202_45.webp": {
+                "es": "Para los turistas, es un lugar imperdible no solo por su fascinante historia medieval, sino también por los paisajes impresionantes que lo rodean. Es el lugar perfecto para los amantes de la fotografía, la historia y las leyendas (¡de hecho, se dice que inspiró escenarios de la famosa serie Juego de Tronos!). Visitar Dunluce es transportarse a otra época y disfrutar de una de las vistas más impactantes de Irlanda.",
+                "en": "For tourists, it's a must-see place not only for its fascinating medieval history, but also for the stunning landscapes that surround it. It's the perfect spot for lovers of photography, history, and legends (in fact, it's said to have inspired settings from the famous series Game of Thrones!). Visiting Dunluce is like being transported to another era and enjoying one of the most breathtaking views in Ireland.",
+                "pt": "Para os turistas, é um lugar imperdível não só pela sua fascinante história medieval, mas também pelas paisagens impressionantes que o cercam. É o lugar perfeito para os amantes da fotografia, da história e das lendas (aliás, diz-se que inspirou cenários da famosa série Game of Thrones!). Visitar Dunluce é se transportar para outra época e desfrutar de uma das vistas mais impactantes da Irlanda."
+            }
+        }
     }
 ]
