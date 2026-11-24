@@ -12414,7 +12414,7 @@
         "id": "176",
         "name_en": "Castle of Prague",
         "name_pt": "Castelo de Praga",
-        "name_es": "El Castillo odePraga",
+        "name_es": "El Castillo de Praga",
         "city_en": "Prague",
         "city_pt": "Praga",
         "city_es": "Praga",
@@ -14595,6 +14595,411 @@
                 "es": "Para los turistas, es un lugar imperdible no solo por su fascinante historia medieval, sino también por los paisajes impresionantes que lo rodean. Es el lugar perfecto para los amantes de la fotografía, la historia y las leyendas (¡de hecho, se dice que inspiró escenarios de la famosa serie Juego de Tronos!). Visitar Dunluce es transportarse a otra época y disfrutar de una de las vistas más impactantes de Irlanda.",
                 "en": "For tourists, it's a must-see place not only for its fascinating medieval history, but also for the stunning landscapes that surround it. It's the perfect spot for lovers of photography, history, and legends (in fact, it's said to have inspired settings from the famous series Game of Thrones!). Visiting Dunluce is like being transported to another era and enjoying one of the most breathtaking views in Ireland.",
                 "pt": "Para os turistas, é um lugar imperdível não só pela sua fascinante história medieval, mas também pelas paisagens impressionantes que o cercam. É o lugar perfeito para os amantes da fotografia, da história e das lendas (aliás, diz-se que inspirou cenários da famosa série Game of Thrones!). Visitar Dunluce é se transportar para outra época e desfrutar de uma das vistas mais impactantes da Irlanda."
+            }
+        }
+    },
+    {
+        "id": "203",
+        "name_en": "Stone Town & Zanzibar Island",
+        "name_pt": "Stone Town e Ilha de Zanzibar",
+        "name_es": "Stone Town y la Isla de Zanzíbar",
+        "city_en": "Zanzibar City",
+        "city_pt": "Cidade de Zanzibar",
+        "city_es": "Ciudad de Zanzíbar",
+        "country_en": "Tanzania",
+        "country_pt": "Tanzânia",
+        "country_es": "Tanzania",
+        "desc_en": "Legendary Zanzibar, cradle of ancient myths, even featuring in the tales of Sinbad, is one of the world's greatest cultural crossroads, where Africa meets Arabia meets the Indian Ocean. A perfect blend of African charm, Middle Eastern exoticism, picture-perfect beaches, romantic hotels and a sophisticated range of activities, from spice tours to diving. The idyllic beaches are dotted with luxurious hotels, and the beautiful ocean becomes a playground for diving, snorkeling and kitesurfing. In its capital, Zanzibar Town, the narrow alleys of UNESCO World Heritage's historic Stone Town meander between ancient buildings decorated with balconies and gigantic carved doors. Meanwhile, on the coast, fishing boats set sail, and in the countryside farmers tend fields of rice or the clove plantations that give Zanzibar its 'Spice Islands' moniker. At its apogee in the mid-19th century, Zanzibar was the capital of the entire far-flung Omani Empire and one of the most important cities on the Indian Ocean.",
+        "desc_pt": "A lendária Zanzibar, berço de mitos antigos, que aparece até nos contos de Sinbad, é uma das maiores encruzilhadas culturais do mundo, onde a África encontra a Arábia e o Oceano Índico. Uma mistura perfeita de charme africano, exotismo do Oriente Médio, praias perfeitas, hotéis românticos e uma gama sofisticada de atividades, desde passeios de especiarias até mergulho. As praias paradisíacas estão repletas de hotéis luxuosos, e o lindo oceano se torna um playground para mergulho, snorkeling e kitesurf. Na sua capital, a cidade de Zanzibar, as vielas estreitas da histórica Cidade de Pedra, Património Mundial da UNESCO, serpenteiam entre edifícios antigos decorados com varandas e gigantescas portas esculpidas. Entretanto, na costa, os barcos de pesca zarpam e, no campo, os agricultores cuidam dos campos de arroz ou das plantações de cravo-da-índia que dão a Zanzibar o apelido de “Ilhas das Especiarias”. No seu apogeu em meados do século XIX, Zanzibar era a capital de todo o vasto Império Omã e uma das cidades mais importantes do Oceano Índico.",
+        "desc_es": "La legendaria Zanzíbar, cuna de mitos ancestrales (presente incluso en los relatos de Simbad), es uno de los mayores cruces culturales del mundo, un punto de encuentro entre África, Arabia y el océano Índico. Es una combinación perfecta de encanto africano, exotismo de Oriente Medio, playas de postal, hoteles románticos y una sofisticada oferta de actividades, que van desde recorridos por plantaciones de especias hasta el buceo. Sus playas idílicas están salpicadas de hoteles de lujo, mientras que el hermoso océano se convierte en un escenario ideal para practicar buceo, esnórquel y kitesurf. En su capital, la Ciudad de Zanzíbar, los estrechos callejones del histórico «Stone Town» (declarado Patrimonio de la Humanidad por la UNESCO), serpentean entre antiguas edificaciones adornadas con balcones y enormes puertas talladas. En la costa zarpan los icónicos barcos de pesca, y en el interior, los agricultores cuidan los campos de arroz o las plantaciones de clavo que le han valido a Zanzíbar el sobrenombre de «islas de las especias». En su apogeo, a mediados del siglo XIX, Zanzíbar fue la capital de todo el vasto Imperio omaní y una de las ciudades más importantes del océano Índico.",
+        "lat": -6.163,
+        "lng": 39.19,
+        "images": [
+            "203_01.webp",
+            "203_02.webp",
+            "203_03.webp",
+            "203_04.webp",
+            "203_05.webp",
+            "203_06.webp",
+            "203_07.webp",
+            "203_08.webp",
+            "203_09.webp",
+            "203_10.webp",
+            "203_11.webp",
+            "203_12.webp",
+            "203_13.webp",
+            "203_14.webp",
+            "203_15.webp",
+            "203_16.webp",
+            "203_17.webp",
+            "203_18.webp",
+            "203_19.webp",
+            "203_20.webp",
+            "203_21.webp",
+            "203_22.webp",
+            "203_23.webp",
+            "203_24.webp",
+            "203_25.webp",
+            "203_26.webp",
+            "203_27.webp",
+            "203_28.webp",
+            "203_29.webp",
+            "203_30.webp",
+            "203_31.webp",
+            "203_32.webp",
+            "203_33.webp",
+            "203_34.webp",
+            "203_35.webp",
+            "203_36.webp",
+            "203_37.webp",
+            "203_38.webp",
+            "203_39.webp",
+            "203_40.webp",
+            "203_41.webp",
+            "203_42.webp",
+            "203_43.webp",
+            "203_44.webp",
+            "203_45.webp",
+            "203_46.webp",
+            "203_47.webp",
+            "203_48.webp",
+            "203_49.webp",
+            "203_50.webp",
+            "203_51.webp",
+            "203_52.webp",
+            "203_53.webp",
+            "203_54.webp",
+            "203_55.webp",
+            "203_56.webp",
+            "203_57.webp",
+            "203_58.webp",
+            "203_59.webp",
+            "203_60.webp",
+            "203_61.webp",
+            "203_62.webp",
+            "203_63.webp",
+            "203_64.webp",
+            "203_65.webp",
+            "203_66.webp",
+            "203_67.webp",
+            "203_68.webp",
+            "203_69.webp",
+            "203_70.webp",
+            "203_71.webp",
+            "203_72.webp",
+            "203_73.webp",
+            "203_74.webp",
+            "203_75.webp",
+            "203_76.webp",
+            "203_77.webp",
+            "203_78.webp",
+            "203_79.webp",
+            "203_80.webp",
+            "203_81.webp"
+        ],
+        "videos": [
+            "203_01.webm",
+            "203_02.webm",
+            "203_03.webm",
+            "203_04.webm",
+            "203_05.webm",
+            "203_06.webm",
+            "203_07.webm",
+            "203_08.webm",
+            "203_09.webm",
+            "203_10.webm",
+            "203_11.webm"
+        ],
+        "song_name": "Early Morning Dreams (Kled Mone Remix) — Kadebostany",
+        "region": "Africa",
+        "visited_en": "December 2023",
+        "visited_es": "Diciembre 2023",
+        "visited_pt": "Dezembro 2023",
+        "wiki_en": "https://en.wikipedia.org/wiki/Stone_Town",
+        "wiki_pt": "https://pt.wikipedia.org/wiki/Stone_Town",
+        "wiki_es": "https://es.wikipedia.org/wiki/Stone_Town",
+        "is_unesco": "yes",
+        "unesco_url": "https://whc.unesco.org/en/list/173",
+        "captions": {
+            "203_01.webp": {
+                "en": "Zanzibar, jewel of the sea, legendary spice island, famous for its grimly significant slave trade and as the birthplace of Freddie Mercury (of the band Queen).",
+                "pt": "Zanzibar, joia do mar, lendária ilha das especiarias e famosa por seu tristemente marcante tráfico de escravos e por ser a cidade natal de Freddie Mercury (Queen).",
+                "es": "Zanzíbar, joya del mar, legendaria isla de las especies y famosa por su tristemente poderoso tráfico de esclavos y por ser la ciudad natal de Freddie Mercury (Queen)."
+            },
+            "203_30.webp": {
+                "en": "Night falls, and stalls offering exotic food, prepared with exquisite culinary skill, spring to life in Stone Town, Zanzibar.",
+                "pt": "A noite cai e as barracas de comida exótica, preparadas com requintada destreza culinária, ganham vida em Stone Town, Zanzibar.",
+                "es": "Cae la noche y explotan los puestos de comida exótica preparados con exquisita destreza culinaria en Stone Town, Zanzíbar."
+            },
+            "203_36.webp": {
+                "en": "Wandering through the narrow, labyrinthine alleyways of Stone Town is like traveling back in time. Around every corner, a surprise awaits you.",
+                "pt": "Passear pelas ruelas estreitas e labirínticas de Stone Town é como viajar ao passado. Em cada esquina, uma surpresa lhe aguarda.",
+                "es": "Pasear por las laberínticas callejuelas estrechas de Stone Town es como viajar al pasado. En cada recodo te espera alguna sorpresa."
+            },
+            "203_49.webp": {
+                "en": "On the northern part of the island of Zanzibar lies one of its paradisiacal beaches: Nungwi Beach. The color of its warm water is simply unbelievable.",
+                "pt": "No norte da ilha de Zanzibar, fica uma de suas praias paradisíacas: Nungwi Beach. É difícil acreditar na cor de sua água morna.",
+                "es": "En el norte de la isla de Zanzíbar, una de sus playas paradisíacas, Nungwi Beach. No se puede creer el color de su agua tibia."
+            },
+            "203_67.webp": {
+                "en": "The natural beauty of Nungwi Beach, Zanzibar, Tanzania",
+                "pt": "A beleza natural de Nungwi Beach, Zanzibar, Tanzânia",
+                "es": "La belleza natural de Nungwi Beach, Zanzíbar, Tanzania"
+            },
+            "203_74.webp": {
+                "en": "For those who aren’t experts, that’s Messi’s Inter Miami jersey—in Tanzania, a country with very little interest in football. As for Cristiano Penaldo jerseys, I didn’t see a single one...",
+                "pt": "Para os não especialistas, essa é a camisa do Inter Miami de Messi, na Tanzânia, um país com pouquíssima tradição no futebol. Camisas de Cristiano Penaldo, não vi nem uma...",
+                "es": "Para los no especialistas, esa es la camiseta del Inter Miami de Messi, en Tanzania, un país muy poco futbolero. Camisetas de Cristiano Penaldo, no vi ni una..."
+            },
+            "203_05.webp": {
+                "en": "The Old Dispensary (or Ithnashiri Dispensary) is one of the most finely decorated buildings of Stone Town, and a symbol of the multicultural architecture and heritage of the city. Its wooden carved balconies, with stained-glass decorations, are of Indian influence; the main structure is built with traditional Zanzibari coral rag and limestone, but covered with stucco adornments of European neoclassical taste.",
+                "pt": "O Old Dispensary (ou Ithnashiri Dispensary) é um dos edifícios mais ricamente decorados de Stone Town, sendo um símbolo da arquitetura e do patrimônio multicultural da cidade. Suas varandas de madeira entalhada, adornadas com vitrais, revelam influência indiana; a estrutura principal foi construída com materiais tradicionais de Zanzibar (blocos de coral e calcário), mas encontra-se revestida por ornamentos em estuque de estilo neoclássico europeu.",
+                "es": "El Old Dispensary (o Ithnashiri Dispensary) es uno de los edificios mejor decorados de Stone Town y un símbolo de la arquitectura y el patrimonio multiculturales de la ciudad. Sus balcones de madera tallada, adornados con vidrieras, presentan una influencia india; la estructura principal está construida con materiales tradicionales de Zanzíbar (piedra coralina y caliza), pero revestida con ornamentos de estuco de estilo neoclásico europeo."
+            },
+            "203_02.webp": {
+                "en": "Arrival in Stone Town on Zanzibar Island. Fast ferry services operate several times a day between Dar es Salaam (Tanzania's capital city) and Zanzibar. The picture shows the luxurious 5-star Park Hyatt Zanzibar beside the Tembo House Hotel, a historic 4-star seafront boutique hotel known for its colonial architecture, Swahili four-poster beds, and strong Arabic influence in its design.",
+                "pt": "Chegada em Stone Town, na Ilha de Zanzibar. Serviços de balsa rápida operam várias vezes ao dia entre Dar es Salaam (capital da Tanzânia) e Zanzibar. A imagem mostra o luxuoso Park Hyatt Zanzibar, cinco estrelas, ao lado do Tembo House Hotel, um histórico hotel boutique à beira-mar de quatro estrelas, conhecido por sua arquitetura colonial, camas suíças com dossel e forte influência árabe em seu design.",
+                "es": "Llegada a Stone Town, en la Isla de Zanzíbar. Los servicios de ferry rápido operan varias veces al día entre Dar es Salaam (capital de Tanzania) y Zanzíbar. La imagen muestra el lujoso Park Hyatt Zanzíbar, de cinco estrellas, junto al Tembo House Hotel, un histórico hotel boutique frente al mar de cuatro estrellas, conocido por su arquitectura colonial, camas suajilis con dosel y la fuerte influencia árabe en su diseño."
+            },
+            "203_07.webp": {
+                "en": "The legendary Stone Town of Zanzibar is the old part of Zanzibar City, the capital of the Zanzibar archipelago, which is part of Tanzania. It is a UNESCO World Heritage Site due to its Swahili cultural architecture and its unique blend of Arab, Persian, Indian, and European elements.",
+                "pt": "A lendária Stone Town (Cidade de Pedra) de Zanzibar é a parte antiga da Cidade de Zanzibar, a capital do arquipélago de Zanzibar, que faz parte da Tanzânia. É Patrimônio Mundial da Unesco por sua arquitetura da cultura suaili e sua mistura única de elementos árabes, persas, indianos e europeus.",
+                "es": "La legendaria Stone Town (Ciudad de Piedra) de Zanzíbar es la parte antigua de la Ciudad de Zanzíbar, la capital del archipiélago de Zanzíbar, que forma parte de Tanzania. Es Patrimonio Mundial de la Unesco por su arquitectura de cultura swahili, y su mezcla única de elementos árabes, persas, indios y europeos."
+            },
+            "203_08.webp": {
+                "en": "The Forodhani Gardens (also known as Jubilee Gardens and more recently as Forodhani Park) is a small park located along the main seawalk of Stone Town, just in front of the most famous buildings of Stone Town, i.e., the House of Wonders and the Old Fort.",
+                "pt": "Os Jardins Forodhani (também conhecidos como Jardins Jubilee e, mais recentemente, como Parque Forodhani) são um pequeno parque localizado ao longo do calçadão principal de Stone Town, bem em frente aos edifícios mais famosos de Stone Town, ou seja, a Casa das Maravilhas e o Forte Antigo.",
+                "es": "Los Jardines Forodhani (también conocidos como Jardines Jubilee y, más recientemente, como Parque Forodhani) son un pequeño parque ubicado a lo largo del paseo marítimo principal de Stone Town, justo frente a los edificios más famosos de Stone Town, es decir, la Casa de las Maravillas y el Antiguo Fuerte."
+            },
+            "203_10.webp": {
+                "en": "The Forodhani Gardens are especially busy after sunset, when tourists and locals alike gather in a popular food street market in the main square to have dinner, enjoying Swahili and Zanzibari cuisine delicacies such as grilled seafood, samosas, cassava, and sweet potatoes.",
+                "pt": "Os Jardins de Forodhani ficam especialmente movimentados após o pôr do sol, quando turistas e moradores locais se reúnem em um popular mercado de rua de comida na praça principal para jantar, aproveitando iguarias da culinária suaíli e zanzibariana, como frutos do mar grelhados, samosas, mandioca e batata-doce.",
+                "es": "Los Jardines de Forodhani están especialmente concurridos después del atardecer, cuando turistas y locales por igual se reúnen en un popular mercado callejero de comida en la plaza principal para cenar, disfrutando de delicias de la cocina suajili y zanzibariana, como mariscos a la parrilla, samosas, yuca y camote."
+            },
+            "203_11.webp": {
+                "en": "The Old Fort (Swahili: Boma la Kale la Zanzibar), also known as the Arab Fort, is one of the oldest buildings in Stone Town, originally built by the Portuguese in the 17th century and later rebuilt by the Omanis in the 18th century. It was used as a garrison and prison in the 19th century, and as a terminal of the Zanzibar railways 1905-28. A new guardhouse was built in 1947 and used as the ladies' club, and an amphitheatre was added in the 1990s. It is now the headquarters of the Zanzibar International Film Festival.",
+                "pt": "O Forte Antigo (em suaíli: *Boma la Kale la Zanzibar*), também conhecido como Forte Árabe, é uma das construções mais antigas de Stone Town; foi erguido originalmente pelos portugueses no século XVII e, posteriormente, reconstruído pelos omanis no século XVIII. No século XIX, serviu como guarnição e prisão e, entre 1905 e 1928, funcionou como terminal da ferrovia de Zanzibar. Em 1947, foi construída uma nova guarita, que passou a ser utilizada como um clube feminino, e, na década de 1990, um anfiteatro foi adicionado ao local. Atualmente, o forte abriga a sede do Festival Internacional de Cinema de Zanzibar.",
+                "es": "El Fuerte Viejo (en suajili: *Boma la Kale la Zanzibar*), también conocido como el Fuerte Árabe, es uno de los edificios más antiguos de Stone Town; fue construido originalmente por los portugueses en el siglo XVII y, posteriormente, reconstruido por los omaníes en el siglo XVIII. En el siglo XIX sirvió como guarnición y prisión, y entre 1905 y 1928 funcionó como terminal del ferrocarril de Zanzíbar. En 1947 se construyó una nueva caseta de guardia que se utilizó como club de señoras, y en la década de 1990 se añadió un anfiteatro. Actualmente, alberga la sede del Festival Internacional de Cine de Zanzíbar."
+            },
+            "203_12.webp": {
+                "en": "The Old Fort is one of the prominent visitor attractions in Stone Town, and its courtyard has been adapted to serve as a cultural centre with curio shops selling tourist-oriented merchandise such as tingatinga paintings; it also has an open-air amphitheatre where live dance and music shows are held most evenings, a restaurant, and a tourist information desk.",
+                "pt": "O Forte Antigo é uma das principais atrações turísticas de Stone Town, e seu pátio foi adaptado para funcionar como um centro cultural, abrigando lojas que vendem artigos voltados para turistas (como as pinturas *tingatinga*), além de um anfiteatro ao ar livre onde, na maioria das noites, são realizados espetáculos de dança e música ao vivo; o local conta ainda com um restaurante e um balcão de informações turísticas.",
+                "es": "El Viejo Fuerte es uno de los principales atractivos turísticos de Stone Town; su patio ha sido adaptado para funcionar como centro cultural, con tiendas de artículos diversos orientados al turista, como las pinturas «tingatinga». Asimismo, cuenta con un anfiteatro al aire libre donde casi todas las noches se ofrecen espectáculos de danza y música en vivo, además de un restaurante y un punto de información turística."
+            },
+            "203_17.webp": {
+                "en": "Nakupenda Beach, an awesome sandbank in the middle of the Indian Ocean, close to Zanzibar.",
+                "pt": "Praia de Nakupenda, um incrível banco de areia no meio do Oceano Índico, perto de Zanzibar.",
+                "es": "Playa Nakupenda, un increíble banco de arena en medio del océano Índico, cerca de Zanzíbar."
+            },
+            "203_18.webp": {
+                "en": "Nakupenda Beach is a stunning sandbank located in the Indian Ocean off the coast of Zanzibar, renowned for its white sand and turquoise waters. ⁠ I visited it as part of a boat tour from Stone Town to admire the spectacular sunset.",
+                "pt": "A Praia de Nakupenda é um deslumbrante banco de areia localizado no Oceano Índico, na costa de Zanzibar, conhecido por sua areia branca e águas turquesa. Eu a visitei como parte de um passeio de barco saindo de Stone Town para admirar o espetacular pôr do sol.",
+                "es": "La Playa de Nakupenda es un impresionante banco de arena ubicado en el Océano Índico, frente a la costa de Zanzíbar, conocido por su arena blanca y aguas turquesas. La visité como parte de un paseo en barco desde Stone Town para admirar la espectacular puesta de sol."
+            },
+            "203_19.webp": {
+                "en": "The sandbank is a tide-dependent attraction; it is fully submerged and disappears during high tide, so visitors must leave before the water rises.",
+                "pt": "O banco de areia é uma atração que depende das marés; ele fica totalmente submerso e desaparece durante a maré alta, por isso os visitantes devem sair antes que a água suba.",
+                "es": "El banco de arena es una atracción que depende de las mareas; queda totalmente sumergido y desaparece durante la marea alta, por lo que los visitantes deben irse antes de que suba el agua."
+            },
+            "203_20.webp": {
+                "en": "Tours typically provide temporary tents, shade, and freshly prepared seafood lunches. Guides often assist with setting up camp on the sand.",
+                "pt": "Os passeios geralmente oferecem tendas temporárias, sombra e almoços de frutos do mar preparados na hora. Os guias costumam ajudar a montar o acampamento na areia.",
+                "es": "Los tours generalmente ofrecen carpas temporales, sombra y almuerzos de mariscos recién preparados. Los guías suelen ayudar a montar el campamento en la arena."
+            },
+            "203_21.webp": {
+                "en": "The sandbank is small, stretching only a few hundred meters.",
+                "pt": "O banco de areia é pequeno, estendendo-se por apenas algumas centenas de metros.",
+                "es": "El banco de arena es pequeño, se extiende solo unos cientos de metros."
+            },
+            "203_22.webp": {
+                "en": "Crystal-clear water, beautiful views, and delicious seafood. It's a paradise-like experience.",
+                "pt": "Água cristalina, vistas deslumbrantes e frutos do mar deliciosos. É uma experiência paradisíaca.",
+                "es": "Agua cristalina, vistas hermosas y deliciosos mariscos. Es una experiencia paradisíaca."
+            },
+            "203_23.webp": {
+                "en": "Rising like a shimmering white mirage from the deep sapphire of the Indian Ocean, Nakupenda Beach is perhaps Zanzibar’s most ephemeral and enchanting destination. Located just a short boat ride from the stone-clad alleys of the capital, this \"disappearing sandbank\" is a place where land and sea engage in a daily dance of tides—revealing a pristine playground of soft silica sand at low tide, only to be reclaimed by the ocean a few hours later.",
+                "pt": "Erguendo-se como uma miragem branca e cintilante das profundezas azul-safira do Oceano Índico, a Praia de Nakupenda é, talvez, o destino mais efêmero e encantador de Zanzibar. Situado a uma curta viagem de barco das ruelas de pedra da capital, este \"banco de areia que desaparece\" é um lugar onde terra e mar protagonizam uma dança diária das marés — revelando, na maré baixa, um refúgio imaculado de areia sílica macia, que, poucas horas depois, é retomado pelo oceano.",
+                "es": "La playa de Nakupenda, que se eleva como un reluciente espejismo blanco desde el profundo zafiro del Océano Índico, es quizás el destino más efímero y encantador de Zanzíbar. Ubicado a un corto trayecto en bote desde las callejuelas revestidas de piedra de la capital, este \"banco de arena que desaparece\" es un lugar donde la tierra y el mar participan en una danza diaria de mareas, revelando un prístino patio de recreo de suave arena de sílice durante la marea baja, solo para ser reclamado por el océano unas horas más tarde."
+            },
+            "203_25.webp": {
+                "en": "After the beautiful sunset, it's time to pack our things and go back to the real world.",
+                "pt": "Depois do lindo pôr do sol, é hora de arrumar nossas coisas e voltar para o mundo real.",
+                "es": "Después de la hermosa puesta de sol, es hora de recoger nuestras cosas y volver al mundo real."
+            },
+            "203_03.webp": {
+                "en": "A view of Stone Town from the Indian Ocean.",
+                "pt": "Uma vista de Stone Town a partir do Oceano Índico.",
+                "es": "Una vista de Stone Town desde el Océano Índico."
+            },
+            "203_04.webp": {
+                "en": "The Zanzibar Ferry Terminal",
+                "pt": "O Terminal de Ferry de Zanzibar",
+                "es": "La Terminal de Ferry de Zanzíbar"
+            },
+            "203_06.webp": {
+                "en": "The Sultan's Palace is one of the main historical buildings of Stone Town. It's a 3-story building with merlon-decorated white walls, and in 1994, it became a museum about the Zanzibari royal family and history.",
+                "pt": "O Palácio do Sultão é um dos principais edifícios históricos de Stone Town. Trata-se de uma construção de três andares com paredes brancas adornadas por ameias; em 1994, o local tornou-se um museu dedicado à família real de Zanzibar e à sua história.",
+                "es": "El Palacio del Sultán es uno de los principales edificios históricos de Stone Town. Se trata de una construcción de tres plantas con muros blancos decorados con almenas; en 1994, se convirtió en un museo dedicado a la familia real de Zanzíbar y a su historia."
+            },
+            "203_09.webp": {
+                "en": "The Sultan's Palace",
+                "pt": "O Palácio do Sultão",
+                "es": "El Palacio del Sultán"
+            },
+            "203_81.webp": {
+                "en": "The Roman Catholic cathedral of St. Joseph is one of the most important historical buildings in Stone Town, as well as one of its main visitor attractions.",
+                "pt": "A catedral católica romana de São José é um dos edifícios históricos mais importantes de Stone Town, além de ser uma de suas principais atrações turísticas.",
+                "es": "La catedral católica romana de San José es uno de los edificios históricos más importantes de Stone Town, además de ser una de sus principales atracciones turísticas."
+            },
+            "203_46.webp": {
+                "en": "The moving Slave Memorial depicts five slaves standing in a pit below ground level. The poignant figures emerge from the rough-hewn rock and thus appear hopelessly trapped, shoulders slumped in despair. Around their necks, they wear metal collars from which a chain binds them. Although nothing remains of the slave market today, the memorial is a sobering reminder of the not-so-distant past.",
+                "pt": "O comovente Memorial dos Escravos retrata cinco escravos de pé em uma cova abaixo do nível do solo. As figuras pungentes emergem da rocha bruta e, assim, parecem irremediavelmente presas, com os ombros curvados em desespero. Ao redor do pescoço, usam coleiras de metal às quais uma corrente os prende. Embora nada reste do mercado de escravos hoje, o memorial é um lembrete contundente de um passado não tão distante.",
+                "es": "El conmovedor Memorial de los Esclavos representa a cinco esclavos de pie en un foso bajo el nivel del suelo. Las conmovedoras figuras emergen de la roca tallada en bruto y, por ello, parecen irremediablemente atrapadas, con los hombros caídos de desesperación. Alrededor del cuello llevan collares de metal de los que pende una cadena que los sujeta. Aunque hoy no queda nada del mercado de esclavos, el memorial es un recordatorio contundente de un pasado no tan lejano."
+            },
+            "203_77.webp": {
+                "en": "The heart of Stone Town mostly consists of a maze of narrow alleys lined by houses, shops, bazaars, and mosques. Since most streets are too narrow for cars, the town is crowded with bicycles and motorbikes.",
+                "pt": "O coração de Stone Town consiste principalmente em um labirinto de becos estreitos ladeados por casas, lojas, bazares e mesquitas. Como a maioria das ruas é estreita demais para carros, a cidade é repleta de bicicletas e motocicletas.",
+                "es": "El corazón de Stone Town consiste principalmente en un laberinto de callejones estrechos flanqueados por casas, tiendas, bazares y mezquitas. Como la mayoría de las calles son demasiado estrechas para los autos, la ciudad está llena de bicicletas y motocicletas."
+            },
+            "203_45.webp": {
+                "en": "This is Christ Church, an Anglican cathedral in Stone Town that belongs to the Anglican Church of Tanzania. It is a landmark historical church, as well as one of the most prominent examples of early Christian architecture in East Africa. It is made mostly of coral stone, and it has a unique concrete roof shaped as an unusual barrel vault, and the overall structure mixes Perpendicular Gothic and Islamic details.",
+                "pt": "Esta é a Christ Church, uma catedral anglicana em Stone Town que pertence à Igreja Anglicana da Tanzânia. Trata-se de uma igreja historicamente emblemática, além de ser um dos exemplos mais notáveis de arquitetura cristã primitiva na África Oriental. É construída, em sua maior parte, com pedra de coral e possui um teto de concreto singular, em formato de uma abóbada de berço pouco convencional; sua estrutura, como um todo, combina elementos do estilo gótico perpendicular com detalhes islâmicos.",
+                "es": "Esta es la Christ Church, una catedral anglicana situada en Stone Town que pertenece a la Iglesia Anglicana de Tanzania. Es un templo histórico emblemático, además de uno de los ejemplos más destacados de arquitectura cristiana primitiva en África Oriental. Está construido principalmente con piedra de coral y cuenta con una singular cubierta de hormigón en forma de bóveda de cañón poco convencional; su estructura, en conjunto, combina elementos del gótico perpendicular con detalles islámicos."
+            },
+            "203_41.webp": {
+                "en": "Stone Town is punctuated with major historical buildings, several of which are found on the seafront; these include former palaces of the sultans, fortifications, churches, mosques, and other institutional buildings.",
+                "pt": "Stone Town é pontuada por importantes edifícios históricos, vários dos quais se encontram na orla marítima; estes incluem antigos palácios dos sultões, fortificações, igrejas, mesquitas e outros edifícios institucionais.",
+                "es": "Stone Town está salpicada de importantes edificios históricos, varios de los cuales se encuentran en el malecón; estos incluyen antiguos palacios de los sultanes, fortificaciones, iglesias, mezquitas y otros edificios institucionales."
+            },
+            "203_79.webp": {
+                "en": "This is the Darajani Market, Zanzibar's main market, a hive of activity, with everything – from spices, fresh fish, slabs of meat and huge baskets full of live chickens to sandals, plastic buckets and mobile phones – all set out in a series of covered halls and overflowing into the surrounding streets.",
+                "pt": "Este é o Mercado Darajani, o principal mercado de Zanzibar, um verdadeiro centro de atividade, onde tudo – de especiarias, peixe fresco, pedaços de carne e enormes cestos cheios de galinhas vivas a sandálias, baldes de plástico e celulares – é exposto em uma série de galpões cobertos e transborda para as ruas ao redor.",
+                "es": "Este es el Mercado Darajani, el principal mercado de Zanzíbar, un verdadero centro de actividad, donde todo – desde especias, pescado fresco, trozos de carne y enormes canastas llenas de gallinas vivas hasta sandalias, baldes de plástico y teléfonos celulares – se exhibe en una serie de galpones cubiertos y se desborda hacia las calles circundantes."
+            },
+            "203_78.webp": {
+                "en": "Stone Town’s architecture is a fusion of Arabic, Indian, European, and African influences. Arab buildings are often square, with two or three storeys. Rooms line the outer walls, allowing space for an inner courtyard and verandas, and cooling air circulation. Indian buildings, also several storeys high, generally include a shop on the ground floor and living quarters above, with ornate facades and balconies. A common feature is the baraza, a stone bench facing onto the street that serves as a focal point around which townspeople meet and chat.",
+                "pt": "A arquitetura de Stone Town é uma fusão de influências árabes, indianas, europeias e africanas. Os edifícios árabes costumam ser quadrados, com dois ou três andares. Os cômodos se alinham pelas paredes externas, deixando espaço para um pátio interno e varandas, além de circulação de ar refrescante. Os edifícios indianos, também com vários andares, geralmente incluem uma loja no térreo e aposentos residenciais acima, com fachadas e varandas ornamentadas. Uma característica comum é o baraza, um banco de pedra voltado para a rua que serve como ponto de encontro onde os moradores se reúnem para conversar.",
+                "es": "La arquitectura de Stone Town es una fusión de influencias árabes, indias, europeas y africanas. Los edificios árabes suelen ser de planta cuadrada y constan de dos o tres pisos. Las estancias se disponen a lo largo de los muros exteriores, dejando espacio para un patio interior y galerías, lo que favorece la circulación de aire fresco. Los edificios de estilo indio, que también cuentan con varias plantas, suelen albergar un local comercial en la planta baja y viviendas en las superiores, y presentan fachadas y balcones profusamente decorados. Un elemento característico es el *baraza*, un banco de piedra orientado hacia la calle que sirve como punto de encuentro donde los habitantes de la ciudad se reúnen para conversar."
+            },
+            "203_42.webp": {
+                "en": "The most famous feature of Zanzibari architecture is the carved wooden door, a symbol of wealth and status, and often the first part of a house to be built (or sometimes older than the house, having been moved from a previous location). Some Zanzibari doors are centuries old, others simply decades old, while others are relatively recent; there's still a thriving door-carving industry today.",
+                "pt": "A característica mais famosa da arquitetura zanzibarense é a porta de madeira entalhada, um símbolo de riqueza e status, e frequentemente a primeira parte de uma casa a ser construída (ou às vezes mais antiga que a própria casa, tendo sido transportada de um local anterior). Algumas portas zanzibarenses têm séculos de idade, outras apenas décadas, enquanto outras são relativamente recentes; ainda hoje existe uma indústria próspera de entalhe de portas.",
+                "es": "La característica más famosa de la arquitectura zanzibarí es la puerta de madera tallada, un símbolo de riqueza y estatus, y a menudo la primera parte de una casa en construirse (o a veces más antigua que la propia casa, habiendo sido trasladada desde un lugar anterior). Algunas puertas zanzibaríes tienen siglos de antigüedad, otras solo décadas, mientras que otras son relativamente recientes; todavía hoy existe una próspera industria de talla de puertas."
+            },
+            "203_29.webp": {
+                "en": "No visit to Zanzibar would be complete without spending an evening listening to the evocative strains of taarab, the archipelago’s most famous musical export. Taarab, from the Arabic tariba (roughly, ‘to be moved’), fuses African, Arabic, and Indian influences and is considered by many Zanzibaris to be a unifying force among the island’s many cultures.",
+                "pt": "Nenhuma visita a Zanzibar estaria completa sem passar uma noite ouvindo as melodias envolventes do taarab, o produto musical mais famoso do arquipélago. O taarab — termo derivado da palavra árabe *tariba* (que, em linhas gerais, significa “ser tocado” ou “emocionar-se”) — funde influências africanas, árabes e indianas e é considerado, por muitos habitantes de Zanzibar, uma força que une as diversas culturas da ilha.",
+                "es": "Ninguna visita a Zanzíbar estaría completa sin pasar una velada escuchando las evocadoras melodías del *taarab*, el producto musical más célebre del archipiélago. El *taarab* —término que proviene del árabe *tariba* (que, en términos generales, significa «sentirse conmovido»)— fusiona influencias africanas, árabes e indias, y es considerado por muchos habitantes de Zanzíbar como un elemento que une a las diversas culturas de la isla."
+            },
+            "203_75.webp": {
+                "en": "Livingstone Beach Restaurant, and my Christmas special dinner, grilled octopus.",
+                "pt": "Restaurante Livingstone Beach, e meu jantar especial de Natal: polvo grelhado.",
+                "es": "Restaurante Livingstone Beach, y mi cena especial de Navidad: pulpo a la parrilla."
+            },
+            "203_48.webp": {
+                "en": "Kibweni Palace Museum",
+                "pt": "Kibweni Palace Museum",
+                "es": "Kibweni Palace Museum"
+            },
+            "203_50.webp": {
+                "en": "Nungwi Beach",
+                "pt": "Nungwi Beach",
+                "es": "Nungwi Beach"
+            },
+            "203_51.webp": {
+                "en": "Nungwi Beach",
+                "pt": "Nungwi Beach",
+                "es": "Nungwi Beach"
+            },
+            "203_52.webp": {
+                "en": "Nungwi Beach",
+                "pt": "Nungwi Beach",
+                "es": "Nungwi Beach"
+            },
+            "203_53.webp": {
+                "en": "Nungwi Beach",
+                "pt": "Nungwi Beach",
+                "es": "Nungwi Beach"
+            },
+            "203_54.webp": {
+                "en": "Nungwi Beach",
+                "pt": "Nungwi Beach",
+                "es": "Nungwi Beach"
+            },
+            "203_01.webm": {
+                "en": "Fast ferry from Dar es Salaam to Stone Town, Zanzibar Island.",
+                "pt": "Barco rápido de Dar es Salaam para Stone Town, Ilha de Zanzibar.",
+                "es": "Ferry rápido de Dar es Salaam a Stone Town, Isla de Zanzíbar."
+            },
+            "203_02.webm": {
+                "en": "Stone Town",
+                "pt": "Stone Town",
+                "es": "Stone Town"
+            },
+            "203_06.webm": {
+                "en": "Matemwe Beach, on the East Coast of Zanzibar Island.",
+                "pt": "Praia de Matemwe, na Costa Leste da Ilha de Zanzibar.",
+                "es": "Playa Matemwe, en la Costa Este de la Isla de Zanzíbar."
+            },
+            "203_70.webp": {
+                "en": "The idyllic beach at Matemwe has some of the finest sand on Zanzibar, and in this sleepy village, life still moves at its own pace, despite the hotels and guesthouses nearby. Of all the coastal destinations on Zanzibar Island, this area seems to have the most 'local' atmosphere.",
+                "pt": "A idílica praia de Matemwe tem uma das areias mais finas de Zanzibar e, nesta vila tranquila, a vida ainda segue seu próprio ritmo, apesar dos hotéis e pousadas nas proximidades. De todos os destinos costeiros da Ilha de Zanzibar, essa área parece ter a atmosfera mais 'local'.",
+                "es": "La idílica playa de Matemwe tiene una de las arenas más finas de Zanzíbar y, en este tranquilo pueblo, la vida todavía transcurre a su propio ritmo, a pesar de los hoteles y hospedajes cercanos. De todos los destinos costeros de la Isla de Zanzíbar, esta zona parece tener el ambiente más 'local'."
+            },
+            "203_73.webp": {
+                "en": "Wherever you go on the coast of Zanzibar Island, you'll often see local people (mainly women and children) tending crops of seaweed. It seems simple: in beach areas between the high and low water lines, small seaweed plants are attached to strings stretched between poles pushed into the sand. Then, once the plants have grown, the seaweed is harvested.",
+                "pt": "Onde quer que você vá na costa da Ilha de Zanzibar, você frequentemente verá moradores locais (principalmente mulheres e crianças) cuidando de plantações de algas marinhas. Parece simples: em áreas de praia entre as linhas de maré alta e baixa, pequenas mudas de algas são presas a cordas esticadas entre estacas fincadas na areia. Depois, quando as plantas crescem, as algas são colhidas.",
+                "es": "Dondequiera que vayas en la costa de la Isla de Zanzíbar, frecuentemente verás a los habitantes locales (principalmente mujeres y niños) cuidando cultivos de algas marinas. Parece simple: en áreas de playa entre las líneas de marea alta y baja, pequeñas plantas de algas se atan a cuerdas tendidas entre postes clavados en la arena. Luego, una vez que las plantas han crecido, se cosechan las algas."
+            },
+            "203_71.webp": {
+                "en": "Matemwe Beach",
+                "pt": "Matemwe Beach",
+                "es": "Matemwe Beach"
+            },
+            "203_72.webp": {
+                "en": "Beautiful Matemwe Beach",
+                "pt": "Linda Praia de Matemwe",
+                "es": "Hermosa Playa de Matemwe"
+            },
+            "203_03.webm": {
+                "en": "Nungwi Beach, at the North tip of the Zanzibar Island.",
+                "pt": "Praia de Nungwi, no extremo norte da ilha de Zanzibar.",
+                "es": "Playa de Nungwi, en el extremo norte de la isla de Zanzíbar."
+            },
+            "203_04.webm": {
+                "en": "Nungwi Beach, at the North tip of the Zanzibar Island.",
+                "pt": "Praia de Nungwi, no extremo norte da ilha de Zanzibar.",
+                "es": "Playa de Nungwi, en el extremo norte de la isla de Zanzíbar."
+            },
+            "203_05.webm": {
+                "en": "Nungwi Beach, at the North tip of the Zanzibar Island.",
+                "pt": "Praia de Nungwi, no extremo norte da ilha de Zanzibar.",
+                "es": "Playa de Nungwi, en el extremo norte de la isla de Zanzíbar."
+            },
+            "203_07.webm": {
+                "en": "Matemwe Beach",
+                "pt": "Matemwe Beach",
+                "es": "Matemwe Beach"
+            },
+            "203_08.webm": {
+                "en": "Matemwe Beach",
+                "pt": "Matemwe Beach",
+                "es": "Matemwe Beach"
+            },
+            "203_09.webm": {
+                "en": "Motorcycle ride along the wonderful Matemwe Beach.",
+                "pt": "Passeio de moto pela maravilhosa Matemwe Beach.",
+                "es": "Paseo en moto por la maravillosa Matemwe Beach."
+            },
+            "203_10.webm": {
+                "en": "Motorcycle ride along the wonderful Matemwe Beach.",
+                "pt": "Passeio de moto pela maravilhosa Matemwe Beach.",
+                "es": "Paseo en moto por la maravillosa Matemwe Beach."
+            },
+            "203_11.webm": {
+                "en": "Stone Town is a city of prominent historical and artistic importance in East Africa. Its architecture, mostly dating back to the 19th century, reflects the diverse influences underlying the Swahili culture, giving a unique mixture of Arab, Persian, Indian, and European elements. For this reason, the town was designated as a UNESCO World Heritage Site in 2000.",
+                "pt": "Stone Town é uma cidade de grande importância histórica e artística na África Oriental. Sua arquitetura, em sua maioria datada do século XIX, reflete as diversas influências subjacentes à cultura suaíli, resultando em uma mistura única de elementos árabes, persas, indianos e europeus. Por essa razão, a cidade foi declarada Patrimônio Mundial da UNESCO em 2000.",
+                "es": "Stone Town es una ciudad de gran importancia histórica y artística en África Oriental. Su arquitectura, en su mayoría data del siglo XIX, refleja las diversas influencias subyacentes a la cultura suajili, dando como resultado una mezcla única de elementos árabes, persas, indios y europeos. Por esta razón, la ciudad fue declarada Patrimonio de la Humanidad por la UNESCO en el año 2000."
             }
         }
     }
