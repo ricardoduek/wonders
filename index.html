@@ -197,6 +197,8 @@
         .slideshow-video { max-width: 100%; max-height: 100%; object-fit: contain; background: #000; }
         .slideshow-bottom { position: absolute; bottom: 0; left: 0; width: 100%; padding: 18px 32px; box-sizing: border-box; background: linear-gradient(to top, rgba(0,0,0,0.85) 0%, transparent 100%); display: flex; align-items: center; justify-content: space-between; opacity: 0; transition: opacity 0.3s; pointer-events: none; }
         .slideshow-overlay:hover .slideshow-bottom { opacity: 1; pointer-events: auto; }
+        .slideshow-overlay:fullscreen { width: 100vw; height: 100vh; }
+        .slideshow-overlay:-webkit-full-screen { width: 100vw; height: 100vh; }
         .slideshow-wonder-name { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--gold); font-weight: 300; letter-spacing: 1px; }
         .slideshow-counter { font-size: 10px; letter-spacing: 3px; color: var(--grey); text-transform: uppercase; }
         .slideshow-controls { display: flex; align-items: center; gap: 12px; }
@@ -1883,7 +1885,7 @@
                     @click="openWonderFromCountry(w)">
                     <div class="cw-wonder-thumb-wrap">
                         <img v-if="w.images && w.images.length"
-                            :src="mediaBase + 'Gallery/' + w.id + '_01.webp'"
+                            :src="mediaBase + 'Gallery/' + w.images[0]"
                             class="cw-wonder-thumb" loading="lazy" />
                         <div v-else class="cw-wonder-thumb-placeholder"></div>
                     </div>
@@ -3082,47 +3084,31 @@
             </div>
 
             <div v-if="!expandedMedia" class="collage-grid">
-                <img v-if="selected.images && selected.images.length"
-                     :src="mediaBase + 'Gallery/' + selected.images[0]"
-                     :key="selected.images[0]"
-                     :data-total="selected.images.length + (selected.videos ? selected.videos.length : 0) + (selected.videos_audio ? selected.videos_audio.length : 0)"
-                     class="collage-item"
-                     @load="e => applyImageClass(e.target, 0)"
-                     @error="e => e.target.classList.add('loaded', 'load-error')"
-                     :ref="el => { if (el) ensureImageLoaded(el, 0); }"
-                     @click="expandedMedia = selected.images[0]">
-                <div v-for="vid in selected.videos" :key="vid"
-                    class="collage-vid-wrap"
-                    @mouseenter="e => { const v = e.currentTarget.querySelector('video'); if(v) v.play(); }"
-                    @mouseleave="e => { const v = e.currentTarget.querySelector('video'); if(v) { v.pause(); v.currentTime = 0; } }"
-                    @click="expandedMedia = vid">
-                    <video muted playsinline preload="metadata"
-                        @loadedmetadata="e => applyVideoClass(e.target.closest('.collage-vid-wrap'))">
-                        <source :src="mediaBase + 'Videos/' + vid" type="video/webm">
-                    </video>
-                    <div class="collage-vid-badge"><i class="fa-solid fa-circle-play"></i></div>
-                </div>
-                <div v-for="vid in selected.videos_audio" :key="'a_' + vid"
-                    class="collage-vid-wrap"
-                    @mouseenter="e => { const v = e.currentTarget.querySelector('video'); if(v) v.play(); }"
-                    @mouseleave="e => { const v = e.currentTarget.querySelector('video'); if(v) { v.pause(); v.currentTime = 0; } }"
-                    @click="expandAudioVideo(vid)">
-                    <video muted playsinline preload="metadata"
-                        @loadedmetadata="e => applyVideoClass(e.target.closest('.collage-vid-wrap'))">
-                        <source :src="mediaBase + 'Videos/' + vid" type="video/webm">
-                    </video>
-                    <div class="collage-vid-badge has-audio">
-                        <i class="fa-solid fa-circle-play"></i>
-                        <i class="fa-solid fa-volume-high" style="font-size:0.9rem; position:absolute; bottom:-8px; right:-12px; filter: drop-shadow(0 0 4px rgba(0,0,0,1));"></i>
+                <template v-for="(m, idx) in orderedMedia" :key="m">
+                    <img v-if="!isVideo(m)"
+                         :src="mediaBase + 'Gallery/' + m"
+                         :data-total="orderedMedia.length"
+                         class="collage-item"
+                         @load="e => applyImageClass(e.target, idx)"
+                         @error="e => e.target.classList.add('loaded', 'load-error')"
+                         :ref="el => { if (el) ensureImageLoaded(el, idx); }"
+                         @click="expandedMedia = m"
+                         :loading="idx === 0 ? null : 'lazy'">
+                    <div v-else class="collage-vid-wrap"
+                        @mouseenter="e => { const v = e.currentTarget.querySelector('video'); if(v) v.play(); }"
+                        @mouseleave="e => { const v = e.currentTarget.querySelector('video'); if(v) { v.pause(); v.currentTime = 0; } }"
+                        @click="isAudioVideo(m) ? expandAudioVideo(m) : (expandedMedia = m)">
+                        <video muted playsinline preload="metadata"
+                            @loadedmetadata="e => applyVideoClass(e.target.closest('.collage-vid-wrap'))">
+                            <source :src="mediaBase + 'Videos/' + m" type="video/webm">
+                        </video>
+                        <div v-if="isAudioVideo(m)" class="collage-vid-badge has-audio">
+                            <i class="fa-solid fa-circle-play"></i>
+                            <i class="fa-solid fa-volume-high" style="font-size:0.9rem; position:absolute; bottom:-8px; right:-12px; filter: drop-shadow(0 0 4px rgba(0,0,0,1));"></i>
+                        </div>
+                        <div v-else class="collage-vid-badge"><i class="fa-solid fa-circle-play"></i></div>
                     </div>
-                </div>
-                <img v-for="(img, idx) in selected.images.slice(1)" :key="img"
-                     :src="mediaBase + 'Gallery/' + img"
-                     class="collage-item"
-                     @load="e => applyImageClass(e.target, idx + 1)"
-                     @error="e => e.target.classList.add('loaded', 'load-error')"
-                     :ref="el => { if (el) ensureImageLoaded(el, idx + 1); }"
-                     @click="expandedMedia = img" loading="lazy">
+                </template>
             </div>
 
             <div v-else class="expanded-overlay">
@@ -3167,6 +3153,7 @@
                         </button>
                         <button class="slideshow-btn" @click.stop="slideshowStep(1)"><i class="fa-solid fa-chevron-right"></i></button>
                         <span class="slideshow-counter">{{ slideshowIndex + 1 }} / {{ slideshowAllMedia.length }}</span>
+                        <button v-if="fullscreenSupported" class="slideshow-btn" @click.stop="toggleSlideshowFullscreen" :title="isFullscreen ? 'Exit full screen (F)' : 'Full screen (F)'"><i :class="isFullscreen ? 'fa-solid fa-compress' : 'fa-solid fa-expand'"></i></button>
                         <button class="slideshow-btn" @click.stop="stopSlideshow" title="Exit slideshow"><i class="fa-solid fa-xmark"></i></button>
                     </div>
                 </div>
@@ -3195,6 +3182,7 @@ createApp({
             visitedWonders: JSON.parse(localStorage.getItem('wonders_visited') || '[]'),
             beenThereConfirm: false, showBackToTop: false,
             slideshowActive: false, slideshowIndex: 0, slideshowProgress: 0,
+            fullscreenSupported: false, isFullscreen: false,
             showGames: false, currentGameInfo: null, gameActive: false, gameActiveInfo: null,
             // GeoGuesser-specific state
             geoMap: null, geoPlayerMarker: null, geoCorrectMarker: null, geoLine: null,
@@ -4590,16 +4578,29 @@ createApp({
             }
             return list;
         },
-        slideshowAllMedia() {
+        orderedMedia() {
+            // One display order for the collage, the lightbox arrows and the slideshow.
+            // media_order (optional) wins; otherwise: main photo, videos, videos with sound, other photos.
             if (!this.selected) return [];
             const imgs  = this.selected.images       || [];
             const vids  = this.selected.videos       || [];
             const vidsA = this.selected.videos_audio || [];
-            return [
-                ...(imgs.length ? [imgs[0]] : []),
-                ...vids, ...vidsA,
-                ...imgs.slice(1)
-            ];
+            const legacy = [...(imgs.length ? [imgs[0]] : []), ...vids, ...vidsA, ...imgs.slice(1)];
+            const order = this.selected.media_order;
+            if (!Array.isArray(order) || !order.length) return legacy;
+            const known = new Set(legacy);
+            const seen = new Set();
+            const out = [];
+            order.forEach(f => { if (known.has(f) && !seen.has(f)) { seen.add(f); out.push(f); } });
+            legacy.forEach(f => { if (!seen.has(f)) { seen.add(f); out.push(f); } });   // registered but not listed: show at the end
+            if (imgs.length) {                                                          // the main photo is always first
+                const i = out.indexOf(imgs[0]);
+                if (i > 0) { out.splice(i, 1); out.unshift(imgs[0]); }
+            }
+            return out;
+        },
+        slideshowAllMedia() {
+            return this.orderedMedia;
         },
         slideshowMedia() {
             if (!this.slideshowAllMedia.length) return null;
@@ -4656,7 +4657,12 @@ createApp({
         }, { rootMargin: '200px' });
         this.$nextTick(() => { if (this.$refs.sentinel) this._observer.observe(this.$refs.sentinel); });
 
+        this.fullscreenSupported = !!(document.fullscreenEnabled || document.webkitFullscreenEnabled);
+        this._onFsChange = () => { this.isFullscreen = !!(document.fullscreenElement || document.webkitFullscreenElement); };
+        document.addEventListener('fullscreenchange', this._onFsChange);
+        document.addEventListener('webkitfullscreenchange', this._onFsChange);
         this._onKey = (e) => {
+            if ((e.key === 'f' || e.key === 'F') && this.slideshowActive && !e.ctrlKey && !e.metaKey && !e.altKey) { this.toggleSlideshowFullscreen(); return; }
             if (e.key === 'Escape') {
                 if      (this.mobileNavOpen)        this.mobileNavOpen = false;
                 else if (this.slideshowActive)     this.stopSlideshow();
@@ -7173,7 +7179,9 @@ createApp({
             if      (r >= 1.5)  wrap.classList.add('c2r1');
             else if (r >= 0.85) wrap.classList.add('c1r1');
             else                wrap.classList.add('c1r2');
+            wrap.dataset.nat = [...wrap.classList].find(c => /^c\dr\d$/.test(c)) || 'c1r1';
             wrap.classList.add('loaded');
+            this.scheduleGapFix();
         },
         applyImageClass(el, idx) {
             el.classList.remove('c1r1','c1r2','c2r1','c2r2','c3r1','c3r2','c4r2','c2r3','c3r3');
@@ -7192,7 +7200,9 @@ createApp({
                 else if (r >= 0.85) el.classList.add('c1r1');
                 else                el.classList.add('c1r2');
             }
+            el.dataset.nat = [...el.classList].find(c => /^c\dr\d$/.test(c)) || 'c1r1';
             el.classList.add('loaded');
+            this.scheduleGapFix();
         },
         isVideo(filename) { return filename && filename.endsWith('.webm'); },
         isAudioVideo(filename) {
@@ -7211,15 +7221,8 @@ createApp({
             this.expandedMedia = vid;
         },
         navPhoto(dir) {
-            const imgs  = this.selected.images       || [];
-            const vids  = this.selected.videos       || [];
+            const media = this.orderedMedia;
             const vidsA = this.selected.videos_audio || [];
-            const media = [
-                ...(imgs.length ? [imgs[0]] : []),
-                ...vids,
-                ...vidsA,
-                ...imgs.slice(1)
-            ];
             if (!media.length) return;
             const idx  = media.indexOf(this.expandedMedia);
             const next = media[(idx + dir + media.length) % media.length];
@@ -7231,6 +7234,118 @@ createApp({
                 }
                 this.expandedMedia = next;
             }
+        },
+        scheduleGapFix() {
+            clearTimeout(this._gapTimer);
+            this._gapTimer = setTimeout(() => this.fixCollageGaps(), 80);
+        },
+        // Gap guard: simulates the collage grid and, if it leaves empty rectangles, resizes a few
+        // non-main tiles (never the order) until none are left.
+        fixCollageGaps() {
+            const grid = document.querySelector('.collage-grid');
+            if (!grid || window.__noGapGuard) return;
+            const cols = getComputedStyle(grid).gridTemplateColumns.split(' ').filter(Boolean).length;
+            const tiles = [...grid.children];
+            const setCls = (el, c, r) => {
+                el.classList.remove('c1r1','c1r2','c2r1','c2r2','c3r1','c3r2','c4r2','c2r3','c3r3');
+                el.classList.add('c' + c + 'r' + r);
+            };
+            const natural = tiles.map(el => {
+                const m = /^c(\d)r(\d)$/.exec(el.dataset.nat || '');
+                return m ? [Math.min(+m[1], cols), +m[2]] : [1, 1];
+            });
+            // always start from the natural sizes so repeated runs never compound
+            tiles.forEach((el, i) => { if (el.dataset.nat) setCls(el, natural[i][0], natural[i][1]); });
+            if (cols < 4 || tiles.length < 4) return;       // phones: every tile is 1x1
+
+            const pack = (spans) => {
+                const occ = new Set(); let rows = 0;
+                for (const [c, r] of spans) {
+                    let placed = false, row = 0;
+                    while (!placed) {
+                        for (let col = 0; col + c <= cols && !placed; col++) {
+                            let free = true;
+                            for (let dr = 0; dr < r && free; dr++) for (let dc = 0; dc < c; dc++) {
+                                if (occ.has((row + dr) * 16 + col + dc)) { free = false; break; }
+                            }
+                            if (free) {
+                                for (let dr = 0; dr < r; dr++) for (let dc = 0; dc < c; dc++) occ.add((row + dr) * 16 + col + dc);
+                                rows = Math.max(rows, row + r); placed = true;
+                            }
+                        }
+                        row++;
+                    }
+                }
+                return { occ, rows };
+            };
+            // blank cells that are NOT just the free tail of the last row
+            const blanks = ({ occ, rows }) => {
+                const out = [];
+                for (let row = 0; row < rows; row++) for (let col = 0; col < cols; col++) {
+                    if (occ.has(row * 16 + col)) continue;
+                    let after = false;
+                    for (let rr = row + 1; rr < rows && !after; rr++) if (occ.has(rr * 16 + col)) after = true;
+                    for (let cc = col + 1; cc < cols && !after; cc++) if (occ.has(row * 16 + cc)) after = true;
+                    if (after) out.push([row, col]);
+                }
+                return out;
+            };
+            const VARIANTS = [[1,1],[2,1],[1,2],[2,2]];
+            const cropCost = (nat, v) => Math.abs(Math.log((v[0] / v[1]) / (nat[0] / nat[1])));
+            const spans = natural.map(s => s.slice());
+            let blank = blanks(pack(spans));
+            if (!blank.length) return;
+            const changed = new Set();
+            for (let iter = 0; iter < 10 && blank.length; iter++) {
+                // candidates: tiles next to a blank cell, and a few tiles around them in order
+                const placed = [];                                   // re-pack to learn where each tile sits
+                const occ2 = new Set(); const pos = [];
+                spans.forEach(([c, r]) => {
+                    let done = false, row = 0;
+                    while (!done) {
+                        for (let col = 0; col + c <= cols && !done; col++) {
+                            let free = true;
+                            for (let dr = 0; dr < r && free; dr++) for (let dc = 0; dc < c; dc++) if (occ2.has((row + dr) * 16 + col + dc)) { free = false; break; }
+                            if (free) { for (let dr = 0; dr < r; dr++) for (let dc = 0; dc < c; dc++) occ2.add((row + dr) * 16 + col + dc); pos.push([row, col, c, r]); done = true; }
+                        }
+                        row++;
+                    }
+                });
+                const adj = new Set();
+                pos.forEach(([row, col, c, r], i) => {
+                    blank.forEach(([br, bc]) => {
+                        const touchV = bc >= col && bc < col + c && (br === row - 1 || br === row + r);
+                        const touchH = br >= row && br < row + r && (bc === col - 1 || bc === col + c);
+                        if (touchV || touchH) adj.add(i);
+                    });
+                });
+                const cand = new Set();
+                adj.forEach(i => { for (let k = i - 3; k <= i + 6; k++) if (k >= 1 && k < spans.length) cand.add(k); });
+                let best = null;
+                cand.forEach(i => {
+                    VARIANTS.forEach(v => {
+                        const vv = [Math.min(v[0], cols), v[1]];
+                        if (vv[0] === spans[i][0] && vv[1] === spans[i][1]) return;
+                        const old = spans[i]; spans[i] = vv;
+                        const b = blanks(pack(spans)).length;
+                        spans[i] = old;
+                        const isVid = tiles[i].classList.contains('collage-vid-wrap');
+                        const cost = b * 100 + (cropCost(natural[i], vv) * (isVid ? 15 : 5)) + (changed.has(i) ? 0 : 1);
+                        if (b < blank.length && (!best || cost < best.cost)) best = { i, vv, cost };
+                    });
+                });
+                if (!best) break;
+                spans[best.i] = best.vv; changed.add(best.i);
+                blank = blanks(pack(spans));
+            }
+            changed.forEach(i => { setCls(tiles[i], spans[i][0], spans[i][1]); tiles[i].dataset.guard = '1'; });
+        },
+        toggleSlideshowFullscreen() {
+            const el = document.querySelector('.slideshow-overlay');
+            if (!el) return;
+            const inFs = document.fullscreenElement || document.webkitFullscreenElement;
+            if (inFs) { (document.exitFullscreen || document.webkitExitFullscreen).call(document); }
+            else { const rq = el.requestFullscreen || el.webkitRequestFullscreen; if (rq) rq.call(el); }
         },
         openWonder(w) {
             document.querySelectorAll('.collage-item, .collage-vid-wrap').forEach(el => {
@@ -7301,6 +7416,7 @@ createApp({
             this.slideshowIndex = (this.slideshowIndex + dir + this.slideshowAllMedia.length) % this.slideshowAllMedia.length;
         },
         stopSlideshow() {
+            if (document.fullscreenElement || document.webkitFullscreenElement) { try { (document.exitFullscreen || document.webkitExitFullscreen).call(document); } catch (e) {} }
             this.slideshowActive = false;
             this.slideshowPaused = false;
             this.slideshowProgress = 0;
